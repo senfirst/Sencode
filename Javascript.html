@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apprendre JavaScript - 50 Leçons</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+body{
+    background:#f3f4f6;
+}
+
+.header{
+    background:#111827;
+    color:#facc15;
+    text-align:center;
+    padding:20px;
+    font-size:32px;
+    font-weight:bold;
+}
+
+.container{
+    display:flex;
+    height:calc(100vh - 80px);
+}
+
+.lessons{
+    width:50%;
+    background:white;
+    overflow-y:auto;
+    padding:25px;
+}
+
+.lesson{
+    background:white;
+    border-left:5px solid #facc15;
+    padding:20px;
+    margin-bottom:25px;
+    border-radius:8px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.lesson h2{
+    margin-bottom:15px;
+    color:#111827;
+}
+
+.lesson p{
+    margin-bottom:12px;
+    line-height:1.7;
+    color:#374151;
+}
+
+pre{
+    background:#e5e7eb;
+    padding:15px;
+    border-radius:6px;
+    overflow:auto;
+}
+
+.editor-section{
+    width:50%;
+    background:#111827;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+}
+
+.editor-title{
+    color:white;
+    font-size:25px;
+    margin-bottom:15px;
+}
+
+textarea{
+    width:100%;
+    height:300px;
+    border:none;
+    border-radius:8px;
+    padding:15px;
+    resize:none;
+    font-size:16px;
+    outline:none;
+}
+
+button{
+    margin-top:15px;
+    padding:14px;
+    background:#facc15;
+    border:none;
+    color:black;
+    font-size:18px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+button:hover{
+    background:#eab308;
+}
+
+iframe{
+    margin-top:20px;
+    flex:1;
+    border:none;
+    background:white;
+    border-radius:8px;
+}
+
+@media(max-width:900px){
+
+.container{
+    flex-direction:column;
+    height:auto;
+}
+
+.lessons,
+.editor-section{
+    width:100%;
+}
+
+iframe{
+    height:400px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+Apprendre JavaScript - 50 Leçons Complètes
+</div>
+
+<div class="container">
+
+<div class="lessons">
+
+<div class="lesson">
+<h2>Leçon 1 : Introduction à JavaScript</h2>
+<p>
+JavaScript permet de rendre un site interactif.
+C’est le langage utilisé pour les animations,
+les boutons et les actions dynamiques.
+</p>
+<pre>
+console.log("Bonjour")
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 2 : Variables</h2>
+<p>
+Les variables servent à stocker des données.
+</p>
+<pre>
+let nom = "Ali"
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 3 : Const</h2>
+<p>
+Const crée une variable fixe.
+</p>
+<pre>
+const age = 20
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 4 : Alert</h2>
+<p>
+Alert affiche une boîte de dialogue.
+</p>
+<pre>
+alert("Bienvenue")
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 5 : Console Log</h2>
+<p>
+Console.log affiche des informations dans la console.
+</p>
+<pre>
+console.log("Test")
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 6 : Les Nombres</h2>
+<p>
+JavaScript peut manipuler des nombres.
+</p>
+<pre>
+let x = 10
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 7 : Les Chaînes</h2>
+<p>
+Les chaînes contiennent du texte.
+</p>
+<pre>
+let texte = "Bonjour"
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 8 : Addition</h2>
+<p>
+JavaScript peut additionner.
+</p>
+<pre>
+let total = 5 + 5
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 9 : Conditions If</h2>
+<p>
+If exécute du code selon une condition.
+</p>
+<pre>
+if(age > 18){
+ console.log("Majeur")
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 10 : Else</h2>
+<p>
+Else exécute une autre action.
+</p>
+<pre>
+if(age > 18){
+ console.log("OK")
+}else{
+ console.log("Non")
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 11 : Fonctions</h2>
+<p>
+Les fonctions regroupent du code.
+</p>
+<pre>
+function salut(){
+ alert("Bonjour")
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 12 : Paramètres</h2>
+<p>
+Les paramètres rendent les fonctions dynamiques.
+</p>
+<pre>
+function salut(nom){
+ console.log(nom)
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 13 : Return</h2>
+<p>
+Return renvoie une valeur.
+</p>
+<pre>
+function add(a,b){
+ return a+b
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 14 : Tableaux</h2>
+<p>
+Les tableaux stockent plusieurs valeurs.
+</p>
+<pre>
+let fruits = ["Pomme","Orange"]
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 15 : Objets</h2>
+<p>
+Les objets regroupent plusieurs informations.
+</p>
+<pre>
+let user = {
+ nom:"Ali",
+ age:20
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 16 : Boucle For</h2>
+<p>
+For répète du code.
+</p>
+<pre>
+for(let i=0;i<5;i++){
+ console.log(i)
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 17 : While</h2>
+<p>
+While répète tant qu’une condition est vraie.
+</p>
+<pre>
+while(x < 5){
+ x++
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 18 : Query Selector</h2>
+<p>
+QuerySelector sélectionne un élément HTML.
+</p>
+<pre>
+document.querySelector("h1")
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 19 : InnerHTML</h2>
+<p>
+InnerHTML modifie le contenu HTML.
+</p>
+<pre>
+document.querySelector("h1").innerHTML = "Bonjour"
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 20 : Style</h2>
+<p>
+Style change le CSS avec JavaScript.
+</p>
+<pre>
+document.body.style.background = "black"
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 21 : Add Event Listener</h2>
+<p>
+Ajoute un événement.
+</p>
+<pre>
+button.addEventListener("click", function(){
+ alert("Click")
+})
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 22 : Click</h2>
+<p>
+Click détecte un clic.
+</p>
+<pre>
+button.onclick = function(){
+ alert("Bonjour")
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 23 : Input Value</h2>
+<p>
+Value récupère une valeur.
+</p>
+<pre>
+input.value
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 24 : Create Element</h2>
+<p>
+CreateElement crée un élément HTML.
+</p>
+<pre>
+document.createElement("div")
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 25 : Append Child</h2>
+<p>
+AppendChild ajoute un élément.
+</p>
+<pre>
+document.body.appendChild(div)
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 26 : Remove</h2>
+<p>
+Remove supprime un élément.
+</p>
+<pre>
+div.remove()
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 27 : ClassList</h2>
+<p>
+ClassList ajoute des classes CSS.
+</p>
+<pre>
+div.classList.add("active")
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 28 : Toggle</h2>
+<p>
+Toggle active ou désactive une classe.
+</p>
+<pre>
+div.classList.toggle("dark")
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 29 : Math Random</h2>
+<p>
+Math.random génère un nombre aléatoire.
+</p>
+<pre>
+Math.random()
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 30 : Date</h2>
+<p>
+Date récupère la date actuelle.
+</p>
+<pre>
+new Date()
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 31 : SetTimeout</h2>
+<p>
+SetTimeout attend avant d’exécuter du code.
+</p>
+<pre>
+setTimeout(function(){
+ alert("Bonjour")
+},2000)
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 32 : SetInterval</h2>
+<p>
+SetInterval répète du code.
+</p>
+<pre>
+setInterval(function(){
+ console.log("Test")
+},1000)
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 33 : JSON</h2>
+<p>
+JSON stocke des données.
+</p>
+<pre>
+let data = {
+ nom:"Ali"
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 34 : LocalStorage</h2>
+<p>
+LocalStorage sauvegarde des données.
+</p>
+<pre>
+localStorage.setItem("nom","Ali")
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 35 : Switch</h2>
+<p>
+Switch gère plusieurs cas.
+</p>
+<pre>
+switch(x){
+ case 1:
+ break
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 36 : Arrow Function</h2>
+<p>
+Les fonctions fléchées sont plus modernes.
+</p>
+<pre>
+const test = () => {
+ console.log("OK")
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 37 : Map</h2>
+<p>
+Map parcourt un tableau.
+</p>
+<pre>
+fruits.map(item => console.log(item))
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 38 : Filter</h2>
+<p>
+Filter filtre des données.
+</p>
+<pre>
+notes.filter(note => note > 10)
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 39 : Includes</h2>
+<p>
+Includes vérifie une valeur.
+</p>
+<pre>
+fruits.includes("Pomme")
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 40 : Fetch API</h2>
+<p>
+Fetch récupère des données depuis internet.
+</p>
+<pre>
+fetch("url")
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 41 : Async Await</h2>
+<p>
+Async Await simplifie les requêtes.
+</p>
+<pre>
+async function test(){
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 42 : Try Catch</h2>
+<p>
+Try Catch gère les erreurs.
+</p>
+<pre>
+try{
+}
+catch(error){
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 43 : Template String</h2>
+<p>
+Les templates simplifient les chaînes.
+</p>
+<pre>
+`Bonjour ${nom}`
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 44 : Destructuring</h2>
+<p>
+Destructuring extrait des valeurs.
+</p>
+<pre>
+const {nom} = user
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 45 : Spread Operator</h2>
+<p>
+Spread copie des données.
+</p>
+<pre>
+let newArray = [...array]
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 46 : Modules</h2>
+<p>
+Les modules séparent le code.
+</p>
+<pre>
+export default test
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 47 : Classes</h2>
+<p>
+Les classes créent des objets.
+</p>
+<pre>
+class User{}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 48 : Constructor</h2>
+<p>
+Constructor initialise un objet.
+</p>
+<pre>
+constructor(name){
+ this.name = name
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 49 : API</h2>
+<p>
+Les API permettent de communiquer avec des services.
+</p>
+<pre>
+fetch("https://api.com")
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 50 : Projet Final</h2>
+<p>
+Combine HTML, CSS et JavaScript pour créer une application moderne.
+</p>
+<pre>
+console.log("Projet terminé")
+</pre>
+</div>
+
+</div>
+
+<div class="editor-section">
+
+<h2 class="editor-title">
+Essayez votre JavaScript
+</h2>
+
+<textarea id="editor">
+let titre = document.querySelector("h1")
+
+titre.innerHTML = "Bonjour JavaScript"
+
+document.body.style.background = "black"
+
+document.body.style.color = "white"
+</textarea>
+
+<button onclick="runCode()">
+Exécuter le JavaScript
+</button>
+
+<iframe id="result"></iframe>
+
+</div>
+
+</div>
+
+<script>
+
+function runCode(){
+
+let js = document.getElementById('editor').value;
+
+let iframe = document.getElementById('result');
+
+iframe.srcdoc = `
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+ font-family:Arial;
+ padding:20px;
+}
+button{
+ padding:10px;
+}
+</style>
+</head>
+<body>
+
+<h1>Bienvenue</h1>
+
+<p>
+Apprenez JavaScript facilement.
+</p>
+
+<button>Bouton</button>
+
+<script>
+${js}
+<\/script>
+
+</body>
+</html>
+`;
+
+}
+
+runCode();
+
+</script>
+
+</body>
+</html>
+```
