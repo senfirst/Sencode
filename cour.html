@@ -1,524 +1,220 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cours HTML Complet</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apprendre HTML</title>
 
-    <style>
+<style>
 
-        body{
-            font-family:Arial;
-            background:#f4f4f4;
-            margin:0;
-            padding:0;
-            line-height:1.7;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
 
-        header{
-            background:#111;
-            color:white;
-            text-align:center;
-            padding:30px;
-        }
+body{
+    background:#f1f1f1;
+}
 
-        .container{
-            width:100%;
-            display:flex;
-            min-height:100vh;
-        }
+.header{
+    background:#282A35;
+    color:white;
+    padding:20px;
+    font-size:28px;
+    font-weight:bold;
+}
 
-        .left{
-            width:50%;
-            background:white;
-            padding:30px;
-            overflow:auto;
-            height:100vh;
-        }
+.container{
+    display:flex;
+    height:calc(100vh - 70px);
+}
 
-        .right{
-            width:50%;
-            background:#1e1e1e;
-            padding:20px;
-            position:sticky;
-            top:0;
-            height:100vh;
-        }
+.lessons{
+    width:50%;
+    overflow-y:auto;
+    background:white;
+    padding:30px;
+}
 
-        .left{
-            width:65%;
-            order:1;
-        }
+.editor-section{
+    width:50%;
+    background:#282A35;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+}
 
-        .right{
-            width:35%;
-            order:2;
-            position:sticky;
-            top:20px;
-            height:fit-content;
-        }
+.lesson{
+    background:#fff;
+    border-left:5px solid #04AA6D;
+    padding:20px;
+    margin-bottom:25px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
 
-        .lesson{
-            background:white;
-            padding:25px;
-            margin-bottom:25px;
-            border-radius:12px;
-            box-shadow:0 2px 8px rgba(0,0,0,0.1);
-        }
+.lesson h2{
+    margin-bottom:10px;
+    color:#111;
+}
 
-        h2{
-            color:#ff5722;
-        }
+.lesson p{
+    margin-bottom:15px;
+}
 
-        pre{
-            background:#222;
-            color:#00ff88;
-            padding:15px;
-            border-radius:10px;
-            overflow:auto;
-        }
+pre{
+    background:#E7E9EB;
+    padding:15px;
+    border-radius:5px;
+    overflow:auto;
+}
 
-        img{
-            width:100%;
-            border-radius:10px;
-            margin-top:15px;
-        }
+.editor-title{
+    color:white;
+    margin-bottom:15px;
+    font-size:24px;
+}
 
-    </style>
+textarea{
+    width:100%;
+    height:300px;
+    border:none;
+    outline:none;
+    border-radius:5px;
+    padding:15px;
+    font-size:16px;
+    resize:none;
+}
+
+button{
+    margin-top:15px;
+    padding:12px;
+    background:#04AA6D;
+    border:none;
+    color:white;
+    font-size:18px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+iframe{
+    margin-top:20px;
+    background:white;
+    flex:1;
+    border:none;
+    border-radius:5px;
+}
+
+</style>
 </head>
 <body>
 
-<header>
-    <h1>📘 Cours HTML Complet</h1>
-    <p>Apprendre HTML avec des exemples simples</p>
-</header>
+<div class="header">
+    Apprendre HTML
+</div>
 
 <div class="container">
 
-<div class="left">
+    <div class="lessons">
 
-    </div>
-
-<div class="right">
-
-<div style="background:white; padding:20px; border-radius:12px; margin-bottom:30px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
-
-        <h2 style="color:#111;">🖥️ Éditeur HTML</h2>
-
-        <p>Teste directement ton code HTML ici :</p>
-
-        <textarea id="editor" style="width:100%; height:400px; padding:15px; font-size:16px; border-radius:10px; border:none; background:#2d2d2d; color:white;">
-<h1>Bonjour</h1>
-<p>Mon premier code HTML</p>
-        </textarea>
-
-        <br><br>
-
-        <button onclick="runCode()" style="padding:12px 25px; background:#04AA6D; color:white; border:none; border-radius:5px; cursor:pointer; font-size:16px;">
-            Exécuter
-        </button>
-
-        <h3 style="margin-top:20px;">Résultat :</h3>
-
-        <iframe id="result" style="width:100%; height:300px; background:white; border:none; border-radius:10px;"></iframe>
-
-    </div>
-
-    <div class="lesson">
-        <h2>Leçon 1 : Structure HTML</h2>
-
-        <p>Une page HTML commence toujours par une structure de base.</p>
+        <div class="lesson">
+            <h2>Leçon 1 : Les Titres</h2>
+            <p>Les titres vont de h1 à h6.</p>
 
 <pre>
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;Ma page&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;
+&lt;h1&gt;Titre Principal&lt;/h1&gt;
+&lt;h2&gt;Sous titre&lt;/h2&gt;
 </pre>
-
-        
-    </div>
+        </div>
 
 
-    <div class="lesson">
-        <h2>Leçon 2 : Les Titres</h2>
-
-        <p>HTML possède plusieurs niveaux de titres.</p>
+        <div class="lesson">
+            <h2>Leçon 2 : Les Paragraphes</h2>
+            <p>La balise p permet d’écrire du texte.</p>
 
 <pre>
-&lt;h1&gt;Grand titre&lt;/h1&gt;
-&lt;h2&gt;Titre moyen&lt;/h2&gt;
-&lt;h3&gt;Petit titre&lt;/h3&gt;
+&lt;p&gt;Bonjour le monde&lt;/p&gt;
 </pre>
-
-        
-    </div>
+        </div>
 
 
-    <div class="lesson">
-        <h2>Leçon 3 : Les Paragraphes</h2>
-
-        <p>Les paragraphes servent à écrire du texte.</p>
-
-<pre>
-&lt;p&gt;Bonjour tout le monde&lt;/p&gt;
-</pre>
-
-        
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 4 : Les Liens</h2>
-
-        <p>La balise a permet de créer des liens.</p>
+        <div class="lesson">
+            <h2>Leçon 3 : Les Liens</h2>
+            <p>Créer des liens avec la balise a.</p>
 
 <pre>
 &lt;a href="https://google.com"&gt;
-    Aller sur Google
+Google
 &lt;/a&gt;
 </pre>
-
-        
-    </div>
+        </div>
 
 
-    <div class="lesson">
-        <h2>Leçon 5 : Les Images</h2>
-
-        <p>La balise img affiche une image.</p>
+        <div class="lesson">
+            <h2>Leçon 4 : Les Images</h2>
+            <p>Afficher des images dans HTML.</p>
 
 <pre>
-&lt;img src="image.jpg" alt="photo"&gt;
+&lt;img src="photo.jpg"&gt;
 </pre>
-
-        
-    </div>
+        </div>
 
 
-    <div class="lesson">
-        <h2>Leçon 6 : Les Listes</h2>
+        <div class="lesson">
+            <h2>Leçon 5 : Les Boutons</h2>
+            <p>Créer un bouton HTML.</p>
 
-        <p>Créer une liste avec ul et li.</p>
+<pre>
+&lt;button&gt;Clique&lt;/button&gt;
+</pre>
+        </div>
+
+
+        <div class="lesson">
+            <h2>Leçon 6 : Les Listes</h2>
+            <p>Créer des listes avec ul et li.</p>
 
 <pre>
 &lt;ul&gt;
-   &lt;li&gt;HTML&lt;/li&gt;
-   &lt;li&gt;CSS&lt;/li&gt;
+  &lt;li&gt;HTML&lt;/li&gt;
+  &lt;li&gt;CSS&lt;/li&gt;
 &lt;/ul&gt;
 </pre>
-
-        
-    </div>
+        </div>
 
 
-    <div class="lesson">
-        <h2>Leçon 7 : Les Tableaux</h2>
-
-        <p>Les tableaux affichent des données.</p>
+        <div class="lesson">
+            <h2>Leçon 7 : Les Tableaux</h2>
+            <p>Créer un tableau simple.</p>
 
 <pre>
 &lt;table border="1"&gt;
-   &lt;tr&gt;
-      &lt;td&gt;Nom&lt;/td&gt;
-      &lt;td&gt;Age&lt;/td&gt;
-   &lt;/tr&gt;
+ &lt;tr&gt;
+   &lt;td&gt;Nom&lt;/td&gt;
+ &lt;/tr&gt;
 &lt;/table&gt;
 </pre>
+        </div>
 
-        
     </div>
 
 
-    <div class="lesson">
-        <h2>Leçon 8 : Les Formulaires</h2>
+    <div class="editor-section">
 
-        <p>Créer un formulaire simple.</p>
+        <h2 class="editor-title">Essayez vous-même</h2>
 
-<pre>
-&lt;form&gt;
-   &lt;input type="text"&gt;
-   &lt;button&gt;Envoyer&lt;/button&gt;
-&lt;/form&gt;
-</pre>
+<textarea id="editor">
+<h1>Bonjour</h1>
+<p>Bienvenue sur mon site HTML</p>
+<button>Clique ici</button>
+</textarea>
 
-        
+<button onclick="runCode()">Exécuter le code</button>
+
+<iframe id="result"></iframe>
+
     </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 9 : Les Boutons</h2>
-
-        <p>Créer un bouton HTML.</p>
-
-<pre>
-&lt;button&gt;Clique ici&lt;/button&gt;
-</pre>
-
-        
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 10 : Les commentaires</h2>
-
-        <p>Les commentaires ne s’affichent pas dans la page.</p>
-
-<pre>
-&lt;!-- Ceci est un commentaire --&gt;
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 11 : Les balises div</h2>
-
-        <p>La balise div sert à organiser les éléments.</p>
-
-<pre>
-&lt;div&gt;
-   Contenu
-&lt;/div&gt;
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 12 : Les span</h2>
-
-        <p>La balise span sert à modifier une partie du texte.</p>
-
-<pre>
-&lt;span&gt;Texte&lt;/span&gt;
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 13 : Les couleurs</h2>
-
-        <p>Ajouter des couleurs avec style.</p>
-
-<pre>
-&lt;p style="color:red"&gt;Bonjour&lt;/p&gt;
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 14 : Le CSS interne</h2>
-
-        <p>Le CSS permet de styliser la page.</p>
-
-<pre>
-&lt;style&gt;
-body{
-   background:black;
-}
-&lt;/style&gt;
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 15 : Les classes</h2>
-
-        <p>Une classe peut être utilisée plusieurs fois.</p>
-
-<pre>
-&lt;p class="texte"&gt;Bonjour&lt;/p&gt;
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 16 : Les ID</h2>
-
-        <p>Un ID identifie un seul élément.</p>
-
-<pre>
-&lt;h1 id="titre"&gt;Bienvenue&lt;/h1&gt;
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 17 : Les vidéos</h2>
-
-        <p>Afficher une vidéo avec video.</p>
-
-<pre>
-&lt;video controls&gt;
-   &lt;source src="video.mp4"&gt;
-&lt;/video&gt;
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 18 : Les audios</h2>
-
-        <p>Ajouter un fichier audio.</p>
-
-<pre>
-&lt;audio controls&gt;
-   &lt;source src="music.mp3"&gt;
-&lt;/audio&gt;
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 19 : Les iframes</h2>
-
-        <p>Afficher une autre page web.</p>
-
-<pre>
-&lt;iframe src="https://example.com"&gt;&lt;/iframe&gt;
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 20 : Les métadonnées</h2>
-
-        <p>Les balises meta donnent des informations au navigateur.</p>
-
-<pre>
-&lt;meta charset="UTF-8"&gt;
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 21 : Les boutons</h2>
-
-        <p>Créer des boutons HTML.</p>
-
-<pre>
-&lt;button&gt;Envoyer&lt;/button&gt;
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 22 : Les sections</h2>
-
-        <p>Organiser une page avec section.</p>
-
-<pre>
-&lt;section&gt;
-   Contenu
-&lt;/section&gt;
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 23 : Header et Footer</h2>
-
-        <p>Créer un en-tête et un pied de page.</p>
-
-<pre>
-&lt;header&gt;Menu&lt;/header&gt;
-&lt;footer&gt;Copyright&lt;/footer&gt;
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 24 : Navigation</h2>
-
-        <p>Créer un menu avec nav.</p>
-
-<pre>
-&lt;nav&gt;
-   &lt;a href="#"&gt;Accueil&lt;/a&gt;
-&lt;/nav&gt;
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 25 : Responsive Design</h2>
-
-        <p>Adapter la page aux téléphones.</p>
-
-<pre>
-@media(max-width:768px){
- body{
-   background:gray;
- }
-}
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 26 : Les icônes</h2>
-
-        <p>Ajouter des icônes avec Font Awesome.</p>
-
-<pre>
-&lt;i class="fa fa-home"&gt;&lt;/i&gt;
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 27 : Les formulaires avancés</h2>
-
-        <p>Ajouter email et mot de passe.</p>
-
-<pre>
-&lt;input type="email"&gt;
-&lt;input type="password"&gt;
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 28 : Les listes ordonnées</h2>
-
-        <p>Créer une liste numérotée.</p>
-
-<pre>
-&lt;ol&gt;
-  &lt;li&gt;HTML&lt;/li&gt;
-&lt;/ol&gt;
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 29 : Les caractères spéciaux</h2>
-
-        <p>Afficher des symboles HTML.</p>
-
-<pre>
-&amp;copy;
-&amp;euro;
-</pre>
-    </div>
-
-
-    <div class="lesson">
-        <h2>Leçon 30 : Projet Final</h2>
-
-        <p>Créer un site web complet avec HTML.</p>
-
-<pre>
-&lt;h1&gt;Bienvenue&lt;/h1&gt;
-&lt;p&gt;Mon premier site web&lt;/p&gt;
-</pre>
-    </div>
-
-</div>
 
 </div>
 
