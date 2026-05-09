@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Apprendre CSS - 50 Leçons</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+body{
+    background:#f1f1f1;
+}
+
+.header{
+    background:#0f172a;
+    color:white;
+    padding:20px;
+    text-align:center;
+    font-size:32px;
+    font-weight:bold;
+}
+
+.container{
+    display:flex;
+    height:calc(100vh - 80px);
+}
+
+.lessons{
+    width:50%;
+    background:white;
+    overflow-y:auto;
+    padding:25px;
+}
+
+.lesson{
+    background:white;
+    border-left:5px solid #3b82f6;
+    padding:20px;
+    margin-bottom:25px;
+    border-radius:8px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.lesson h2{
+    margin-bottom:15px;
+    color:#111827;
+}
+
+.lesson p{
+    margin-bottom:12px;
+    line-height:1.7;
+    color:#374151;
+}
+
+pre{
+    background:#e5e7eb;
+    padding:15px;
+    border-radius:6px;
+    overflow:auto;
+}
+
+.editor-section{
+    width:50%;
+    background:#111827;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+}
+
+.editor-title{
+    color:white;
+    font-size:25px;
+    margin-bottom:15px;
+}
+
+textarea{
+    width:100%;
+    height:300px;
+    border:none;
+    border-radius:8px;
+    padding:15px;
+    resize:none;
+    font-size:16px;
+    outline:none;
+}
+
+button{
+    margin-top:15px;
+    padding:14px;
+    background:#2563eb;
+    border:none;
+    color:white;
+    font-size:18px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+iframe{
+    margin-top:20px;
+    flex:1;
+    border:none;
+    background:white;
+    border-radius:8px;
+}
+
+@media(max-width:900px){
+
+.container{
+    flex-direction:column;
+    height:auto;
+}
+
+.lessons,
+.editor-section{
+    width:100%;
+}
+
+iframe{
+    height:400px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+Apprendre CSS - 50 Leçons Complètes
+</div>
+
+<div class="container">
+
+<div class="lessons">
+
+<div class="lesson">
+<h2>Leçon 1 : Introduction au CSS</h2>
+<p>
+CSS signifie Cascading Style Sheets.
+Il permet de rendre un site beau et moderne.
+</p>
+<pre>
+body{
+ background:red;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 2 : Les Couleurs</h2>
+<p>
+La propriété color change la couleur du texte.
+</p>
+<pre>
+p{
+ color:blue;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 3 : Background</h2>
+<p>
+Background modifie la couleur de fond.
+</p>
+<pre>
+body{
+ background:black;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 4 : Font Size</h2>
+<p>
+Font-size change la taille du texte.
+</p>
+<pre>
+h1{
+ font-size:40px;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 5 : Font Family</h2>
+<p>
+Font-family change la police du texte.
+</p>
+<pre>
+p{
+ font-family:Arial;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 6 : Text Align</h2>
+<p>
+Text-align aligne le texte.
+</p>
+<pre>
+h1{
+ text-align:center;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 7 : Margin</h2>
+<p>
+Margin ajoute un espace extérieur.
+</p>
+<pre>
+div{
+ margin:20px;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 8 : Padding</h2>
+<p>
+Padding ajoute un espace intérieur.
+</p>
+<pre>
+div{
+ padding:20px;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 9 : Border</h2>
+<p>
+Border crée une bordure.
+</p>
+<pre>
+div{
+ border:2px solid black;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 10 : Border Radius</h2>
+<p>
+Border-radius arrondit les coins.
+</p>
+<pre>
+div{
+ border-radius:10px;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 11 : Width</h2>
+<p>
+Width définit la largeur.
+</p>
+<pre>
+div{
+ width:300px;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 12 : Height</h2>
+<p>
+Height définit la hauteur.
+</p>
+<pre>
+div{
+ height:200px;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 13 : Display</h2>
+<p>
+Display change l’affichage d’un élément.
+</p>
+<pre>
+div{
+ display:flex;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 14 : Flexbox</h2>
+<p>
+Flexbox facilite l’alignement.
+</p>
+<pre>
+.container{
+ display:flex;
+ justify-content:center;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 15 : Justify Content</h2>
+<p>
+Justify-content aligne horizontalement.
+</p>
+<pre>
+.container{
+ justify-content:space-between;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 16 : Align Items</h2>
+<p>
+Align-items aligne verticalement.
+</p>
+<pre>
+.container{
+ align-items:center;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 17 : Gap</h2>
+<p>
+Gap ajoute un espace entre éléments.
+</p>
+<pre>
+.container{
+ gap:20px;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 18 : Position</h2>
+<p>
+Position contrôle l’emplacement.
+</p>
+<pre>
+div{
+ position:absolute;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 19 : Top et Left</h2>
+<p>
+Top et left déplacent un élément.
+</p>
+<pre>
+div{
+ top:20px;
+ left:20px;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 20 : Box Shadow</h2>
+<p>
+Box-shadow ajoute une ombre.
+</p>
+<pre>
+div{
+ box-shadow:0 2px 10px rgba(0,0,0,0.2);
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 21 : Opacity</h2>
+<p>
+Opacity contrôle la transparence.
+</p>
+<pre>
+div{
+ opacity:0.5;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 22 : Hover</h2>
+<p>
+Hover change le style au survol.
+</p>
+<pre>
+button:hover{
+ background:red;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 23 : Transition</h2>
+<p>
+Transition crée une animation fluide.
+</p>
+<pre>
+div{
+ transition:0.3s;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 24 : Transform</h2>
+<p>
+Transform modifie un élément.
+</p>
+<pre>
+div{
+ transform:scale(1.1);
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 25 : Animation</h2>
+<p>
+Animation crée des mouvements.
+</p>
+<pre>
+@keyframes move{
+ from{left:0;}
+ to{left:100px;}
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 26 : Overflow</h2>
+<p>
+Overflow gère le contenu qui dépasse.
+</p>
+<pre>
+div{
+ overflow:auto;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 27 : Cursor</h2>
+<p>
+Cursor change le curseur.
+</p>
+<pre>
+button{
+ cursor:pointer;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 28 : Z-index</h2>
+<p>
+Z-index gère la superposition.
+</p>
+<pre>
+div{
+ z-index:10;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 29 : Text Shadow</h2>
+<p>
+Text-shadow ajoute une ombre au texte.
+</p>
+<pre>
+h1{
+ text-shadow:2px 2px 5px gray;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 30 : Gradient</h2>
+<p>
+Les gradients créent plusieurs couleurs.
+</p>
+<pre>
+body{
+ background:linear-gradient(red,blue);
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 31 : CSS Grid</h2>
+<p>
+Grid crée des mises en page avancées.
+</p>
+<pre>
+.container{
+ display:grid;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 32 : Grid Columns</h2>
+<p>
+Grid-template-columns crée des colonnes.
+</p>
+<pre>
+.container{
+ grid-template-columns:1fr 1fr;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 33 : Media Queries</h2>
+<p>
+Media queries rendent le site responsive.
+</p>
+<pre>
+@media(max-width:700px){
+ body{
+  background:black;
+ }
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 34 : Max Width</h2>
+<p>
+Max-width limite la largeur.
+</p>
+<pre>
+div{
+ max-width:500px;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 35 : Min Height</h2>
+<p>
+Min-height définit une hauteur minimale.
+</p>
+<pre>
+div{
+ min-height:200px;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 36 : Object Fit</h2>
+<p>
+Object-fit adapte les images.
+</p>
+<pre>
+img{
+ object-fit:cover;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 37 : Filter</h2>
+<p>
+Filter ajoute des effets visuels.
+</p>
+<pre>
+img{
+ filter:blur(2px);
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 38 : Letter Spacing</h2>
+<p>
+Letter-spacing espace les lettres.
+</p>
+<pre>
+h1{
+ letter-spacing:5px;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 39 : Line Height</h2>
+<p>
+Line-height espace les lignes.
+</p>
+<pre>
+p{
+ line-height:2;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 40 : Text Transform</h2>
+<p>
+Text-transform modifie les majuscules.
+</p>
+<pre>
+h1{
+ text-transform:uppercase;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 41 : List Style</h2>
+<p>
+List-style modifie les listes.
+</p>
+<pre>
+ul{
+ list-style:none;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 42 : Float</h2>
+<p>
+Float aligne un élément à gauche ou droite.
+</p>
+<pre>
+img{
+ float:left;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 43 : Visibility</h2>
+<p>
+Visibility masque un élément.
+</p>
+<pre>
+div{
+ visibility:hidden;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 44 : Display None</h2>
+<p>
+Display none cache complètement un élément.
+</p>
+<pre>
+div{
+ display:none;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 45 : Variables CSS</h2>
+<p>
+Les variables réutilisent des couleurs.
+</p>
+<pre>
+:root{
+ --main:red;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 46 : Clamp</h2>
+<p>
+Clamp rend les tailles responsives.
+</p>
+<pre>
+h1{
+ font-size:clamp(20px,5vw,50px);
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 47 : Backdrop Filter</h2>
+<p>
+Backdrop-filter crée un effet flou.
+</p>
+<pre>
+div{
+ backdrop-filter:blur(10px);
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 48 : Aspect Ratio</h2>
+<p>
+Aspect-ratio garde les proportions.
+</p>
+<pre>
+div{
+ aspect-ratio:16/9;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 49 : Resize</h2>
+<p>
+Resize permet de redimensionner.
+</p>
+<pre>
+textarea{
+ resize:both;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 50 : Projet Final</h2>
+<p>
+Combine HTML et CSS pour créer un site moderne.
+</p>
+<pre>
+body{
+ background:#111827;
+ color:white;
+}
+</pre>
+</div>
+
+</div>
+
+<div class="editor-section">
+
+<h2 class="editor-title">
+Essayez votre CSS
+</h2>
+
+<textarea id="editor">
+body{
+ background:black;
+ color:white;
+ text-align:center;
+}
+
+h1{
+ color:cyan;
+}
+</textarea>
+
+<button onclick="runCode()">
+Exécuter le CSS
+</button>
+
+<iframe id="result"></iframe>
+
+</div>
+
+</div>
+
+<script>
+
+function runCode(){
+
+let css = document.getElementById('editor').value;
+
+let iframe = document.getElementById('result');
+
+iframe.srcdoc = `
+<html>
+<head>
+<style>
+${css}
+</style>
+</head>
+<body>
+
+<h1>Bienvenue</h1>
+
+<p>
+Ceci est un exemple CSS.
+</p>
+
+<button>Bouton</button>
+
+</body>
+</html>
+`;
+
+}
+
+runCode();
+
+</script>
+
+</body>
+</html>
+```
