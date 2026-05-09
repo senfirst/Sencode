@@ -1,807 +1,956 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apprendre HTML</title>
+<div class="lesson">
+    <h2>Leçon 1 : Les Titres</h2>
 
-<style>
+    <p>
+        En HTML, les titres servent à organiser les textes sur une page web.
+        Ils permettent de créer une hiérarchie comme dans un livre.
+        La balise h1 représente le titre principal de la page.
+        Les balises h2, h3, h4, h5 et h6 servent pour les sous-titres.
+    </p>
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial;
-}
-
-body{
-    background:#f1f1f1;
-}
-
-.header{
-    background:#282A35;
-    color:white;
-    padding:20px;
-    font-size:28px;
-    font-weight:bold;
-}
-
-.container{
-    display:flex;
-    height:calc(100vh - 70px);
-}
-
-.lessons{
-    width:50%;
-    overflow-y:auto;
-    background:white;
-    padding:30px;
-}
-
-.editor-section{
-    width:50%;
-    background:#282A35;
-    padding:20px;
-    display:flex;
-    flex-direction:column;
-}
-
-.lesson{
-    background:#fff;
-    border-left:5px solid #04AA6D;
-    padding:20px;
-    margin-bottom:25px;
-    box-shadow:0 2px 5px rgba(0,0,0,0.1);
-}
-
-.lesson h2{
-    margin-bottom:10px;
-    color:#111;
-}
-
-.lesson p{
-    margin-bottom:15px;
-}
-
-pre{
-    background:#E7E9EB;
-    padding:15px;
-    border-radius:5px;
-    overflow:auto;
-}
-
-.editor-title{
-    color:white;
-    margin-bottom:15px;
-    font-size:24px;
-}
-
-textarea{
-    width:100%;
-    height:300px;
-    border:none;
-    outline:none;
-    border-radius:5px;
-    padding:15px;
-    font-size:16px;
-    resize:none;
-}
-
-button{
-    margin-top:15px;
-    padding:12px;
-    background:#04AA6D;
-    border:none;
-    color:white;
-    font-size:18px;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-iframe{
-    margin-top:20px;
-    background:white;
-    flex:1;
-    border:none;
-    border-radius:5px;
-}
-
-</style>
-</head>
-<body>
-
-<div class="header">
-    Apprendre HTML
-</div>
-
-<div class="container">
-
-    <div class="lessons">
-
-        <div class="lesson">
-            <h2>Leçon 1 : Les Titres</h2>
-            <p>Les titres vont de h1 à h6.</p>
+    <p>
+        Plus le chiffre est petit, plus le titre est important.
+        Il est conseillé d’avoir un seul h1 principal par page.
+    </p>
 
 <pre>
 &lt;h1&gt;Titre Principal&lt;/h1&gt;
 &lt;h2&gt;Sous titre&lt;/h2&gt;
+&lt;h3&gt;Petit sous titre&lt;/h3&gt;
 </pre>
-        </div>
+</div>
 
 
-        <div class="lesson">
-            <h2>Leçon 2 : Les Paragraphes</h2>
-            <p>La balise p permet d’écrire du texte.</p>
+<div class="lesson">
+    <h2>Leçon 2 : Les Paragraphes</h2>
+
+    <p>
+        La balise p permet d’écrire des paragraphes.
+        C’est la balise la plus utilisée pour afficher du texte sur un site.
+    </p>
+
+    <p>
+        Chaque paragraphe possède automatiquement un espace avant et après.
+        Cela rend la lecture plus agréable pour les visiteurs.
+    </p>
 
 <pre>
 &lt;p&gt;Bonjour le monde&lt;/p&gt;
+
+&lt;p&gt;
+Bienvenue sur mon premier site web.
+&lt;/p&gt;
 </pre>
-        </div>
+</div>
 
 
-        <div class="lesson">
-            <h2>Leçon 3 : Les Liens</h2>
-            <p>Créer des liens avec la balise a.</p>
+<div class="lesson">
+    <h2>Leçon 3 : Les Liens</h2>
+
+    <p>
+        Les liens permettent de naviguer d’une page à une autre.
+        Ils utilisent la balise a.
+    </p>
+
+    <p>
+        L’attribut href contient l’adresse du lien.
+        On peut ouvrir un autre site, une autre page ou un fichier.
+    </p>
 
 <pre>
 &lt;a href="https://google.com"&gt;
 Google
 &lt;/a&gt;
 </pre>
-        </div>
+</div>
 
 
-        <div class="lesson">
-            <h2>Leçon 4 : Les Images</h2>
-            <p>Afficher des images dans HTML.</p>
+<div class="lesson">
+    <h2>Leçon 4 : Les Images</h2>
+
+    <p>
+        Les images rendent un site plus joli et plus vivant.
+        On utilise la balise img pour afficher une image.
+    </p>
+
+    <p>
+        L’attribut src indique le chemin de l’image.
+        Il est conseillé d’ajouter aussi l’attribut alt
+        pour décrire l’image.
+    </p>
 
 <pre>
-&lt;img src="photo.jpg"&gt;
+&lt;img src="photo.jpg" alt="Photo"&gt;
 </pre>
-        </div>
+</div>
 
 
-        <div class="lesson">
-            <h2>Leçon 5 : Les Boutons</h2>
-            <p>Créer un bouton HTML.</p>
+<div class="lesson">
+    <h2>Leçon 5 : Les Boutons</h2>
+
+    <p>
+        Les boutons permettent aux utilisateurs de cliquer
+        pour effectuer une action.
+    </p>
+
+    <p>
+        Les boutons peuvent servir à envoyer un formulaire,
+        ouvrir un menu ou lancer du JavaScript.
+    </p>
 
 <pre>
-&lt;button&gt;Clique&lt;/button&gt;
+&lt;button&gt;Clique ici&lt;/button&gt;
 </pre>
-        </div>
+</div>
 
 
-        <div class="lesson">
-            <h2>Leçon 6 : Les Listes</h2>
-            <p>Créer des listes avec ul et li.</p>
+<div class="lesson">
+    <h2>Leçon 6 : Les Listes</h2>
+
+    <p>
+        Les listes permettent d’organiser plusieurs éléments.
+        La balise ul crée une liste non ordonnée.
+    </p>
+
+    <p>
+        Chaque élément de la liste est placé dans une balise li.
+    </p>
 
 <pre>
 &lt;ul&gt;
   &lt;li&gt;HTML&lt;/li&gt;
   &lt;li&gt;CSS&lt;/li&gt;
+  &lt;li&gt;JavaScript&lt;/li&gt;
 &lt;/ul&gt;
 </pre>
-        </div>
+</div>
 
 
-        <div class="lesson">
-            <h2>Leçon 7 : Les Tableaux</h2>
-            <p>Créer un tableau simple.</p>
+<div class="lesson">
+    <h2>Leçon 7 : Les Tableaux</h2>
+
+    <p>
+        Les tableaux servent à afficher des données sous forme
+        de lignes et colonnes.
+    </p>
+
+    <p>
+        La balise table crée le tableau,
+        tr représente une ligne,
+        td représente une cellule.
+    </p>
 
 <pre>
 &lt;table border="1"&gt;
- &lt;tr&gt;
+
+&lt;tr&gt;
    &lt;td&gt;Nom&lt;/td&gt;
- &lt;/tr&gt;
+   &lt;td&gt;Age&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+   &lt;td&gt;Ali&lt;/td&gt;
+   &lt;td&gt;20&lt;/td&gt;
+&lt;/tr&gt;
+
 &lt;/table&gt;
 </pre>
-        </div>
-<!-- ========================= -->
-<!-- LEÇON 8 -->
-<!-- ========================= -->
+</div>
+
 
 <div class="lesson">
     <h2>Leçon 8 : Les Formulaires</h2>
-    <p>Créer un formulaire HTML.</p>
+
+    <p>
+        Les formulaires permettent aux utilisateurs
+        d’envoyer des informations.
+    </p>
+
+    <p>
+        On peut créer des formulaires de connexion,
+        d’inscription ou de contact.
+    </p>
 
 <pre>
 &lt;form&gt;
-  &lt;input type="text"&gt;
+
+&lt;input type="text"&gt;
+
 &lt;/form&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 9 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 9 : Les Inputs</h2>
-    <p>Créer des champs de saisie.</p>
+
+    <p>
+        Les inputs servent à créer des champs de saisie.
+        L’utilisateur peut écrire du texte,
+        un email ou un mot de passe.
+    </p>
+
+    <p>
+        Il existe plusieurs types d’inputs.
+    </p>
 
 <pre>
+&lt;input type="text"&gt;
+
 &lt;input type="email"&gt;
+
+&lt;input type="password"&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 10 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 10 : Les Vidéos</h2>
-    <p>Ajouter une vidéo HTML.</p>
+
+    <p>
+        HTML permet d’ajouter facilement des vidéos.
+        La balise video est utilisée avec l’attribut controls.
+    </p>
+
+    <p>
+        Les contrôles permettent de lire,
+        mettre pause et régler le volume.
+    </p>
 
 <pre>
-&lt;video controls&gt;
+&lt;video controls width="300"&gt;
+
+&lt;source src="video.mp4"&gt;
+
 &lt;/video&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 11 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 11 : Les Audios</h2>
-    <p>Ajouter un audio.</p>
+
+    <p>
+        La balise audio permet d’ajouter des sons ou musiques.
+    </p>
+
+    <p>
+        L’utilisateur peut écouter directement depuis le navigateur.
+    </p>
 
 <pre>
 &lt;audio controls&gt;
+
+&lt;source src="music.mp3"&gt;
+
 &lt;/audio&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 12 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 12 : Les Div</h2>
-    <p>Structurer une page avec div.</p>
+
+    <p>
+        La balise div sert à organiser les éléments d’une page.
+    </p>
+
+    <p>
+        Elle est très utilisée avec CSS pour créer des sections,
+        colonnes et boîtes.
+    </p>
 
 <pre>
-&lt;div&gt;Contenu&lt;/div&gt;
+&lt;div&gt;
+
+Contenu ici
+
+&lt;/div&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 13 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 13 : Les Span</h2>
-    <p>Modifier une partie du texte.</p>
+
+    <p>
+        La balise span sert à modifier une petite partie du texte.
+    </p>
+
+    <p>
+        Contrairement à div, span reste sur la même ligne.
+    </p>
 
 <pre>
-&lt;span&gt;Texte&lt;/span&gt;
+&lt;p&gt;
+Bonjour &lt;span&gt;mon ami&lt;/span&gt;
+&lt;/p&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 14 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 14 : Les Classes</h2>
-    <p>Ajouter des classes CSS.</p>
+
+    <p>
+        Les classes permettent de cibler des éléments avec CSS.
+    </p>
+
+    <p>
+        Plusieurs éléments peuvent partager la même classe.
+    </p>
 
 <pre>
-&lt;div class="box"&gt;&lt;/div&gt;
+&lt;div class="box"&gt;
+
+Contenu
+
+&lt;/div&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 15 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 15 : Les IDs</h2>
-    <p>Créer des identifiants uniques.</p>
+
+    <p>
+        Les IDs servent à identifier un élément unique.
+    </p>
+
+    <p>
+        Contrairement aux classes,
+        un ID doit être utilisé une seule fois.
+    </p>
 
 <pre>
-&lt;div id="menu"&gt;&lt;/div&gt;
+&lt;div id="menu"&gt;
+
+Menu principal
+
+&lt;/div&gt;
 </pre>
 </div>
-
-<!-- ========================= -->
-<!-- LEÇON 16 -->
-<!-- ========================= -->
-
 <div class="lesson">
     <h2>Leçon 16 : Les Commentaires</h2>
-    <p>Ajouter des commentaires HTML.</p>
+
+    <p>
+        Les commentaires servent à écrire des notes dans le code HTML.
+        Ces notes ne sont pas visibles sur la page web.
+    </p>
+
+    <p>
+        Les développeurs utilisent les commentaires pour expliquer
+        certaines parties du code ou organiser leur travail.
+    </p>
 
 <pre>
-&lt;!-- commentaire --&gt;
+&lt;!-- Ceci est un commentaire --&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 17 -->
-<!-- ========================= -->
 
 <div class="lesson">
-    <h2>Leçon 17 : Les Strong</h2>
-    <p>Mettre un texte en gras.</p>
+    <h2>Leçon 17 : Strong</h2>
+
+    <p>
+        La balise strong permet de mettre un texte en gras.
+    </p>
+
+    <p>
+        Elle indique aussi que le texte est important.
+    </p>
 
 <pre>
-&lt;strong&gt;Texte&lt;/strong&gt;
+&lt;strong&gt;Attention&lt;/strong&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 18 -->
-<!-- ========================= -->
 
 <div class="lesson">
-    <h2>Leçon 18 : Les Em</h2>
-    <p>Mettre un texte en italique.</p>
+    <h2>Leçon 18 : Em</h2>
+
+    <p>
+        La balise em sert à mettre un texte en italique.
+    </p>
+
+    <p>
+        Elle permet aussi d’insister sur un mot ou une phrase.
+    </p>
 
 <pre>
-&lt;em&gt;Texte&lt;/em&gt;
+&lt;em&gt;Texte important&lt;/em&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 19 -->
-<!-- ========================= -->
 
 <div class="lesson">
-    <h2>Leçon 19 : Les Br</h2>
-    <p>Faire un saut de ligne.</p>
+    <h2>Leçon 19 : Br</h2>
+
+    <p>
+        La balise br permet de faire un saut de ligne.
+    </p>
+
+    <p>
+        Elle est utile pour écrire des poèmes,
+        des adresses ou du texte sur plusieurs lignes.
+    </p>
 
 <pre>
-Bonjour&lt;br&gt;Monde
+Bonjour&lt;br&gt;
+Bienvenue
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 20 -->
-<!-- ========================= -->
 
 <div class="lesson">
-    <h2>Leçon 20 : Les Hr</h2>
-    <p>Créer une ligne horizontale.</p>
+    <h2>Leçon 20 : Hr</h2>
+
+    <p>
+        La balise hr crée une ligne horizontale.
+    </p>
+
+    <p>
+        Elle permet de séparer différentes sections d’une page.
+    </p>
 
 <pre>
 &lt;hr&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 21 -->
-<!-- ========================= -->
 
 <div class="lesson">
-    <h2>Leçon 21 : Les Sections</h2>
-    <p>Créer des sections.</p>
+    <h2>Leçon 21 : Section</h2>
+
+    <p>
+        La balise section sert à regrouper une partie importante
+        du contenu.
+    </p>
+
+    <p>
+        Elle améliore l’organisation de la page.
+    </p>
 
 <pre>
-&lt;section&gt;&lt;/section&gt;
+&lt;section&gt;
+
+Contenu
+
+&lt;/section&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 22 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 22 : Header</h2>
-    <p>Créer un en-tête.</p>
+
+    <p>
+        La balise header représente l’en-tête d’une page.
+    </p>
+
+    <p>
+        Elle contient souvent le logo,
+        le titre ou le menu principal.
+    </p>
 
 <pre>
-&lt;header&gt;&lt;/header&gt;
+&lt;header&gt;
+
+Mon site
+
+&lt;/header&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 23 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 23 : Footer</h2>
-    <p>Créer un pied de page.</p>
+
+    <p>
+        La balise footer représente le pied de page.
+    </p>
+
+    <p>
+        On y place souvent les contacts,
+        les droits d’auteur ou les liens utiles.
+    </p>
 
 <pre>
-&lt;footer&gt;&lt;/footer&gt;
+&lt;footer&gt;
+
+Copyright 2026
+
+&lt;/footer&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 24 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 24 : Nav</h2>
-    <p>Créer une navigation.</p>
+
+    <p>
+        La balise nav sert à créer un menu de navigation.
+    </p>
+
+    <p>
+        Elle contient généralement plusieurs liens.
+    </p>
 
 <pre>
-&lt;nav&gt;&lt;/nav&gt;
+&lt;nav&gt;
+
+&lt;a href="#"&gt;Accueil&lt;/a&gt;
+
+&lt;/nav&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 25 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 25 : Article</h2>
-    <p>Créer un article.</p>
+
+    <p>
+        La balise article représente un contenu indépendant.
+    </p>
+
+    <p>
+        Elle est souvent utilisée pour les articles de blog
+        ou les actualités.
+    </p>
 
 <pre>
-&lt;article&gt;&lt;/article&gt;
+&lt;article&gt;
+
+Article ici
+
+&lt;/article&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 26 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 26 : Aside</h2>
-    <p>Créer une barre latérale.</p>
+
+    <p>
+        La balise aside sert à afficher un contenu secondaire.
+    </p>
+
+    <p>
+        Elle peut contenir une publicité,
+        des liens ou une barre latérale.
+    </p>
 
 <pre>
-&lt;aside&gt;&lt;/aside&gt;
+&lt;aside&gt;
+
+Menu secondaire
+
+&lt;/aside&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 27 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 27 : Main</h2>
-    <p>Créer le contenu principal.</p>
+
+    <p>
+        La balise main contient le contenu principal de la page.
+    </p>
+
+    <p>
+        Elle aide les moteurs de recherche
+        et améliore l’accessibilité.
+    </p>
 
 <pre>
-&lt;main&gt;&lt;/main&gt;
+&lt;main&gt;
+
+Contenu principal
+
+&lt;/main&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 28 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 28 : Small</h2>
-    <p>Créer un petit texte.</p>
+
+    <p>
+        La balise small affiche un texte plus petit.
+    </p>
+
+    <p>
+        Elle est souvent utilisée pour les notes
+        ou informations secondaires.
+    </p>
 
 <pre>
-&lt;small&gt;Texte&lt;/small&gt;
+&lt;small&gt;Texte petit&lt;/small&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 29 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 29 : Mark</h2>
-    <p>Surligner un texte.</p>
+
+    <p>
+        La balise mark permet de surligner un texte.
+    </p>
+
+    <p>
+        Le navigateur affiche généralement
+        un fond jaune.
+    </p>
 
 <pre>
-&lt;mark&gt;Texte&lt;/mark&gt;
+&lt;mark&gt;Important&lt;/mark&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 30 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 30 : Sup et Sub</h2>
-    <p>Créer exposants et indices.</p>
+
+    <p>
+        Les balises sup et sub servent à écrire
+        des exposants et indices.
+    </p>
+
+    <p>
+        Elles sont utiles en mathématiques
+        et en chimie.
+    </p>
 
 <pre>
 X&lt;sup&gt;2&lt;/sup&gt;
+
 H&lt;sub&gt;2&lt;/sub&gt;O
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 31 -->
-<!-- ========================= -->
 
 <div class="lesson">
-    <h2>Leçon 31 : Les Icônes</h2>
-    <p>Ajouter des icônes.</p>
+    <h2>Leçon 31 : Icônes</h2>
+
+    <p>
+        Les icônes améliorent l’apparence d’un site.
+    </p>
+
+    <p>
+        On utilise souvent Font Awesome
+        ou Bootstrap Icons.
+    </p>
 
 <pre>
-&lt;i&gt;&lt;/i&gt;
+&lt;i class="fa fa-home"&gt;&lt;/i&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 32 -->
-<!-- ========================= -->
 
 <div class="lesson">
-    <h2>Leçon 32 : Les Boutons Submit</h2>
-    <p>Envoyer un formulaire.</p>
+    <h2>Leçon 32 : Bouton Submit</h2>
+
+    <p>
+        Le bouton submit sert à envoyer un formulaire.
+    </p>
+
+    <p>
+        Lorsque l’utilisateur clique,
+        les données sont transmises.
+    </p>
 
 <pre>
 &lt;button type="submit"&gt;
+
 Envoyer
+
 &lt;/button&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 33 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 33 : Checkbox</h2>
-    <p>Créer une case à cocher.</p>
+
+    <p>
+        Les cases à cocher permettent
+        de sélectionner plusieurs choix.
+    </p>
 
 <pre>
 &lt;input type="checkbox"&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 34 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 34 : Radio</h2>
-    <p>Créer un bouton radio.</p>
+
+    <p>
+        Les boutons radio permettent
+        de choisir une seule option.
+    </p>
 
 <pre>
 &lt;input type="radio"&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 35 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 35 : Select</h2>
-    <p>Créer une liste déroulante.</p>
+
+    <p>
+        La balise select crée une liste déroulante.
+    </p>
+
+    <p>
+        Elle permet de gagner de l’espace sur la page.
+    </p>
 
 <pre>
 &lt;select&gt;
+
 &lt;/select&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 36 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 36 : Option</h2>
-    <p>Ajouter des options.</p>
+
+    <p>
+        La balise option représente un choix
+        dans une liste déroulante.
+    </p>
 
 <pre>
 &lt;option&gt;HTML&lt;/option&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 37 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 37 : Textarea</h2>
-    <p>Créer une zone de texte.</p>
+
+    <p>
+        Textarea permet d’écrire
+        de longs textes.
+    </p>
+
+    <p>
+        Très utile pour les commentaires
+        ou messages.
+    </p>
 
 <pre>
 &lt;textarea&gt;&lt;/textarea&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 38 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 38 : Label</h2>
-    <p>Créer une étiquette.</p>
+
+    <p>
+        La balise label sert à nommer
+        un champ de formulaire.
+    </p>
 
 <pre>
 &lt;label&gt;Nom&lt;/label&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 39 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 39 : Placeholder</h2>
-    <p>Ajouter un texte indicatif.</p>
+
+    <p>
+        Placeholder affiche un texte temporaire
+        dans un champ.
+    </p>
 
 <pre>
 &lt;input placeholder="Votre nom"&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 40 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 40 : Required</h2>
-    <p>Rendre un champ obligatoire.</p>
+
+    <p>
+        Required rend un champ obligatoire.
+    </p>
+
+    <p>
+        Le formulaire ne peut pas être envoyé
+        si le champ est vide.
+    </p>
 
 <pre>
 &lt;input required&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 41 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 41 : Email</h2>
-    <p>Champ email.</p>
+
+    <p>
+        Le type email vérifie automatiquement
+        le format d’une adresse email.
+    </p>
 
 <pre>
 &lt;input type="email"&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 42 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 42 : Password</h2>
-    <p>Champ mot de passe.</p>
+
+    <p>
+        Le type password masque les caractères
+        saisis par l’utilisateur.
+    </p>
 
 <pre>
 &lt;input type="password"&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 43 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 43 : Number</h2>
-    <p>Champ numérique.</p>
+
+    <p>
+        Le type number permet de saisir
+        uniquement des nombres.
+    </p>
 
 <pre>
 &lt;input type="number"&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 44 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 44 : Date</h2>
-    <p>Sélectionner une date.</p>
+
+    <p>
+        Le type date affiche un calendrier.
+    </p>
+
+    <p>
+        L’utilisateur peut sélectionner facilement une date.
+    </p>
 
 <pre>
 &lt;input type="date"&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 45 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 45 : Color</h2>
-    <p>Choisir une couleur.</p>
+
+    <p>
+        Le type color ouvre un sélecteur de couleurs.
+    </p>
 
 <pre>
 &lt;input type="color"&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 46 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 46 : File</h2>
-    <p>Importer un fichier.</p>
+
+    <p>
+        Le type file permet d’importer un fichier.
+    </p>
 
 <pre>
 &lt;input type="file"&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 47 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 47 : Range</h2>
-    <p>Créer un slider.</p>
+
+    <p>
+        Le type range crée un curseur.
+    </p>
+
+    <p>
+        Il est souvent utilisé pour le volume
+        ou les réglages.
+    </p>
 
 <pre>
 &lt;input type="range"&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 48 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 48 : Progress</h2>
-    <p>Créer une barre de progression.</p>
+
+    <p>
+        La balise progress crée une barre de progression.
+    </p>
 
 <pre>
 &lt;progress value="50" max="100"&gt;
+
 &lt;/progress&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 49 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 49 : Details</h2>
-    <p>Créer un menu déroulant.</p>
+
+    <p>
+        La balise details crée une zone
+        qu’on peut ouvrir ou fermer.
+    </p>
 
 <pre>
 &lt;details&gt;
+
+Contenu caché
+
 &lt;/details&gt;
 </pre>
 </div>
 
-<!-- ========================= -->
-<!-- LEÇON 50 -->
-<!-- ========================= -->
 
 <div class="lesson">
     <h2>Leçon 50 : Summary</h2>
-    <p>Titre d’un details.</p>
+
+    <p>
+        Summary représente le titre visible
+        d’une balise details.
+    </p>
+
+    <p>
+        Quand l’utilisateur clique,
+        le contenu apparaît.
+    </p>
 
 <pre>
-&lt;summary&gt;Voir&lt;/summary&gt;
+&lt;details&gt;
+
+&lt;summary&gt;Voir plus&lt;/summary&gt;
+
+Texte caché
+
+&lt;/details&gt;
 </pre>
 </div>
-    </div>
-
-
-    <div class="editor-section">
-
-        <h2 class="editor-title">Essayez vous-même</h2>
-
-<textarea id="editor">
-<h1>Bonjour</h1>
-<p>Bienvenue sur mon site HTML</p>
-<button>Clique ici</button>
-</textarea>
-
-<button onclick="runCode()">Exécuter le code</button>
-
-<iframe id="result"></iframe>
-
-    </div>
-
-</div>
-
-<script>
-
-function runCode(){
-
-    let code = document.getElementById('editor').value;
-
-    let iframe = document.getElementById('result').contentWindow.document;
-
-    iframe.open();
-    iframe.write(code);
-    iframe.close();
-}
-
-runCode();
-
-</script>
-
-</body>
-</html>
-```
