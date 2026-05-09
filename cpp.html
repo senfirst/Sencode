@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apprendre C++ - 50 Leçons</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+body{
+    background:#f1f5f9;
+}
+
+.header{
+    background:#0f172a;
+    color:#60a5fa;
+    text-align:center;
+    padding:20px;
+    font-size:32px;
+    font-weight:bold;
+}
+
+.container{
+    display:flex;
+    height:calc(100vh - 80px);
+}
+
+.lessons{
+    width:50%;
+    background:white;
+    overflow-y:auto;
+    padding:25px;
+}
+
+.lesson{
+    background:white;
+    border-left:5px solid #3b82f6;
+    padding:20px;
+    margin-bottom:25px;
+    border-radius:8px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.lesson h2{
+    margin-bottom:15px;
+    color:#0f172a;
+}
+
+.lesson p{
+    margin-bottom:12px;
+    line-height:1.7;
+    color:#334155;
+}
+
+pre{
+    background:#e2e8f0;
+    padding:15px;
+    border-radius:6px;
+    overflow:auto;
+}
+
+.editor-section{
+    width:50%;
+    background:#111827;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+}
+
+.editor-title{
+    color:white;
+    font-size:25px;
+    margin-bottom:15px;
+}
+
+textarea{
+    width:100%;
+    height:300px;
+    border:none;
+    border-radius:8px;
+    padding:15px;
+    resize:none;
+    font-size:16px;
+    outline:none;
+    font-family:monospace;
+}
+
+button{
+    margin-top:15px;
+    padding:14px;
+    background:#2563eb;
+    border:none;
+    color:white;
+    font-size:18px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+iframe{
+    margin-top:20px;
+    flex:1;
+    border:none;
+    background:white;
+    border-radius:8px;
+}
+
+@media(max-width:900px){
+
+.container{
+    flex-direction:column;
+    height:auto;
+}
+
+.lessons,
+.editor-section{
+    width:100%;
+}
+
+iframe{
+    height:400px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+Apprendre C++ - 50 Leçons Complètes
+</div>
+
+<div class="container">
+
+<div class="lessons">
+
+<div class="lesson">
+<h2>Leçon 1 : Introduction à C++</h2>
+<p>
+C++ est un langage puissant orienté objet.
+</p>
+<pre>
+#include &lt;iostream&gt;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 2 : Premier Programme</h2>
+<p>
+Afficher Hello World avec C++.
+</p>
+<pre>
+#include &lt;iostream&gt;
+using namespace std;
+
+int main(){
+
+cout &lt;&lt; "Hello World";
+
+return 0;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 3 : main()</h2>
+<p>
+main est le point d’entrée du programme.
+</p>
+<pre>
+int main()
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 4 : cout</h2>
+<p>
+cout affiche du texte.
+</p>
+<pre>
+cout &lt;&lt; "Bonjour";
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 5 : cin</h2>
+<p>
+cin récupère les données utilisateur.
+</p>
+<pre>
+cin &gt;&gt; age;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 6 : Variables</h2>
+<p>
+Les variables stockent des données.
+</p>
+<pre>
+int age = 20;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 7 : Types de Données</h2>
+<p>
+C++ possède plusieurs types.
+</p>
+<pre>
+int
+float
+char
+string
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 8 : Les Entiers</h2>
+<p>
+int stocke des nombres entiers.
+</p>
+<pre>
+int nombre = 10;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 9 : Les Décimaux</h2>
+<p>
+float stocke les décimaux.
+</p>
+<pre>
+float prix = 15.5;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 10 : Les Caractères</h2>
+<p>
+char stocke un caractère.
+</p>
+<pre>
+char lettre = 'A';
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 11 : string</h2>
+<p>
+string stocke du texte.
+</p>
+<pre>
+string nom = "Ali";
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 12 : Opérateurs</h2>
+<p>
+Les opérateurs servent aux calculs.
+</p>
+<pre>
++
+-
+*
+/
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 13 : if</h2>
+<p>
+if vérifie une condition.
+</p>
+<pre>
+if(age &gt; 18)
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 14 : else</h2>
+<p>
+else exécute une autre action.
+</p>
+<pre>
+else{
+cout &lt;&lt; "Mineur";
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 15 : switch</h2>
+<p>
+switch gère plusieurs choix.
+</p>
+<pre>
+switch(note)
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 16 : Boucle for</h2>
+<p>
+for répète des instructions.
+</p>
+<pre>
+for(int i=0;i&lt;5;i++)
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 17 : Boucle while</h2>
+<p>
+while répète tant qu’une condition est vraie.
+</p>
+<pre>
+while(x &lt; 5)
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 18 : do while</h2>
+<p>
+do while exécute au moins une fois.
+</p>
+<pre>
+do{
+}
+while(x&lt;5);
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 19 : Tableaux</h2>
+<p>
+Les tableaux stockent plusieurs valeurs.
+</p>
+<pre>
+int notes[5];
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 20 : Fonctions</h2>
+<p>
+Les fonctions organisent le code.
+</p>
+<pre>
+void salut(){
+cout &lt;&lt; "Bonjour";
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 21 : return</h2>
+<p>
+return renvoie une valeur.
+</p>
+<pre>
+return 0;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 22 : Paramètres</h2>
+<p>
+Les fonctions peuvent recevoir des paramètres.
+</p>
+<pre>
+int somme(int a,int b)
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 23 : Référence</h2>
+<p>
+Les références utilisent &.
+</p>
+<pre>
+int &ref = x;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 24 : Pointeurs</h2>
+<p>
+Les pointeurs stockent des adresses mémoire.
+</p>
+<pre>
+int *p;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 25 : Classes</h2>
+<p>
+Les classes créent des objets.
+</p>
+<pre>
+class User{
+};
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 26 : Objets</h2>
+<p>
+Les objets utilisent les classes.
+</p>
+<pre>
+User u;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 27 : Constructeurs</h2>
+<p>
+Les constructeurs initialisent les objets.
+</p>
+<pre>
+User(){
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 28 : Encapsulation</h2>
+<p>
+private protège les données.
+</p>
+<pre>
+private:
+int age;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 29 : Héritage</h2>
+<p>
+Une classe peut hériter d’une autre.
+</p>
+<pre>
+class Admin : public User
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 30 : Polymorphisme</h2>
+<p>
+Le polymorphisme modifie les comportements.
+</p>
+<pre>
+virtual void afficher()
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 31 : Templates</h2>
+<p>
+Les templates créent du code générique.
+</p>
+<pre>
+template &lt;class T&gt;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 32 : Vecteurs</h2>
+<p>
+vector crée des tableaux dynamiques.
+</p>
+<pre>
+vector&lt;int&gt; notes;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 33 : Structures</h2>
+<p>
+struct regroupe des données.
+</p>
+<pre>
+struct User{
+string nom;
+};
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 34 : Enum</h2>
+<p>
+enum crée des constantes.
+</p>
+<pre>
+enum Jour{
+Lundi,
+Mardi
+};
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 35 : Fichiers</h2>
+<p>
+C++ peut lire et écrire des fichiers.
+</p>
+<pre>
+fstream fichier;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 36 : Exceptions</h2>
+<p>
+Les exceptions gèrent les erreurs.
+</p>
+<pre>
+try{
+}
+catch(...){
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 37 : new</h2>
+<p>
+new réserve de la mémoire.
+</p>
+<pre>
+int *p = new int;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 38 : delete</h2>
+<p>
+delete libère la mémoire.
+</p>
+<pre>
+delete p;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 39 : Bibliothèques</h2>
+<p>
+Les bibliothèques ajoutent des fonctions.
+</p>
+<pre>
+#include &lt;cmath&gt;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 40 : sqrt()</h2>
+<p>
+sqrt calcule la racine carrée.
+</p>
+<pre>
+sqrt(25);
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 41 : Chaînes</h2>
+<p>
+Manipuler les chaînes de texte.
+</p>
+<pre>
+nom.length();
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 42 : namespace</h2>
+<p>
+namespace organise le code.
+</p>
+<pre>
+namespace Test{
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 43 : STL</h2>
+<p>
+STL fournit des outils puissants.
+</p>
+<pre>
+map
+vector
+list
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 44 : map</h2>
+<p>
+map stocke clé et valeur.
+</p>
+<pre>
+map&lt;int,string&gt;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 45 : list</h2>
+<p>
+list crée des listes chaînées.
+</p>
+<pre>
+list&lt;int&gt;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 46 : Compilation</h2>
+<p>
+Le code C++ doit être compilé.
+</p>
+<pre>
+g++ main.cpp -o app
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 47 : Debug</h2>
+<p>
+Le debug aide à corriger les erreurs.
+</p>
+<pre>
+cout &lt;&lt; "Test";
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 48 : Threads</h2>
+<p>
+Les threads exécutent plusieurs tâches.
+</p>
+<pre>
+#include &lt;thread&gt;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 49 : Projet Console</h2>
+<p>
+Créer une application console.
+</p>
+<pre>
+Gestion étudiants
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 50 : Projet Final</h2>
+<p>
+Créer une application complète en C++.
+</p>
+<pre>
+Mini jeu
+Gestion stock
+Application bureau
+</pre>
+</div>
+
+</div>
+
+<div class="editor-section">
+
+<h2 class="editor-title">
+Essayez votre Code C++
+</h2>
+
+<textarea id="editor">
+#include <iostream>
+using namespace std;
+
+int main(){
+
+cout << "Bonjour Thierno !";
+
+return 0;
+}
+</textarea>
+
+<button onclick="runCode()">
+Afficher le Code
+</button>
+
+<iframe id="result"></iframe>
+
+</div>
+
+</div>
+
+<script>
+
+function runCode(){
+
+let code = document.getElementById('editor').value;
+
+let iframe = document.getElementById('result');
+
+iframe.srcdoc = `
+<html>
+<body style="font-family:Arial;padding:20px;background:#f8fafc;">
+
+<h2>Résultat du Code C++</h2>
+
+<pre style="background:#e2e8f0;padding:15px;border-radius:8px;">
+${code.replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+</pre>
+
+</body>
+</html>
+`;
+
+}
+
+runCode();
+
+</script>
+
+</body>
+</html>
