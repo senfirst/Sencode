@@ -27,15 +27,21 @@
             margin:auto;
             padding:20px;
             display:flex;
+            flex-direction:row;
+            align-items:flex-start;
             gap:20px;
         }
 
         .left{
             width:65%;
+            order:1;
+        }   display.right{
+            width:35%;
+            order:2;
+            position:sticky;0px;
         }
 
         .right{
-            width:35%;
             position:sticky;
             top:20px;
             height:fit-content;
@@ -80,11 +86,9 @@
 
 <div class="left">
 
-    </div>
+   s="right">
 
-<div class="right">
-
-<div style="background:white; padding:20px; border-radius:12px; margin-bottom:30px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+<div style="background:white; padding:20px; border--bottom:30px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
 
         <h2 style="color:#111;">🖥️ Éditeur HTML</h2>
 
