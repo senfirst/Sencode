@@ -1,24 +1,18 @@
-# html.html
-
-```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cours HTML - Sencode</title>
+    <title>Cours HTML Complet</title>
 
     <style>
 
-        *{
+        body{
+            font-family:Arial;
+            background:#f4f4f4;
             margin:0;
             padding:0;
-            box-sizing:border-box;
-        }
-
-        body{
-            font-family:Arial, Helvetica, sans-serif;
-            background:#f2f2f2;
+            line-height:1.7;
         }
 
         header{
@@ -28,61 +22,36 @@
             padding:30px;
         }
 
-        header h1{
-            font-size:40px;
-        }
-
         .container{
             width:90%;
             margin:auto;
-            padding:30px 0;
-
-            display:grid;
-            grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
-            gap:25px;
+            padding:20px;
         }
 
         .lesson{
             background:white;
-            border-radius:15px;
-            overflow:hidden;
-            box-shadow:0 4px 10px rgba(0,0,0,0.1);
-            transition:0.3s;
+            padding:25px;
+            margin-bottom:25px;
+            border-radius:12px;
+            box-shadow:0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .lesson:hover{
-            transform:translateY(-5px);
-        }
-
-        .lesson img{
-            width:100%;
-            height:180px;
-            object-fit:cover;
-        }
-
-        .content{
-            padding:20px;
-        }
-
-        .content h2{
+        h2{
             color:#ff5722;
-            margin-bottom:10px;
-            font-size:24px;
         }
 
-        .content p{
-            color:#444;
-            line-height:1.6;
+        pre{
+            background:#222;
+            color:#00ff88;
+            padding:15px;
+            border-radius:10px;
+            overflow:auto;
         }
 
-        .btn{
-            display:inline-block;
+        img{
+            width:100%;
+            border-radius:10px;
             margin-top:15px;
-            background:#111;
-            color:white;
-            padding:10px 20px;
-            border-radius:8px;
-            text-decoration:none;
         }
 
     </style>
@@ -90,100 +59,164 @@
 <body>
 
 <header>
-    <h1>📘 Cours HTML - 30 Leçons</h1>
-    <p>Apprends le développement web moderne avec Sencode</p>
+    <h1>📘 Cours HTML Complet</h1>
+    <p>Apprendre HTML avec des exemples simples</p>
 </header>
 
 <div class="container">
 
     <div class="lesson">
-        <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4" alt="HTML">
-        <div class="content">
-            <h2>Leçon 1 : Introduction au HTML</h2>
-            <p>Découvre ce qu’est le HTML et comment créer une page web.</p>
-            <a href="#" class="btn">Lire</a>
-        </div>
+        <h2>Leçon 1 : Structure HTML</h2>
+
+        <p>Une page HTML commence toujours par une structure de base.</p>
+
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Ma page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085">
     </div>
 
-    <div class="lesson">
-        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" alt="Code">
-        <div class="content">
-            <h2>Leçon 2 : Structure HTML</h2>
-            <p>Comprendre html, head, body et la structure complète.</p>
-            <a href="#" class="btn">Lire</a>
-        </div>
-    </div>
 
     <div class="lesson">
-        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6" alt="Titres">
-        <div class="content">
-            <h2>Leçon 3 : Les titres</h2>
-            <p>Utiliser les balises h1 jusqu’à h6 correctement.</p>
-            <a href="#" class="btn">Lire</a>
-        </div>
+        <h2>Leçon 2 : Les Titres</h2>
+
+        <p>HTML possède plusieurs niveaux de titres.</p>
+
+<pre>
+&lt;h1&gt;Grand titre&lt;/h1&gt;
+&lt;h2&gt;Titre moyen&lt;/h2&gt;
+&lt;h3&gt;Petit titre&lt;/h3&gt;
+</pre>
+
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3">
     </div>
 
-    <div class="lesson">
-        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3" alt="Texte">
-        <div class="content">
-            <h2>Leçon 4 : Paragraphes</h2>
-            <p>Ajouter et organiser du texte dans une page HTML.</p>
-            <a href="#" class="btn">Lire</a>
-        </div>
-    </div>
 
     <div class="lesson">
-        <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d" alt="Liens">
-        <div class="content">
-            <h2>Leçon 5 : Les liens</h2>
-            <p>Créer des liens entre différentes pages web.</p>
-            <a href="#" class="btn">Lire</a>
-        </div>
+        <h2>Leçon 3 : Les Paragraphes</h2>
+
+        <p>Les paragraphes servent à écrire du texte.</p>
+
+<pre>
+&lt;p&gt;Bonjour tout le monde&lt;/p&gt;
+</pre>
+
+        <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4">
     </div>
 
-    <div class="lesson">
-        <img src="https://images.unsplash.com/photo-1496171367470-9ed9a91ea931" alt="Images">
-        <div class="content">
-            <h2>Leçon 6 : Les images</h2>
-            <p>Insérer des images dans une page web HTML.</p>
-            <a href="#" class="btn">Lire</a>
-        </div>
-    </div>
 
     <div class="lesson">
-        <img src="https://images.unsplash.com/photo-1508780709619-79562169bc64" alt="Listes">
-        <div class="content">
-            <h2>Leçon 7 : Les listes</h2>
-            <p>Créer des listes ordonnées et non ordonnées.</p>
-            <a href="#" class="btn">Lire</a>
-        </div>
+        <h2>Leçon 4 : Les Liens</h2>
+
+        <p>La balise a permet de créer des liens.</p>
+
+<pre>
+&lt;a href="https://google.com"&gt;
+    Aller sur Google
+&lt;/a&gt;
+</pre>
+
+        <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d">
     </div>
 
-    <div class="lesson">
-        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c" alt="Tableaux">
-        <div class="content">
-            <h2>Leçon 8 : Les tableaux</h2>
-            <p>Afficher des données dans un tableau HTML.</p>
-            <a href="#" class="btn">Lire</a>
-        </div>
-    </div>
 
     <div class="lesson">
-        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97" alt="Formulaire">
-        <div class="content">
-            <h2>Leçon 9 : Les formulaires</h2>
-            <p>Créer des formulaires modernes et interactifs.</p>
-            <a href="#" class="btn">Lire</a>
-        </div>
+        <h2>Leçon 5 : Les Images</h2>
+
+        <p>La balise img affiche une image.</p>
+
+<pre>
+&lt;img src="image.jpg" alt="photo"&gt;
+</pre>
+
+        <img src="https://images.unsplash.com/photo-1496171367470-9ed9a91ea931">
     </div>
 
+
     <div class="lesson">
-        <img src="https://images.unsplash.com/photo-1517180102446-f3ece451e9d8" alt="Projet">
-        <div class="content">
-            <h2>Leçon 10 : Projet HTML</h2>
-            <p>Créer un mini site web avec toutes les notions apprises.</p>
-            <a href="#" class="btn">Lire</a>
-        </div>
+        <h2>Leçon 6 : Les Listes</h2>
+
+        <p>Créer une liste avec ul et li.</p>
+
+<pre>
+&lt;ul&gt;
+   &lt;li&gt;HTML&lt;/li&gt;
+   &lt;li&gt;CSS&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+
+        <img src="https://images.unsplash.com/photo-1508780709619-79562169bc64">
+    </div>
+
+
+    <div class="lesson">
+        <h2>Leçon 7 : Les Tableaux</h2>
+
+        <p>Les tableaux affichent des données.</p>
+
+<pre>
+&lt;table border="1"&gt;
+   &lt;tr&gt;
+      &lt;td&gt;Nom&lt;/td&gt;
+      &lt;td&gt;Age&lt;/td&gt;
+   &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+
+        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c">
+    </div>
+
+
+    <div class="lesson">
+        <h2>Leçon 8 : Les Formulaires</h2>
+
+        <p>Créer un formulaire simple.</p>
+
+<pre>
+&lt;form&gt;
+   &lt;input type="text"&gt;
+   &lt;button&gt;Envoyer&lt;/button&gt;
+&lt;/form&gt;
+</pre>
+
+        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97">
+    </div>
+
+
+    <div class="lesson">
+        <h2>Leçon 9 : Les Boutons</h2>
+
+        <p>Créer un bouton HTML.</p>
+
+<pre>
+&lt;button&gt;Clique ici&lt;/button&gt;
+</pre>
+
+        <img src="https://images.unsplash.com/photo-1517180102446-f3ece451e9d8">
+    </div>
+
+
+    <div class="lesson">
+        <h2>Leçon 10 : Projet Final</h2>
+
+        <p>Créer une mini page web complète.</p>
+
+<pre>
+&lt;h1&gt;Bienvenue&lt;/h1&gt;
+&lt;p&gt;Mon premier site&lt;/p&gt;
+&lt;button&gt;Commencer&lt;/button&gt;
+</pre>
+
+        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6">
     </div>
 
 </div>
@@ -191,5 +224,3 @@
 </body>
 </html>
 ```
-
-Ajoute les autres leçons en copiant le bloc `.lesson`.
