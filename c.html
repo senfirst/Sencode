@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apprendre le Langage C - 50 Leçons</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+body{
+    background:#f1f5f9;
+}
+
+.header{
+    background:#111827;
+    color:#22c55e;
+    text-align:center;
+    padding:20px;
+    font-size:32px;
+    font-weight:bold;
+}
+
+.container{
+    display:flex;
+    height:calc(100vh - 80px);
+}
+
+.lessons{
+    width:50%;
+    background:white;
+    overflow-y:auto;
+    padding:25px;
+}
+
+.lesson{
+    background:white;
+    border-left:5px solid #22c55e;
+    padding:20px;
+    margin-bottom:25px;
+    border-radius:8px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.lesson h2{
+    margin-bottom:15px;
+    color:#111827;
+}
+
+.lesson p{
+    margin-bottom:12px;
+    line-height:1.7;
+    color:#334155;
+}
+
+pre{
+    background:#e2e8f0;
+    padding:15px;
+    border-radius:6px;
+    overflow:auto;
+}
+
+.editor-section{
+    width:50%;
+    background:#0f172a;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+}
+
+.editor-title{
+    color:white;
+    font-size:25px;
+    margin-bottom:15px;
+}
+
+textarea{
+    width:100%;
+    height:300px;
+    border:none;
+    border-radius:8px;
+    padding:15px;
+    resize:none;
+    font-size:16px;
+    outline:none;
+    font-family:monospace;
+}
+
+button{
+    margin-top:15px;
+    padding:14px;
+    background:#22c55e;
+    border:none;
+    color:white;
+    font-size:18px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+button:hover{
+    background:#16a34a;
+}
+
+iframe{
+    margin-top:20px;
+    flex:1;
+    border:none;
+    background:white;
+    border-radius:8px;
+}
+
+@media(max-width:900px){
+
+.container{
+    flex-direction:column;
+    height:auto;
+}
+
+.lessons,
+.editor-section{
+    width:100%;
+}
+
+iframe{
+    height:400px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+Apprendre le Langage C - 50 Leçons Complètes
+</div>
+
+<div class="container">
+
+<div class="lessons">
+
+<div class="lesson">
+<h2>Leçon 1 : Introduction au Langage C</h2>
+<p>
+Le langage C est un langage puissant créé pour développer des logiciels rapides.
+</p>
+<pre>
+#include &lt;stdio.h&gt;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 2 : Premier Programme</h2>
+<p>
+Le premier programme affiche souvent "Hello World".
+</p>
+<pre>
+#include &lt;stdio.h&gt;
+
+int main(){
+
+printf("Hello World");
+
+return 0;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 3 : Fonction main()</h2>
+<p>
+La fonction main est le point de départ du programme.
+</p>
+<pre>
+int main(){
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 4 : printf()</h2>
+<p>
+printf permet d’afficher du texte.
+</p>
+<pre>
+printf("Bonjour");
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 5 : Variables</h2>
+<p>
+Les variables stockent des données.
+</p>
+<pre>
+int age = 20;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 6 : Types de Données</h2>
+<p>
+Le C possède plusieurs types de données.
+</p>
+<pre>
+int
+float
+char
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 7 : Les Entiers</h2>
+<p>
+int stocke les nombres entiers.
+</p>
+<pre>
+int nombre = 10;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 8 : Les Décimaux</h2>
+<p>
+float stocke les nombres décimaux.
+</p>
+<pre>
+float prix = 10.5;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 9 : Les Caractères</h2>
+<p>
+char stocke un caractère.
+</p>
+<pre>
+char lettre = 'A';
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 10 : scanf()</h2>
+<p>
+scanf permet de lire les données utilisateur.
+</p>
+<pre>
+scanf("%d",&age);
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 11 : Les Opérateurs</h2>
+<p>
+Les opérateurs servent aux calculs.
+</p>
+<pre>
++
+-
+*
+/
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 12 : if</h2>
+<p>
+if exécute une condition.
+</p>
+<pre>
+if(age &gt; 18){
+printf("Majeur");
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 13 : else</h2>
+<p>
+else exécute une autre action.
+</p>
+<pre>
+else{
+printf("Mineur");
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 14 : else if</h2>
+<p>
+else if ajoute plusieurs conditions.
+</p>
+<pre>
+else if(age == 18)
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 15 : switch</h2>
+<p>
+switch simplifie plusieurs choix.
+</p>
+<pre>
+switch(note){
+case 10:
+break;
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 16 : Boucle for</h2>
+<p>
+for répète des instructions.
+</p>
+<pre>
+for(int i=0;i&lt;5;i++)
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 17 : Boucle while</h2>
+<p>
+while répète tant qu’une condition est vraie.
+</p>
+<pre>
+while(x &lt; 5)
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 18 : do while</h2>
+<p>
+do while exécute au moins une fois.
+</p>
+<pre>
+do{
+}
+while(x&lt;5);
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 19 : Tableaux</h2>
+<p>
+Les tableaux stockent plusieurs valeurs.
+</p>
+<pre>
+int notes[5];
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 20 : Chaînes de Caractères</h2>
+<p>
+Les chaînes utilisent char.
+</p>
+<pre>
+char nom[] = "Ali";
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 21 : Fonctions</h2>
+<p>
+Les fonctions organisent le code.
+</p>
+<pre>
+void salut(){
+printf("Bonjour");
+}
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 22 : return</h2>
+<p>
+return renvoie une valeur.
+</p>
+<pre>
+return 0;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 23 : Paramètres</h2>
+<p>
+Les fonctions peuvent recevoir des paramètres.
+</p>
+<pre>
+int somme(int a,int b)
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 24 : Pointeurs</h2>
+<p>
+Les pointeurs stockent des adresses mémoire.
+</p>
+<pre>
+int *p;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 25 : Adresse Mémoire</h2>
+<p>
+& affiche une adresse mémoire.
+</p>
+<pre>
+&a
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 26 : Structures</h2>
+<p>
+Les structures regroupent plusieurs données.
+</p>
+<pre>
+struct User{
+char nom[20];
+};
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 27 : Typedef</h2>
+<p>
+typedef crée un alias.
+</p>
+<pre>
+typedef int entier;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 28 : Fichiers</h2>
+<p>
+Le C peut lire des fichiers.
+</p>
+<pre>
+FILE *fichier;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 29 : fopen()</h2>
+<p>
+fopen ouvre un fichier.
+</p>
+<pre>
+fopen("test.txt","r");
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 30 : fclose()</h2>
+<p>
+fclose ferme un fichier.
+</p>
+<pre>
+fclose(fichier);
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 31 : fprintf()</h2>
+<p>
+fprintf écrit dans un fichier.
+</p>
+<pre>
+fprintf(fichier,"Bonjour");
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 32 : fscanf()</h2>
+<p>
+fscanf lit un fichier.
+</p>
+<pre>
+fscanf(fichier,"%s",nom);
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 33 : malloc()</h2>
+<p>
+malloc réserve de la mémoire.
+</p>
+<pre>
+malloc(sizeof(int));
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 34 : free()</h2>
+<p>
+free libère la mémoire.
+</p>
+<pre>
+free(p);
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 35 : Constantes</h2>
+<p>
+const crée une valeur fixe.
+</p>
+<pre>
+const int x = 5;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 36 : Macros</h2>
+<p>
+#define crée une macro.
+</p>
+<pre>
+#define PI 3.14
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 37 : break</h2>
+<p>
+break arrête une boucle.
+</p>
+<pre>
+break;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 38 : continue</h2>
+<p>
+continue passe à l’itération suivante.
+</p>
+<pre>
+continue;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 39 : Enum</h2>
+<p>
+enum crée une liste de constantes.
+</p>
+<pre>
+enum Jour{
+Lundi,
+Mardi
+};
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 40 : Union</h2>
+<p>
+union partage la mémoire.
+</p>
+<pre>
+union Data{
+int x;
+};
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 41 : Bibliothèques</h2>
+<p>
+Les bibliothèques ajoutent des fonctions.
+</p>
+<pre>
+#include &lt;math.h&gt;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 42 : sqrt()</h2>
+<p>
+sqrt calcule une racine carrée.
+</p>
+<pre>
+sqrt(25);
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 43 : strlen()</h2>
+<p>
+strlen compte les caractères.
+</p>
+<pre>
+strlen(nom);
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 44 : strcpy()</h2>
+<p>
+strcpy copie une chaîne.
+</p>
+<pre>
+strcpy(a,b);
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 45 : strcmp()</h2>
+<p>
+strcmp compare deux chaînes.
+</p>
+<pre>
+strcmp(a,b);
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 46 : Tableaux 2D</h2>
+<p>
+Les tableaux 2D créent des matrices.
+</p>
+<pre>
+int tab[3][3];
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 47 : Arguments main</h2>
+<p>
+main peut recevoir des arguments.
+</p>
+<pre>
+int main(int argc,char *argv[])
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 48 : Compilation</h2>
+<p>
+Le code C doit être compilé.
+</p>
+<pre>
+gcc main.c -o app
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 49 : Debug</h2>
+<p>
+Le debug aide à trouver les erreurs.
+</p>
+<pre>
+printf("test");
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 50 : Projet Final</h2>
+<p>
+Créer une application complète en C.
+</p>
+<pre>
+Gestion des étudiants
+Calculatrice
+Mini jeu
+</pre>
+</div>
+
+</div>
+
+<div class="editor-section">
+
+<h2 class="editor-title">
+Essayez votre Code C
+</h2>
+
+<textarea id="editor">
+#include <stdio.h>
+
+int main(){
+
+printf("Bonjour Thierno !");
+
+return 0;
+}
+</textarea>
+
+<button onclick="runCode()">
+Afficher le Code
+</button>
+
+<iframe id="result"></iframe>
+
+</div>
+
+</div>
+
+<script>
+
+function runCode(){
+
+let code = document.getElementById('editor').value;
+
+let iframe = document.getElementById('result');
+
+iframe.srcdoc = `
+<html>
+<body style="font-family:Arial;padding:20px;background:#f8fafc;">
+
+<h2>Résultat du Code C</h2>
+
+<pre style="background:#e2e8f0;padding:15px;border-radius:8px;">
+${code.replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+</pre>
+
+</body>
+</html>
+`;
+
+}
+
+runCode();
+
+</script>
+
+</body>
+</html>
