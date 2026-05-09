@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sencode - Cours HTML</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f5f5f5;
+color:#222;
+line-height:1.7;
+}
+
+header{
+background:#111827;
+color:white;
+padding:25px;
+text-align:center;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+header h1{
+font-size:40px;
+color:#00c896;
+}
+
+.container{
+width:90%;
+max-width:1200px;
+margin:auto;
+padding:40px 0;
+}
+
+.lesson{
+background:white;
+padding:30px;
+border-radius:20px;
+margin-bottom:25px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.lesson h2{
+margin-bottom:15px;
+color:#00c896;
+}
+
+.lesson p{
+margin-bottom:15px;
+}
+
+pre{
+background:#111827;
+color:#00ff99;
+padding:20px;
+border-radius:15px;
+overflow:auto;
+font-size:15px;
+margin-top:15px;
+}
+
+.editor-section{
+background:#111827;
+padding:50px 20px;
+margin-top:40px;
+}
+
+.editor-section h2{
+color:white;
+text-align:center;
+margin-bottom:20px;
+}
+
+.editor-container{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+width:90%;
+max-width:1200px;
+margin:auto;
+}
+
+textarea{
+width:100%;
+height:400px;
+background:#0f172a;
+color:#00ff99;
+border:none;
+border-radius:15px;
+padding:20px;
+font-family:monospace;
+font-size:15px;
+resize:none;
+}
+
+iframe{
+width:100%;
+height:400px;
+border:none;
+border-radius:15px;
+background:white;
+}
+
+button{
+background:#00c896;
+color:white;
+border:none;
+padding:14px 25px;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+display:block;
+margin:20px auto;
+}
+
+footer{
+background:#111827;
+color:white;
+text-align:center;
+padding:25px;
+margin-top:50px;
+}
+
+@media(max-width:900px){
+.editor-container{
+grid-template-columns:1fr;
+}
+
+header h1{
+font-size:30px;
+}
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Sencode HTML</h1>
+<p>Formation HTML complète</p>
+</header>
+
+<div class="container">
+
+<div class="lesson">
+<h2>Leçon 1 — Introduction au HTML</h2>
+<p>HTML signifie HyperText Markup Language.</p>
+<p>Il sert à créer la structure des pages web.</p>
+
+<pre>
+&lt;h1&gt;Bonjour&lt;/h1&gt;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 2 — Structure d'une page HTML</h2>
+
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Ma page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Bienvenue&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 3 — Les titres</h2>
+
+<pre>
+&lt;h1&gt;Titre 1&lt;/h1&gt;
+&lt;h2&gt;Titre 2&lt;/h2&gt;
+&lt;h3&gt;Titre 3&lt;/h3&gt;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 4 — Les paragraphes</h2>
+
+<pre>
+&lt;p&gt;Ceci est un paragraphe&lt;/p&gt;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 5 — Les liens</h2>
+
+<pre>
+&lt;a href="https://google.com"&gt;Google&lt;/a&gt;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 6 — Les images</h2>
+
+<pre>
+&lt;img src="image.jpg" width="300"&gt;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 7 — Les listes</h2>
+
+<pre>
+&lt;ul&gt;
+&lt;li&gt;HTML&lt;/li&gt;
+&lt;li&gt;CSS&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 8 — Les tableaux</h2>
+
+<pre>
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;th&gt;Nom&lt;/th&gt;
+&lt;th&gt;Âge&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Ali&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 9 — Les formulaires</h2>
+
+<pre>
+&lt;form&gt;
+&lt;input type="text" placeholder="Votre nom"&gt;
+&lt;button&gt;Envoyer&lt;/button&gt;
+&lt;/form&gt;
+</pre>
+</div>
+
+<div class="lesson">
+<h2>Leçon 10 — Les div</h2>
+
+<pre>
+&lt;div&gt;
+Contenu
+&lt;/div&gt;
+</pre>
+</div>
+
+</div>
+
+<section class="editor-section">
+<h2>Éditeur HTML Sencode</h2>
+
+<button onclick="runCode()">Exécuter le code</button>
+
+<div class="editor-container">
+<textarea id="editor">
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Bonjour Sencode</h1>
+<p>Bienvenue dans l'éditeur HTML.</p>
+</body>
+</html>
+</textarea>
+
+<iframe id="preview"></iframe>
+</div>
+</section>
+
+<footer>
+<p>© 2026 Sencode - Cours HTML</p>
+</footer>
+
+<script>
+function runCode(){
+const code = document.getElementById('editor').value;
+document.getElementById('preview').srcdoc = code;
+}
+
+runCode();
+</script>
+
+</body>
+</html>
