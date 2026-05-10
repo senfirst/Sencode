@@ -243,7 +243,114 @@ display:none;
 <h1>Bienvenue sur Sencode</h1>
 
 <p>Apprends le développement web gratuitement.</p>
+<!-- =========================
+BANNIÈRE COOKIES RGPD + CPRA
+Sencode.site
+========================= -->
 
+<div id="cookie-banner" class="cookie-banner">
+  <div class="cookie-content">
+    <h3>🍪 Respect de votre vie privée</h3>
+    
+    <p>
+      Sencode utilise des cookies pour améliorer votre expérience,
+      analyser le trafic et afficher des publicités via Google AdSense.
+      Vous pouvez accepter ou refuser les cookies non essentiels.
+    </p>
+
+    <div class="cookie-buttons">
+      <button id="accept-cookies">Accepter</button>
+      <button id="رفض-cookies" class="reject">Refuser</button>
+    </div>
+
+    <a href="/politique-confidentialite.html">
+      Voir la politique de confidentialité
+    </a>
+  </div>
+</div>
+
+<style>
+
+.cookie-banner{
+    position:fixed;
+    bottom:20px;
+    left:20px;
+    right:20px;
+    background:#111827;
+    color:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.4);
+    z-index:99999;
+    display:none;
+    max-width:600px;
+    margin:auto;
+    font-family:Arial,sans-serif;
+}
+
+.cookie-content h3{
+    margin-bottom:10px;
+    color:#00d4aa;
+}
+
+.cookie-content p{
+    line-height:1.6;
+    margin-bottom:15px;
+}
+
+.cookie-buttons{
+    display:flex;
+    gap:10px;
+    margin-bottom:10px;
+}
+
+.cookie-buttons button{
+    padding:10px 20px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+#accept-cookies{
+    background:#00d4aa;
+    color:white;
+}
+
+.reject{
+    background:#374151;
+    color:white;
+}
+
+.cookie-content a{
+    color:#00d4aa;
+    text-decoration:none;
+    font-size:14px;
+}
+
+</style>
+
+<script>
+
+const banner = document.getElementById("cookie-banner");
+
+if(!localStorage.getItem("cookieConsent")){
+    banner.style.display = "block";
+}
+
+document.getElementById("accept-cookies")
+.addEventListener("click", () => {
+    localStorage.setItem("cookieConsent","accepted");
+    banner.style.display = "none";
+});
+
+document.getElementById("رفض-cookies")
+.addEventListener("click", () => {
+    localStorage.setItem("cookieConsent","rejected");
+    banner.style.display = "none";
+});
+
+</script>
 <div class="search-box">
 <input type="text" placeholder="Rechercher un cours...">
 <button>
