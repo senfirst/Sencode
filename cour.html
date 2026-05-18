@@ -3,952 +3,2304 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Apprendre HTML - 50 Leçons</title>
-
+<title>Apprendre HTML — 50 Leçons</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial;
+:root {
+  --bg: #0b1220;
+  --surface: #111827;
+  --surface2: #1a2235;
+  --border: #253047;
+  --accent: #04AA6D;
+  --accent2: #3b82f6;
+  --text: #e2e8f0;
+  --text-muted: #7a90b0;
+  --green: #34d399;
+  --red: #f87171;
+  --code-bg: #070d18;
 }
 
-body{
-    background:#f1f1f1;
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-/* HEADER */
-
-.header{
-    background:#282A35;
-    color:white;
-    padding:20px;
-    font-size:30px;
-    font-weight:bold;
-    text-align:center;
+/* ─── HEADER ─── */
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
 }
 
-/* CONTAINER */
-
-.container{
-    display:flex;
-    height:calc(100vh - 80px);
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-/* LESSONS */
-
-.lessons{
-    width:50%;
-    overflow-y:auto;
-    background:white;
-    padding:25px;
+.logo-badge {
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
 }
 
-.lesson{
-    background:#fff;
-    border-left:5px solid #04AA6D;
-    padding:20px;
-    margin-bottom:25px;
-    border-radius:8px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+.progress-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--text-muted);
 }
 
-.lesson h2{
-    margin-bottom:15px;
-    color:#111;
+.progress-bar {
+  width: 160px;
+  height: 6px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
 }
 
-.lesson p{
-    margin-bottom:12px;
-    line-height:1.6;
-    color:#333;
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 99px;
+  transition: width 0.4s ease;
+  width: 0%;
 }
 
-/* CODE */
-
-pre{
-    background:#E7E9EB;
-    padding:15px;
-    border-radius:5px;
-    overflow:auto;
-    margin-top:10px;
+/* ─── LAYOUT ─── */
+.workspace {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
 }
 
-/* EDITOR */
-
-.editor-section{
-    width:50%;
-    background:#282A35;
-    padding:20px;
-    display:flex;
-    flex-direction:column;
+/* ─── SIDEBAR ─── */
+.sidebar {
+  width: 220px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  flex-shrink: 0;
+  padding: 12px 0;
 }
 
-.editor-title{
-    color:white;
-    margin-bottom:15px;
-    font-size:24px;
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.sidebar-section {
+  padding: 8px 14px 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
 }
 
-textarea{
-    width:100%;
-    height:300px;
-    border:none;
-    outline:none;
-    border-radius:5px;
-    padding:15px;
-    font-size:16px;
-    resize:none;
+.sidebar-item {
+  padding: 7px 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-left: 2px solid transparent;
+  transition: all 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* BUTTON */
+.sidebar-item:hover { color: var(--text); background: var(--surface2); }
+.sidebar-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(4,170,109,0.07); }
+.sidebar-item.done .num { background: var(--green); color: #000; }
 
-button{
-    margin-top:15px;
-    padding:14px;
-    background:#04AA6D;
-    border:none;
-    color:white;
-    font-size:18px;
-    border-radius:5px;
-    cursor:pointer;
-    transition:0.3s;
+.num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  background: var(--border);
+  color: var(--text-muted);
+  padding: 1px 5px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  min-width: 26px;
+  text-align: center;
 }
 
-button:hover{
-    background:#038857;
+/* ─── LESSON PANEL ─── */
+.lesson-panel {
+  flex: 1;
+  overflow-y: auto;
+  padding: 36px 40px;
+  max-width: 620px;
 }
 
-/* RESULT */
+.lesson-panel::-webkit-scrollbar { width: 4px; }
+.lesson-panel::-webkit-scrollbar-track { background: transparent; }
+.lesson-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-iframe{
-    margin-top:20px;
-    background:white;
-    flex:1;
-    border:none;
-    border-radius:5px;
+.lesson-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
 }
 
-/* MOBILE */
+.lesson-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
+}
+
+.lesson-desc {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-bottom: 20px;
+  line-height: 1.8;
+  color: var(--text);
+  font-size: 14.5px;
+}
+
+.lesson-desc p { margin-bottom: 10px; }
+.lesson-desc p:last-child { margin-bottom: 0; }
+.lesson-desc strong { color: var(--accent); font-weight: 600; }
+
+.lesson-desc code {
+  background: rgba(4,170,109,0.12);
+  color: #6ee7b7;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+}
+
+.lesson-desc .tip {
+  background: rgba(59,130,246,0.1);
+  border-left: 3px solid var(--accent2);
+  padding: 10px 14px;
+  border-radius: 0 6px 6px 0;
+  margin-top: 12px;
+  font-size: 13.5px;
+  color: #93c5fd;
+}
+
+.lesson-desc .warning {
+  background: rgba(248,113,113,0.1);
+  border-left: 3px solid var(--red);
+  padding: 10px 14px;
+  border-radius: 0 6px 6px 0;
+  margin-top: 12px;
+  font-size: 13.5px;
+  color: #fca5a5;
+}
+
+.code-block {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.code-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 16px;
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.try-btn {
+  background: rgba(4,170,109,0.15);
+  color: var(--accent);
+  border: 1px solid rgba(4,170,109,0.3);
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+
+.try-btn:hover { background: rgba(4,170,109,0.25); }
+
+code, pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13.5px;
+}
+
+.code-block pre {
+  padding: 18px 20px;
+  line-height: 1.7;
+  color: #e0e6f8;
+  overflow-x: auto;
+}
+
+.tag { color: #60a5fa; }
+.attr { color: #fbbf24; }
+.val  { color: #86efac; }
+.cmt  { color: #4b5563; font-style: italic; }
+
+.nav-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.nav-btn {
+  padding: 10px 20px;
+  border-radius: 7px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+
+.nav-btn.prev { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); }
+.nav-btn.prev:hover { color: var(--text); }
+.nav-btn.next { background: var(--accent); color: #fff; }
+.nav-btn.next:hover { background: #05c27d; transform: translateY(-1px); }
+
+/* ─── EDITOR ─── */
+.editor-panel {
+  width: 400px;
+  flex-shrink: 0;
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+}
+
+.editor-topbar {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.editor-topbar-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.run-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.run-btn:hover { background: #05c27d; transform: translateY(-1px); }
+
+textarea#editor {
+  flex: 1;
+  background: var(--code-bg);
+  color: #e0e6f8;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  resize: none;
+  outline: none;
+  min-height: 220px;
+  max-height: 300px;
+}
+
+.output-label {
+  padding: 8px 16px;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  letter-spacing: 0.5px;
+}
+
+iframe#result {
+  flex: 1;
+  border: none;
+  background: white;
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
 @media(max-width:900px){
-
-.container{
-    flex-direction:column;
-    height:auto;
-}
-
-.lessons,
-.editor-section{
-    width:100%;
-}
-
-iframe{
-    height:400px;
-}
-
+  .sidebar { display: none; }
+  .workspace { flex-direction: column; overflow: auto; height: auto; }
+  body { overflow: auto; height: auto; }
+  .lesson-panel { max-width: 100%; padding: 24px 20px; }
+  .editor-panel { width: 100%; border-left: none; border-top: 1px solid var(--border); }
+  textarea#editor { max-height: 200px; }
 }
 
 </style>
 </head>
-
 <body>
 
-<div class="header">
-    Apprendre HTML - 50 Leçons Complètes
-</div>
-
-<div class="container">
-
-<!-- ========================= -->
-<!-- LESSONS -->
-<!-- ========================= -->
-
-<div class="lessons">
-
-<!-- LEÇON 1 -->
-
-<div class="lesson">
-<h2>Leçon 1 : Les Titres</h2>
-
-<p>
-Les titres permettent d’organiser une page web.
-Ils vont de h1 à h6.
-Le h1 représente le titre principal.
-</p>
-
-<pre>
-&lt;h1&gt;Titre Principal&lt;/h1&gt;
-&lt;h2&gt;Sous titre&lt;/h2&gt;
-</pre>
-</div>
-
-<!-- LEÇON 2 -->
-
-<div class="lesson">
-<h2>Leçon 2 : Les Paragraphes</h2>
-
-<p>
-La balise p sert à écrire du texte.
-Chaque paragraphe possède automatiquement un espace.
-</p>
-
-<pre>
-&lt;p&gt;Bonjour le monde&lt;/p&gt;
-</pre>
-</div>
-
-<!-- LEÇON 3 -->
-
-<div class="lesson">
-<h2>Leçon 3 : Les Liens</h2>
-
-<p>
-Les liens permettent d’ouvrir une autre page web.
-La balise utilisée est a.
-</p>
-
-<pre>
-&lt;a href="https://google.com"&gt;
-Google
-&lt;/a&gt;
-</pre>
-</div>
-
-<!-- LEÇON 4 -->
-
-<div class="lesson">
-<h2>Leçon 4 : Les Images</h2>
-
-<p>
-La balise img permet d’afficher des images.
-L’attribut src contient le chemin de l’image.
-</p>
-
-<pre>
-&lt;img src="photo.jpg"&gt;
-</pre>
-</div>
-
-<!-- LEÇON 5 -->
-
-<div class="lesson">
-<h2>Leçon 5 : Les Boutons</h2>
-
-<p>
-Les boutons servent à effectuer des actions.
-</p>
-
-<pre>
-&lt;button&gt;Clique ici&lt;/button&gt;
-</pre>
-</div>
-
-<!-- LEÇON 6 -->
-
-<div class="lesson">
-<h2>Leçon 6 : Les Listes</h2>
-
-<p>
-Les listes servent à organiser plusieurs éléments.
-</p>
-
-<pre>
-&lt;ul&gt;
-&lt;li&gt;HTML&lt;/li&gt;
-&lt;li&gt;CSS&lt;/li&gt;
-&lt;/ul&gt;
-</pre>
-</div>
-
-<!-- LEÇON 7 -->
-
-<div class="lesson">
-<h2>Leçon 7 : Les Tableaux</h2>
-
-<p>
-Les tableaux affichent des données en lignes et colonnes.
-</p>
-
-<pre>
-&lt;table border="1"&gt;
-&lt;tr&gt;
-&lt;td&gt;Nom&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-</pre>
-</div>
-
-<!-- LEÇON 8 -->
-
-<div class="lesson">
-<h2>Leçon 8 : Les Formulaires</h2>
-
-<p>
-Les formulaires permettent d’envoyer des informations.
-</p>
-
-<pre>
-&lt;form&gt;
-&lt;input type="text"&gt;
-&lt;/form&gt;
-</pre>
-</div>
-
-<!-- LEÇON 9 -->
-
-<div class="lesson">
-<h2>Leçon 9 : Les Inputs</h2>
-
-<p>
-Les inputs servent à saisir des données.
-</p>
-
-<pre>
-&lt;input type="email"&gt;
-</pre>
-</div>
-
-<!-- LEÇON 10 -->
-
-<div class="lesson">
-<h2>Leçon 10 : Les Vidéos</h2>
-
-<p>
-HTML permet d’ajouter des vidéos.
-</p>
-
-<pre>
-&lt;video controls&gt;
-&lt;/video&gt;
-</pre>
-</div>
-
-<!-- LEÇON 11 -->
-
-<div class="lesson">
-<h2>Leçon 11 : Les Audios</h2>
-
-<p>
-La balise audio sert à lire du son.
-</p>
-
-<pre>
-&lt;audio controls&gt;
-&lt;/audio&gt;
-</pre>
-</div>
-
-<!-- LEÇON 12 -->
-
-<div class="lesson">
-<h2>Leçon 12 : Les Div</h2>
-
-<p>
-Div sert à organiser les éléments d’une page.
-</p>
-
-<pre>
-&lt;div&gt;Contenu&lt;/div&gt;
-</pre>
-</div>
-
-<!-- LEÇON 13 -->
-
-<div class="lesson">
-<h2>Leçon 13 : Les Span</h2>
-
-<p>
-Span permet de modifier une petite partie du texte.
-</p>
-
-<pre>
-&lt;span&gt;Texte&lt;/span&gt;
-</pre>
-</div>
-
-<!-- LEÇON 14 -->
-
-<div class="lesson">
-<h2>Leçon 14 : Les Classes</h2>
-
-<p>
-Les classes servent à cibler des éléments avec CSS.
-</p>
-
-<pre>
-&lt;div class="box"&gt;&lt;/div&gt;
-</pre>
-</div>
-
-<!-- LEÇON 15 -->
-
-<div class="lesson">
-<h2>Leçon 15 : Les IDs</h2>
-
-<p>
-Les IDs servent à identifier un élément unique.
-</p>
-
-<pre>
-&lt;div id="menu"&gt;&lt;/div&gt;
-</pre>
-</div>
-
-<!-- LEÇON 16 -->
-
-<div class="lesson">
-<h2>Leçon 16 : Les Commentaires</h2>
-
-<p>
-Les commentaires servent à écrire des notes dans le code.
-</p>
-
-<pre>
-&lt;!-- commentaire --&gt;
-</pre>
-</div>
-
-<!-- LEÇON 17 -->
-
-<div class="lesson">
-<h2>Leçon 17 : Strong</h2>
-
-<p>
-Strong met un texte en gras.
-</p>
-
-<pre>
-&lt;strong&gt;Texte&lt;/strong&gt;
-</pre>
-</div>
-
-<!-- LEÇON 18 -->
-
-<div class="lesson">
-<h2>Leçon 18 : Em</h2>
-
-<p>
-Em met un texte en italique.
-</p>
-
-<pre>
-&lt;em&gt;Texte&lt;/em&gt;
-</pre>
-</div>
-
-<!-- LEÇON 19 -->
-
-<div class="lesson">
-<h2>Leçon 19 : Br</h2>
-
-<p>
-Br crée un saut de ligne.
-</p>
-
-<pre>
-Bonjour&lt;br&gt;Monde
-</pre>
-</div>
-
-<!-- LEÇON 20 -->
-
-<div class="lesson">
-<h2>Leçon 20 : Hr</h2>
-
-<p>
-Hr crée une ligne horizontale.
-</p>
-
-<pre>
-&lt;hr&gt;
-</pre>
-</div>
-
-<!-- LEÇON 21 -->
-
-<div class="lesson">
-<h2>Leçon 21 : Section</h2>
-
-<p>
-Section organise les parties d’une page.
-</p>
-
-<pre>
-&lt;section&gt;&lt;/section&gt;
-</pre>
-</div>
-
-<!-- LEÇON 22 -->
-
-<div class="lesson">
-<h2>Leçon 22 : Header</h2>
-
-<p>
-Header représente l’en-tête du site.
-</p>
-
-<pre>
-&lt;header&gt;&lt;/header&gt;
-</pre>
-</div>
-
-<!-- LEÇON 23 -->
-
-<div class="lesson">
-<h2>Leçon 23 : Footer</h2>
-
-<p>
-Footer représente le pied de page.
-</p>
-
-<pre>
-&lt;footer&gt;&lt;/footer&gt;
-</pre>
-</div>
-
-<!-- LEÇON 24 -->
-
-<div class="lesson">
-<h2>Leçon 24 : Nav</h2>
-
-<p>
-Nav sert à créer un menu.
-</p>
-
-<pre>
-&lt;nav&gt;&lt;/nav&gt;
-</pre>
-</div>
-
-<!-- LEÇON 25 -->
-
-<div class="lesson">
-<h2>Leçon 25 : Article</h2>
-
-<p>
-Article représente un contenu indépendant.
-</p>
-
-<pre>
-&lt;article&gt;&lt;/article&gt;
-</pre>
-</div>
-
-<!-- LEÇON 26 -->
-
-<div class="lesson">
-<h2>Leçon 26 : Aside</h2>
-
-<p>
-Aside affiche un contenu secondaire.
-</p>
-
-<pre>
-&lt;aside&gt;&lt;/aside&gt;
-</pre>
-</div>
-
-<!-- LEÇON 27 -->
-
-<div class="lesson">
-<h2>Leçon 27 : Main</h2>
-
-<p>
-Main contient le contenu principal.
-</p>
-
-<pre>
-&lt;main&gt;&lt;/main&gt;
-</pre>
-</div>
-
-<!-- LEÇON 28 -->
-
-<div class="lesson">
-<h2>Leçon 28 : Small</h2>
-
-<p>
-Small affiche un texte plus petit.
-</p>
-
-<pre>
-&lt;small&gt;Texte&lt;/small&gt;
-</pre>
-</div>
-
-<!-- LEÇON 29 -->
-
-<div class="lesson">
-<h2>Leçon 29 : Mark</h2>
-
-<p>
-Mark surligne un texte.
-</p>
-
-<pre>
-&lt;mark&gt;Important&lt;/mark&gt;
-</pre>
-</div>
-
-<!-- LEÇON 30 -->
-
-<div class="lesson">
-<h2>Leçon 30 : Sup et Sub</h2>
-
-<p>
-Sup crée un exposant et Sub un indice.
-</p>
-
-<pre>
-X&lt;sup&gt;2&lt;/sup&gt;
-H&lt;sub&gt;2&lt;/sub&gt;O
-</pre>
-</div>
-
-<!-- LEÇON 31 -->
-
-<div class="lesson">
-<h2>Leçon 31 : Icônes</h2>
-
-<p>
-Les icônes améliorent le design du site.
-</p>
-
-<pre>
-&lt;i&gt;&lt;/i&gt;
-</pre>
-</div>
-
-<!-- LEÇON 32 -->
-
-<div class="lesson">
-<h2>Leçon 32 : Submit</h2>
-
-<p>
-Submit envoie un formulaire.
-</p>
-
-<pre>
-&lt;button type="submit"&gt;
-Envoyer
-&lt;/button&gt;
-</pre>
-</div>
-
-<!-- LEÇON 33 -->
-
-<div class="lesson">
-<h2>Leçon 33 : Checkbox</h2>
-
-<p>
-Checkbox permet plusieurs choix.
-</p>
-
-<pre>
-&lt;input type="checkbox"&gt;
-</pre>
-</div>
-
-<!-- LEÇON 34 -->
-
-<div class="lesson">
-<h2>Leçon 34 : Radio</h2>
-
-<p>
-Radio permet un seul choix.
-</p>
-
-<pre>
-&lt;input type="radio"&gt;
-</pre>
-</div>
-
-<!-- LEÇON 35 -->
-
-<div class="lesson">
-<h2>Leçon 35 : Select</h2>
-
-<p>
-Select crée une liste déroulante.
-</p>
-
-<pre>
-&lt;select&gt;&lt;/select&gt;
-</pre>
-</div>
-
-<!-- LEÇON 36 -->
-
-<div class="lesson">
-<h2>Leçon 36 : Option</h2>
-
-<p>
-Option représente un choix.
-</p>
-
-<pre>
-&lt;option&gt;HTML&lt;/option&gt;
-</pre>
-</div>
-
-<!-- LEÇON 37 -->
-
-<div class="lesson">
-<h2>Leçon 37 : Textarea</h2>
-
-<p>
-Textarea permet d’écrire de longs textes.
-</p>
-
-<pre>
-&lt;textarea&gt;&lt;/textarea&gt;
-</pre>
-</div>
-
-<!-- LEÇON 38 -->
-
-<div class="lesson">
-<h2>Leçon 38 : Label</h2>
-
-<p>
-Label nomme un champ de formulaire.
-</p>
-
-<pre>
-&lt;label&gt;Nom&lt;/label&gt;
-</pre>
-</div>
-
-<!-- LEÇON 39 -->
-
-<div class="lesson">
-<h2>Leçon 39 : Placeholder</h2>
-
-<p>
-Placeholder affiche un texte temporaire.
-</p>
-
-<pre>
-&lt;input placeholder="Votre nom"&gt;
-</pre>
-</div>
-
-<!-- LEÇON 40 -->
-
-<div class="lesson">
-<h2>Leçon 40 : Required</h2>
-
-<p>
-Required rend un champ obligatoire.
-</p>
-
-<pre>
-&lt;input required&gt;
-</pre>
-</div>
-
-<!-- LEÇON 41 -->
-
-<div class="lesson">
-<h2>Leçon 41 : Email</h2>
-
-<p>
-Email vérifie une adresse email.
-</p>
-
-<pre>
-&lt;input type="email"&gt;
-</pre>
-</div>
-
-<!-- LEÇON 42 -->
-
-<div class="lesson">
-<h2>Leçon 42 : Password</h2>
-
-<p>
-Password masque le texte saisi.
-</p>
-
-<pre>
-&lt;input type="password"&gt;
-</pre>
-</div>
-
-<!-- LEÇON 43 -->
-
-<div class="lesson">
-<h2>Leçon 43 : Number</h2>
-
-<p>
-Number permet uniquement les nombres.
-</p>
-
-<pre>
-&lt;input type="number"&gt;
-</pre>
-</div>
-
-<!-- LEÇON 44 -->
-
-<div class="lesson">
-<h2>Leçon 44 : Date</h2>
-
-<p>
-Date ouvre un calendrier.
-</p>
-
-<pre>
-&lt;input type="date"&gt;
-</pre>
-</div>
-
-<!-- LEÇON 45 -->
-
-<div class="lesson">
-<h2>Leçon 45 : Color</h2>
-
-<p>
-Color permet de choisir une couleur.
-</p>
-
-<pre>
-&lt;input type="color"&gt;
-</pre>
-</div>
-
-<!-- LEÇON 46 -->
-
-<div class="lesson">
-<h2>Leçon 46 : File</h2>
-
-<p>
-File importe un fichier.
-</p>
-
-<pre>
-&lt;input type="file"&gt;
-</pre>
-</div>
-
-<!-- LEÇON 47 -->
-
-<div class="lesson">
-<h2>Leçon 47 : Range</h2>
-
-<p>
-Range crée un curseur.
-</p>
-
-<pre>
-&lt;input type="range"&gt;
-</pre>
-</div>
-
-<!-- LEÇON 48 -->
-
-<div class="lesson">
-<h2>Leçon 48 : Progress</h2>
-
-<p>
-Progress crée une barre de progression.
-</p>
-
-<pre>
-&lt;progress value="50" max="100"&gt;
-&lt;/progress&gt;
-</pre>
-</div>
-
-<!-- LEÇON 49 -->
-
-<div class="lesson">
-<h2>Leçon 49 : Details</h2>
-
-<p>
-Details crée un contenu ouvrable.
-</p>
-
-<pre>
-&lt;details&gt;&lt;/details&gt;
-</pre>
-</div>
-
-<!-- LEÇON 50 -->
-
-<div class="lesson">
-<h2>Leçon 50 : Summary</h2>
-
-<p>
-Summary représente le titre d’un details.
-</p>
-
-<pre>
-&lt;summary&gt;Voir plus&lt;/summary&gt;
-</pre>
-</div>
-
-</div>
-
-<!-- ========================= -->
-<!-- EDITOR -->
-<!-- ========================= -->
-
-<div class="editor-section">
-
-<h2 class="editor-title">
-Essayez vous-même
-</h2>
-
-<textarea id="editor">
-
-<h1>Bonjour</h1>
-
-<p>
-Bienvenue sur mon site HTML
-</p>
-
-<button>
-Clique ici
-</button>
-
-</textarea>
-
-<button onclick="runCode()">
-Exécuter le code
-</button>
-
-<iframe id="result"></iframe>
-
-</div>
-
+<header>
+  <div class="logo">
+    <span>HTML<span style="color:var(--accent)">.</span>cours</span>
+    <span class="logo-badge">50 LEÇONS</span>
+  </div>
+  <div class="progress-bar-wrap">
+    <span id="progress-text">0 / 50</span>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+</header>
+
+<div class="workspace">
+  <div class="sidebar" id="sidebar"></div>
+  <div class="lesson-panel" id="lesson-panel"></div>
+  <div class="editor-panel">
+    <div class="editor-topbar">
+      <span class="editor-topbar-title">▶ playground.html</span>
+      <button class="run-btn" onclick="runCode()">⚡ Exécuter</button>
+    </div>
+    <textarea id="editor" spellcheck="false"><h1>Bonjour</h1>
+<p>Bienvenue sur mon site HTML</p>
+<button>Clique ici</button></textarea>
+    <div class="output-label">RÉSULTAT</div>
+    <iframe id="result"></iframe>
+  </div>
 </div>
 
 <script>
 
-function runCode(){
+const lessons = [
+  {
+    title: "Les Titres h1 à h6",
+    desc: `
+      <p>HTML propose <strong>six niveaux de titres</strong>, de <code>&lt;h1&gt;</code> à <code>&lt;h6&gt;</code>. Le <code>&lt;h1&gt;</code> est le plus important — c'est le titre principal de la page, le plus grand. Le <code>&lt;h6&gt;</code> est le plus petit.</p>
+      <p>Les titres ont deux rôles : la <strong>mise en page visuelle</strong> (hiérarchie du contenu) et le <strong>référencement SEO</strong> (Google les lit pour comprendre le sujet de la page).</p>
+      <p>Bonne pratique : utilisez <strong>un seul h1 par page</strong>, puis des h2 pour les sections, h3 pour les sous-sections, etc.</p>
+      <div class="tip">💡 N'utilisez pas les titres pour leur taille — utilisez CSS pour ça. Choisissez le niveau de titre selon la hiérarchie du contenu.</div>
+    `,
+    code: `<h1>Titre Principal (le plus grand)</h1>
+<h2>Section importante</h2>
+<h3>Sous-section</h3>
+<h4>Détail de section</h4>
+<h5>Sous-détail</h5>
+<h6>Le plus petit titre</h6>`,
+    starter: `<h1>Mon Blog</h1>
+<h2>Articles récents</h2>
+<h3>JavaScript pour débutants</h3>
+<p>Un article sur les bases du JS.</p>
+<h3>CSS avancé</h3>
+<p>Les techniques modernes de CSS.</p>`
+  },
+  {
+    title: "Les Paragraphes",
+    desc: `
+      <p>La balise <strong><code>&lt;p&gt;</code></strong> (paragraph) est la balise de base pour tout texte courant. Le navigateur ajoute automatiquement une marge au-dessus et en dessous de chaque paragraphe.</p>
+      <p>Un paragraphe s'ouvre avec <code>&lt;p&gt;</code> et se ferme avec <code>&lt;/p&gt;</code>. Tout le texte à l'intérieur forme un seul bloc.</p>
+      <p>Contrairement à ce qu'on pourrait croire, <strong>les retours à la ligne dans le code HTML sont ignorés</strong> par le navigateur. Pour forcer un saut de ligne, il faut utiliser la balise <code>&lt;br&gt;</code>.</p>
+      <div class="tip">💡 Structurez votre contenu en paragraphes courts et lisibles. Cela améliore la lecture et le SEO.</div>
+    `,
+    code: `<p>Premier paragraphe. Le navigateur ajoute
+automatiquement de l'espace entre les paragraphes.</p>
 
-let code =
-document.getElementById('editor').value;
+<p>Deuxième paragraphe. Même si le code
+est sur plusieurs lignes, tout reste collé.</p>`,
+    starter: `<h1>À propos de moi</h1>
+<p>Je m'appelle Aminata et j'apprends le développement web.</p>
+<p>J'habite à Dakar, au Sénégal. Je suis passionnée par le HTML et le CSS.</p>
+<p>Mon objectif est de créer de beaux sites web.</p>`
+  },
+  {
+    title: "Les Liens hypertexte",
+    desc: `
+      <p>La balise <strong><code>&lt;a&gt;</code></strong> (anchor = ancre) crée un lien cliquable. L'attribut <strong><code>href</code></strong> (Hypertext REFerence) indique la destination du lien.</p>
+      <p>L'attribut <strong><code>target="_blank"</code></strong> ouvre le lien dans un nouvel onglet. Sans cet attribut, la page s'ouvre dans le même onglet.</p>
+      <p>On peut faire un lien vers : une URL externe, un autre fichier HTML, une section de la même page (avec <code>#id</code>), ou même déclencher un email (<code>href="mailto:..."</code>).</p>
+      <div class="tip">💡 Ajoutez toujours <code>rel="noopener"</code> avec <code>target="_blank"</code> pour des raisons de sécurité : cela empêche la page ouverte d'accéder à votre page.</div>
+    `,
+    code: `<!-- Lien externe -->
+<a href="https://google.com">Visiter Google</a>
 
-let iframe =
-document.getElementById('result')
-.contentWindow.document;
+<!-- Nouveau onglet -->
+<a href="https://google.com" target="_blank">
+  Ouvrir dans un nouvel onglet
+</a>
 
-iframe.open();
+<!-- Lien email -->
+<a href="mailto:contact@exemple.com">Nous contacter</a>
 
-iframe.write(code);
+<!-- Lien vers section -->
+<a href="#contact">Aller à la section Contact</a>`,
+    starter: `<h1>Mes Liens Favoris</h1>
+<p>Voici quelques ressources utiles :</p>
+<ul>
+  <li><a href="https://developer.mozilla.org" target="_blank">MDN Web Docs</a></li>
+  <li><a href="https://www.w3schools.com" target="_blank">W3Schools</a></li>
+</ul>
+<p><a href="mailto:moi@exemple.com">Contactez-moi par email</a></p>`
+  },
+  {
+    title: "Les Images",
+    desc: `
+      <p>La balise <strong><code>&lt;img&gt;</code></strong> affiche une image. C'est une <strong>balise auto-fermante</strong> (pas de <code>&lt;/img&gt;</code>). Ses deux attributs essentiels sont <code>src</code> (le chemin de l'image) et <code>alt</code> (texte alternatif).</p>
+      <p>L'attribut <strong><code>alt</code></strong> est crucial : il s'affiche si l'image ne charge pas, est lu par les lecteurs d'écran pour les malvoyants, et aide le SEO. Ne le laissez jamais vide !</p>
+      <p>Les attributs <strong><code>width</code></strong> et <strong><code>height</code></strong> définissent la taille en pixels. Mais en pratique, on préfère utiliser CSS pour contrôler la taille.</p>
+      <div class="tip">💡 Utilisez des images légères pour votre site (format WebP ou JPEG compressé). Une image trop lourde ralentit le chargement.</div>
+    `,
+    code: `<!-- Image avec chemin relatif -->
+<img src="photo.jpg" alt="Ma photo de profil">
 
-iframe.close();
+<!-- Image avec URL externe -->
+<img src="https://picsum.photos/300/200" alt="Image aléatoire">
 
+<!-- Avec taille définie -->
+<img src="logo.png" alt="Logo" width="100" height="100">`,
+    starter: `<h1>Galerie Photos</h1>
+<img src="https://picsum.photos/400/200?random=1" alt="Paysage 1" width="400">
+<br><br>
+<img src="https://picsum.photos/400/200?random=2" alt="Paysage 2" width="400">
+<p>Des images chargées depuis internet.</p>`
+  },
+  {
+    title: "Les Boutons",
+    desc: `
+      <p>La balise <strong><code>&lt;button&gt;</code></strong> crée un bouton cliquable. Par défaut dans un formulaire, il soumet le formulaire. En dehors d'un formulaire, il ne fait rien sans JavaScript.</p>
+      <p>L'attribut <strong><code>type</code></strong> contrôle son comportement : <code>type="button"</code> (action JS), <code>type="submit"</code> (envoyer formulaire), <code>type="reset"</code> (vider le formulaire).</p>
+      <p>On peut mettre <strong>n'importe quoi à l'intérieur</strong> d'un bouton : texte, icônes, images. C'est plus flexible que <code>&lt;input type="button"&gt;</code>.</p>
+      <div class="tip">💡 Utilisez toujours <code>type="button"</code> si le bouton n'est pas dans un formulaire. Cela évite des comportements inattendus.</div>
+    `,
+    code: `<!-- Bouton simple -->
+<button>Clique ici</button>
+
+<!-- Bouton avec type -->
+<button type="button">Action JavaScript</button>
+
+<!-- Bouton désactivé -->
+<button disabled>Indisponible</button>
+
+<!-- Bouton avec style inline -->
+<button style="background:green; color:white; padding:10px">
+  Valider
+</button>`,
+    starter: `<h1>Mes Boutons</h1>
+<button style="background:#04AA6D;color:white;padding:10px 20px;border:none;border-radius:5px;font-size:16px;cursor:pointer">
+  ✅ Confirmer
+</button>
+<button style="background:#e74c3c;color:white;padding:10px 20px;border:none;border-radius:5px;font-size:16px;cursor:pointer;margin-left:10px">
+  ❌ Annuler
+</button>`
+  },
+  {
+    title: "Les Listes",
+    desc: `
+      <p>HTML propose deux types de listes : <strong><code>&lt;ul&gt;</code></strong> (unordered list = liste à puces) et <strong><code>&lt;ol&gt;</code></strong> (ordered list = liste numérotée). Dans les deux cas, chaque élément est une balise <strong><code>&lt;li&gt;</code></strong> (list item).</p>
+      <p>L'attribut <code>type</code> de <code>&lt;ol&gt;</code> permet de changer la numérotation : <code>type="A"</code> (lettres majuscules), <code>type="a"</code> (minuscules), <code>type="I"</code> (chiffres romains).</p>
+      <p>Les listes peuvent être <strong>imbriquées</strong> : une liste à l'intérieur d'un <code>&lt;li&gt;</code> pour créer des sous-listes.</p>
+      <div class="tip">💡 Les listes sont très utilisées pour les menus de navigation, les étapes d'un tutoriel, les ingrédients d'une recette, etc.</div>
+    `,
+    code: `<!-- Liste à puces -->
+<ul>
+  <li>HTML</li>
+  <li>CSS</li>
+  <li>JavaScript</li>
+</ul>
+
+<!-- Liste numérotée -->
+<ol>
+  <li>Apprendre HTML</li>
+  <li>Apprendre CSS</li>
+  <li>Apprendre JavaScript</li>
+</ol>`,
+    starter: `<h2>Compétences</h2>
+<ul>
+  <li>HTML5</li>
+  <li>CSS3</li>
+  <li>JavaScript</li>
+</ul>
+<h2>Étapes pour créer un site</h2>
+<ol>
+  <li>Créer la structure HTML</li>
+  <li>Ajouter le style CSS</li>
+  <li>Ajouter l'interactivité JS</li>
+  <li>Publier en ligne</li>
+</ol>`
+  },
+  {
+    title: "Les Tableaux",
+    desc: `
+      <p>Un tableau HTML utilise plusieurs balises imbriquées : <strong><code>&lt;table&gt;</code></strong> (conteneur), <strong><code>&lt;tr&gt;</code></strong> (table row = ligne), <strong><code>&lt;td&gt;</code></strong> (table data = cellule), et <strong><code>&lt;th&gt;</code></strong> (table header = en-tête, texte en gras et centré).</p>
+      <p>Pour une meilleure structure, on utilise <code>&lt;thead&gt;</code> pour l'en-tête, <code>&lt;tbody&gt;</code> pour le corps, et <code>&lt;tfoot&gt;</code> pour le pied de tableau.</p>
+      <p>Les attributs <strong><code>colspan</code></strong> et <strong><code>rowspan</code></strong> permettent de fusionner des cellules horizontalement ou verticalement.</p>
+      <div class="tip">💡 N'utilisez jamais les tableaux pour la mise en page (layout). Les tableaux sont uniquement pour les données tabulaires.</div>
+    `,
+    code: `<table border="1" style="border-collapse:collapse;width:100%">
+  <thead>
+    <tr>
+      <th style="padding:8px">Nom</th>
+      <th style="padding:8px">Note</th>
+      <th style="padding:8px">Mention</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding:8px">Fatou</td>
+      <td style="padding:8px">17/20</td>
+      <td style="padding:8px">Très Bien</td>
+    </tr>
+    <tr>
+      <td style="padding:8px">Moussa</td>
+      <td style="padding:8px">12/20</td>
+      <td style="padding:8px">Passable</td>
+    </tr>
+  </tbody>
+</table>`,
+    starter: `<h2>Planning de la semaine</h2>
+<table border="1" style="border-collapse:collapse;width:100%">
+  <tr style="background:#04AA6D;color:white">
+    <th style="padding:10px">Jour</th>
+    <th style="padding:10px">Cours</th>
+    <th style="padding:10px">Durée</th>
+  </tr>
+  <tr>
+    <td style="padding:8px">Lundi</td>
+    <td style="padding:8px">HTML</td>
+    <td style="padding:8px">2h</td>
+  </tr>
+  <tr>
+    <td style="padding:8px">Mardi</td>
+    <td style="padding:8px">CSS</td>
+    <td style="padding:8px">2h</td>
+  </tr>
+</table>`
+  },
+  {
+    title: "Les Formulaires",
+    desc: `
+      <p>La balise <strong><code>&lt;form&gt;</code></strong> est le conteneur de tous les champs de saisie. Ses deux attributs principaux sont <strong><code>action</code></strong> (URL où envoyer les données) et <strong><code>method</code></strong> (méthode d'envoi : GET ou POST).</p>
+      <p><code>method="GET"</code> ajoute les données dans l'URL (visible, pour les recherches). <code>method="POST"</code> envoie les données dans le corps de la requête (invisible, pour les mots de passe et données sensibles).</p>
+      <p>Chaque champ doit avoir un attribut <strong><code>name</code></strong> pour que le serveur puisse identifier la valeur reçue.</p>
+      <div class="warning">⚠️ N'envoyez jamais des mots de passe ou données sensibles en méthode GET — elles apparaissent en clair dans l'URL !</div>
+    `,
+    code: `<form action="/connexion" method="POST">
+  <label for="email">Email :</label>
+  <input type="email" id="email" name="email" required>
+
+  <label for="mdp">Mot de passe :</label>
+  <input type="password" id="mdp" name="mdp" required>
+
+  <button type="submit">Se connecter</button>
+</form>`,
+    starter: `<h2>Formulaire de Contact</h2>
+<form style="display:flex;flex-direction:column;gap:10px;max-width:400px">
+  <label>Votre nom :</label>
+  <input type="text" placeholder="Ex: Aminata Diallo" style="padding:8px;border:1px solid #ccc;border-radius:4px">
+  <label>Votre message :</label>
+  <textarea placeholder="Écrivez ici..." style="padding:8px;height:80px;border:1px solid #ccc;border-radius:4px"></textarea>
+  <button type="submit" style="background:#04AA6D;color:white;padding:10px;border:none;border-radius:4px;cursor:pointer">Envoyer</button>
+</form>`
+  },
+  {
+    title: "Les Champs Input",
+    desc: `
+      <p>La balise <strong><code>&lt;input&gt;</code></strong> est très polyvalente : son comportement change complètement selon la valeur de l'attribut <strong><code>type</code></strong>. C'est la balise la plus utilisée dans les formulaires.</p>
+      <p>Types courants : <code>text</code> (texte libre), <code>email</code> (valide le format), <code>password</code> (masqué), <code>number</code> (nombres), <code>search</code> (recherche), <code>tel</code> (téléphone), <code>url</code> (URL).</p>
+      <p>D'autres attributs utiles : <code>placeholder</code> (texte indicatif), <code>required</code> (obligatoire), <code>disabled</code> (désactivé), <code>readonly</code> (lecture seule), <code>maxlength</code> (longueur max).</p>
+      <div class="tip">💡 Utilisez toujours le bon type d'input : <code>type="email"</code> affiche un clavier adapté sur mobile et valide automatiquement le format.</div>
+    `,
+    code: `<input type="text" placeholder="Nom complet">
+<input type="email" placeholder="votre@email.com">
+<input type="password" placeholder="Mot de passe">
+<input type="number" min="0" max="100" placeholder="Âge">
+<input type="tel" placeholder="+221 77 000 00 00">
+<input type="search" placeholder="Rechercher...">`,
+    starter: `<h2>Inscription</h2>
+<div style="display:flex;flex-direction:column;gap:12px;max-width:350px">
+  <input type="text" placeholder="Prénom et Nom" style="padding:10px;border:1px solid #ccc;border-radius:5px;font-size:15px">
+  <input type="email" placeholder="Email" style="padding:10px;border:1px solid #ccc;border-radius:5px;font-size:15px">
+  <input type="password" placeholder="Mot de passe (min 8 caractères)" style="padding:10px;border:1px solid #ccc;border-radius:5px;font-size:15px">
+  <input type="number" placeholder="Âge" min="1" max="120" style="padding:10px;border:1px solid #ccc;border-radius:5px;font-size:15px">
+</div>`
+  },
+  {
+    title: "La Vidéo",
+    desc: `
+      <p>La balise <strong><code>&lt;video&gt;</code></strong> intègre une vidéo directement dans la page HTML5. L'attribut <strong><code>controls</code></strong> affiche les boutons de lecture. Sans lui, la vidéo s'affiche mais n'est pas contrôlable.</p>
+      <p>Autres attributs utiles : <code>autoplay</code> (lecture automatique), <code>loop</code> (répétition), <code>muted</code> (muet — requis pour l'autoplay dans la plupart des navigateurs), <code>poster</code> (image affichée avant lecture).</p>
+      <p>Pour la compatibilité, on peut mettre plusieurs balises <strong><code>&lt;source&gt;</code></strong> avec différents formats (mp4, webm, ogg).</p>
+      <div class="tip">💡 Pour des vidéos YouTube/Vimeo, utilisez plutôt la balise <code>&lt;iframe&gt;</code> avec le code embed fourni par la plateforme.</div>
+    `,
+    code: `<!-- Vidéo simple avec contrôles -->
+<video width="400" controls>
+  <source src="video.mp4" type="video/mp4">
+  Votre navigateur ne supporte pas la vidéo.
+</video>
+
+<!-- Vidéo avec options -->
+<video width="400" controls autoplay muted loop
+       poster="apercu.jpg">
+  <source src="video.mp4" type="video/mp4">
+</video>`,
+    starter: `<h2>Lecteur Vidéo</h2>
+<video width="400" controls style="border-radius:8px;display:block">
+  <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+  Votre navigateur ne supporte pas la vidéo HTML5.
+</video>
+<p style="color:gray;font-size:14px;margin-top:8px">Big Buck Bunny — Blender Foundation</p>`
+  },
+  {
+    title: "L'Audio",
+    desc: `
+      <p>La balise <strong><code>&lt;audio&gt;</code></strong> intègre du son dans une page HTML5. Comme pour la vidéo, l'attribut <strong><code>controls</code></strong> affiche le lecteur audio. Sans lui, le son sera invisible.</p>
+      <p>Les formats audio supportés varient selon les navigateurs : <code>mp3</code> (le plus universel), <code>ogg</code> (open source), <code>wav</code> (haute qualité, fichiers lourds).</p>
+      <p>Les mêmes attributs que <code>&lt;video&gt;</code> s'appliquent : <code>autoplay</code>, <code>loop</code>, <code>muted</code>, <code>preload</code> (none / metadata / auto).</p>
+      <div class="tip">💡 <code>preload="none"</code> est recommandé pour ne pas charger automatiquement le fichier audio et économiser la bande passante de l'utilisateur.</div>
+    `,
+    code: `<!-- Lecteur audio basique -->
+<audio controls>
+  <source src="musique.mp3" type="audio/mp3">
+  Votre navigateur ne supporte pas l'audio.
+</audio>
+
+<!-- Audio avec options -->
+<audio controls loop preload="none">
+  <source src="musique.mp3" type="audio/mpeg">
+  <source src="musique.ogg" type="audio/ogg">
+</audio>`,
+    starter: `<h2>Lecteur Audio</h2>
+<p>Extrait musical :</p>
+<audio controls style="width:100%;margin-top:10px">
+  <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+  Votre navigateur ne supporte pas l'audio HTML5.
+</audio>
+<p style="color:gray;font-size:13px">Son de cheval — exemple W3Schools</p>`
+  },
+  {
+    title: "La Div — Conteneur bloc",
+    desc: `
+      <p>La balise <strong><code>&lt;div&gt;</code></strong> (division) est un <strong>conteneur générique de type bloc</strong>. Elle n'a aucun style par défaut et occupe toute la largeur disponible. Son seul but est de <strong>regrouper et organiser</strong> d'autres éléments.</p>
+      <p>C'est la brique de base de la mise en page HTML. Avec CSS, on peut lui donner n'importe quelle apparence : card, section, grille, colonne, etc.</p>
+      <p>Chaque <code>&lt;div&gt;</code> commence sur une nouvelle ligne (comportement bloc). Pour un conteneur en ligne, on utilise <code>&lt;span&gt;</code>.</p>
+      <div class="tip">💡 Aujourd'hui on préfère les balises sémantiques (<code>section</code>, <code>article</code>, <code>header</code>...) aux div sans signification. Utilisez div quand aucune balise sémantique ne convient.</div>
+    `,
+    code: `<!-- Div comme card -->
+<div style="border:1px solid #ccc; padding:20px; 
+            border-radius:8px; max-width:300px;
+            box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+  <h3>Titre de la card</h3>
+  <p>Contenu de la card avec du texte.</p>
+  <button>En savoir plus</button>
+</div>`,
+    starter: `<!-- Deux colonnes avec des div -->
+<div style="display:flex;gap:20px">
+  <div style="flex:1;background:#e8f5e9;padding:20px;border-radius:8px">
+    <h3>Colonne 1</h3>
+    <p>Contenu de la première colonne.</p>
+  </div>
+  <div style="flex:1;background:#e3f2fd;padding:20px;border-radius:8px">
+    <h3>Colonne 2</h3>
+    <p>Contenu de la deuxième colonne.</p>
+  </div>
+</div>`
+  },
+  {
+    title: "Le Span — Conteneur en ligne",
+    desc: `
+      <p>La balise <strong><code>&lt;span&gt;</code></strong> est un <strong>conteneur générique de type inline</strong> (en ligne). Contrairement à <code>&lt;div&gt;</code>, elle ne crée pas de retour à la ligne — elle s'insère dans le flux du texte.</p>
+      <p>Son utilité principale est de <strong>cibler une portion de texte</strong> pour lui appliquer un style CSS ou la manipuler avec JavaScript, sans perturber la mise en page.</p>
+      <p>Exemples d'usage : colorier un mot, mettre en évidence un chiffre dans une phrase, ajouter une icône dans du texte.</p>
+      <div class="tip">💡 Règle simple : <code>&lt;div&gt;</code> pour des blocs entiers (sections, cards), <code>&lt;span&gt;</code> pour des mots ou parties de texte à l'intérieur d'une ligne.</div>
+    `,
+    code: `<p>
+  Le prix est de 
+  <span style="color:red; font-weight:bold">15 000 FCFA</span>
+  seulement !
+</p>
+
+<p>
+  Statut : 
+  <span style="background:green; color:white; 
+               padding:2px 8px; border-radius:10px">
+    En ligne
+  </span>
+</p>`,
+    starter: `<p>
+  Bonjour, je suis <span style="color:#04AA6D;font-weight:bold">Aminata</span>.
+  J'ai <span style="color:#3b82f6;font-weight:bold">22 ans</span> et j'habite à
+  <span style="background:#fef9c3;padding:0 4px">Dakar, Sénégal</span>.
+</p>
+<p>
+  Mon niveau HTML : 
+  <span style="background:#04AA6D;color:white;padding:2px 8px;border-radius:10px">
+    ⭐ Avancé
+  </span>
+</p>`
+  },
+  {
+    title: "L'attribut class",
+    desc: `
+      <p>L'attribut <strong><code>class</code></strong> permet d'assigner un ou plusieurs noms à un élément HTML pour le <strong>cibler en CSS ou en JavaScript</strong>. Plusieurs éléments peuvent partager la même classe.</p>
+      <p>En CSS, on cible une classe avec un <strong>point</strong> : <code>.ma-classe { color: red; }</code>. En JavaScript : <code>document.querySelector(".ma-classe")</code>.</p>
+      <p>Un élément peut avoir <strong>plusieurs classes</strong> séparées par des espaces : <code>class="bouton actif rouge"</code>. Chaque classe peut apporter ses propres styles.</p>
+      <div class="tip">💡 Nommez vos classes de façon descriptive et en minuscules avec des tirets : <code>card-titre</code>, <code>btn-primaire</code>, <code>nav-lien</code>.</div>
+    `,
+    code: `<style>
+  .carte {
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  .mis-en-avant {
+    border-color: #04AA6D;
+    background: #f0fff4;
+  }
+</style>
+
+<div class="carte">Carte normale</div>
+<div class="carte mis-en-avant">Carte mise en avant</div>`,
+    starter: `<style>
+  .badge { display:inline-block; padding:3px 10px; border-radius:12px; font-size:13px; font-weight:bold; }
+  .vert { background:#d1fae5; color:#065f46; }
+  .bleu { background:#dbeafe; color:#1e40af; }
+  .rouge { background:#fee2e2; color:#991b1b; }
+</style>
+<h2>Statuts</h2>
+<p>Commande 1 : <span class="badge vert">Livré</span></p>
+<p>Commande 2 : <span class="badge bleu">En cours</span></p>
+<p>Commande 3 : <span class="badge rouge">Annulé</span></p>`
+  },
+  {
+    title: "L'attribut id",
+    desc: `
+      <p>L'attribut <strong><code>id</code></strong> est un <strong>identifiant unique</strong> sur toute la page. Contrairement aux classes, deux éléments ne peuvent pas avoir le même id.</p>
+      <p>En CSS, on cible un id avec un <strong>dièse</strong> : <code>#mon-id { color: red; }</code>. En JavaScript : <code>document.getElementById("mon-id")</code> (plus performant que querySelector).</p>
+      <p>Un id sert aussi d'<strong>ancre de navigation</strong> : le lien <code>&lt;a href="#contact"&gt;</code> fait défiler la page jusqu'à l'élément avec <code>id="contact"</code>.</p>
+      <div class="tip">💡 Préférez les classes pour les styles CSS. Réservez les ids pour la navigation interne et les accès JavaScript spécifiques.</div>
+    `,
+    code: `<!-- Navigation interne -->
+<nav>
+  <a href="#accueil">Accueil</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<section id="accueil">
+  <h2>Bienvenue</h2>
+</section>
+
+<section id="contact">
+  <h2>Contactez-nous</h2>
+</section>`,
+    starter: `<nav style="background:#282A35;padding:12px;display:flex;gap:20px">
+  <a href="#section1" style="color:white;text-decoration:none">Section 1</a>
+  <a href="#section2" style="color:white;text-decoration:none">Section 2</a>
+</nav>
+<div id="section1" style="padding:40px;background:#f0fff4;margin:10px 0;border-radius:8px">
+  <h2>Section 1</h2>
+  <p>Contenu de la première section.</p>
+</div>
+<div id="section2" style="padding:40px;background:#eff6ff;margin:10px 0;border-radius:8px">
+  <h2>Section 2</h2>
+  <p>Contenu de la deuxième section.</p>
+</div>`
+  },
+  {
+    title: "Les Commentaires HTML",
+    desc: `
+      <p>Un <strong>commentaire HTML</strong> commence par <code>&lt;!--</code> et se termine par <code>--&gt;</code>. Tout ce qui se trouve entre ces deux balises est <strong>ignoré par le navigateur</strong> et n'apparaît pas sur la page.</p>
+      <p>Les commentaires servent à : expliquer le code pour les collègues ou soi-même, désactiver temporairement du code sans le supprimer, et marquer des sections dans de longs fichiers HTML.</p>
+      <div class="warning">⚠️ Les commentaires sont visibles dans le code source de la page (Ctrl+U). Ne mettez jamais de mots de passe, clés API ou informations sensibles dans un commentaire !</div>
+    `,
+    code: `<!-- Ceci est un commentaire -->
+
+<!-- Section navigation -->
+<nav>
+  <a href="/">Accueil</a>
+</nav>
+
+<!-- TODO: ajouter le menu mobile ici -->
+
+<!-- Ancien code désactivé :
+<div id="ancien-menu">
+  ...
+</div>
+-->`,
+    starter: `<!-- Page principale du site -->
+
+<!-- En-tête -->
+<header style="background:#282A35;color:white;padding:20px">
+  <h1>Mon Site Web</h1>
+  <!-- Le menu sera ajouté ici plus tard -->
+</header>
+
+<!-- Contenu principal -->
+<main style="padding:20px">
+  <h2>Bienvenue !</h2>
+  <p>Contenu principal de la page.</p>
+  <!-- TODO: ajouter les articles ici -->
+</main>
+
+<!-- Pied de page -->
+<footer style="background:#f1f1f1;padding:10px;text-align:center">
+  <p>© 2025 Mon Site</p>
+</footer>`
+  },
+  {
+    title: "Strong — Texte en gras",
+    desc: `
+      <p>La balise <strong><code>&lt;strong&gt;</code></strong> met un texte en <strong>gras</strong> tout en indiquant que ce texte est <strong>important sémantiquement</strong>. Les lecteurs d'écran vont accentuer la voix sur ce mot.</p>
+      <p>À ne pas confondre avec <code>&lt;b&gt;</code> qui met aussi en gras mais sans importance sémantique (juste pour le style). Préférez <code>&lt;strong&gt;</code> pour un texte vraiment important.</p>
+      <div class="tip">💡 Différence : <code>&lt;strong&gt;</code> = important (sens) + gras (visuel). <code>&lt;b&gt;</code> = gras uniquement (visuel). Pour le SEO et l'accessibilité, <code>&lt;strong&gt;</code> est préférable.</div>
+    `,
+    code: `<p>
+  Attention : <strong>Ce champ est obligatoire.</strong>
+</p>
+
+<p>
+  Le prix <strong>habituel</strong> est 5 000 FCFA.
+  Aujourd'hui : <strong>3 000 FCFA seulement !</strong>
+</p>
+
+<!-- b = gras sans importance sémantique -->
+<p>Résultat : <b>12/20</b></p>`,
+    starter: `<h2>Offre Spéciale</h2>
+<p>Ne manquez pas notre <strong>promotion exceptionnelle</strong> !</p>
+<p>Prix normal : <s>10 000 FCFA</s></p>
+<p>Prix promo : <strong style="color:#04AA6D;font-size:20px">6 500 FCFA</strong></p>
+<p><strong>Offre valable jusqu'au 31 décembre 2025.</strong></p>`
+  },
+  {
+    title: "Em — Texte en italique",
+    desc: `
+      <p>La balise <strong><code>&lt;em&gt;</code></strong> (emphasis = emphase) met un texte en <em>italique</em> et lui donne une <strong>emphase sémantique</strong> : le mot est prononcé différemment par les lecteurs d'écran.</p>
+      <p>Comme pour <code>&lt;strong&gt;</code>/<code>&lt;b&gt;</code>, il existe <code>&lt;i&gt;</code> pour l'italique purement visuel (termes techniques, mots étrangers, titres d'œuvres) sans emphase sémantique.</p>
+      <div class="tip">💡 <code>&lt;em&gt;</code> = emphase vocale (comme dire un mot avec insistance). <code>&lt;i&gt;</code> = italique visuel (mots techniques, étrangers, titres de livres).</div>
+    `,
+    code: `<p>
+  Tu dois <em>vraiment</em> essayer ce plat.
+</p>
+
+<p>
+  J'<em>adore</em> apprendre le HTML !
+</p>
+
+<!-- i pour termes techniques/étrangers -->
+<p>
+  Le <i>machine learning</i> est passionnant.
+</p>
+
+<p>
+  J'ai lu <i>Le Petit Prince</i> hier.
+</p>`,
+    starter: `<h2>Critique de Film</h2>
+<p>
+  Ce film est <em>absolument</em> magnifique. 
+  La réalisation est <em>époustouflante</em>.
+</p>
+<p>
+  C'est <em>sans doute</em> le meilleur film de 2024.
+</p>
+<p>
+  Titre original : <i>The Beautiful Mind</i>
+  (sorti en <i>2024</i>)
+</p>`
+  },
+  {
+    title: "Br — Saut de ligne",
+    desc: `
+      <p>La balise <strong><code>&lt;br&gt;</code></strong> (break) insère un <strong>saut de ligne</strong> dans le texte. C'est une balise auto-fermante (pas de balise de fermeture). Elle est différente d'un nouveau paragraphe : elle ne crée pas d'espace supplémentaire.</p>
+      <p>Utilisez <code>&lt;br&gt;</code> avec parcimonie — principalement pour les <strong>adresses postales</strong> et les <strong>poèmes</strong> où les sauts de ligne font partie du contenu.</p>
+      <div class="warning">⚠️ N'utilisez pas <code>&lt;br&gt;</code> pour créer des espaces entre les blocs. Pour ça, utilisez CSS (margin, padding). Le HTML structure, le CSS met en forme.</div>
+    `,
+    code: `<!-- Adresse postale -->
+<address>
+  Mamadou Diallo<br>
+  15 Rue de la Paix<br>
+  Dakar, Sénégal<br>
+  Tél : +221 77 000 0000
+</address>
+
+<!-- Poème -->
+<p>
+  Sous le soleil de Dakar<br>
+  Les enfants jouent<br>
+  La mer murmure
+</p>`,
+    starter: `<h2>Carte de Visite</h2>
+<p>
+  <strong>Aminata Diallo</strong><br>
+  Développeuse Web<br>
+  <em>aminata@exemple.com</em><br>
+  +221 77 123 45 67<br>
+  Dakar, Sénégal
+</p>`
+  },
+  {
+    title: "Hr — Ligne de séparation",
+    desc: `
+      <p>La balise <strong><code>&lt;hr&gt;</code></strong> (horizontal rule) insère une <strong>ligne horizontale de séparation</strong>. C'est une balise auto-fermante qui représente sémantiquement un <strong>changement de thème</strong> dans le contenu.</p>
+      <p>Par défaut, elle est grise et prend toute la largeur. Avec CSS, on peut personnaliser sa couleur, épaisseur, et largeur.</p>
+      <div class="tip">💡 <code>&lt;hr&gt;</code> a une signification sémantique : il marque une coupure thématique. Pour de simples lignes décoratives, préférez une div avec CSS : <code>border-top: 1px solid #ccc;</code>.</div>
+    `,
+    code: `<h2>Chapitre 1 : Les bases</h2>
+<p>Contenu du premier chapitre...</p>
+
+<hr>
+
+<h2>Chapitre 2 : Avancé</h2>
+<p>Contenu du deuxième chapitre...</p>
+
+<!-- Hr personnalisé en CSS -->
+<hr style="border:none; border-top:3px solid #04AA6D; margin:20px 0">`,
+    starter: `<h1>Mon CV</h1>
+
+<h2>Expérience</h2>
+<p>Développeuse web — 2 ans d'expérience</p>
+
+<hr style="border:none;border-top:2px solid #04AA6D;margin:15px 0">
+
+<h2>Compétences</h2>
+<p>HTML, CSS, JavaScript, React</p>
+
+<hr style="border:none;border-top:2px solid #04AA6D;margin:15px 0">
+
+<h2>Formation</h2>
+<p>Licence Informatique — Université de Dakar</p>`
+  },
+  {
+    title: "Section — Organisation sémantique",
+    desc: `
+      <p>La balise <strong><code>&lt;section&gt;</code></strong> représente une <strong>section thématique</strong> d'un document. Elle regroupe du contenu ayant un thème commun et commence généralement par un titre (<code>h2</code>, <code>h3</code>...).</p>
+      <p>C'est une balise <strong>sémantique</strong> : elle donne du sens au contenu, contrairement à <code>&lt;div&gt;</code> qui n'en a pas. Les moteurs de recherche et lecteurs d'écran comprennent qu'il s'agit d'une section distincte.</p>
+      <div class="tip">💡 Quand hésiter entre <code>section</code> et <code>div</code> : si le contenu peut avoir son propre titre, utilisez <code>section</code>. Sinon, <code>div</code>.</div>
+    `,
+    code: `<section>
+  <h2>À propos de nous</h2>
+  <p>Nous sommes une agence web basée à Dakar.</p>
+</section>
+
+<section>
+  <h2>Nos Services</h2>
+  <ul>
+    <li>Création de sites web</li>
+    <li>Design graphique</li>
+    <li>Applications mobiles</li>
+  </ul>
+</section>`,
+    starter: `<section style="padding:20px;margin-bottom:20px;background:#f8f9fa;border-radius:8px">
+  <h2>🎯 Notre Mission</h2>
+  <p>Rendre le développement web accessible à tous au Sénégal.</p>
+</section>
+
+<section style="padding:20px;margin-bottom:20px;background:#f0fff4;border-radius:8px">
+  <h2>📚 Nos Cours</h2>
+  <ul>
+    <li>HTML & CSS</li>
+    <li>JavaScript</li>
+    <li>React.js</li>
+  </ul>
+</section>`
+  },
+  {
+    title: "Header — En-tête de page",
+    desc: `
+      <p>La balise <strong><code>&lt;header&gt;</code></strong> représente l'<strong>en-tête</strong> d'une page ou d'une section. Elle contient généralement le logo, le titre du site, la navigation principale, et parfois un message d'accueil.</p>
+      <p>Il peut y avoir plusieurs <code>&lt;header&gt;</code> sur une page : un pour le site entier, et un par <code>&lt;article&gt;</code> ou <code>&lt;section&gt;</code> si nécessaire.</p>
+      <div class="tip">💡 Structure typique d'une page : <code>header</code> (logo + nav), <code>main</code> (contenu), <code>footer</code> (infos légales). C'est le trio de base de toute page web.</div>
+    `,
+    code: `<header style="background:#282A35; color:white; padding:20px">
+  <!-- Logo -->
+  <h1>MonSite.sn</h1>
+  
+  <!-- Navigation principale -->
+  <nav>
+    <a href="/" style="color:white; margin-right:15px">Accueil</a>
+    <a href="/blog" style="color:white; margin-right:15px">Blog</a>
+    <a href="/contact" style="color:white">Contact</a>
+  </nav>
+</header>`,
+    starter: `<header style="background:#1a1a2e;color:white;padding:16px 24px;display:flex;justify-content:space-between;align-items:center">
+  <div>
+    <span style="font-size:22px;font-weight:bold;color:#04AA6D">HTML</span>
+    <span style="font-size:22px;font-weight:bold">.cours</span>
+  </div>
+  <nav style="display:flex;gap:20px">
+    <a href="#" style="color:#ccc;text-decoration:none">Leçons</a>
+    <a href="#" style="color:#ccc;text-decoration:none">Exercices</a>
+    <a href="#" style="color:#04AA6D;text-decoration:none;font-weight:bold">Se connecter</a>
+  </nav>
+</header>
+<main style="padding:30px">
+  <h2>Bienvenue dans le cours HTML</h2>
+  <p>50 leçons pour apprendre le HTML.</p>
+</main>`
+  },
+  {
+    title: "Footer — Pied de page",
+    desc: `
+      <p>La balise <strong><code>&lt;footer&gt;</code></strong> représente le <strong>pied de page</strong>. On y trouve généralement : les informations légales (copyright), les liens de navigation secondaires, les coordonnées, les liens réseaux sociaux.</p>
+      <p>Comme <code>&lt;header&gt;</code>, il peut y avoir plusieurs <code>&lt;footer&gt;</code> : un pour la page entière et un par article ou section si nécessaire.</p>
+      <div class="tip">💡 Un footer bien fait améliore la crédibilité d'un site. Incluez toujours les mentions légales, la politique de confidentialité et les informations de contact.</div>
+    `,
+    code: `<footer style="background:#282A35; color:white; 
+              padding:30px; text-align:center">
+  <p>À propos • Contact • CGU • Confidentialité</p>
+  
+  <hr style="border-color:#444; margin:15px 0">
+  
+  <p style="color:#888">
+    © 2025 MonSite.sn — Tous droits réservés
+  </p>
+</footer>`,
+    starter: `<footer style="background:#111827;color:#9ca3af;padding:30px 20px;margin-top:20px">
+  <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px">
+    <div>
+      <h3 style="color:white;margin-bottom:10px">HTML.cours</h3>
+      <p>Apprenez le HTML gratuitement.</p>
+    </div>
+    <div>
+      <h4 style="color:white;margin-bottom:10px">Liens</h4>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <a href="#" style="color:#9ca3af;text-decoration:none">Leçons</a>
+        <a href="#" style="color:#9ca3af;text-decoration:none">Exercices</a>
+        <a href="#" style="color:#9ca3af;text-decoration:none">Contact</a>
+      </div>
+    </div>
+  </div>
+  <hr style="border-color:#374151;margin:20px 0">
+  <p style="text-align:center">© 2025 HTML.cours — Tous droits réservés</p>
+</footer>`
+  },
+  {
+    title: "Nav — Menu de navigation",
+    desc: `
+      <p>La balise <strong><code>&lt;nav&gt;</code></strong> contient les liens de <strong>navigation principale</strong> d'une page (menu principal, pagination, fil d'ariane). Elle indique aux moteurs de recherche et aux lecteurs d'écran qu'il s'agit d'une zone de navigation.</p>
+      <p>On ne met pas <em>tous</em> les liens dans un <code>&lt;nav&gt;</code> — seulement les liens de navigation importants. Les liens dans un footer, par exemple, n'ont pas forcément besoin d'être dans un <code>&lt;nav&gt;</code>.</p>
+      <div class="tip">💡 Combinez <code>&lt;nav&gt;</code> avec une liste <code>&lt;ul&gt;</code> pour une meilleure accessibilité et sémantique : les lecteurs d'écran annoncent "liste de navigation".</div>
+    `,
+    code: `<nav style="background:#333; padding:12px 20px">
+  <ul style="list-style:none; display:flex; gap:20px; margin:0">
+    <li>
+      <a href="/" style="color:white; text-decoration:none">Accueil</a>
+    </li>
+    <li>
+      <a href="/cours" style="color:white; text-decoration:none">Cours</a>
+    </li>
+    <li>
+      <a href="/contact" style="color:#04AA6D; text-decoration:none; font-weight:bold">Contact</a>
+    </li>
+  </ul>
+</nav>`,
+    starter: `<nav style="background:#04AA6D;padding:14px 20px;display:flex;justify-content:space-between;align-items:center">
+  <strong style="color:white;font-size:18px">MonBlog</strong>
+  <ul style="list-style:none;display:flex;gap:20px;margin:0">
+    <li><a href="#" style="color:white;text-decoration:none">🏠 Accueil</a></li>
+    <li><a href="#" style="color:white;text-decoration:none">📝 Articles</a></li>
+    <li><a href="#" style="color:white;text-decoration:none">🙋 À propos</a></li>
+    <li><a href="#" style="color:white;text-decoration:none">✉️ Contact</a></li>
+  </ul>
+</nav>
+<main style="padding:20px">
+  <h2>Bienvenue sur mon blog</h2>
+</main>`
+  },
+  {
+    title: "Article — Contenu autonome",
+    desc: `
+      <p>La balise <strong><code>&lt;article&gt;</code></strong> représente un <strong>contenu indépendant et autonome</strong> : un article de blog, un commentaire, une fiche produit, un post de réseau social. Il doit avoir du sens même s'il est extrait de la page.</p>
+      <p>La différence avec <code>&lt;section&gt;</code> : une section fait partie d'un tout (chapitres d'un livre), un article est complet en lui-même (un article de journal peut être republié tel quel).</p>
+      <div class="tip">💡 Les articles peuvent être imbriqués : un article peut contenir des sous-articles (article principal + commentaires).</div>
+    `,
+    code: `<article style="border:1px solid #e2e8f0; padding:20px; 
+               border-radius:8px; margin-bottom:20px">
+  <header>
+    <h2>Titre de l'article</h2>
+    <p style="color:gray; font-size:13px">
+      Publié le <time datetime="2025-01-15">15 janvier 2025</time>
+      par <strong>Aminata Diallo</strong>
+    </p>
+  </header>
+  
+  <p>Contenu de l'article...</p>
+  
+  <footer>
+    <a href="/article-1">Lire la suite →</a>
+  </footer>
+</article>`,
+    starter: `<article style="max-width:600px;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;margin:20px auto">
+  <img src="https://picsum.photos/600/200?random=5" alt="Illustration" style="width:100%;display:block">
+  <div style="padding:20px">
+    <h2>Apprendre le HTML en 2025</h2>
+    <p style="color:gray;font-size:13px">📅 15 janvier 2025 • ✍️ Moussa Diallo</p>
+    <p style="margin:10px 0">Le HTML reste la fondation de tout site web. Voici pourquoi vous devriez l'apprendre dès aujourd'hui...</p>
+    <a href="#" style="color:#04AA6D;font-weight:bold;text-decoration:none">Lire la suite →</a>
+  </div>
+</article>`
+  },
+  {
+    title: "Aside — Contenu secondaire",
+    desc: `
+      <p>La balise <strong><code>&lt;aside&gt;</code></strong> représente un contenu <strong>indirectement lié</strong> au contenu principal : une barre latérale, des liens connexes, une publicité, une biographie de l'auteur, des notes annexes.</p>
+      <p>Elle peut être placée à l'intérieur d'un article (note de bas de page) ou à côté du contenu principal (sidebar).</p>
+      <div class="tip">💡 Les moteurs de recherche donnent moins d'importance au contenu dans un <code>&lt;aside&gt;</code>. Mettez uniquement du contenu secondaire dedans, jamais votre contenu principal.</div>
+    `,
+    code: `<div style="display:flex; gap:20px">
+  <!-- Contenu principal -->
+  <main style="flex:1">
+    <h2>Article principal</h2>
+    <p>Contenu de l'article ici...</p>
+  </main>
+
+  <!-- Barre latérale -->
+  <aside style="width:250px; background:#f8f9fa; 
+                padding:15px; border-radius:8px">
+    <h3>Articles liés</h3>
+    <ul>
+      <li><a href="#">CSS Flexbox</a></li>
+      <li><a href="#">CSS Grid</a></li>
+    </ul>
+  </aside>
+</div>`,
+    starter: `<div style="display:flex;gap:20px">
+  <main style="flex:1;padding:20px;background:white;border-radius:8px">
+    <h2>Les bases du HTML</h2>
+    <p>HTML (HyperText Markup Language) est le langage de base du web. Il structure le contenu des pages.</p>
+    <p>Apprenez les balises essentielles pour créer vos premières pages web.</p>
+  </main>
+  <aside style="width:200px;padding:15px;background:#fffbeb;border-radius:8px;border:1px solid #fde68a">
+    <h3 style="color:#92400e;font-size:14px">💡 Le saviez-vous ?</h3>
+    <p style="font-size:13px">HTML a été créé en 1991 par Tim Berners-Lee.</p>
+    <hr style="margin:10px 0">
+    <h3 style="color:#92400e;font-size:14px">📚 Aussi utile</h3>
+    <ul style="font-size:13px;padding-left:15px">
+      <li><a href="#">CSS</a></li>
+      <li><a href="#">JavaScript</a></li>
+    </ul>
+  </aside>
+</div>`
+  },
+  {
+    title: "Main — Contenu principal",
+    desc: `
+      <p>La balise <strong><code>&lt;main&gt;</code></strong> contient le <strong>contenu principal unique</strong> de la page. Il ne doit y avoir <strong>qu'un seul <code>&lt;main&gt;</code></strong> par page, et il ne doit pas contenir le header, la nav, le footer ou d'autres éléments répétés sur chaque page.</p>
+      <p>Elle aide les lecteurs d'écran à sauter directement au contenu principal (via le raccourci "skip to main content").</p>
+      <div class="tip">💡 Structure idéale : <code>body</code> → <code>header</code>, <code>nav</code>, <code>main</code> (contenu unique), <code>footer</code>. Simple, sémantique, accessible.</div>
+    `,
+    code: `<body>
+  <header>
+    <h1>MonSite.sn</h1>
+    <nav>...</nav>
+  </header>
+
+  <!-- Contenu unique à cette page -->
+  <main>
+    <h2>Accueil</h2>
+    <p>Bienvenue sur notre site !</p>
+    <section>...</section>
+    <article>...</article>
+  </main>
+
+  <footer>© 2025</footer>
+</body>`,
+    starter: `<header style="background:#282A35;color:white;padding:15px 20px">
+  <h1>MonSite.sn</h1>
+  <nav style="margin-top:8px">
+    <a href="#" style="color:white;margin-right:15px">Accueil</a>
+    <a href="#" style="color:white">Blog</a>
+  </nav>
+</header>
+
+<main style="padding:30px;max-width:700px;margin:0 auto">
+  <h2>Derniers Articles</h2>
+  <article style="background:#f8f9fa;padding:15px;border-radius:8px;margin-bottom:15px">
+    <h3>Article 1</h3>
+    <p>Description de l'article 1...</p>
+  </article>
+  <article style="background:#f8f9fa;padding:15px;border-radius:8px">
+    <h3>Article 2</h3>
+    <p>Description de l'article 2...</p>
+  </article>
+</main>
+
+<footer style="background:#f1f1f1;text-align:center;padding:15px">
+  <p>© 2025 MonSite.sn</p>
+</footer>`
+  },
+  {
+    title: "Small — Texte secondaire",
+    desc: `
+      <p>La balise <strong><code>&lt;small&gt;</code></strong> représente des informations <strong>secondaires ou accessoires</strong> : mentions légales, droits d'auteur, avertissements, notes de bas de page. Le texte est affiché plus petit.</p>
+      <p>Sémantiquement, <code>&lt;small&gt;</code> signifie "petits caractères" au sens légal et commercial (comme les astérisques et conditions dans les publicités).</p>
+      <div class="tip">💡 Utilisez <code>&lt;small&gt;</code> pour ce qui est secondaire dans le sens éditorial (pas juste pour réduire la taille). Pour réduire la taille visuellement, utilisez CSS.</div>
+    `,
+    code: `<p>
+  Prix : 15 000 FCFA
+  <small>(TVA incluse)</small>
+</p>
+
+<p>
+  <small>
+    * Cette offre est valable sous réserve 
+    de disponibilité des stocks.
+  </small>
+</p>
+
+<footer>
+  <small>© 2025 MonSite — Tous droits réservés</small>
+</footer>`,
+    starter: `<div style="background:white;border:1px solid #e2e8f0;padding:20px;border-radius:8px;max-width:350px">
+  <h2>Abonnement Premium</h2>
+  <p style="font-size:28px;font-weight:bold;color:#04AA6D">5 000 FCFA<small style="font-size:16px;color:gray">/mois</small></p>
+  <ul style="margin:10px 0;padding-left:20px">
+    <li>Accès illimité</li>
+    <li>Téléchargements HD</li>
+    <li>Support prioritaire</li>
+  </ul>
+  <button style="background:#04AA6D;color:white;padding:10px 20px;border:none;border-radius:5px;cursor:pointer;width:100%">S'abonner</button>
+  <p><small>* Sans engagement. Résiliable à tout moment.</small></p>
+</div>`
+  },
+  {
+    title: "Mark — Texte surligné",
+    desc: `
+      <p>La balise <strong><code>&lt;mark&gt;</code></strong> surligne du texte en <mark style="background:yellow">jaune</mark> par défaut, pour indiquer un <strong>passage pertinent</strong> ou qui mérite l'attention du lecteur, comme les résultats d'une recherche mis en évidence.</p>
+      <p>C'est différent de <code>&lt;strong&gt;</code> (importance) ou <code>&lt;em&gt;</code> (emphase) : <code>&lt;mark&gt;</code> signifie "pertinent dans ce contexte" (comme un marqueur fluorescent sur un document).</p>
+      <div class="tip">💡 Les moteurs de recherche utilisent mark pour indiquer les termes correspondant à votre recherche dans les aperçus. Vous le voyez souvent dans les résultats de recherche !</div>
+    `,
+    code: `<!-- Résultat de recherche -->
+<p>
+  Vous avez recherché "HTML" :
+</p>
+<p>
+  Le <mark>HTML</mark> est le langage de base du web.
+  Le <mark>HTML</mark>5 introduit de nouvelles balises.
+</p>
+
+<!-- Mark personnalisé -->
+<p>
+  <mark style="background:#bbf7d0; color:#14532d">
+    Point important à retenir
+  </mark>
+</p>`,
+    starter: `<h2>Résultats pour : "développement web"</h2>
+<article style="padding:15px;border:1px solid #e2e8f0;border-radius:8px;margin-bottom:10px">
+  <h3>Apprendre le <mark>développement web</mark> en 2025</h3>
+  <p>Guide complet pour démarrer dans le <mark>développement web</mark>. HTML, CSS et JavaScript expliqués simplement.</p>
+</article>
+<article style="padding:15px;border:1px solid #e2e8f0;border-radius:8px">
+  <h3>Les métiers du <mark>développement web</mark></h3>
+  <p>Découvrez les opportunités de carrière dans le <mark>développement web</mark> au Sénégal.</p>
+</article>`
+  },
+  {
+    title: "Sup et Sub — Exposant et Indice",
+    desc: `
+      <p><strong><code>&lt;sup&gt;</code></strong> (superscript) affiche le texte en <strong>exposant</strong> (en haut, plus petit). <strong><code>&lt;sub&gt;</code></strong> (subscript) affiche en <strong>indice</strong> (en bas, plus petit).</p>
+      <p>Ces balises sont essentielles pour les formules mathématiques (x², x³), les formules chimiques (H₂O, CO₂), les notes de bas de page (référence¹), les ordinals (1ᵉʳ, 2ᵉ).</p>
+      <div class="tip">💡 Pour des mathématiques avancées, regardez MathJax ou KaTeX, des bibliothèques dédiées qui permettent d'afficher des formules complexes sur le web.</div>
+    `,
+    code: `<!-- Mathématiques -->
+<p>Théorème de Pythagore : a<sup>2</sup> + b<sup>2</sup> = c<sup>2</sup></p>
+<p>Volume d'un cube : V = a<sup>3</sup></p>
+
+<!-- Chimie -->
+<p>L'eau : H<sub>2</sub>O</p>
+<p>Dioxyde de carbone : CO<sub>2</sub></p>
+
+<!-- Notes de bas de page -->
+<p>Cette étude<sup>1</sup> montre que...</p>
+
+<!-- Ordinal -->
+<p>1<sup>er</sup> prix, 2<sup>e</sup> place</p>`,
+    starter: `<h2>Formules Scientifiques</h2>
+<table border="1" style="border-collapse:collapse;width:100%">
+  <tr style="background:#e8f5e9">
+    <th style="padding:8px">Formule</th>
+    <th style="padding:8px">Notation HTML</th>
+  </tr>
+  <tr>
+    <td style="padding:8px">Eau</td>
+    <td style="padding:8px">H<sub>2</sub>O</td>
+  </tr>
+  <tr>
+    <td style="padding:8px">Pythagore</td>
+    <td style="padding:8px">a<sup>2</sup> + b<sup>2</sup> = c<sup>2</sup></td>
+  </tr>
+  <tr>
+    <td style="padding:8px">10 au carré</td>
+    <td style="padding:8px">10<sup>2</sup> = 100</td>
+  </tr>
+</table>`
+  },
+  {
+    title: "Icônes avec des emojis et Unicode",
+    desc: `
+      <p>HTML peut afficher des <strong>icônes de plusieurs façons</strong>. La méthode la plus simple : les <strong>emojis</strong>, disponibles nativement sur tous les navigateurs modernes. Pour des icônes professionnelles, on utilise des bibliothèques comme <strong>Font Awesome</strong>.</p>
+      <p>Les caractères Unicode spéciaux s'écrivent avec leur code HTML : <code>&amp;#9733;</code> = ★, <code>&amp;#9829;</code> = ♥, <code>&amp;#10003;</code> = ✓.</p>
+      <div class="tip">💡 Font Awesome est la bibliothèque d'icônes la plus populaire. On l'importe avec une balise link et on utilise des classes comme <code>fa-home</code>, <code>fa-user</code>, etc.</div>
+    `,
+    code: `<!-- Emojis directement dans le texte -->
+<p>🏠 Accueil | 👤 Profil | ⚙️ Paramètres</p>
+
+<!-- Caractères spéciaux HTML -->
+<p>Note : ★★★★☆ (4/5)</p>
+<p>J'aime le HTML ♥</p>
+<p>✓ Terminé | ✗ Incomplet</p>
+
+<!-- Icône dans un bouton -->
+<button>🚀 Lancer le projet</button>`,
+    starter: `<h2>Tableau de bord</h2>
+<div style="display:flex;gap:15px;flex-wrap:wrap">
+  <div style="background:#dcfce7;padding:20px;border-radius:10px;text-align:center;min-width:120px">
+    <div style="font-size:32px">📊</div>
+    <div style="font-weight:bold;margin-top:5px">Statistiques</div>
+  </div>
+  <div style="background:#dbeafe;padding:20px;border-radius:10px;text-align:center;min-width:120px">
+    <div style="font-size:32px">👥</div>
+    <div style="font-weight:bold;margin-top:5px">Utilisateurs</div>
+  </div>
+  <div style="background:#fef9c3;padding:20px;border-radius:10px;text-align:center;min-width:120px">
+    <div style="font-size:32px">💬</div>
+    <div style="font-weight:bold;margin-top:5px">Messages</div>
+  </div>
+</div>`
+  },
+  {
+    title: "Submit — Envoyer un formulaire",
+    desc: `
+      <p>Le bouton <strong><code>type="submit"</code></strong> soumet les données du formulaire à l'URL définie dans l'attribut <code>action</code> du <code>&lt;form&gt;</code>. C'est le déclencheur de l'envoi.</p>
+      <p>L'attribut <strong><code>value</code></strong> de <code>&lt;input type="submit"&gt;</code> définit le texte du bouton. Pour <code>&lt;button type="submit"&gt;</code>, le texte est directement entre les balises (plus flexible).</p>
+      <div class="tip">💡 Pour empêcher l'envoi d'un formulaire avec JavaScript (pour valider avant d'envoyer), utilisez <code>event.preventDefault()</code> dans le listener du submit.</div>
+    `,
+    code: `<form action="/inscription" method="POST">
+  <input type="text" name="nom" placeholder="Votre nom">
+  <input type="email" name="email" placeholder="Email">
+  
+  <!-- Méthode 1 : input -->
+  <input type="submit" value="S'inscrire">
+  
+  <!-- Méthode 2 : button (plus flexible) -->
+  <button type="submit">
+    ✅ S'inscrire gratuitement
+  </button>
+</form>`,
+    starter: `<h2>Connexion</h2>
+<form style="display:flex;flex-direction:column;gap:12px;max-width:350px;padding:20px;background:#f8f9fa;border-radius:10px">
+  <label style="font-weight:bold">Email</label>
+  <input type="email" placeholder="votre@email.com" style="padding:10px;border:1px solid #ddd;border-radius:5px">
+  <label style="font-weight:bold">Mot de passe</label>
+  <input type="password" placeholder="••••••••" style="padding:10px;border:1px solid #ddd;border-radius:5px">
+  <button type="submit" style="background:#04AA6D;color:white;padding:12px;border:none;border-radius:5px;font-size:16px;cursor:pointer;font-weight:bold">
+    🔐 Se connecter
+  </button>
+  <p style="text-align:center;font-size:13px;color:gray">Pas de compte ? <a href="#">S'inscrire</a></p>
+</form>`
+  },
+  {
+    title: "Checkbox — Cases à cocher",
+    desc: `
+      <p><strong><code>type="checkbox"</code></strong> crée une case à cocher. Elle est utile pour les <strong>choix multiples</strong> : accepter des conditions, sélectionner plusieurs options, des listes de tâches.</p>
+      <p>L'attribut <strong><code>checked</code></strong> coche la case par défaut. L'attribut <strong><code>name</code></strong> identifie la donnée envoyée au serveur. Si la case est cochée, la valeur de <code>value</code> est envoyée (par défaut "on").</p>
+      <div class="tip">💡 Associez toujours un <code>&lt;label&gt;</code> à chaque checkbox avec l'attribut <code>for</code> correspondant à l'<code>id</code> de l'input. Cela rend la zone cliquable plus grande et améliore l'accessibilité.</div>
+    `,
+    code: `<form>
+  <p><strong>Centres d'intérêt :</strong></p>
+  
+  <label>
+    <input type="checkbox" name="sport" value="sport">
+    ⚽ Sport
+  </label><br>
+  
+  <label>
+    <input type="checkbox" name="musique" value="musique" checked>
+    🎵 Musique (coché par défaut)
+  </label><br>
+  
+  <label>
+    <input type="checkbox" name="tech" value="tech">
+    💻 Technologie
+  </label>
+</form>`,
+    starter: `<h2>Mes Tâches du Jour</h2>
+<form style="display:flex;flex-direction:column;gap:10px;max-width:300px">
+  <label style="display:flex;align-items:center;gap:8px;padding:10px;background:#f8f9fa;border-radius:6px;cursor:pointer">
+    <input type="checkbox" checked> Apprendre HTML
+  </label>
+  <label style="display:flex;align-items:center;gap:8px;padding:10px;background:#f8f9fa;border-radius:6px;cursor:pointer">
+    <input type="checkbox"> Apprendre CSS
+  </label>
+  <label style="display:flex;align-items:center;gap:8px;padding:10px;background:#f8f9fa;border-radius:6px;cursor:pointer">
+    <input type="checkbox"> Créer mon premier site
+  </label>
+  <label style="display:flex;align-items:center;gap:8px;padding:10px;background:#f8f9fa;border-radius:6px;cursor:pointer">
+    <input type="checkbox"> Publier en ligne
+  </label>
+</form>`
+  },
+  {
+    title: "Radio — Choix unique",
+    desc: `
+      <p><strong><code>type="radio"</code></strong> crée un bouton radio. Les boutons radio d'un même groupe partagent le <strong>même attribut <code>name</code></strong> — ce qui garantit qu'un seul peut être sélectionné à la fois.</p>
+      <p>L'attribut <strong><code>value</code></strong> est obligatoire pour les radio buttons : c'est la valeur qui sera envoyée au serveur quand l'option est sélectionnée.</p>
+      <div class="tip">💡 Pour les choix de genre, de taille de vêtements, d'options de livraison — bref, quand il faut choisir exactement une option parmi plusieurs — utilisez les radio buttons.</div>
+    `,
+    code: `<form>
+  <p><strong>Niveau :</strong></p>
+  
+  <label>
+    <input type="radio" name="niveau" value="debutant" checked>
+    🌱 Débutant
+  </label><br>
+  
+  <label>
+    <input type="radio" name="niveau" value="intermediaire">
+    🌿 Intermédiaire
+  </label><br>
+  
+  <label>
+    <input type="radio" name="niveau" value="avance">
+    🌳 Avancé
+  </label>
+</form>`,
+    starter: `<h2>Sondage Rapide</h2>
+<form style="max-width:350px;padding:20px;background:#f8f9fa;border-radius:10px">
+  <p style="font-weight:bold;margin-bottom:12px">Quel langage apprenez-vous en premier ?</p>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <label style="cursor:pointer;display:flex;align-items:center;gap:8px">
+      <input type="radio" name="langage" value="html" checked>
+      🌐 HTML
+    </label>
+    <label style="cursor:pointer;display:flex;align-items:center;gap:8px">
+      <input type="radio" name="langage" value="css">
+      🎨 CSS
+    </label>
+    <label style="cursor:pointer;display:flex;align-items:center;gap:8px">
+      <input type="radio" name="langage" value="js">
+      ⚡ JavaScript
+    </label>
+  </div>
+  <button type="submit" style="margin-top:15px;background:#04AA6D;color:white;padding:8px 20px;border:none;border-radius:5px;cursor:pointer">Voter</button>
+</form>`
+  },
+  {
+    title: "Select — Liste déroulante",
+    desc: `
+      <p>La balise <strong><code>&lt;select&gt;</code></strong> crée une <strong>liste déroulante</strong>. Chaque option est une balise <strong><code>&lt;option&gt;</code></strong>. L'attribut <code>value</code> de chaque option est la donnée envoyée au serveur.</p>
+      <p>L'attribut <strong><code>multiple</code></strong> permet de sélectionner plusieurs options (maintenir Ctrl/Cmd). L'attribut <strong><code>size</code></strong> affiche plusieurs lignes visibles. <code>&lt;optgroup label="..."&gt;</code> groupe les options.</p>
+      <div class="tip">💡 Pour les longues listes (pays, villes, langues), <code>&lt;select&gt;</code> est meilleur que les radio buttons. Pour moins de 5 options, les radio buttons sont souvent plus clairs.</div>
+    `,
+    code: `<label for="pays">Pays :</label>
+<select id="pays" name="pays">
+  <optgroup label="Afrique de l'Ouest">
+    <option value="SN">🇸🇳 Sénégal</option>
+    <option value="ML">🇲🇱 Mali</option>
+    <option value="CI">🇨🇮 Côte d'Ivoire</option>
+  </optgroup>
+  <optgroup label="Maghreb">
+    <option value="MA">🇲🇦 Maroc</option>
+    <option value="TN">🇹🇳 Tunisie</option>
+  </optgroup>
+</select>`,
+    starter: `<h2>Filtrer les produits</h2>
+<div style="display:flex;gap:15px;align-items:center;flex-wrap:wrap">
+  <div>
+    <label style="display:block;font-weight:bold;margin-bottom:5px">Catégorie</label>
+    <select style="padding:8px;border:1px solid #ddd;border-radius:5px;font-size:14px">
+      <option>Toutes les catégories</option>
+      <option>📱 Téléphones</option>
+      <option>💻 Ordinateurs</option>
+      <option>🎧 Audio</option>
+    </select>
+  </div>
+  <div>
+    <label style="display:block;font-weight:bold;margin-bottom:5px">Prix max</label>
+    <select style="padding:8px;border:1px solid #ddd;border-radius:5px;font-size:14px">
+      <option>Tous les prix</option>
+      <option>Moins de 50 000 FCFA</option>
+      <option>50 000 – 200 000 FCFA</option>
+      <option>Plus de 200 000 FCFA</option>
+    </select>
+  </div>
+  <button style="align-self:flex-end;background:#04AA6D;color:white;padding:8px 20px;border:none;border-radius:5px;cursor:pointer">Filtrer</button>
+</div>`
+  },
+  {
+    title: "Option — Choix dans un Select",
+    desc: `
+      <p>La balise <strong><code>&lt;option&gt;</code></strong> définit chaque choix dans un <code>&lt;select&gt;</code>. L'attribut <strong><code>value</code></strong> est la valeur envoyée au serveur (peut être différente du texte affiché). L'attribut <strong><code>selected</code></strong> pré-sélectionne une option.</p>
+      <p>L'attribut <strong><code>disabled</code></strong> rend une option non sélectionnable — utile pour les options "header" ou les options indisponibles. <code>hidden</code> la cache.</p>
+      <div class="tip">💡 Bonne pratique : ajoutez toujours une première option vide ou "Choisir..." pour les formulaires. Cela force l'utilisateur à faire un choix conscient.</div>
+    `,
+    code: `<select name="ville">
+  <!-- Option par défaut non sélectionnable -->
+  <option value="" disabled selected>
+    -- Choisissez une ville --
+  </option>
+  
+  <option value="DK">Dakar</option>
+  <option value="TH">Thiès</option>
+  <option value="SL">Saint-Louis</option>
+  <option value="ZG">Ziguinchor</option>
+  <option value="KO" disabled>Kolda (complet)</option>
+</select>`,
+    starter: `<h2>Inscription au cours</h2>
+<form style="max-width:350px;display:flex;flex-direction:column;gap:12px">
+  <label style="font-weight:bold">Choisissez votre cours</label>
+  <select style="padding:10px;border:1px solid #ddd;border-radius:5px;font-size:15px">
+    <option value="" disabled selected>-- Sélectionner un cours --</option>
+    <option value="html">🌐 HTML Fondamentaux (Gratuit)</option>
+    <option value="css">🎨 CSS Avancé (5 000 FCFA)</option>
+    <option value="js">⚡ JavaScript (10 000 FCFA)</option>
+    <option value="react" disabled>⚛️ React (Bientôt disponible)</option>
+  </select>
+  <button style="background:#04AA6D;color:white;padding:10px;border:none;border-radius:5px;cursor:pointer">S'inscrire</button>
+</form>`
+  },
+  {
+    title: "Textarea — Zone de texte multiligne",
+    desc: `
+      <p>La balise <strong><code>&lt;textarea&gt;</code></strong> crée une zone de saisie multi-lignes, parfaite pour les commentaires, messages, descriptions. Contrairement à <code>&lt;input&gt;</code>, elle a une balise de fermeture.</p>
+      <p>Les attributs <strong><code>rows</code></strong> et <strong><code>cols</code></strong> définissent la taille initiale. CSS peut aussi contrôler la taille avec <code>width</code>, <code>height</code>, et <code>resize</code> (none / horizontal / vertical / both).</p>
+      <div class="tip">💡 Le texte entre les balises <code>&lt;textarea&gt;texte ici&lt;/textarea&gt;</code> est la valeur par défaut. Contrairement à input, on ne peut pas utiliser l'attribut <code>value</code>.</div>
+    `,
+    code: `<!-- Textarea basique -->
+<textarea rows="4" cols="40" 
+          placeholder="Écrivez votre message ici...">
+</textarea>
+
+<!-- Textarea non redimensionnable -->
+<textarea style="width:100%; height:120px; 
+                 resize:none; padding:10px;
+                 border:1px solid #ccc; border-radius:5px"
+          placeholder="Votre avis...">
+</textarea>`,
+    starter: `<h2>Nous Contacter</h2>
+<form style="max-width:400px;display:flex;flex-direction:column;gap:12px">
+  <input type="text" placeholder="Votre nom" style="padding:10px;border:1px solid #ddd;border-radius:5px">
+  <input type="email" placeholder="Votre email" style="padding:10px;border:1px solid #ddd;border-radius:5px">
+  <textarea placeholder="Décrivez votre demande en détail..." style="padding:10px;border:1px solid #ddd;border-radius:5px;height:120px;resize:vertical;font-family:inherit;font-size:15px"></textarea>
+  <button type="submit" style="background:#04AA6D;color:white;padding:10px;border:none;border-radius:5px;cursor:pointer;font-size:15px">✉️ Envoyer le message</button>
+</form>`
+  },
+  {
+    title: "Label — Étiquette de champ",
+    desc: `
+      <p>La balise <strong><code>&lt;label&gt;</code></strong> associe un texte descriptif à un champ de formulaire. L'attribut <strong><code>for</code></strong> doit correspondre à l'<code>id</code> du champ associé.</p>
+      <p>Avantages : cliquer sur le label active le champ associé (zone cliquable plus grande), les lecteurs d'écran lisent le label quand l'utilisateur arrive sur le champ, améliore l'accessibilité et l'UX.</p>
+      <div class="tip">💡 Toujours utiliser des labels dans les formulaires — c'est essentiel pour l'accessibilité (WCAG). Un formulaire sans labels est inaccessible pour les malvoyants.</div>
+    `,
+    code: `<!-- Association par attribut for/id -->
+<label for="prenom">Prénom :</label>
+<input type="text" id="prenom" name="prenom">
+
+<!-- Association par imbrication -->
+<label>
+  Email :
+  <input type="email" name="email">
+</label>
+
+<!-- Label + checkbox -->
+<label>
+  <input type="checkbox" name="newsletter">
+  S'abonner à la newsletter
+</label>`,
+    starter: `<h2>Profil Utilisateur</h2>
+<form style="max-width:400px;display:flex;flex-direction:column;gap:12px">
+  <div>
+    <label for="user-nom" style="display:block;font-weight:bold;margin-bottom:4px">Nom complet *</label>
+    <input type="text" id="user-nom" placeholder="Ex: Aminata Diallo" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:5px">
+  </div>
+  <div>
+    <label for="user-email" style="display:block;font-weight:bold;margin-bottom:4px">Email *</label>
+    <input type="email" id="user-email" placeholder="votre@email.com" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:5px">
+  </div>
+  <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+    <input type="checkbox" id="cgu">
+    J'accepte les conditions d'utilisation
+  </label>
+  <button style="background:#04AA6D;color:white;padding:10px;border:none;border-radius:5px;cursor:pointer">Créer mon compte</button>
+</form>`
+  },
+  {
+    title: "Placeholder — Texte indicatif",
+    desc: `
+      <p>L'attribut <strong><code>placeholder</code></strong> affiche un texte gris dans un champ de formulaire tant qu'il est vide. Il disparaît dès que l'utilisateur commence à taper.</p>
+      <p>Son rôle est d'indiquer le <strong>format attendu</strong> ou un exemple : <code>placeholder="Ex: 77 123 45 67"</code> pour un numéro de téléphone. Il ne remplace pas un label.</p>
+      <div class="warning">⚠️ Ne remplacez JAMAIS un label par un placeholder. Une fois que l'utilisateur commence à taper, il ne voit plus l'instruction. Les labels doivent toujours être visibles.</div>
+    `,
+    code: `<!-- Bon usage du placeholder -->
+<label for="tel">Téléphone :</label>
+<input type="tel" id="tel" 
+       placeholder="Ex: +221 77 000 00 00">
+
+<label for="prix">Prix (FCFA) :</label>
+<input type="number" id="prix" 
+       placeholder="Ex: 15000" min="0">
+
+<input type="search" 
+       placeholder="🔍 Rechercher un produit...">`,
+    starter: `<h2>Recherche Avancée</h2>
+<form style="display:flex;flex-direction:column;gap:12px;max-width:400px">
+  <input type="search" placeholder="🔍 Rechercher..." style="padding:12px;border:1px solid #ddd;border-radius:8px;font-size:16px">
+  <div style="display:flex;gap:10px">
+    <input type="number" placeholder="Prix min (FCFA)" style="flex:1;padding:10px;border:1px solid #ddd;border-radius:5px">
+    <input type="number" placeholder="Prix max (FCFA)" style="flex:1;padding:10px;border:1px solid #ddd;border-radius:5px">
+  </div>
+  <input type="text" placeholder="🏙️ Ville (Ex: Dakar)" style="padding:10px;border:1px solid #ddd;border-radius:5px">
+  <button style="background:#04AA6D;color:white;padding:12px;border:none;border-radius:5px;cursor:pointer;font-size:15px">Rechercher</button>
+</form>`
+  },
+  {
+    title: "Required — Champ obligatoire",
+    desc: `
+      <p>L'attribut <strong><code>required</code></strong> rend un champ <strong>obligatoire</strong>. Le navigateur bloque la soumission du formulaire si le champ est vide, et affiche un message d'erreur automatique.</p>
+      <p>C'est une validation côté client (rapide et pratique), mais elle peut être contournée. La validation côté serveur reste indispensable pour la sécurité.</p>
+      <div class="tip">💡 Signalez visuellement les champs obligatoires : convention universelle = ajouter un astérisque rouge (*) dans le label. Ajoutez une note en bas du formulaire : "* Champ obligatoire".</div>
+    `,
+    code: `<form>
+  <!-- Champ obligatoire -->
+  <label for="nom">Nom * :</label>
+  <input type="text" id="nom" required 
+         placeholder="Votre nom complet">
+
+  <!-- Email obligatoire -->
+  <label for="email">Email * :</label>
+  <input type="email" id="email" required>
+
+  <!-- Optionnel -->
+  <label for="tel">Téléphone :</label>
+  <input type="tel" id="tel" 
+         placeholder="(optionnel)">
+
+  <button type="submit">Envoyer</button>
+  <p><small>* Champs obligatoires</small></p>
+</form>`,
+    starter: `<h2>Inscription</h2>
+<form style="max-width:350px;display:flex;flex-direction:column;gap:12px">
+  <div>
+    <label style="font-weight:bold">Prénom <span style="color:red">*</span></label>
+    <input type="text" required placeholder="Votre prénom" style="width:100%;padding:10px;margin-top:4px;border:1px solid #ddd;border-radius:5px">
+  </div>
+  <div>
+    <label style="font-weight:bold">Email <span style="color:red">*</span></label>
+    <input type="email" required placeholder="votre@email.com" style="width:100%;padding:10px;margin-top:4px;border:1px solid #ddd;border-radius:5px">
+  </div>
+  <div>
+    <label style="font-weight:bold">Site web <span style="color:gray;font-weight:normal">(optionnel)</span></label>
+    <input type="url" placeholder="https://..." style="width:100%;padding:10px;margin-top:4px;border:1px solid #ddd;border-radius:5px">
+  </div>
+  <button type="submit" style="background:#04AA6D;color:white;padding:12px;border:none;border-radius:5px;cursor:pointer">S'inscrire</button>
+  <p style="font-size:12px;color:gray">* Champs obligatoires</p>
+</form>`
+  },
+  {
+    title: "Input Email",
+    desc: `
+      <p><strong><code>type="email"</code></strong> crée un champ spécialement conçu pour les adresses email. Le navigateur valide automatiquement que le texte saisi contient un <code>@</code> et un domaine valide.</p>
+      <p>Sur <strong>mobile</strong>, ce type affiche un clavier adapté avec le symbole <code>@</code> en évidence. L'attribut <strong><code>multiple</code></strong> permet de saisir plusieurs emails séparés par des virgules.</p>
+      <div class="tip">💡 La validation HTML5 (<code>type="email"</code>) vérifie le format de base. Pour une validation complète (vérifier que le domaine existe vraiment), vous aurez besoin de JavaScript ou d'une validation serveur.</div>
+    `,
+    code: `<!-- Email simple -->
+<input type="email" 
+       placeholder="votre@email.com" 
+       required>
+
+<!-- Email avec validation de domaine -->
+<input type="email" 
+       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+       placeholder="email@domaine.com">
+
+<!-- Plusieurs emails -->
+<input type="email" 
+       multiple 
+       placeholder="email1@ex.com, email2@ex.com">`,
+    starter: `<h2>Newsletter</h2>
+<div style="background:#f0fdf4;border:1px solid #bbf7d0;padding:25px;border-radius:10px;max-width:400px">
+  <h3 style="color:#166534">📧 Restez informé !</h3>
+  <p style="color:#166534;margin:10px 0">Recevez nos meilleures leçons HTML chaque semaine.</p>
+  <div style="display:flex;gap:8px;margin-top:15px">
+    <input type="email" required placeholder="votre@email.com" style="flex:1;padding:10px;border:1px solid #bbf7d0;border-radius:5px;font-size:14px">
+    <button type="submit" style="background:#04AA6D;color:white;padding:10px 15px;border:none;border-radius:5px;cursor:pointer;white-space:nowrap">S'abonner →</button>
+  </div>
+  <p style="font-size:12px;color:gray;margin-top:8px">Pas de spam. Désinscription à tout moment.</p>
+</div>`
+  },
+  {
+    title: "Input Password",
+    desc: `
+      <p><strong><code>type="password"</code></strong> crée un champ dont les caractères sont <strong>masqués</strong> (affichés en points ou astérisques). C'est essentiel pour les mots de passe et toute information confidentielle.</p>
+      <p>Les attributs <strong><code>minlength</code></strong> et <strong><code>maxlength</code></strong> contrôlent la longueur. L'attribut <code>pattern</code> permet une validation avancée avec une expression régulière.</p>
+      <div class="warning">⚠️ N'envoyez jamais des mots de passe en GET (ils apparaissent dans l'URL). Utilisez toujours POST. Côté serveur, stockez toujours les mots de passe hashés (bcrypt), jamais en clair.</div>
+    `,
+    code: `<form method="POST">
+  <label for="mdp">Mot de passe :</label>
+  <input type="password" id="mdp"
+         name="mdp"
+         minlength="8"
+         placeholder="Minimum 8 caractères"
+         required>
+  
+  <label for="confirm">Confirmer :</label>
+  <input type="password" id="confirm"
+         name="confirm"
+         placeholder="Répétez le mot de passe"
+         required>
+</form>`,
+    starter: `<h2>Changer le mot de passe</h2>
+<form style="max-width:380px;display:flex;flex-direction:column;gap:12px;padding:20px;background:#f8f9fa;border-radius:10px">
+  <div>
+    <label style="font-weight:bold;display:block;margin-bottom:4px">Ancien mot de passe</label>
+    <input type="password" placeholder="••••••••" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:5px">
+  </div>
+  <div>
+    <label style="font-weight:bold;display:block;margin-bottom:4px">Nouveau mot de passe (min 8 car.)</label>
+    <input type="password" minlength="8" placeholder="••••••••" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:5px">
+  </div>
+  <div>
+    <label style="font-weight:bold;display:block;margin-bottom:4px">Confirmer le nouveau mot de passe</label>
+    <input type="password" minlength="8" placeholder="••••••••" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:5px">
+  </div>
+  <button type="submit" style="background:#04AA6D;color:white;padding:12px;border:none;border-radius:5px;cursor:pointer">🔒 Modifier le mot de passe</button>
+</form>`
+  },
+  {
+    title: "Input Number",
+    desc: `
+      <p><strong><code>type="number"</code></strong> crée un champ qui n'accepte que des <strong>nombres</strong>. Il affiche des flèches haut/bas pour incrémenter la valeur et valide automatiquement la saisie.</p>
+      <p>Les attributs clés : <strong><code>min</code></strong> (valeur minimale), <strong><code>max</code></strong> (valeur maximale), <strong><code>step</code></strong> (incrément — par exemple 0.5 pour des demi-unités). La valeur par défaut de step est 1.</p>
+      <div class="tip">💡 Sur mobile, <code>type="number"</code> affiche le clavier numérique, ce qui est bien plus pratique pour l'utilisateur. Pensez toujours à l'expérience mobile !</div>
+    `,
+    code: `<!-- Quantité produit -->
+<label>Quantité :</label>
+<input type="number" min="1" max="99" 
+       value="1" step="1">
+
+<!-- Prix avec décimales -->
+<label>Prix (FCFA) :</label>
+<input type="number" min="0" step="500"
+       placeholder="Ex: 15000">
+
+<!-- Note sur 20 -->
+<label>Note (/20) :</label>
+<input type="number" min="0" max="20" 
+       step="0.5" placeholder="Ex: 14.5">`,
+    starter: `<h2>Calculateur de commande</h2>
+<div style="max-width:350px;padding:20px;background:#f8f9fa;border-radius:10px">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px">
+    <span>🍕 Pizza Margherita</span>
+    <strong>5 000 FCFA</strong>
+  </div>
+  <label style="font-weight:bold">Quantité :</label>
+  <input type="number" value="1" min="1" max="10" step="1"
+         style="width:80px;padding:8px;margin:8px 0;border:1px solid #ddd;border-radius:5px;font-size:16px"
+         oninput="document.getElementById('total').textContent=(this.value*5000).toLocaleString()+' FCFA'">
+  <p>Total : <strong id="total">5 000 FCFA</strong></p>
+  <button style="background:#04AA6D;color:white;padding:10px 20px;border:none;border-radius:5px;cursor:pointer;margin-top:10px">Commander</button>
+</div>`
+  },
+  {
+    title: "Input Date — Sélecteur de date",
+    desc: `
+      <p><strong><code>type="date"</code></strong> affiche un <strong>sélecteur de date</strong> natif du navigateur. La valeur retournée est toujours au format <strong>AAAA-MM-JJ</strong> (ISO 8601), quelle que soit la langue du navigateur.</p>
+      <p>Les attributs <code>min</code> et <code>max</code> permettent de <strong>limiter la plage de dates</strong> : utile pour empêcher de sélectionner une date passée pour une réservation, ou limiter l'âge minimum.</p>
+      <div class="tip">💡 Il existe d'autres types temporels : <code>type="time"</code> (heure), <code>type="datetime-local"</code> (date + heure), <code>type="month"</code> (mois/année), <code>type="week"</code> (semaine).</div>
+    `,
+    code: `<!-- Date simple -->
+<input type="date">
+
+<!-- Date avec minimum (aujourd'hui) -->
+<label>Date de réservation :</label>
+<input type="date" min="2025-01-01" 
+       value="2025-06-15">
+
+<!-- Heure -->
+<label>Heure :</label>
+<input type="time" min="09:00" max="18:00">
+
+<!-- Date et heure -->
+<label>Date et heure :</label>
+<input type="datetime-local">`,
+    starter: `<h2>Réserver un rendez-vous</h2>
+<form style="max-width:380px;display:flex;flex-direction:column;gap:12px;padding:20px;background:#f8f9fa;border-radius:10px">
+  <div>
+    <label style="font-weight:bold;display:block;margin-bottom:4px">📅 Date de rendez-vous</label>
+    <input type="date" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:5px;font-size:15px">
+  </div>
+  <div>
+    <label style="font-weight:bold;display:block;margin-bottom:4px">🕐 Heure préférée</label>
+    <input type="time" min="08:00" max="17:00" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:5px;font-size:15px">
+  </div>
+  <button type="submit" style="background:#04AA6D;color:white;padding:12px;border:none;border-radius:5px;cursor:pointer;font-size:15px">📅 Confirmer le RDV</button>
+</form>`
+  },
+  {
+    title: "Input Color — Sélecteur de couleur",
+    desc: `
+      <p><strong><code>type="color"</code></strong> affiche un <strong>sélecteur de couleur</strong> natif. Il retourne une valeur hexadécimale (#RRGGBB). L'attribut <code>value</code> définit la couleur par défaut.</p>
+      <p>C'est très pratique pour des outils de personnalisation : permettre à l'utilisateur de choisir la couleur d'un thème, d'un texte, d'un objet dans une application.</p>
+      <div class="tip">💡 Combinez <code>type="color"</code> avec un événement JavaScript <code>oninput</code> pour des mises à jour en temps réel : <code>oninput="document.body.style.background = this.value"</code>.</div>
+    `,
+    code: `<label for="couleur">Choisissez une couleur :</label>
+<input type="color" id="couleur" value="#04AA6D">
+
+<!-- Avec JavaScript pour aperçu en direct -->
+<input type="color" value="#3b82f6"
+  oninput="document.body.style.background=this.value">
+
+<p>Couleur choisie : 
+  <span id="hex">#3b82f6</span>
+</p>`,
+    starter: `<h2>Personnaliser la page</h2>
+<div style="display:flex;flex-direction:column;gap:15px;max-width:300px">
+  <div style="display:flex;align-items:center;gap:12px">
+    <label style="font-weight:bold;min-width:160px">🎨 Couleur de fond :</label>
+    <input type="color" value="#ffffff" oninput="document.body.style.background=this.value" style="width:50px;height:40px;border:none;border-radius:5px;cursor:pointer">
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <label style="font-weight:bold;min-width:160px">🔤 Couleur du texte :</label>
+    <input type="color" value="#111827" oninput="document.body.style.color=this.value" style="width:50px;height:40px;border:none;border-radius:5px;cursor:pointer">
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <label style="font-weight:bold;min-width:160px">🎯 Couleur accent :</label>
+    <input type="color" value="#04AA6D" style="width:50px;height:40px;border:none;border-radius:5px;cursor:pointer">
+  </div>
+</div>`
+  },
+  {
+    title: "Input File — Importer un fichier",
+    desc: `
+      <p><strong><code>type="file"</code></strong> ouvre une boîte de dialogue pour sélectionner un ou plusieurs fichiers depuis l'ordinateur de l'utilisateur.</p>
+      <p>L'attribut <strong><code>accept</code></strong> filtre les types de fichiers acceptés : <code>accept="image/*"</code> (toutes les images), <code>accept=".pdf,.doc"</code> (extensions spécifiques), <code>accept="video/*"</code> (vidéos). L'attribut <strong><code>multiple</code></strong> permet la sélection multiple.</p>
+      <div class="warning">⚠️ La restriction <code>accept</code> est côté client seulement — l'utilisateur peut la contourner. Validez toujours le type de fichier côté serveur avant de l'enregistrer !</div>
+    `,
+    code: `<!-- Importer une image -->
+<input type="file" accept="image/*">
+
+<!-- Importer un PDF -->
+<input type="file" accept=".pdf" 
+       name="document">
+
+<!-- Importer plusieurs fichiers -->
+<input type="file" multiple 
+       accept=".jpg,.png,.pdf">
+
+<!-- Aperçu d'image en JavaScript -->
+<input type="file" accept="image/*"
+  onchange="document.querySelector('img').src=URL.createObjectURL(this.files[0])">
+<img style="max-width:200px; margin-top:10px">`,
+    starter: `<h2>Changer ma photo de profil</h2>
+<div style="text-align:center;max-width:300px">
+  <img id="apercu" src="https://picsum.photos/150/150?random=1" alt="Photo de profil" style="width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid #04AA6D;display:block;margin:0 auto 15px">
+  <label style="background:#04AA6D;color:white;padding:10px 20px;border-radius:5px;cursor:pointer;display:inline-block">
+    📷 Choisir une photo
+    <input type="file" accept="image/*" style="display:none"
+      onchange="document.getElementById('apercu').src=URL.createObjectURL(this.files[0])">
+  </label>
+  <p style="font-size:12px;color:gray;margin-top:8px">JPG, PNG ou GIF — Max 5MB</p>
+</div>`
+  },
+  {
+    title: "Input Range — Curseur glissant",
+    desc: `
+      <p><strong><code>type="range"</code></strong> crée un <strong>curseur glissant</strong>. L'utilisateur peut faire glisser le curseur pour choisir une valeur entre <code>min</code> et <code>max</code>. L'attribut <code>step</code> définit les paliers.</p>
+      <p>Il est souvent utilisé pour le volume, la luminosité, la saturation, les filtres d'images, les paramètres de prix, etc. Combinez-le avec JavaScript pour afficher la valeur en temps réel.</p>
+      <div class="tip">💡 La valeur par défaut du range sans <code>value</code> est le milieu entre min et max. Si min=0 et max=100, la valeur par défaut sera 50.</div>
+    `,
+    code: `<!-- Curseur simple -->
+<label>Volume : <span id="vol">50</span>%</label>
+<input type="range" min="0" max="100" value="50"
+  oninput="document.getElementById('vol').textContent=this.value">
+
+<!-- Prix max avec affichage -->
+<label>Prix max : <span id="px">50000</span> FCFA</label>
+<input type="range" min="0" max="200000" 
+       value="50000" step="5000"
+  oninput="document.getElementById('px').textContent=Number(this.value).toLocaleString()">`,
+    starter: `<h2>Contrôles Audio</h2>
+<div style="max-width:350px;padding:20px;background:#1a1a2e;border-radius:12px;color:white">
+  <div style="margin-bottom:20px">
+    <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+      <label>🔊 Volume</label>
+      <span id="vol-val">70</span>%
+    </div>
+    <input type="range" min="0" max="100" value="70" style="width:100%"
+      oninput="document.getElementById('vol-val').textContent=this.value">
+  </div>
+  <div style="margin-bottom:20px">
+    <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+      <label>🎵 Graves</label>
+      <span id="bass-val">50</span>
+    </div>
+    <input type="range" min="0" max="100" value="50" style="width:100%"
+      oninput="document.getElementById('bass-val').textContent=this.value">
+  </div>
+  <div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+      <label>🎶 Aigus</label>
+      <span id="treble-val">50</span>
+    </div>
+    <input type="range" min="0" max="100" value="50" style="width:100%"
+      oninput="document.getElementById('treble-val').textContent=this.value">
+  </div>
+</div>`
+  },
+  {
+    title: "Progress — Barre de progression",
+    desc: `
+      <p>La balise <strong><code>&lt;progress&gt;</code></strong> affiche une <strong>barre de progression</strong>. L'attribut <code>value</code> est la valeur actuelle et <code>max</code> est la valeur maximale. Le navigateur calcule et affiche le pourcentage.</p>
+      <p>Si <code>value</code> est absent, la barre est en état "indéterminé" (animation de chargement) — utile quand on ne connaît pas la durée exacte d'une opération.</p>
+      <div class="tip">💡 Pour une barre de progression animée et stylisée, la balise <code>&lt;progress&gt;</code> native est limitée. En production, on crée souvent une div avec CSS pour plus de contrôle visuel.</div>
+    `,
+    code: `<!-- Progression déterminée -->
+<label>Installation : 75%</label>
+<progress value="75" max="100"></progress>
+
+<!-- Progression indéterminée (chargement) -->
+<label>Chargement en cours...</label>
+<progress></progress>
+
+<!-- Bar personnalisée avec div -->
+<div style="background:#e2e8f0; border-radius:10px; 
+            height:12px; overflow:hidden">
+  <div style="background:#04AA6D; height:100%; 
+              width:60%; border-radius:10px;
+              transition:width 0.3s">
+  </div>
+</div>`,
+    starter: `<h2>Progression des Cours</h2>
+<div style="max-width:400px;display:flex;flex-direction:column;gap:15px">
+  <div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+      <span>🌐 HTML</span><strong style="color:#04AA6D">90%</strong>
+    </div>
+    <div style="background:#e2e8f0;border-radius:10px;height:10px;overflow:hidden">
+      <div style="background:#04AA6D;height:100%;width:90%;border-radius:10px"></div>
+    </div>
+  </div>
+  <div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+      <span>🎨 CSS</span><strong style="color:#3b82f6">65%</strong>
+    </div>
+    <div style="background:#e2e8f0;border-radius:10px;height:10px;overflow:hidden">
+      <div style="background:#3b82f6;height:100%;width:65%;border-radius:10px"></div>
+    </div>
+  </div>
+  <div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+      <span>⚡ JavaScript</span><strong style="color:#f59e0b">30%</strong>
+    </div>
+    <div style="background:#e2e8f0;border-radius:10px;height:10px;overflow:hidden">
+      <div style="background:#f59e0b;height:100%;width:30%;border-radius:10px"></div>
+    </div>
+  </div>
+</div>`
+  },
+  {
+    title: "Details — Contenu dépliable",
+    desc: `
+      <p>La balise <strong><code>&lt;details&gt;</code></strong> crée un <strong>widget dépliable/pliable</strong> sans JavaScript. Le contenu est caché par défaut et révélé quand l'utilisateur clique. L'attribut <code>open</code> l'affiche ouvert par défaut.</p>
+      <p>Elle fonctionne toujours avec la balise <code>&lt;summary&gt;</code> pour le titre cliquable. C'est parfait pour les FAQ, les notes cachées, les paramètres avancés.</p>
+      <div class="tip">💡 C'est l'une des rares balises HTML qui offre de l'interactivité sans JavaScript ! Utile pour alléger les pages avec beaucoup de contenu optionnel.</div>
+    `,
+    code: `<details>
+  <summary>📖 Qu'est-ce que le HTML ?</summary>
+  <p>HTML (HyperText Markup Language) est le langage 
+  standard pour créer des pages web. Il structure 
+  le contenu avec des balises.</p>
+</details>
+
+<details open>
+  <summary>⚙️ Paramètres avancés (ouvert par défaut)</summary>
+  <p>Ces paramètres sont visibles par défaut grâce 
+  à l'attribut "open".</p>
+</details>`,
+    starter: `<h2>FAQ — Questions Fréquentes</h2>
+<div style="max-width:500px;display:flex;flex-direction:column;gap:8px">
+  <details style="border:1px solid #e2e8f0;border-radius:8px;padding:12px">
+    <summary style="cursor:pointer;font-weight:bold">❓ Combien de temps pour apprendre HTML ?</summary>
+    <p style="margin-top:10px;color:#555">Avec 1-2h d'apprentissage par jour, les bases s'acquièrent en 2 à 4 semaines. La pratique régulière est la clé !</p>
+  </details>
+  <details style="border:1px solid #e2e8f0;border-radius:8px;padding:12px">
+    <summary style="cursor:pointer;font-weight:bold">❓ Faut-il un logiciel spécial ?</summary>
+    <p style="margin-top:10px;color:#555">Non ! Un simple éditeur de texte comme VS Code (gratuit) suffit. Votre navigateur suffit pour voir le résultat.</p>
+  </details>
+  <details style="border:1px solid #e2e8f0;border-radius:8px;padding:12px">
+    <summary style="cursor:pointer;font-weight:bold">❓ HTML suffit-il pour créer un site ?</summary>
+    <p style="margin-top:10px;color:#555">HTML structure le contenu. Vous aurez aussi besoin de CSS pour le style et JavaScript pour l'interactivité.</p>
+  </details>
+</div>`
+  },
+  {
+    title: "🎓 Summary & Projet Final",
+    desc: `
+      <p>Bravo ! Vous avez terminé les <strong>50 leçons HTML</strong>. Vous maîtrisez maintenant la structure d'une page web complète : titres, textes, liens, images, formulaires, balises sémantiques et éléments interactifs.</p>
+      <p>Le playground ci-contre contient une <strong>page web complète</strong> qui combine tout ce que vous avez appris : header, nav, main, articles, formulaire, footer, et détails dépliables.</p>
+      <div class="tip">💡 Prochaines étapes : <strong>CSS</strong> pour styliser vos pages, puis <strong>JavaScript</strong> pour les rendre interactives. Bonne continuation ! 🚀</div>
+    `,
+    code: `<!-- Résumé : structure d'une page HTML complète -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Ma Page HTML</title>
+</head>
+<body>
+
+  <header>   <!-- En-tête -->
+    <h1>Titre du site</h1>
+    <nav>     <!-- Navigation -->
+      <a href="/">Accueil</a>
+    </nav>
+  </header>
+
+  <main>    <!-- Contenu principal -->
+    <section>   <!-- Section thématique -->
+      <article>  <!-- Contenu autonome -->
+        <h2>Titre article</h2>
+        <p>Contenu...</p>
+      </article>
+    </section>
+    <aside>     <!-- Contenu secondaire -->
+      <p>Info supplémentaire</p>
+    </aside>
+  </main>
+
+  <footer>  <!-- Pied de page -->
+    <p>© 2025</p>
+  </footer>
+
+</body>
+</html>`,
+    starter: `<!-- Page complète : Portfolio HTML -->
+<header style="background:#1a1a2e;color:white;padding:20px 30px;display:flex;justify-content:space-between;align-items:center">
+  <h1 style="color:#04AA6D">Aminata.dev</h1>
+  <nav style="display:flex;gap:20px">
+    <a href="#projets" style="color:white;text-decoration:none">Projets</a>
+    <a href="#contact" style="color:white;text-decoration:none">Contact</a>
+  </nav>
+</header>
+
+<main style="max-width:700px;margin:0 auto;padding:30px">
+  <section style="margin-bottom:30px">
+    <h2>👋 À propos de moi</h2>
+    <p>Je suis <strong>Aminata Diallo</strong>, développeuse web basée à Dakar. Je crée des sites web <em>beaux et fonctionnels</em>.</p>
+  </section>
+
+  <section id="projets" style="margin-bottom:30px">
+    <h2>🚀 Mes Projets</h2>
+    <article style="border:1px solid #e2e8f0;padding:15px;border-radius:8px;margin-bottom:10px">
+      <h3>Site E-commerce</h3>
+      <p>Boutique en ligne avec HTML, CSS et JavaScript.</p>
+      <small>Technologies : HTML • CSS • JS</small>
+    </article>
+    <article style="border:1px solid #e2e8f0;padding:15px;border-radius:8px">
+      <h3>Blog Personnel</h3>
+      <p>Blog sur le développement web et la tech en Afrique.</p>
+      <small>Technologies : HTML • CSS</small>
+    </article>
+  </section>
+
+  <section id="contact" style="margin-bottom:30px">
+    <h2>✉️ Me Contacter</h2>
+    <form style="display:flex;flex-direction:column;gap:10px;max-width:400px">
+      <input type="text" placeholder="Votre nom" required style="padding:10px;border:1px solid #ddd;border-radius:5px">
+      <input type="email" placeholder="Email" required style="padding:10px;border:1px solid #ddd;border-radius:5px">
+      <textarea placeholder="Votre message..." style="padding:10px;height:80px;border:1px solid #ddd;border-radius:5px"></textarea>
+      <button type="submit" style="background:#04AA6D;color:white;padding:10px;border:none;border-radius:5px;cursor:pointer">Envoyer →</button>
+    </form>
+  </section>
+
+  <details style="border:1px solid #e2e8f0;border-radius:8px;padding:15px">
+    <summary style="cursor:pointer;font-weight:bold">🎓 Mes compétences techniques</summary>
+    <ul style="margin-top:10px;padding-left:20px">
+      <li>HTML5 — <progress value="90" max="100" style="width:100px"></progress> 90%</li>
+      <li>CSS3 — <progress value="75" max="100" style="width:100px"></progress> 75%</li>
+      <li>JavaScript — <progress value="50" max="100" style="width:100px"></progress> 50%</li>
+    </ul>
+  </details>
+</main>
+
+<footer style="background:#1a1a2e;color:#9ca3af;text-align:center;padding:20px;margin-top:30px">
+  <p>© 2025 Aminata.dev — Tous droits réservés</p>
+</footer>`
+  }
+]
+
+const CATEGORIES = [
+  { label: "Texte & Structure", range: [0, 5] },
+  { label: "Données & Médias", range: [6, 10] },
+  { label: "Mise en page", range: [11, 15] },
+  { label: "Formatage", range: [16, 21] },
+  { label: "Sémantique", range: [22, 29] },
+  { label: "Formulaires", range: [30, 37] },
+  { label: "Inputs avancés", range: [38, 43] },
+  { label: "Inputs spéciaux", range: [44, 48] },
+  { label: "Interactif & Projet", range: [49, 49] }
+]
+
+let currentLesson = 0
+let doneLessons = new Set(JSON.parse(localStorage.getItem("doneLessons_html") || "[]"))
+
+function buildSidebar() {
+  const sb = document.getElementById("sidebar")
+  sb.innerHTML = ""
+  CATEGORIES.forEach(cat => {
+    let section = document.createElement("div")
+    section.className = "sidebar-section"
+    section.textContent = cat.label
+    sb.appendChild(section)
+    for (let i = cat.range[0]; i <= cat.range[1]; i++) {
+      let item = document.createElement("div")
+      item.className = "sidebar-item" + (i === currentLesson ? " active" : "") + (doneLessons.has(i) ? " done" : "")
+      item.dataset.idx = i
+      item.innerHTML = `<span class="num">${String(i+1).padStart(2,"0")}</span><span>${lessons[i].title.replace(/🎓 /,"")}</span>`
+      item.addEventListener("click", () => goTo(i))
+      sb.appendChild(item)
+    }
+  })
 }
 
-runCode();
+function escapeHtml(s) {
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")
+}
 
+function highlightHtml(code) {
+  let e = escapeHtml(code)
+  // Comments
+  e = e.replace(/&lt;!--[\s\S]*?--&gt;/g, m => `<span class="cmt">${m}</span>`)
+  // Tags
+  e = e.replace(/(&lt;\/?)([\w-]+)/g, (m,slash,tag) => `<span class="tag">${slash}${tag}</span>`)
+  // Attributes with values
+  e = e.replace(/([\w-]+)(=)(&quot;[^&]*&quot;)/g, (m,attr,eq,val) => `<span class="attr">${attr}</span>${eq}<span class="val">${val}</span>`)
+  // Lone attributes
+  e = e.replace(/\s(required|checked|disabled|multiple|open|controls|autoplay|loop|muted)(?=[>\s])/g, m => ` <span class="attr">${m.trim()}</span>`)
+  return e
+}
+
+function renderLesson() {
+  const l = lessons[currentLesson]
+  const panel = document.getElementById("lesson-panel")
+  panel.innerHTML = `
+    <div class="lesson-number">Leçon ${String(currentLesson+1).padStart(2,"0")} / 50</div>
+    <div class="lesson-title">${l.title}</div>
+    <div class="lesson-desc">${l.desc}</div>
+    <div class="code-block">
+      <div class="code-header">
+        <span>Exemple HTML</span>
+        <button class="try-btn" onclick="loadExample()">Essayer dans le playground →</button>
+      </div>
+      <pre>${highlightHtml(l.code)}</pre>
+    </div>
+    <div class="nav-buttons">
+      ${currentLesson > 0 ? `<button class="nav-btn prev" onclick="goTo(${currentLesson-1})">← Précédent</button>` : ""}
+      ${currentLesson < lessons.length-1 ? `<button class="nav-btn next" onclick="markAndNext()">Suivant →</button>` : `<button class="nav-btn next" onclick="markDone()">✅ Terminer</button>`}
+    </div>
+  `
+  panel.scrollTop = 0
+  document.getElementById("editor").value = lessons[currentLesson].starter
+  runCode()
+  updateProgress()
+}
+
+function goTo(idx) {
+  currentLesson = idx
+  buildSidebar()
+  renderLesson()
+}
+
+function markAndNext() {
+  doneLessons.add(currentLesson)
+  localStorage.setItem("doneLessons_html", JSON.stringify([...doneLessons]))
+  goTo(currentLesson + 1)
+}
+
+function markDone() {
+  doneLessons.add(currentLesson)
+  localStorage.setItem("doneLessons_html", JSON.stringify([...doneLessons]))
+  buildSidebar()
+  updateProgress()
+  document.querySelector(".nav-btn.next").innerHTML = "✅ Terminé !"
+}
+
+function loadExample() {
+  document.getElementById("editor").value = lessons[currentLesson].code
+  runCode()
+}
+
+function updateProgress() {
+  const pct = (doneLessons.size / 50 * 100).toFixed(0)
+  document.getElementById("progress-fill").style.width = pct + "%"
+  document.getElementById("progress-text").textContent = `${doneLessons.size} / 50`
+}
+
+function runCode() {
+  const code = document.getElementById('editor').value
+  const iframe = document.getElementById('result').contentWindow.document
+  iframe.open()
+  iframe.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+    body{font-family:Arial,sans-serif;padding:16px;line-height:1.6;font-size:14px}
+    h1{font-size:22px} h2{font-size:18px} h3{font-size:16px}
+    table{border-collapse:collapse;width:100%}
+    td,th{padding:8px;border:1px solid #ddd}
+    th{background:#f3f4f6}
+    input,select,textarea,button{margin:4px 0;box-sizing:border-box}
+    progress{width:100%;height:12px}
+    details{border:1px solid #e2e8f0;border-radius:6px;padding:10px;margin:5px 0}
+    summary{cursor:pointer;font-weight:bold}
+    nav a{margin-right:12px}
+  </style></head><body>${code}</body></html>`)
+  iframe.close()
+}
+
+buildSidebar()
+renderLesson()
 </script>
-
 </body>
 </html>
