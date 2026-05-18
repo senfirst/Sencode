@@ -4,732 +4,2469 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Apprendre C# - 50 Leçons</title>
-
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial;
+:root {
+  --bg: #0d0f1a;
+  --surface: #131627;
+  --surface2: #1a1e35;
+  --border: #252a45;
+  --accent: #7c6af7;
+  --accent2: #a78bfa;
+  --text: #e2e8f8;
+  --muted: #7a85a8;
+  --green: #34d399;
+  --amber: #fbbf24;
+  --red: #f87171;
+  --code-bg: #0a0c18;
 }
 
-body{
-    background:#f1f5f9;
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Sora', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-.header{
-    background:#1e1b4b;
-    color:#c084fc;
-    text-align:center;
-    padding:20px;
-    font-size:32px;
-    font-weight:bold;
+/* HEADER */
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+  z-index: 10;
 }
 
-.container{
-    display:flex;
-    height:calc(100vh - 80px);
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.lessons{
-    width:50%;
-    background:white;
-    overflow-y:auto;
-    padding:25px;
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--accent), #c084fc);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
 }
 
-.lesson{
-    background:white;
-    border-left:5px solid #a855f7;
-    padding:20px;
-    margin-bottom:25px;
-    border-radius:8px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+.logo-text {
+  font-size: 16px;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--accent2), #e879f9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.lesson h2{
-    margin-bottom:15px;
-    color:#1e1b4b;
+.header-info {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.lesson p{
-    margin-bottom:12px;
-    line-height:1.7;
-    color:#334155;
+.progress-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--muted);
 }
 
-pre{
-    background:#e2e8f0;
-    padding:15px;
-    border-radius:6px;
-    overflow:auto;
+.progress-track {
+  width: 120px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
 }
 
-.editor-section{
-    width:50%;
-    background:#111827;
-    padding:20px;
-    display:flex;
-    flex-direction:column;
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #c084fc);
+  border-radius: 99px;
+  transition: width 0.4s;
 }
 
-.editor-title{
-    color:white;
-    font-size:25px;
-    margin-bottom:15px;
+.badge {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 12px;
+  color: var(--muted);
 }
 
-textarea{
-    width:100%;
-    height:300px;
-    border:none;
-    border-radius:8px;
-    padding:15px;
-    resize:none;
-    font-size:16px;
-    outline:none;
-    font-family:monospace;
+/* MAIN LAYOUT */
+.main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
 }
 
-button{
-    margin-top:15px;
-    padding:14px;
-    background:#9333ea;
-    border:none;
-    color:white;
-    font-size:18px;
-    border-radius:6px;
-    cursor:pointer;
-    font-weight:bold;
+/* SIDEBAR */
+.sidebar {
+  width: 72px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
-button:hover{
-    background:#7e22ce;
+.nav-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.2s;
+  position: relative;
 }
 
-iframe{
-    margin-top:20px;
-    flex:1;
-    border:none;
-    background:white;
-    border-radius:8px;
+.nav-btn:hover, .nav-btn.active {
+  background: var(--surface2);
+  color: var(--accent2);
 }
 
-@media(max-width:900px){
-
-.container{
-    flex-direction:column;
-    height:auto;
+.nav-btn.active::before {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 24px;
+  background: var(--accent);
+  border-radius: 0 3px 3px 0;
 }
 
-.lessons,
-.editor-section{
-    width:100%;
+/* LESSON LIST */
+.lessons-panel {
+  width: 320px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
 }
 
-iframe{
-    height:400px;
+.panel-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
+.search-box {
+  margin: 12px 16px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
+.search-box input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-family: 'Sora', sans-serif;
+  font-size: 13px;
+  width: 100%;
+}
+
+.search-box input::placeholder { color: var(--muted); }
+
+.lesson-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.lesson-list::-webkit-scrollbar { width: 4px; }
+.lesson-list::-webkit-scrollbar-track { background: transparent; }
+.lesson-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.chapter-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  padding: 14px 12px 6px;
+}
+
+.lesson-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: 1px solid transparent;
+}
+
+.lesson-item:hover {
+  background: var(--surface2);
+}
+
+.lesson-item.active {
+  background: rgba(124, 106, 247, 0.15);
+  border-color: rgba(124, 106, 247, 0.3);
+}
+
+.lesson-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--muted);
+  transition: all 0.15s;
+}
+
+.lesson-item.active .lesson-num,
+.lesson-item:hover .lesson-num {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.lesson-item.done .lesson-num {
+  background: rgba(52, 211, 153, 0.15);
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.lesson-title {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.4;
+  flex: 1;
+}
+
+.lesson-item.active .lesson-title { color: var(--accent2); }
+
+/* CONTENT AREA */
+.content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.lesson-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px 40px;
+}
+
+.lesson-content::-webkit-scrollbar { width: 4px; }
+.lesson-content::-webkit-scrollbar-track { background: transparent; }
+.lesson-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.lesson-header {
+  margin-bottom: 28px;
+}
+
+.lesson-number-badge {
+  font-size: 12px;
+  color: var(--accent2);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lesson-number-badge::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.lesson-h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.lesson-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* Info blocks */
+.info-block {
+  display: flex;
+  gap: 14px;
+  padding: 16px 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+  font-size: 14px;
+  line-height: 1.7;
+  border: 1px solid;
+}
+
+.info-block.concept {
+  background: rgba(124, 106, 247, 0.08);
+  border-color: rgba(124, 106, 247, 0.25);
+  color: #c4b5fd;
+}
+
+.info-block.tip {
+  background: rgba(52, 211, 153, 0.07);
+  border-color: rgba(52, 211, 153, 0.25);
+  color: #6ee7b7;
+}
+
+.info-block.warn {
+  background: rgba(251, 191, 36, 0.07);
+  border-color: rgba(251, 191, 36, 0.2);
+  color: #fde68a;
+}
+
+.info-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.prose {
+  font-size: 15px;
+  line-height: 1.85;
+  color: #c8d0e8;
+  margin-bottom: 18px;
+}
+
+.prose strong { color: var(--text); font-weight: 600; }
+
+.prose code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  background: rgba(124, 106, 247, 0.15);
+  color: var(--accent2);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+/* Code block */
+.code-block {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.code-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  gap: 8px;
+}
+
+.code-dots { display: flex; gap: 5px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot-r { background: #f87171; }
+.dot-y { background: #fbbf24; }
+.dot-g { background: #34d399; }
+
+.code-lang {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.code-copy {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Sora', sans-serif;
+  transition: all 0.15s;
+}
+
+.code-copy:hover { color: var(--text); border-color: var(--accent); }
+
+.code-body {
+  padding: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-x: auto;
+  color: #e2e8f8;
+  white-space: pre;
+}
+
+/* Syntax highlighting */
+.kw { color: #c084fc; }   /* keywords */
+.ty { color: #60a5fa; }   /* types */
+.st { color: #34d399; }   /* strings */
+.cm { color: #4a5577; }   /* comments */
+.nm { color: #fb923c; }   /* numbers */
+.fn { color: #a78bfa; }   /* functions */
+.cls { color: #38bdf8; }  /* classes */
+
+/* Lesson nav */
+.lesson-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+
+.nav-arrow {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-family: 'Sora', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-arrow:hover { border-color: var(--accent); color: var(--accent2); }
+.nav-arrow.primary { background: var(--accent); border-color: var(--accent); color: white; margin-left: auto; }
+.nav-arrow.primary:hover { background: #6d5de0; }
+
+/* EDITOR PANEL */
+.editor-panel {
+  width: 400px;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.editor-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.editor-tabs {
+  display: flex;
+  gap: 2px;
+}
+
+.etab {
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--muted);
+  transition: all 0.15s;
+  border: none;
+  background: transparent;
+  font-family: 'Sora', sans-serif;
+}
+
+.etab.active {
+  background: var(--surface2);
+  color: var(--text);
+}
+
+.run-btn {
+  margin-left: auto;
+  padding: 6px 14px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Sora', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s;
+}
+
+.run-btn:hover { background: #6d5de0; }
+
+.editor-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.tab-pane { display: none; flex: 1; flex-direction: column; overflow: hidden; }
+.tab-pane.active { display: flex; }
+
+textarea#code-editor {
+  flex: 1;
+  background: var(--code-bg);
+  border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  padding: 20px;
+  resize: none;
+  outline: none;
+  line-height: 1.7;
+  tab-size: 4;
+}
+
+.output-box {
+  background: var(--code-bg);
+  flex: 1;
+  overflow: auto;
+  padding: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--green);
+  border-bottom: 1px solid var(--border);
+}
+
+.output-box.empty { color: var(--muted); }
+
+/* AI Assistant */
+.ai-pane {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ai-pane.active { display: flex; }
+
+.ai-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ai-messages::-webkit-scrollbar { width: 3px; }
+.ai-messages::-webkit-scrollbar-thumb { background: var(--border); }
+
+.msg {
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.65;
+  max-width: 95%;
+}
+
+.msg.user {
+  background: rgba(124, 106, 247, 0.18);
+  border: 1px solid rgba(124, 106, 247, 0.3);
+  color: #d0c4ff;
+  align-self: flex-end;
+}
+
+.msg.ai {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  align-self: flex-start;
+}
+
+.msg.ai code {
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(0,0,0,0.4);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  color: var(--accent2);
+}
+
+.ai-input-row {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.ai-input {
+  flex: 1;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--text);
+  font-family: 'Sora', sans-serif;
+  font-size: 13px;
+  outline: none;
+  resize: none;
+  line-height: 1.5;
+  min-height: 40px;
+  max-height: 100px;
+  transition: border 0.15s;
+}
+
+.ai-input:focus { border-color: var(--accent); }
+.ai-input::placeholder { color: var(--muted); }
+
+.send-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--accent);
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.send-btn:hover { background: #6d5de0; }
+
+.typing-indicator {
+  display: none;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 14px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  width: fit-content;
+}
+
+.typing-indicator span {
+  width: 6px;
+  height: 6px;
+  background: var(--muted);
+  border-radius: 50%;
+  animation: bounce 1.2s infinite;
+}
+
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-5px); opacity: 1; }
+}
+
+/* Notion-style concept cards */
+.concept-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.concept-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.cc-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.cc-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: var(--accent2);
+}
+
+.cc-desc {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+/* Section title */
+.section-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-weight: 600;
+  margin: 28px 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Done checkmark */
+.done-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: rgba(52, 211, 153, 0.1);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  color: var(--green);
+  font-family: 'Sora', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.done-btn:hover { background: rgba(52, 211, 153, 0.2); }
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .editor-panel { width: 340px; }
+  .lessons-panel { width: 280px; }
+}
+
+@media (max-width: 800px) {
+  .sidebar { display: none; }
+  .lessons-panel { width: 100%; position: absolute; z-index: 5; transform: translateX(-100%); transition: transform 0.3s; }
+  .lessons-panel.open { transform: none; }
+  .editor-panel { display: none; }
+}
+
+/* Highlighted quiz */
+.quiz-block {
+  border: 1px solid rgba(124, 106, 247, 0.3);
+  border-radius: 10px;
+  padding: 18px;
+  margin: 20px 0;
+  background: rgba(124, 106, 247, 0.05);
+}
+
+.quiz-q {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.quiz-opt {
+  padding: 9px 14px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  margin-bottom: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text);
+  transition: all 0.15s;
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-family: 'Sora', sans-serif;
+}
+
+.quiz-opt:hover { border-color: var(--accent); color: var(--accent2); }
+.quiz-opt.correct { border-color: var(--green); background: rgba(52, 211, 153, 0.1); color: var(--green); }
+.quiz-opt.wrong { border-color: var(--red); background: rgba(248, 113, 113, 0.1); color: var(--red); }
+
+.quiz-feedback {
+  margin-top: 10px;
+  font-size: 13px;
+  display: none;
+}
 </style>
 </head>
 <body>
 
 <div class="header">
-Apprendre C# - 50 Leçons Complètes
+  <div class="logo">
+    <div class="logo-icon">C#</div>
+    <span class="logo-text">CSharp Academy</span>
+  </div>
+  <div class="header-info">
+    <div class="progress-bar-wrap">
+      <span id="progress-text">0 / 50 leçons</span>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+    </div>
+    <div class="badge" id="xp-badge">0 XP</div>
+  </div>
 </div>
 
-<div class="container">
-
-<div class="lessons">
-
-<div class="lesson">
-<h2>Leçon 1 : Introduction à C#</h2>
-<p>
-C# est un langage moderne développé par Microsoft.
-</p>
-<pre>
-using System;
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 2 : Premier Programme</h2>
-<p>
-Le premier programme affiche Hello World.
-</p>
-<pre>
-using System;
-
-class Program{
-
-static void Main(){
-
-Console.WriteLine("Hello World");
-
-}
-
-}
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 3 : Main()</h2>
-<p>
-Main est le point de départ du programme.
-</p>
-<pre>
-static void Main()
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 4 : Console.WriteLine()</h2>
-<p>
-Affiche du texte dans la console.
-</p>
-<pre>
-Console.WriteLine("Bonjour");
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 5 : Variables</h2>
-<p>
-Les variables stockent des données.
-</p>
-<pre>
-int age = 20;
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 6 : Types de Données</h2>
-<p>
-C# possède plusieurs types de données.
-</p>
-<pre>
-int
-double
-string
-bool
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 7 : Les Entiers</h2>
-<p>
-int stocke des nombres entiers.
-</p>
-<pre>
-int nombre = 10;
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 8 : Les Décimaux</h2>
-<p>
-double stocke des nombres décimaux.
-</p>
-<pre>
-double prix = 10.5;
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 9 : Les Chaînes</h2>
-<p>
-string stocke du texte.
-</p>
-<pre>
-string nom = "Ali";
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 10 : bool</h2>
-<p>
-bool contient vrai ou faux.
-</p>
-<pre>
-bool actif = true;
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 11 : Console.ReadLine()</h2>
-<p>
-Lit une saisie utilisateur.
-</p>
-<pre>
-string nom = Console.ReadLine();
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 12 : Conditions if</h2>
-<p>
-if vérifie une condition.
-</p>
-<pre>
-if(age > 18)
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 13 : else</h2>
-<p>
-else exécute une autre action.
-</p>
-<pre>
-else{
-Console.WriteLine("Mineur");
-}
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 14 : else if</h2>
-<p>
-Ajoute plusieurs conditions.
-</p>
-<pre>
-else if(age == 18)
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 15 : switch</h2>
-<p>
-switch simplifie plusieurs choix.
-</p>
-<pre>
-switch(note)
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 16 : Boucle for</h2>
-<p>
-for répète des instructions.
-</p>
-<pre>
-for(int i=0;i<5;i++)
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 17 : Boucle while</h2>
-<p>
-while répète une action.
-</p>
-<pre>
-while(x < 5)
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 18 : do while</h2>
-<p>
-do while exécute au moins une fois.
-</p>
-<pre>
-do{
-}
-while(x < 5);
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 19 : Tableaux</h2>
-<p>
-Les tableaux stockent plusieurs valeurs.
-</p>
-<pre>
-int[] notes = {10,15,20};
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 20 : foreach</h2>
-<p>
-foreach parcourt les tableaux.
-</p>
-<pre>
-foreach(int n in notes)
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 21 : Méthodes</h2>
-<p>
-Les méthodes organisent le code.
-</p>
-<pre>
-static void Salut(){
-}
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 22 : return</h2>
-<p>
-return renvoie une valeur.
-</p>
-<pre>
-return total;
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 23 : Paramètres</h2>
-<p>
-Les méthodes peuvent recevoir des paramètres.
-</p>
-<pre>
-static int Somme(int a,int b)
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 24 : Classes</h2>
-<p>
-Les classes créent des objets.
-</p>
-<pre>
-class User{
-}
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 25 : Objets</h2>
-<p>
-Les objets utilisent les classes.
-</p>
-<pre>
-User u = new User();
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 26 : Constructeurs</h2>
-<p>
-Les constructeurs initialisent les objets.
-</p>
-<pre>
-public User(){
-}
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 27 : Propriétés</h2>
-<p>
-Les propriétés contrôlent les données.
-</p>
-<pre>
-public string Nom {get; set;}
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 28 : Héritage</h2>
-<p>
-Une classe peut hériter d’une autre.
-</p>
-<pre>
-class Admin : User
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 29 : Encapsulation</h2>
-<p>
-Encapsulation protège les données.
-</p>
-<pre>
-private int age;
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 30 : Polymorphisme</h2>
-<p>
-Le polymorphisme modifie le comportement.
-</p>
-<pre>
-virtual void Afficher()
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 31 : Interface</h2>
-<p>
-Les interfaces définissent des règles.
-</p>
-<pre>
-interface IUser
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 32 : Exception</h2>
-<p>
-Les exceptions gèrent les erreurs.
-</p>
-<pre>
-try{
-}
-catch(Exception e){
-}
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 33 : List</h2>
-<p>
-List stocke des collections dynamiques.
-</p>
-<pre>
-List<string> noms;
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 34 : Dictionary</h2>
-<p>
-Dictionary stocke clé et valeur.
-</p>
-<pre>
-Dictionary<int,string>
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 35 : Fichiers</h2>
-<p>
-C# peut lire et écrire des fichiers.
-</p>
-<pre>
-File.WriteAllText()
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 36 : DateTime</h2>
-<p>
-DateTime gère les dates.
-</p>
-<pre>
-DateTime.Now
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 37 : LINQ</h2>
-<p>
-LINQ facilite les recherches.
-</p>
-<pre>
-users.Where()
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 38 : Async</h2>
-<p>
-async améliore les performances.
-</p>
-<pre>
-async Task
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 39 : await</h2>
-<p>
-await attend une tâche.
-</p>
-<pre>
-await Task.Delay(1000);
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 40 : Namespace</h2>
-<p>
-Les namespaces organisent le code.
-</p>
-<pre>
-namespace MonProjet
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 41 : Windows Forms</h2>
-<p>
-Permet de créer des interfaces graphiques.
-</p>
-<pre>
-Form form = new Form();
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 42 : WPF</h2>
-<p>
-WPF crée des applications modernes.
-</p>
-<pre>
-&lt;Window&gt;
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 43 : ASP.NET</h2>
-<p>
-ASP.NET crée des sites web.
-</p>
-<pre>
-app.MapGet("/");
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 44 : Entity Framework</h2>
-<p>
-ORM pour les bases de données.
-</p>
-<pre>
-DbContext
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 45 : SQL Server</h2>
-<p>
-C# peut utiliser SQL Server.
-</p>
-<pre>
-SqlConnection
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 46 : API REST</h2>
-<p>
-Créer des APIs avec C#.
-</p>
-<pre>
-[HttpGet]
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 47 : JSON</h2>
-<p>
-JSON échange des données.
-</p>
-<pre>
-JsonSerializer.Serialize()
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 48 : Debug</h2>
-<p>
-Le debug aide à corriger les erreurs.
-</p>
-<pre>
-Console.WriteLine("Test");
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 49 : Compilation</h2>
-<p>
-Le code doit être compilé.
-</p>
-<pre>
-dotnet build
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 50 : Projet Final</h2>
-<p>
-Créer une application complète en C#.
-</p>
-<pre>
-Gestion des utilisateurs
-Application bureau
-API REST
-</pre>
-</div>
-
-</div>
-
-<div class="editor-section">
-
-<h2 class="editor-title">
-Essayez votre Code C#
-</h2>
-
-<textarea id="editor">
-using System;
-
-class Program{
-
-static void Main(){
-
-Console.WriteLine("Bonjour Thierno !");
-
-}
-
-}
-</textarea>
-
-<button onclick="runCode()">
-Afficher le Code
-</button>
-
-<iframe id="result"></iframe>
-
-</div>
+<div class="main">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <button class="nav-btn active" title="Leçons" onclick="setTab('lessons')">📚</button>
+    <button class="nav-btn" title="Éditeur" onclick="setTab('editor')">⌨️</button>
+    <button class="nav-btn" title="Assistant IA" onclick="setTab('ai')">✨</button>
+  </div>
+
+  <!-- LESSON LIST -->
+  <div class="lessons-panel" id="lessons-panel">
+    <div class="panel-header">
+      <span>50 Leçons</span>
+      <span id="done-count" style="font-size:11px;color:var(--green)">0 complétées</span>
+    </div>
+    <div class="search-box">
+      <span style="color:var(--muted);font-size:14px">🔍</span>
+      <input type="text" id="search-input" placeholder="Rechercher une leçon..." oninput="filterLessons()">
+    </div>
+    <div class="lesson-list" id="lesson-list"></div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content-area">
+    <div class="lesson-content" id="lesson-content">
+      <!-- Filled by JS -->
+    </div>
+  </div>
+
+  <!-- EDITOR PANEL -->
+  <div class="editor-panel">
+    <div class="editor-header">
+      <div class="editor-tabs">
+        <button class="etab active" onclick="switchEditorTab('code')">Éditeur</button>
+        <button class="etab" onclick="switchEditorTab('output')">Sortie</button>
+        <button class="etab" onclick="switchEditorTab('ai')">✨ IA</button>
+      </div>
+      <button class="run-btn" onclick="showCode()">▶ Afficher</button>
+    </div>
+    <div class="editor-body">
+      <div class="tab-pane active" id="tab-code">
+        <textarea id="code-editor">using System;
+
+class Program {
+    static void Main() {
+        Console.WriteLine("Bonjour et bienvenue en C# !");
+    }
+}</textarea>
+      </div>
+      <div class="tab-pane" id="tab-output">
+        <div class="output-box empty" id="output-box">
+          ▶ Cliquez "Afficher" pour voir le résultat...
+        </div>
+      </div>
+      <div class="ai-pane" id="tab-ai">
+        <div class="ai-messages" id="ai-messages">
+          <div class="msg ai">👋 Bonjour ! Je suis ton assistant C#. Pose-moi n'importe quelle question sur le C#, sur la leçon actuelle, ou demande-moi d'expliquer ton code !</div>
+        </div>
+        <div class="typing-indicator" id="typing" style="margin: 0 16px 8px;">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="ai-input-row">
+          <textarea class="ai-input" id="ai-input" placeholder="Pose une question en C#..." rows="1" onkeydown="handleAiKey(event)"></textarea>
+          <button class="send-btn" onclick="sendAI()">➤</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
 
 <script>
+// ─── DATA ────────────────────────────────────────────────────────
+const lessons = [
+  {
+    title: "Introduction à C#",
+    chapter: "🏁 Démarrage",
+    subtitle: "Histoire, écosystème et ce que vous allez apprendre",
+    content: `
+<p class="prose">C# (prononcé "C-Sharp") est un langage de programmation <strong>moderne, orienté objet</strong>, développé par Microsoft en 2000. Il s'exécute sur la plateforme <strong>.NET</strong> et est l'un des langages les plus populaires au monde.</p>
 
-function runCode(){
+<div class="info-block concept"><span class="info-icon">💡</span><div>C# est utilisé pour créer des applications de bureau (WPF, WinForms), des sites web (ASP.NET), des jeux vidéo (Unity), des applications mobiles (Xamarin), et bien plus encore !</div></div>
 
-let code = document.getElementById('editor').value;
+<div class="section-title">Caractéristiques principales</div>
+<div class="concept-grid">
+  <div class="concept-card"><div class="cc-label">Type</div><div class="cc-value">Orienté objet</div><div class="cc-desc">Tout est structuré en classes et objets</div></div>
+  <div class="concept-card"><div class="cc-label">Typage</div><div class="cc-value">Statique fort</div><div class="cc-desc">Les types sont vérifiés à la compilation</div></div>
+  <div class="concept-card"><div class="cc-label">Plateforme</div><div class="cc-value">.NET / .NET Core</div><div class="cc-desc">Multiplateforme (Windows, Linux, Mac)</div></div>
+  <div class="concept-card"><div class="cc-label">Créé par</div><div class="cc-value">Microsoft (2000)</div><div class="cc-desc">Anders Hejlsberg, architecte principal</div></div>
+</div>
 
-let iframe = document.getElementById('result');
+<div class="section-title">Votre premier fichier</div>
+<p class="prose">Tout programme C# commence par l'importation des espaces de noms nécessaires. La directive <code>using</code> permet d'accéder aux classes du framework .NET sans écrire leur nom complet.</p>`,
+    code: `// Importation de l'espace de noms "System"
+// Donne accès à Console, Math, DateTime, etc.
+using System;
 
-iframe.srcdoc = `
-<html>
-<body style="font-family:Arial;padding:20px;background:#f8fafc;">
+// Sans "using System", vous devriez écrire :
+System.Console.WriteLine("Bonjour"); // ❌ long
+Console.WriteLine("Bonjour");        // ✅ court grâce à using`,
+    quiz: { q: "Que signifie le mot-clé 'using' en C# ?", opts: ["Déclarer une variable", "Importer un espace de noms", "Créer une boucle", "Définir une méthode"], ans: 1, exp: "✅ Correct ! 'using' importe un namespace, ce qui évite d'écrire le chemin complet des classes." }
+  },
+  {
+    title: "Premier Programme",
+    chapter: "🏁 Démarrage",
+    subtitle: "Créer et comprendre un programme Hello World complet",
+    content: `
+<p class="prose">Chaque programme C# suit une structure précise. Comprendre cette structure est essentiel avant d'aller plus loin.</p>
 
-<h2>Résultat du Code C#</h2>
+<div class="info-block tip"><span class="info-icon">✅</span><div>Le programme "Hello World" est traditionnel en programmation. Il valide que votre environnement fonctionne correctement et vous enseigne la structure de base.</div></div>
 
-<pre style="background:#e2e8f0;padding:15px;border-radius:8px;">
-${code.replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-</pre>
+<div class="section-title">Anatomie du programme</div>
+<div class="concept-grid">
+  <div class="concept-card"><div class="cc-label">1. using System</div><div class="cc-value">Importation</div><div class="cc-desc">Accès aux classes .NET de base</div></div>
+  <div class="concept-card"><div class="cc-label">2. class Program</div><div class="cc-value">Classe principale</div><div class="cc-desc">Conteneur de code, nom libre</div></div>
+  <div class="concept-card"><div class="cc-label">3. static void Main()</div><div class="cc-value">Point d'entrée</div><div class="cc-desc">Le programme démarre ici</div></div>
+  <div class="concept-card"><div class="cc-label">4. Console.WriteLine()</div><div class="cc-value">Affichage</div><div class="cc-desc">Écrit une ligne dans la console</div></div>
+</div>`,
+    code: `using System;
 
-</body>
-</html>
-`;
+class Program {
+    // Main() = point de départ obligatoire
+    static void Main() {
+        Console.WriteLine("Hello World !");  // Affiche avec retour à la ligne
+        Console.Write("Sans saut ");         // Affiche SANS retour à la ligne
+        Console.Write("de ligne");           // Affiche à la suite
+        Console.WriteLine();                 // Ajoute un retour à la ligne vide
+        Console.WriteLine("Fin du programme !");
+    }
+}`,
+    quiz: { q: "Quelle est la différence entre WriteLine() et Write() ?", opts: ["Il n'y a aucune différence", "WriteLine ajoute un retour à la ligne, Write non", "Write est plus rapide", "WriteLine n'existe pas"], ans: 1, exp: "✅ Exact ! WriteLine() ajoute \\n à la fin, Write() continue sur la même ligne." }
+  },
+  {
+    title: "La méthode Main()",
+    chapter: "🏁 Démarrage",
+    subtitle: "Le point d'entrée de tout programme C#",
+    content: `
+<p class="prose">La méthode <code>Main()</code> est le <strong>point d'entrée obligatoire</strong> de tout programme C#. C'est la première méthode exécutée au démarrage. Elle a plusieurs formes possibles.</p>
 
+<div class="info-block warn"><span class="info-icon">⚠️</span><div>Il ne peut y avoir qu'une seule méthode Main() dans un programme (sauf cas avancés). Sans elle, le compilateur génère une erreur.</div></div>
+
+<div class="section-title">Les 4 formes de Main()</div>`,
+    code: `using System;
+
+class Program {
+
+    // Forme 1 : simple (la plus courante)
+    static void Main() {
+        Console.WriteLine("Forme 1");
+    }
+
+    // Forme 2 : avec arguments en ligne de commande
+    // static void Main(string[] args) {
+    //     Console.WriteLine("Arguments reçus : " + args.Length);
+    // }
+
+    // Forme 3 : qui retourne un code de sortie
+    // static int Main() {
+    //     return 0;  // 0 = succès, autre = erreur
+    // }
+
+    // Forme 4 : les deux combinés
+    // static int Main(string[] args) {
+    //     return 0;
+    // }
+}`,
+    quiz: { q: "Combien de méthodes Main() peut-on avoir dans un programme ?", opts: ["Autant qu'on veut", "Une seule en général", "Deux minimum", "Aucune, c'est optionnel"], ans: 1, exp: "✅ Correct ! Un seul point d'entrée par programme. Plusieurs classes peuvent en avoir, mais une seule est utilisée." }
+  },
+  {
+    title: "Console.WriteLine()",
+    chapter: "🏁 Démarrage",
+    subtitle: "Afficher des données dans la console — toutes les formes",
+    content: `
+<p class="prose"><code>Console.WriteLine()</code> est l'une des méthodes les plus utilisées en C#. Elle permet d'afficher du texte, des nombres, des résultats de calcul, et bien plus dans la console.</p>
+
+<div class="info-block concept"><span class="info-icon">💡</span><div>La console est la fenêtre noire (terminal) qui s'ouvre quand vous lancez un programme. Elle permet d'afficher des informations pour déboguer ou interagir avec l'utilisateur.</div></div>`,
+    code: `using System;
+
+class Program {
+    static void Main() {
+
+        // Afficher du texte brut
+        Console.WriteLine("Bonjour tout le monde !");
+
+        // Afficher des nombres
+        Console.WriteLine(42);
+        Console.WriteLine(3.14);
+
+        // Afficher un calcul
+        Console.WriteLine(10 + 5);       // Affiche : 15
+        Console.WriteLine("5 + 3 = " + (5 + 3));  // Affiche : 5 + 3 = 8
+
+        // Interpolation de chaînes (méthode moderne)
+        string prenom = "Thierno";
+        int age = 22;
+        Console.WriteLine($"Je m'appelle {prenom} et j'ai {age} ans.");
+
+        // Formatage avec {0}, {1}...
+        Console.WriteLine("Bonjour {0}, tu as {1} ans.", prenom, age);
+
+        // Ligne vide
+        Console.WriteLine();
+
+        Console.WriteLine("--- Fin ---");
+    }
+}`,
+    quiz: { q: "Comment insérer une variable dans une chaîne avec l'interpolation ?", opts: ["'variable'", "{variable}", "$\"{variable}\"", "#variable#"], ans: 2, exp: "✅ Parfait ! Avec le préfixe $ avant les guillemets, on peut écrire {variable} directement dans la chaîne." }
+  },
+  {
+    title: "Les Variables",
+    chapter: "📦 Variables & Types",
+    subtitle: "Déclarer, initialiser et utiliser des variables",
+    content: `
+<p class="prose">Une variable est comme une <strong>boîte étiquetée</strong> dans la mémoire de l'ordinateur. Elle stocke une valeur que vous pouvez lire et modifier. En C#, chaque variable a un <strong>type précis</strong>.</p>
+
+<div class="info-block concept"><span class="info-icon">💡</span><div>La syntaxe est : <code>type nomVariable = valeur;</code> — Le type détermine ce que la boîte peut contenir. Par exemple, <code>int</code> ne peut pas contenir du texte.</div></div>
+
+<div class="section-title">Règles de nommage</div>
+<div class="concept-grid">
+  <div class="concept-card"><div class="cc-label">Autorisé ✅</div><div class="cc-value">monAge, prix2, _nom</div><div class="cc-desc">Lettres, chiffres (pas en 1er), underscore</div></div>
+  <div class="concept-card"><div class="cc-label">Interdit ❌</div><div class="cc-value">2age, mon-age, class</div><div class="cc-desc">Commence par chiffre, tiret, ou mot réservé</div></div>
+  <div class="concept-card"><div class="cc-label">Convention</div><div class="cc-value">camelCase</div><div class="cc-desc">Première lettre minuscule, suivantes majuscules</div></div>
+  <div class="concept-card"><div class="cc-label">Constante</div><div class="cc-value">const int MAX = 100;</div><div class="cc-desc">Valeur non modifiable après initialisation</div></div>
+</div>`,
+    code: `using System;
+
+class Program {
+    static void Main() {
+
+        // Déclaration + initialisation en une ligne
+        int age = 25;
+        string prenom = "Thierno";
+        double salaire = 1500.50;
+        bool estActif = true;
+
+        // Déclaration puis affectation séparées
+        int score;       // Déclaration
+        score = 100;     // Affectation
+
+        // Modifier la valeur
+        age = 26;        // La variable change de valeur
+        score = score + 50;  // score devient 150
+
+        // var : C# devine le type automatiquement
+        var ville = "Dakar";   // Détecté comme string
+        var nombre = 42;       // Détecté comme int
+
+        // Constante : valeur fixe, jamais modifiable
+        const double PI = 3.14159;
+        // PI = 3; ← ERREUR de compilation !
+
+        Console.WriteLine($"{prenom} a {age} ans");
+        Console.WriteLine($"Score : {score}");
+        Console.WriteLine($"Ville : {ville}");
+        Console.WriteLine($"PI = {PI}");
+    }
+}`,
+    quiz: { q: "Quel mot-clé crée une valeur non modifiable ?", opts: ["var", "static", "const", "readonly"], ans: 2, exp: "✅ Exact ! 'const' déclare une constante. 'readonly' est similaire mais peut être initialisé dans le constructeur." }
+  },
+  {
+    title: "Types de Données",
+    chapter: "📦 Variables & Types",
+    subtitle: "int, double, string, bool, char, decimal et plus",
+    content: `
+<p class="prose">C# est un langage à <strong>typage statique</strong> : chaque variable a un type fixé à la compilation. Choisir le bon type est crucial pour la précision et les performances de votre programme.</p>
+
+<div class="info-block tip"><span class="info-icon">✅</span><div>Utilisez <code>int</code> pour les entiers courants, <code>double</code> pour les décimaux, <code>decimal</code> pour les calculs financiers (plus précis), <code>string</code> pour le texte, et <code>bool</code> pour vrai/faux.</div></div>`,
+    code: `using System;
+
+class Program {
+    static void Main() {
+
+        // ──── Entiers ────────────────────────────
+        byte petitNombre = 255;          // 0 à 255 (8 bits)
+        short moyen = 32000;             // -32768 à 32767 (16 bits)
+        int entier = 2147483647;         // ±2 milliards (32 bits) ← plus courant
+        long grandNombre = 9000000000L;  // ±9×10^18 (64 bits)
+
+        // ──── Décimaux ───────────────────────────
+        float approx = 3.14f;            // 7 chiffres significatifs
+        double precis = 3.14159265358;   // 15-16 chiffres ← courant
+        decimal financier = 19.99m;      // 28-29 chiffres ← calculs d'argent
+
+        // ──── Texte et caractères ─────────────────
+        char lettre = 'A';              // Un seul caractère, guillemets simples
+        string texte = "Bonjour";       // Séquence de chars, guillemets doubles
+
+        // ──── Booléen ────────────────────────────
+        bool ouiNon = false;            // Uniquement true ou false
+
+        // ──── Affichage ──────────────────────────
+        Console.WriteLine($"int max   : {entier}");
+        Console.WriteLine($"double    : {precis}");
+        Console.WriteLine($"decimal   : {financier}");
+        Console.WriteLine($"char      : {lettre}");
+        Console.WriteLine($"string    : {texte}");
+        Console.WriteLine($"bool      : {ouiNon}");
+
+        // Taille en mémoire
+        Console.WriteLine($"Taille int    : {sizeof(int)} octets");
+        Console.WriteLine($"Taille double : {sizeof(double)} octets");
+    }
+}`,
+    quiz: { q: "Quel type utiliser pour stocker un prix en euros ?", opts: ["int", "float", "decimal", "char"], ans: 2, exp: "✅ Correct ! 'decimal' a la précision nécessaire pour les calculs financiers, évitant les erreurs d'arrondi de float et double." }
+  },
+  {
+    title: "Les Entiers (int)",
+    chapter: "📦 Variables & Types",
+    subtitle: "Opérations, conversions et limites des entiers",
+    content: `
+<p class="prose">Le type <code>int</code> est le type entier le plus utilisé en C#. Il stocke les nombres entiers entre <strong>-2 147 483 648</strong> et <strong>2 147 483 647</strong>. Il prend 4 octets en mémoire.</p>
+
+<div class="info-block warn"><span class="info-icon">⚠️</span><div>Attention au dépassement de capacité (overflow) ! Si vous dépassez la limite d'un int, la valeur "boucle" sans erreur par défaut. Utilisez <code>long</code> pour de grands nombres.</div></div>`,
+    code: `using System;
+
+class Program {
+    static void Main() {
+
+        int a = 10;
+        int b = 3;
+
+        // ──── Opérations de base ─────────────────
+        Console.WriteLine($"Addition      : {a + b}");   // 13
+        Console.WriteLine($"Soustraction  : {a - b}");   // 7
+        Console.WriteLine($"Multiplication: {a * b}");   // 30
+        Console.WriteLine($"Division      : {a / b}");   // 3 (entier ! pas 3.33)
+        Console.WriteLine($"Modulo        : {a % b}");   // 1 (reste de la division)
+
+        // ──── Opérateurs d'assignation ───────────
+        int x = 5;
+        x += 3;   // x = x + 3 → x vaut 8
+        x -= 2;   // x = x - 2 → x vaut 6
+        x *= 4;   // x = x * 4 → x vaut 24
+        x /= 6;   // x = x / 6 → x vaut 4
+        Console.WriteLine($"x après calculs : {x}");
+
+        // ──── Incrémentation / Décrémentation ────
+        int compteur = 0;
+        compteur++;  // +1
+        compteur++;  // +1
+        compteur--;  // -1
+        Console.WriteLine($"Compteur : {compteur}");  // 1
+
+        // ──── Valeurs limites ────────────────────
+        Console.WriteLine($"int.MaxValue : {int.MaxValue}");  // 2 147 483 647
+        Console.WriteLine($"int.MinValue : {int.MinValue}");  // -2 147 483 648
+
+        // ──── Conversion de string vers int ─────
+        string saisie = "42";
+        int converti = int.Parse(saisie);
+        Console.WriteLine($"Converti : {converti + 1}");  // 43
+    }
+}`,
+    quiz: { q: "Que donne 10 / 3 avec des int en C# ?", opts: ["3.33", "3", "4", "Erreur"], ans: 1, exp: "✅ Exact ! La division entière tronque le résultat. Pour obtenir 3.33, utilisez des double : (double)10 / 3." }
+  },
+  {
+    title: "Les Décimaux (double)",
+    chapter: "📦 Variables & Types",
+    subtitle: "Nombres à virgule flottante et précision",
+    content: `
+<p class="prose">Le type <code>double</code> stocke les nombres à virgule flottante avec une précision de 15 à 16 chiffres significatifs. C'est le type décimal le plus utilisé en C# pour les calculs scientifiques et généraux.</p>
+
+<div class="info-block concept"><span class="info-icon">💡</span><div>La virgule flottante est une façon d'approcher les décimaux en binaire. Cela peut causer de légères imprécisions : <code>0.1 + 0.2</code> donne parfois <code>0.30000000000000004</code>. Pour les finances, préférez <code>decimal</code>.</div></div>`,
+    code: `using System;
+
+class Program {
+    static void Main() {
+
+        double prix = 19.99;
+        double tva = 0.18;  // 18%
+
+        // ──── Calculs ────────────────────────────
+        double prixTTC = prix * (1 + tva);
+        Console.WriteLine($"Prix TTC : {prixTTC:F2} €");  // F2 = 2 décimales
+
+        // ──── Conversions ────────────────────────
+        int entier = 7;
+        double result = (double)entier / 2;  // Cast explicite
+        Console.WriteLine($"7 / 2 = {result}");  // 3.5
+
+        // ──── Math usuel ─────────────────────────
+        double racine = Math.Sqrt(16);       // √16 = 4
+        double puissance = Math.Pow(2, 10);  // 2^10 = 1024
+        double absolu = Math.Abs(-42.5);     // Valeur absolue = 42.5
+        double arrondi = Math.Round(3.7);    // Arrondit à 4
+
+        Console.WriteLine($"√16 = {racine}");
+        Console.WriteLine($"2^10 = {puissance}");
+        Console.WriteLine($"|−42.5| = {absolu}");
+        Console.WriteLine($"Arrondi 3.7 = {arrondi}");
+
+        // ──── Valeurs spéciales ───────────────────
+        double infini = double.PositiveInfinity;
+        double nanValue = double.NaN;  // Not a Number (ex: 0.0/0.0)
+        Console.WriteLine($"Infini : {infini}");
+        Console.WriteLine($"NaN : {nanValue}");
+    }
+}`,
+    quiz: { q: "Quelle méthode calcule la racine carrée ?", opts: ["Math.Racine()", "double.Sqrt()", "Math.Sqrt()", "Math.Root()"], ans: 2, exp: "✅ Correct ! Math.Sqrt() calcule la racine carrée. La classe Math contient plein de fonctions mathématiques utiles." }
+  },
+  {
+    title: "Les Chaînes (string)",
+    chapter: "📦 Variables & Types",
+    subtitle: "Manipulation avancée de texte en C#",
+    content: `
+<p class="prose">En C#, <code>string</code> est une séquence immuable de caractères Unicode. C'est l'un des types les plus utilisés. Il offre de nombreuses méthodes intégrées pour manipuler le texte.</p>
+
+<div class="info-block tip"><span class="info-icon">✅</span><div>En C#, les strings sont <strong>immuables</strong> : quand vous "modifiez" une string, en réalité une nouvelle est créée en mémoire. Pour des modifications répétées, utilisez <code>StringBuilder</code>.</div></div>`,
+    code: `using System;
+
+class Program {
+    static void Main() {
+
+        string prenom = "Thierno";
+        string nom = "Diallo";
+
+        // ──── Concaténation ──────────────────────
+        string complet = prenom + " " + nom;
+        Console.WriteLine(complet);  // Thierno Diallo
+
+        // ──── Interpolation (méthode moderne) ────
+        string msg = $"Bienvenue, {prenom} !";
+        Console.WriteLine(msg);
+
+        // ──── Propriétés et méthodes utiles ─────
+        Console.WriteLine($"Longueur : {complet.Length}");          // Nombre de chars
+        Console.WriteLine($"Majuscules : {complet.ToUpper()}");
+        Console.WriteLine($"Minuscules : {complet.ToLower()}");
+        Console.WriteLine($"Contient 'Diallo' : {complet.Contains("Diallo")}");
+        Console.WriteLine($"Commence par 'T' : {complet.StartsWith("T")}");
+        Console.WriteLine($"Position 'D' : {complet.IndexOf('D')}");  // 8
+
+        // ──── Découpe et remplacement ─────────────
+        string phrase = "   Bonjour le monde   ";
+        Console.WriteLine($"Trim : '{phrase.Trim()}'");  // Supprime espaces
+        Console.WriteLine(phrase.Replace("monde", "C#"));
+
+        // ──── Sous-chaîne ────────────────────────
+        string extrait = complet.Substring(0, 7);  // "Thierno"
+        Console.WriteLine($"Extrait : {extrait}");
+
+        // ──── Séparation ─────────────────────────
+        string csv = "rouge,vert,bleu";
+        string[] couleurs = csv.Split(',');
+        foreach (string c in couleurs) {
+            Console.WriteLine($"Couleur : {c}");
+        }
+    }
+}`,
+    quiz: { q: "Que retourne 'Bonjour'.Length ?", opts: ["6", "7", "8", "Erreur"], ans: 1, exp: "✅ 'Bonjour' contient 7 caractères : B-o-n-j-o-u-r. Length compte tous les caractères." }
+  },
+  {
+    title: "Le type bool",
+    chapter: "📦 Variables & Types",
+    subtitle: "Valeurs booléennes et opérateurs logiques",
+    content: `
+<p class="prose">Le type <code>bool</code> (booléen) ne peut contenir que deux valeurs : <code>true</code> (vrai) ou <code>false</code> (faux). Il est fondamental pour les conditions, les boucles, et la logique de votre programme.</p>
+
+<div class="info-block concept"><span class="info-icon">💡</span><div>Les booléens viennent du mathématicien George Boole (XIXe siècle). Toute la logique informatique repose sur ces deux valeurs : les ordinateurs ne comprennent que 0 et 1.</div></div>`,
+    code: `using System;
+
+class Program {
+    static void Main() {
+
+        bool estConnecte = true;
+        bool estAdmin = false;
+
+        // ──── Opérateurs de comparaison ──────────
+        // Ces expressions retournent un bool
+        int age = 20;
+        bool estMajeur = age >= 18;   // true
+        bool estMineur = age < 18;    // false
+        bool estExact20 = age == 20;  // true (égalité)
+        bool estDifferent = age != 20; // false (inégalité)
+
+        Console.WriteLine($"Majeur : {estMajeur}");
+        Console.WriteLine($"Exact 20 : {estExact20}");
+
+        // ──── Opérateurs logiques ────────────────
+        bool et = estConnecte && estAdmin;    // true ET true → true (les deux)
+        bool ou = estConnecte || estAdmin;    // true OU false → true (au moins un)
+        bool non = !estConnecte;              // NON true → false (inversion)
+
+        Console.WriteLine($"ET  : {et}");   // false (admin = false)
+        Console.WriteLine($"OU  : {ou}");   // true (connecté = true)
+        Console.WriteLine($"NON : {non}"); // false
+
+        // ──── Table de vérité ────────────────────
+        Console.WriteLine("\n--- Table ET ---");
+        Console.WriteLine($"true  && true  = {true && true}");
+        Console.WriteLine($"true  && false = {true && false}");
+        Console.WriteLine($"false && true  = {false && true}");
+        Console.WriteLine($"false && false = {false && false}");
+    }
+}`,
+    quiz: { q: "Que retourne 'true && false' ?", opts: ["true", "false", "null", "Erreur"], ans: 1, exp: "✅ Correct ! L'opérateur && (ET) retourne true seulement si LES DEUX opérandes sont vrais. Si l'un est false, le résultat est false." }
+  },
+  {
+    title: "Console.ReadLine()",
+    chapter: "🖥️ Entrées/Sorties",
+    subtitle: "Lire les saisies de l'utilisateur",
+    content: `
+<p class="prose"><code>Console.ReadLine()</code> attend que l'utilisateur tape quelque chose et appuie sur Entrée. Elle retourne toujours une <strong>chaîne de caractères</strong>, même si l'utilisateur tape un nombre.</p>
+
+<div class="info-block warn"><span class="info-icon">⚠️</span><div>Attention : ReadLine() retourne TOUJOURS un <code>string</code>. Pour utiliser la valeur comme nombre, vous devez la convertir avec <code>int.Parse()</code> ou <code>int.TryParse()</code>.</div></div>`,
+    code: `using System;
+
+class Program {
+    static void Main() {
+
+        // ──── Lecture simple ─────────────────────
+        Console.Write("Entrez votre prénom : ");
+        string prenom = Console.ReadLine();
+        Console.WriteLine($"Bonjour, {prenom} !");
+
+        // ──── Conversion sûre avec TryParse ──────
+        Console.Write("Entrez votre âge : ");
+        string saisieAge = Console.ReadLine();
+
+        // Parse simple (peut planter si non-numérique)
+        // int age = int.Parse(saisieAge);  ← risqué !
+
+        // TryParse : version sécurisée
+        if (int.TryParse(saisieAge, out int age)) {
+            Console.WriteLine($"Dans 10 ans, vous aurez {age + 10} ans.");
+        } else {
+            Console.WriteLine("Âge invalide !");
+        }
+
+        // ──── Lire un double ─────────────────────
+        Console.Write("Entrez un prix : ");
+        if (double.TryParse(Console.ReadLine(), out double prix)) {
+            Console.WriteLine($"Prix avec TVA : {prix * 1.18:F2} €");
+        }
+
+        // ──── Lire une touche (sans Entrée) ──────
+        Console.Write("Appuyez sur une touche...");
+        ConsoleKeyInfo touche = Console.ReadKey();
+        Console.WriteLine($"\nVous avez appuyé sur : {touche.Key}");
+    }
+}`,
+    quiz: { q: "Pourquoi utiliser TryParse plutôt que Parse ?", opts: ["TryParse est plus rapide", "TryParse ne plante pas si la valeur est invalide", "TryParse convertit en double automatiquement", "Il n'y a aucune différence"], ans: 1, exp: "✅ Parfait ! TryParse retourne false au lieu de lancer une exception si la conversion échoue. C'est plus sûr en production." }
+  },
+  {
+    title: "Conditions if / else",
+    chapter: "🔀 Conditions",
+    subtitle: "Prendre des décisions dans votre code",
+    content: `
+<p class="prose">Les conditions permettent à votre programme de prendre des <strong>décisions</strong>. La structure <code>if / else if / else</code> exécute différents blocs de code selon des conditions booléennes.</p>
+
+<div class="info-block concept"><span class="info-icon">💡</span><div>Pensez à if/else comme un carrefour : le programme choisit quelle route prendre selon la condition. Une seule route est empruntée à chaque fois.</div></div>`,
+    code: `using System;
+
+class Program {
+    static void Main() {
+
+        int note = 75;
+
+        // ──── if / else if / else ────────────────
+        if (note >= 90) {
+            Console.WriteLine("A - Excellent !");
+        } else if (note >= 80) {
+            Console.WriteLine("B - Très bien");
+        } else if (note >= 70) {
+            Console.WriteLine("C - Bien");         // ← cette ligne s'exécute
+        } else if (note >= 60) {
+            Console.WriteLine("D - Passable");
+        } else {
+            Console.WriteLine("F - Échec");
+        }
+
+        // ──── Opérateur ternaire ─────────────────
+        // condition ? valeur_si_vrai : valeur_si_faux
+        string statut = note >= 60 ? "Reçu" : "Échoué";
+        Console.WriteLine($"Statut : {statut}");
+
+        // ──── Conditions combinées ────────────────
+        int age = 22;
+        bool aCarteEtudiant = true;
+
+        if (age < 26 && aCarteEtudiant) {
+            Console.WriteLine("Tarif étudiant : -30%");
+        } else if (age >= 60) {
+            Console.WriteLine("Tarif senior : -25%");
+        } else {
+            Console.WriteLine("Tarif normal");
+        }
+
+        // ──── if sans accolades (une seule ligne) ─
+        bool pluie = true;
+        if (pluie) Console.WriteLine("Prends un parapluie !");
+        // ⚠️ Attention : sans accolades, seule la ligne suivante est dans le if
+    }
+}`,
+    quiz: { q: "Que fait l'opérateur ternaire '?' ?", opts: ["Multiplie par 3", "Version courte de if/else sur une ligne", "Teste si null", "Arrondit au tiers"], ans: 1, exp: "✅ Exact ! L'opérateur ternaire : condition ? valeur_si_vrai : valeur_si_faux. Très utile pour les assignations conditionnelles simples." }
+  },
+  {
+    title: "Switch / Case",
+    chapter: "🔀 Conditions",
+    subtitle: "Gérer de multiples cas avec élégance",
+    content: `
+<p class="prose">Le <code>switch</code> est une alternative élégante aux longues chaînes <code>if / else if</code> quand vous comparez une variable à plusieurs valeurs fixes. C# propose aussi le <strong>switch expression</strong> moderne.</p>
+
+<div class="info-block tip"><span class="info-icon">✅</span><div>N'oubliez pas le mot-clé <code>break</code> dans chaque case ! Sans lui, l'exécution "tombe" dans le case suivant (fall-through), ce qui cause des bugs difficiles à détecter.</div></div>`,
+    code: `using System;
+
+class Program {
+    static void Main() {
+
+        int jour = 3;
+
+        // ──── Switch classique ───────────────────
+        switch (jour) {
+            case 1:
+                Console.WriteLine("Lundi");
+                break;
+            case 2:
+                Console.WriteLine("Mardi");
+                break;
+            case 3:
+                Console.WriteLine("Mercredi");  // ← s'exécute
+                break;
+            case 6:
+            case 7:
+                Console.WriteLine("Week-end !");  // Cas groupés
+                break;
+            default:
+                Console.WriteLine("Jour inconnu");
+                break;
+        }
+
+        // ──── Switch expression (C# 8+, moderne) ─
+        string nomJour = jour switch {
+            1 => "Lundi",
+            2 => "Mardi",
+            3 => "Mercredi",
+            4 => "Jeudi",
+            5 => "Vendredi",
+            6 or 7 => "Week-end",
+            _ => "Inconnu"  // _ = cas par défaut
+        };
+        Console.WriteLine($"Jour : {nomJour}");
+
+        // ──── Switch avec string ─────────────────
+        string langue = "fr";
+        string bonjour = langue switch {
+            "fr" => "Bonjour !",
+            "en" => "Hello !",
+            "ar" => "مرحبا !",
+            _ => "Hi !"
+        };
+        Console.WriteLine(bonjour);
+    }
+}`,
+    quiz: { q: "À quoi sert 'break' dans un switch ?", opts: ["Quitter le programme", "Arrêter la boucle", "Sortir du switch après un case", "Ignorer les erreurs"], ans: 2, exp: "✅ Correct ! 'break' sort du bloc switch après l'exécution du case. Sans break, l'exécution continue dans le case suivant." }
+  },
+  {
+    title: "Boucle for",
+    chapter: "🔁 Boucles",
+    subtitle: "Répéter des actions un nombre précis de fois",
+    content: `
+<p class="prose">La boucle <code>for</code> est utilisée quand vous savez exactement <strong>combien de fois</strong> vous souhaitez répéter une action. Elle se compose de trois parties : initialisation, condition, et itération.</p>
+
+<div class="info-block concept"><span class="info-icon">💡</span><div>Anatomie : <code>for(initialisation ; condition ; itération)</code><br>• Initialisation : exécutée UNE FOIS au début<br>• Condition : vérifiée AVANT chaque itération<br>• Itération : exécutée APRÈS chaque tour</div></div>`,
+    code: `using System;
+
+class Program {
+    static void Main() {
+
+        // ──── Boucle simple : 0 à 4 ──────────────
+        for (int i = 0; i < 5; i++) {
+            Console.Write(i + " ");  // 0 1 2 3 4
+        }
+        Console.WriteLine();
+
+        // ──── Compter à rebours ───────────────────
+        for (int i = 10; i >= 1; i--) {
+            Console.Write(i + " ");  // 10 9 8 7 6 5 4 3 2 1
+        }
+        Console.WriteLine();
+
+        // ──── Pas de 2 ───────────────────────────
+        for (int i = 0; i <= 20; i += 2) {
+            Console.Write(i + " ");  // 0 2 4 6 8 10 12 14 16 18 20
+        }
+        Console.WriteLine();
+
+        // ──── Table de multiplication ─────────────
+        int nombre = 7;
+        Console.WriteLine($"\nTable de {nombre} :");
+        for (int i = 1; i <= 10; i++) {
+            Console.WriteLine($"{nombre} × {i,2} = {nombre * i,3}");
+        }
+
+        // ──── Boucles imbriquées (matrice) ───────
+        Console.WriteLine("\nMatrice 4×4 :");
+        for (int ligne = 1; ligne <= 4; ligne++) {
+            for (int col = 1; col <= 4; col++) {
+                Console.Write($"{ligne * col,3}");
+            }
+            Console.WriteLine();
+        }
+    }
+}`,
+    quiz: { q: "Combien de fois s'exécute 'for(int i=0; i<5; i++)' ?", opts: ["4 fois", "5 fois", "6 fois", "Infini"], ans: 1, exp: "✅ Exact ! i vaut 0, 1, 2, 3, 4 → 5 itérations. La condition i<5 est fausse quand i=5, donc on s'arrête." }
+  },
+  {
+    title: "Boucle while",
+    chapter: "🔁 Boucles",
+    subtitle: "Répéter tant qu'une condition est vraie",
+    content: `
+<p class="prose">La boucle <code>while</code> répète un bloc de code <strong>tant qu'une condition est vraie</strong>. Contrairement à <code>for</code>, utilisez-la quand vous ne savez pas à l'avance combien d'itérations seront nécessaires.</p>
+
+<div class="info-block warn"><span class="info-icon">⚠️</span><div>Danger de boucle infinie ! Si la condition ne devient jamais fausse, le programme tourne indéfiniment et gèle. Assurez-vous toujours que la condition finira par être fausse.</div></div>`,
+    code: `using System;
+
+class Program {
+    static void Main() {
+
+        // ──── while simple ───────────────────────
+        int compteur = 1;
+        while (compteur <= 5) {
+            Console.WriteLine($"Tour {compteur}");
+            compteur++;  // IMPORTANT : ne pas oublier !
+        }
+
+        // ──── Simuler une saisie utilisateur ─────
+        // (dans cet exemple, on simule avec une variable)
+        string[] reponses = { "non", "non", "oui" };
+        int tentative = 0;
+        string reponse = "";
+
+        while (reponse != "oui" && tentative < reponses.Length) {
+            reponse = reponses[tentative];
+            Console.WriteLine($"Réponse {tentative + 1} : {reponse}");
+            tentative++;
+        }
+        Console.WriteLine("Condition remplie !");
+
+        // ──── Calcul : trouver la puissance > 1000 ─
+        int valeur = 1;
+        int puissance = 0;
+        while (valeur < 1000) {
+            valeur *= 2;
+            puissance++;
+        }
+        Console.WriteLine($"\n2^{puissance} = {valeur} (premier > 1000)");
+
+        // ──── break et continue ──────────────────
+        int n = 0;
+        while (true) {  // Boucle infinie contrôlée
+            n++;
+            if (n % 2 == 0) continue;  // Sauter les pairs
+            if (n > 10) break;         // Sortir à 10
+            Console.Write(n + " ");    // 1 3 5 7 9
+        }
+        Console.WriteLine();
+    }
+}`,
+    quiz: { q: "Que fait 'break' dans une boucle ?", opts: ["Sauter l'itération courante", "Sortir complètement de la boucle", "Recommencer depuis le début", "Ralentir l'exécution"], ans: 1, exp: "✅ Exact ! 'break' sort immédiatement de la boucle. 'continue' lui saute l'itération courante et passe à la suivante." }
+  },
+  {
+    title: "Boucle do while",
+    chapter: "🔁 Boucles",
+    subtitle: "Exécuter au moins une fois avant de vérifier",
+    content: `
+<p class="prose">La boucle <code>do while</code> est similaire à <code>while</code>, mais la condition est vérifiée <strong>après</strong> l'exécution du bloc. Cela garantit que le code s'exécute <strong>au moins une fois</strong>, même si la condition est fausse dès le départ.</p>
+
+<div class="info-block tip"><span class="info-icon">✅</span><div>Cas d'usage parfait : les menus d'application ! Vous voulez afficher le menu au moins une fois, puis redemander si l'utilisateur choisit de continuer.</div></div>`,
+    code: `using System;
+
+class Program {
+    static void Main() {
+
+        // ──── do while simple ────────────────────
+        int i = 0;
+        do {
+            Console.WriteLine($"i = {i}");
+            i++;
+        } while (i < 3);  // Condition à la FIN
+
+        // ──── Comparaison : while vs do while ────
+        // while : peut ne jamais s'exécuter
+        int x = 10;
+        while (x < 5) {
+            Console.WriteLine("while : ne s'exécute JAMAIS si x=10");
+        }
+
+        // do while : s'exécute toujours au moins 1 fois !
+        int y = 10;
+        do {
+            Console.WriteLine($"do while : s'exécute une fois même si y={y} < 5 est faux");
+        } while (y < 5);
+
+        // ──── Simulation de menu ─────────────────
+        string[] menuSim = { "1", "2", "0" };  // Simule des choix
+        int choixIndex = 0;
+        string choix;
+
+        do {
+            Console.WriteLine("\n=== MENU ===");
+            Console.WriteLine("1. Voir le profil");
+            Console.WriteLine("2. Paramètres");
+            Console.WriteLine("0. Quitter");
+
+            choix = menuSim[choixIndex++];
+            Console.WriteLine($"Choix simulé : {choix}");
+
+            switch (choix) {
+                case "1": Console.WriteLine("→ Affichage du profil"); break;
+                case "2": Console.WriteLine("→ Ouverture paramètres"); break;
+                case "0": Console.WriteLine("→ Au revoir !"); break;
+            }
+        } while (choix != "0" && choixIndex < menuSim.Length);
+    }
+}`,
+    quiz: { q: "Quand la condition est-elle vérifiée dans 'do while' ?", opts: ["Avant chaque exécution", "Après chaque exécution", "Une seule fois au début", "Jamais"], ans: 1, exp: "✅ Correct ! Dans do while, le code s'exécute D'ABORD, puis la condition est vérifiée. Garantit au moins une exécution." }
+  },
+  {
+    title: "Les Tableaux",
+    chapter: "📚 Collections",
+    subtitle: "Stocker plusieurs valeurs dans une seule variable",
+    content: `
+<p class="prose">Un tableau (array) est une collection de <strong>taille fixe</strong> d'éléments du même type. Les éléments sont indexés à partir de <strong>0</strong>. Si vous connaissez la taille à l'avance, les tableaux sont très efficaces.</p>
+
+<div class="info-block warn"><span class="info-icon">⚠️</span><div>L'index commence à 0 ! Un tableau de 5 éléments a les indices 0, 1, 2, 3, 4. Accéder à l'index 5 provoque une <code>IndexOutOfRangeException</code> — une erreur courante !</div></div>`,
+    code: `using System;
+
+class Program {
+    static void Main() {
+
+        // ──── Création de tableau ─────────────────
+        int[] notes = new int[5];  // Tableau de 5 ints (tous à 0)
+        notes[0] = 15;
+        notes[1] = 18;
+        notes[2] = 12;
+        notes[3] = 20;
+        notes[4] = 16;
+
+        // ──── Initialisation directe ──────────────
+        string[] jours = { "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi" };
+        double[] prix = new double[] { 9.99, 14.50, 7.00, 22.99 };
+
+        // ──── Accès aux éléments ──────────────────
+        Console.WriteLine($"Première note : {notes[0]}");   // 15
+        Console.WriteLine($"Dernière note : {notes[4]}");   // 16
+        Console.WriteLine($"Dernier jour  : {jours[jours.Length - 1]}"); // Vendredi
+
+        // ──── Parcourir avec for ───────────────────
+        double total = 0;
+        for (int i = 0; i < notes.Length; i++) {
+            total += notes[i];
+        }
+        double moyenne = total / notes.Length;
+        Console.WriteLine($"Moyenne : {moyenne:F2}");
+
+        // ──── Tableau 2D (matrice) ────────────────
+        int[,] grille = {
+            { 1, 2, 3 },
+            { 4, 5, 6 },
+            { 7, 8, 9 }
+        };
+
+        Console.WriteLine("\nGrille 3x3 :");
+        for (int l = 0; l < 3; l++) {
+            for (int c = 0; c < 3; c++) {
+                Console.Write($"{grille[l, c]} ");
+            }
+            Console.WriteLine();
+        }
+
+        // ──── Trier un tableau ────────────────────
+        Array.Sort(notes);
+        Console.WriteLine($"\nNotes triées : {string.Join(", ", notes)}");
+    }
+}`,
+    quiz: { q: "Quel index a le premier élément d'un tableau ?", opts: ["1", "0", "-1", "Dépend du tableau"], ans: 1, exp: "✅ En C# (et presque tous les langages), l'indexation commence à 0. Un tableau de N éléments va de l'index 0 à N-1." }
+  },
+  {
+    title: "foreach",
+    chapter: "📚 Collections",
+    subtitle: "Parcourir les collections facilement",
+    content: `
+<p class="prose">La boucle <code>foreach</code> parcourt automatiquement chaque élément d'une collection sans avoir à gérer les indices. Elle est plus lisible et moins sujette aux erreurs que <code>for</code> pour la simple itération.</p>
+
+<div class="info-block tip"><span class="info-icon">✅</span><div>Utilisez <code>foreach</code> quand vous voulez lire chaque élément. Utilisez <code>for</code> quand vous avez besoin de l'index, de modifier les éléments, ou de parcourir en sens inverse.</div></div>`,
+    code: `using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main() {
+
+        // ──── foreach sur tableau ─────────────────
+        int[] nombres = { 5, 3, 8, 1, 9, 2, 7 };
+
+        int max = nombres[0];
+        int somme = 0;
+
+        foreach (int n in nombres) {
+            Console.Write(n + " ");
+            somme += n;
+            if (n > max) max = n;
+        }
+        Console.WriteLine($"\nSomme : {somme}, Max : {max}");
+
+        // ──── foreach sur string[] ────────────────
+        string[] villes = { "Dakar", "Paris", "Tokyo", "New York" };
+
+        Console.WriteLine("\nVilles :");
+        foreach (string ville in villes) {
+            Console.WriteLine($"  → {ville} ({ville.Length} lettres)");
+        }
+
+        // ──── foreach sur List<T> ─────────────────
+        List<double> temperatures = new List<double>() { 28.5, 31.0, 27.8, 33.2, 29.1 };
+        double totalT = 0;
+
+        foreach (double temp in temperatures) {
+            totalT += temp;
+        }
+        Console.WriteLine($"\nTempérature moyenne : {totalT / temperatures.Count:F1}°C");
+
+        // ──── foreach sur Dictionary ──────────────
+        Dictionary<string, int> ages = new Dictionary<string, int>() {
+            { "Thierno", 22 },
+            { "Amina", 25 },
+            { "Omar", 30 }
+        };
+
+        foreach (KeyValuePair<string, int> paire in ages) {
+            Console.WriteLine($"{paire.Key} a {paire.Value} ans");
+        }
+    }
+}`,
+    quiz: { q: "Peut-on modifier les éléments d'un tableau dans foreach ?", opts: ["Oui, directement", "Non, la variable de foreach est en lecture seule", "Oui, avec un cast", "Oui, avec ref"], ans: 1, exp: "✅ Exact ! La variable d'itération de foreach est une copie. Pour modifier, utilisez for avec index ou for avec ref (tableaux uniquement)." }
+  },
+  {
+    title: "Les Méthodes",
+    chapter: "🧩 Méthodes",
+    subtitle: "Organiser et réutiliser votre code",
+    content: `
+<p class="prose">Une méthode est un <strong>bloc de code nommé et réutilisable</strong>. Elle encapsule une action précise. Plutôt que de copier-coller du code, on l'écrit une fois dans une méthode et on l'appelle autant de fois que nécessaire.</p>
+
+<div class="info-block concept"><span class="info-icon">💡</span><div>Principe DRY : "Don't Repeat Yourself". Si vous vous retrouvez à copier-coller le même code, c'est le signal qu'il faut en faire une méthode.</div></div>`,
+    code: `using System;
+
+class Program {
+
+    // ──── Méthode sans retour (void) ─────────────
+    static void Afficherbonjour(string prenom) {
+        Console.WriteLine($"Bonjour, {prenom} !");
+        Console.WriteLine("Bienvenue dans le programme.");
+    }
+
+    // ──── Méthode avec retour ────────────────────
+    static int Additionner(int a, int b) {
+        return a + b;
+    }
+
+    static double Moyenne(int[] tableau) {
+        double total = 0;
+        foreach (int val in tableau) total += val;
+        return total / tableau.Length;
+    }
+
+    // ──── Méthode avec paramètre optionnel ───────
+    static void AfficherSeparateur(char c = '-', int longueur = 30) {
+        Console.WriteLine(new string(c, longueur));
+    }
+
+    // ──── Méthode récursive (s'appelle elle-même) ─
+    static int Factorielle(int n) {
+        if (n <= 1) return 1;         // Cas de base
+        return n * Factorielle(n - 1); // Appel récursif
+    }
+
+    static void Main() {
+
+        // Appels de méthodes
+        Afficherbonjour("Thierno");
+        AfficherSeparateur();
+
+        int resultat = Additionner(15, 27);
+        Console.WriteLine($"15 + 27 = {resultat}");
+
+        int[] notes = { 12, 15, 18, 14, 16 };
+        Console.WriteLine($"Moyenne : {Moyenne(notes):F2}");
+
+        AfficherSeparateur('=', 20);
+
+        // Factorielle
+        for (int i = 1; i <= 6; i++) {
+            Console.WriteLine($"{i}! = {Factorielle(i)}");
+        }
+    }
+}`,
+    quiz: { q: "Que signifie 'void' comme type de retour ?", opts: ["Retourne zéro", "La méthode ne retourne rien", "Type automatique", "Valeur nulle"], ans: 1, exp: "✅ Correct ! 'void' indique que la méthode n'a pas de valeur de retour. Elle effectue des actions mais ne renvoie rien." }
+  },
+  {
+    title: "Classes et Objets",
+    chapter: "🏗️ POO",
+    subtitle: "La programmation orientée objet en C#",
+    content: `
+<p class="prose">Une <strong>classe</strong> est un modèle (blueprint) qui définit la structure et le comportement d'un type de données. Un <strong>objet</strong> est une instance concrète d'une classe. C'est le cœur de la <strong>Programmation Orientée Objet (POO)</strong>.</p>
+
+<div class="info-block concept"><span class="info-icon">💡</span><div>Analogie : la classe est le plan d'architecte d'une maison. L'objet est la maison construite à partir de ce plan. On peut construire plusieurs maisons (objets) avec le même plan (classe).</div></div>`,
+    code: `using System;
+
+// Définition de la classe
+class Etudiant {
+    // ──── Champs (données) ───────────────────────
+    public string Prenom;
+    public string Nom;
+    public int Age;
+    private double[] _notes;  // Privé : accessible seulement dans la classe
+
+    // ──── Constructeur ───────────────────────────
+    public Etudiant(string prenom, string nom, int age) {
+        Prenom = prenom;
+        Nom = nom;
+        Age = age;
+        _notes = new double[0];
+    }
+
+    // ──── Propriété calculée ─────────────────────
+    public string NomComplet => $"{Prenom} {Nom}";
+
+    // ──── Méthodes ───────────────────────────────
+    public void AjouterNote(double note) {
+        Array.Resize(ref _notes, _notes.Length + 1);
+        _notes[_notes.Length - 1] = note;
+    }
+
+    public double CalculerMoyenne() {
+        if (_notes.Length == 0) return 0;
+        double total = 0;
+        foreach (var n in _notes) total += n;
+        return total / _notes.Length;
+    }
+
+    public void AfficherInfo() {
+        Console.WriteLine($"Étudiant : {NomComplet}, {Age} ans");
+        Console.WriteLine($"Moyenne  : {CalculerMoyenne():F2}/20");
+    }
 }
 
-runCode();
+class Program {
+    static void Main() {
 
+        // ──── Créer des objets ────────────────────
+        Etudiant e1 = new Etudiant("Thierno", "Diallo", 22);
+        Etudiant e2 = new Etudiant("Amina", "Bah", 20);
+
+        // ──── Utiliser les méthodes ───────────────
+        e1.AjouterNote(14);
+        e1.AjouterNote(17);
+        e1.AjouterNote(15);
+
+        e2.AjouterNote(18);
+        e2.AjouterNote(19);
+
+        e1.AfficherInfo();
+        Console.WriteLine();
+        e2.AfficherInfo();
+    }
+}`,
+    quiz: { q: "Quelle est la différence entre une classe et un objet ?", opts: ["Ce sont des synonymes", "La classe est le modèle, l'objet est une instance concrète", "L'objet contient plusieurs classes", "La classe est créée avec 'new'"], ans: 1, exp: "✅ Parfait ! La classe définit la structure (code). L'objet est une instance créée avec 'new' — une copie en mémoire basée sur ce modèle." }
+  },
+  {
+    title: "Héritage",
+    chapter: "🏗️ POO",
+    subtitle: "Réutiliser et étendre des classes existantes",
+    content: `
+<p class="prose">L'héritage permet à une classe (<strong>classe fille</strong>) d'hériter des propriétés et méthodes d'une autre classe (<strong>classe mère</strong>). Cela évite la duplication de code et permet de créer des hiérarchies de classes logiques.</p>
+
+<div class="info-block concept"><span class="info-icon">💡</span><div>Analogie : "Animal → Chien → Labrador". Chaque niveau hérite des caractéristiques du niveau précédent et en ajoute de nouvelles. Un Labrador EST un Chien, qui EST un Animal.</div></div>`,
+    code: `using System;
+
+// ──── Classe de base ─────────────────────────────
+class Animal {
+    public string Nom { get; set; }
+    public int Age { get; set; }
+
+    public Animal(string nom, int age) {
+        Nom = nom;
+        Age = age;
+    }
+
+    public virtual void FaireDuBruit() {  // virtual = peut être redéfini
+        Console.WriteLine($"{Nom} fait un bruit...");
+    }
+
+    public void Respirer() {
+        Console.WriteLine($"{Nom} respire.");
+    }
+}
+
+// ──── Classe fille ────────────────────────────────
+class Chien : Animal {  // Chien hérite de Animal
+    public string Race { get; set; }
+
+    public Chien(string nom, int age, string race)
+        : base(nom, age) {  // base() appelle le constructeur parent
+        Race = race;
+    }
+
+    public override void FaireDuBruit() {  // Redéfinition
+        Console.WriteLine($"{Nom} aboie : Wouf Wouf !");
+    }
+
+    public void Fetch() {
+        Console.WriteLine($"{Nom} rapporte la balle !");
+    }
+}
+
+class Chat : Animal {
+    public Chat(string nom, int age) : base(nom, age) { }
+
+    public override void FaireDuBruit() {
+        Console.WriteLine($"{Nom} miaule : Miaou !");
+    }
+}
+
+class Program {
+    static void Main() {
+
+        Animal generique = new Animal("Animal", 1);
+        Chien rex = new Chien("Rex", 3, "Berger allemand");
+        Chat mimi = new Chat("Mimi", 5);
+
+        // Polymorphisme : même méthode, comportements différents
+        Animal[] animaux = { generique, rex, mimi };
+
+        foreach (Animal a in animaux) {
+            a.FaireDuBruit();  // Chaque animal a son propre bruit
+            a.Respirer();      // Héritée de la classe mère
+            Console.WriteLine();
+        }
+
+        // Méthode spécifique à Chien
+        rex.Fetch();
+    }
+}`,
+    quiz: { q: "Quel mot-clé permet de redéfinir une méthode dans une sous-classe ?", opts: ["new", "override", "virtual", "extends"], ans: 1, exp: "✅ Exact ! 'override' redéfinit une méthode marquée 'virtual' dans la classe mère. En Java on dit 'extends', en C# on utilise ':'." }
+  },
+  {
+    title: "Gestion des Exceptions",
+    chapter: "⚠️ Erreurs",
+    subtitle: "Gérer les erreurs élégamment avec try/catch",
+    content: `
+<p class="prose">Une exception est une erreur qui se produit à l'exécution. Sans gestion, elle fait planter le programme. Le bloc <code>try / catch / finally</code> permet de <strong>capturer et gérer</strong> ces erreurs proprement.</p>
+
+<div class="info-block warn"><span class="info-icon">⚠️</span><div>Ne mettez PAS des blocs try/catch partout ! Gérez seulement les erreurs que vous pouvez vraiment traiter. Un try/catch vide qui cache les erreurs est une très mauvaise pratique.</div></div>`,
+    code: `using System;
+
+class Program {
+    static void Main() {
+
+        // ──── try / catch de base ─────────────────
+        try {
+            int[] tableau = { 1, 2, 3 };
+            Console.WriteLine(tableau[10]);  // ← IndexOutOfRangeException !
+        }
+        catch (IndexOutOfRangeException ex) {
+            Console.WriteLine($"Erreur d'index : {ex.Message}");
+        }
+
+        // ──── Conversion invalide ─────────────────
+        try {
+            string saisie = "abc";
+            int nombre = int.Parse(saisie);  // ← FormatException !
+        }
+        catch (FormatException ex) {
+            Console.WriteLine($"Format invalide : {ex.Message}");
+        }
+        catch (OverflowException ex) {
+            Console.WriteLine($"Nombre trop grand : {ex.Message}");
+        }
+
+        // ──── finally : s'exécute toujours ───────
+        try {
+            Console.WriteLine("Début du traitement...");
+            // Code risqué ici
+            int result = 10 / 2;
+            Console.WriteLine($"Résultat : {result}");
+        }
+        catch (DivideByZeroException) {
+            Console.WriteLine("Division par zéro !");
+        }
+        finally {
+            Console.WriteLine("finally s'exécute TOUJOURS (succès ou erreur)");
+            Console.WriteLine("Utile pour fermer des fichiers, des connexions...");
+        }
+
+        // ──── Lancer sa propre exception ─────────
+        try {
+            ValiderAge(-5);
+        }
+        catch (ArgumentException ex) {
+            Console.WriteLine($"Validation : {ex.Message}");
+        }
+    }
+
+    static void ValiderAge(int age) {
+        if (age < 0 || age > 150) {
+            throw new ArgumentException($"Âge invalide : {age}");
+        }
+        Console.WriteLine($"Âge valide : {age}");
+    }
+}`,
+    quiz: { q: "Le bloc 'finally' s'exécute quand ?", opts: ["Seulement si une erreur survient", "Seulement si aucune erreur ne survient", "Toujours, qu'il y ait erreur ou non", "Jamais automatiquement"], ans: 2, exp: "✅ Exact ! finally s'exécute TOUJOURS, succès ou échec. Idéal pour libérer des ressources (fermer un fichier, une connexion)." }
+  },
+  {
+    title: "List<T>",
+    chapter: "📚 Collections",
+    subtitle: "Collections dynamiques et flexibles",
+    content: `
+<p class="prose"><code>List&lt;T&gt;</code> est comme un tableau dont la <strong>taille s'ajuste automatiquement</strong>. Le T représente le type des éléments (ex: <code>List&lt;string&gt;</code>, <code>List&lt;int&gt;</code>). C'est la collection la plus utilisée en C#.</p>
+
+<div class="info-block tip"><span class="info-icon">✅</span><div>Préférez <code>List&lt;T&gt;</code> aux tableaux dans la plupart des cas car elle est plus flexible : vous pouvez ajouter, supprimer et insérer des éléments facilement.</div></div>`,
+    code: `using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main() {
+
+        // ──── Créer une List ──────────────────────
+        List<string> fruits = new List<string>();
+
+        // Ajouter des éléments
+        fruits.Add("Mangue");
+        fruits.Add("Papaye");
+        fruits.Add("Ananas");
+        fruits.Add("Banane");
+
+        // Initialisation directe
+        List<int> notes = new List<int> { 15, 12, 18, 14, 17 };
+
+        // ──── Propriétés essentielles ─────────────
+        Console.WriteLine($"Nombre de fruits : {fruits.Count}");
+        Console.WriteLine($"Premier : {fruits[0]}");
+        Console.WriteLine($"Dernier : {fruits[fruits.Count - 1]}");
+
+        // ──── Méthodes utiles ────────────────────
+        fruits.Insert(1, "Orange");     // Insérer à l'index 1
+        fruits.Remove("Banane");        // Supprimer par valeur
+        fruits.RemoveAt(0);             // Supprimer par index
+
+        bool contient = fruits.Contains("Mangue");
+        int position = fruits.IndexOf("Ananas");
+
+        Console.WriteLine($"Contient Mangue : {contient}");
+        Console.WriteLine($"Position Ananas : {position}");
+
+        // ──── Trier et inverser ───────────────────
+        fruits.Sort();
+        Console.WriteLine("\nFruits triés :");
+        foreach (string f in fruits) {
+            Console.WriteLine($"  {f}");
+        }
+
+        // ──── LINQ sur List ───────────────────────
+        var grandesNotes = notes.FindAll(n => n >= 15);
+        Console.WriteLine($"\nNotes >= 15 : {string.Join(", ", grandesNotes)}");
+
+        double moyenne = 0;
+        notes.ForEach(n => moyenne += n);
+        Console.WriteLine($"Moyenne : {moyenne / notes.Count:F2}");
+    }
+}`,
+    quiz: { q: "Quelle méthode ajoute un élément à la fin d'une List ?", opts: ["Push()", "Append()", "Add()", "Insert(0)"], ans: 2, exp: "✅ Correct ! Add() ajoute à la fin. Insert(index, element) ajoute à une position précise. Push() est pour les piles (Stack<T>)." }
+  },
+  {
+    title: "Dictionary<K,V>",
+    chapter: "📚 Collections",
+    subtitle: "Associer des clés à des valeurs",
+    content: `
+<p class="prose">Un <code>Dictionary&lt;TKey, TValue&gt;</code> stocke des paires clé-valeur, comme un dictionnaire réel : vous cherchez par mot (clé) et obtenez la définition (valeur). La recherche par clé est <strong>très rapide</strong> (O(1)).</p>
+
+<div class="info-block tip"><span class="info-icon">✅</span><div>Accéder à une clé qui n'existe pas provoque une KeyNotFoundException. Utilisez <code>TryGetValue()</code> ou vérifiez avec <code>ContainsKey()</code> d'abord.</div></div>`,
+    code: `using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main() {
+
+        // ──── Créer un Dictionary ─────────────────
+        Dictionary<string, int> ages = new Dictionary<string, int>();
+        ages["Thierno"] = 22;
+        ages["Amina"] = 25;
+        ages["Omar"] = 30;
+
+        // Initialisation directe
+        Dictionary<string, string> capitales = new Dictionary<string, string>() {
+            { "Sénégal", "Dakar" },
+            { "France", "Paris" },
+            { "Maroc", "Rabat" },
+            { "Côte d'Ivoire", "Yamoussoukro" }
+        };
+
+        // ──── Accès sécurisé ─────────────────────
+        if (capitales.TryGetValue("Sénégal", out string capitale)) {
+            Console.WriteLine($"Capitale du Sénégal : {capitale}");
+        }
+
+        // ──── Vérifications ──────────────────────
+        Console.WriteLine($"France existe : {capitales.ContainsKey("France")}");
+        Console.WriteLine($"Nombre de pays : {capitales.Count}");
+
+        // ──── Modifier et supprimer ───────────────
+        ages["Thierno"] = 23;       // Modifier
+        ages.Remove("Omar");        // Supprimer
+
+        // ──── Parcourir ──────────────────────────
+        Console.WriteLine("\n--- Capitales ---");
+        foreach (KeyValuePair<string, string> paire in capitales) {
+            Console.WriteLine($"  {paire.Key,-20} → {paire.Value}");
+        }
+
+        // ──── Cas pratique : compteur de mots ────
+        string texte = "bonjour monde bonjour c# bonjour";
+        Dictionary<string, int> compteur = new Dictionary<string, int>();
+
+        foreach (string mot in texte.Split(' ')) {
+            if (compteur.ContainsKey(mot)) {
+                compteur[mot]++;
+            } else {
+                compteur[mot] = 1;
+            }
+        }
+
+        Console.WriteLine("\n--- Fréquences des mots ---");
+        foreach (var paire in compteur) {
+            Console.WriteLine($"  '{paire.Key}' : {paire.Value} fois");
+        }
+    }
+}`,
+    quiz: { q: "Comment accéder sans risquer une exception ?", opts: ["dict[cle]", "dict.Get(cle)", "dict.TryGetValue(cle, out val)", "dict.SafeGet(cle)"], ans: 2, exp: "✅ Exact ! TryGetValue retourne false si la clé n'existe pas au lieu de lancer une exception. C'est la méthode recommandée." }
+  }
+];
+
+// Remplir les leçons manquantes 22-50 avec du contenu de base
+const lessonsFull = [...lessons];
+const remainingLessons = [
+  { n: 22, t: "return", sub: "Retourner des valeurs depuis une méthode", ch: "🧩 Méthodes" },
+  { n: 23, t: "Paramètres", sub: "Passer des données aux méthodes", ch: "🧩 Méthodes" },
+  { n: 24, t: "Classes", sub: "Définir vos propres types de données", ch: "🏗️ POO" },
+  { n: 25, t: "Constructeurs", sub: "Initialiser les objets correctement", ch: "🏗️ POO" },
+  { n: 26, t: "Propriétés", sub: "Contrôler l'accès aux données", ch: "🏗️ POO" },
+  { n: 27, t: "Encapsulation", sub: "Protéger les données de la classe", ch: "🏗️ POO" },
+  { n: 28, t: "Polymorphisme", sub: "Même interface, comportements différents", ch: "🏗️ POO" },
+  { n: 29, t: "Interfaces", sub: "Définir des contrats pour vos classes", ch: "🏗️ POO" },
+  { n: 30, t: "Classes abstraites", sub: "Bases pour des hiérarchies de classes", ch: "🏗️ POO" },
+  { n: 31, t: "LINQ - Bases", sub: "Interroger les collections comme une base de données", ch: "🔍 LINQ" },
+  { n: 32, t: "LINQ - Where/Select", sub: "Filtrer et transformer des données", ch: "🔍 LINQ" },
+  { n: 33, t: "LINQ - Agrégation", sub: "Sum, Min, Max, Average, Count", ch: "🔍 LINQ" },
+  { n: 34, t: "Lambda expressions", sub: "Fonctions anonymes concises", ch: "🔍 LINQ" },
+  { n: 35, t: "Fichiers - Écriture", sub: "Sauvegarder des données sur le disque", ch: "📂 Fichiers" },
+  { n: 36, t: "Fichiers - Lecture", sub: "Lire des données depuis des fichiers", ch: "📂 Fichiers" },
+  { n: 37, t: "DateTime", sub: "Gérer les dates et les heures", ch: "⏰ Temps" },
+  { n: 38, t: "TimeSpan", sub: "Calculer des durées", ch: "⏰ Temps" },
+  { n: 39, t: "Async / Await", sub: "Programmation asynchrone moderne", ch: "⚡ Async" },
+  { n: 40, t: "Task et Thread", sub: "Parallélisme et multithreading", ch: "⚡ Async" },
+  { n: 41, t: "Namespaces", sub: "Organiser son code en espaces de noms", ch: "🏛️ Architecture" },
+  { n: 42, t: "Modificateurs d'accès", sub: "public, private, protected, internal", ch: "🏛️ Architecture" },
+  { n: 43, t: "Génériques <T>", sub: "Écrire du code réutilisable et typé", ch: "🏛️ Architecture" },
+  { n: 44, t: "Délégués", sub: "Variables qui contiennent des méthodes", ch: "🏛️ Architecture" },
+  { n: 45, t: "Événements", sub: "Le pattern Observer en C#", ch: "🏛️ Architecture" },
+  { n: 46, t: "ASP.NET Core", sub: "Créer des applications web avec C#", ch: "🌐 Web" },
+  { n: 47, t: "API REST", sub: "Exposer des données via HTTP", ch: "🌐 Web" },
+  { n: 48, t: "Entity Framework", sub: "ORM pour les bases de données", ch: "🗄️ BDD" },
+  { n: 49, t: "JSON - Sérialisation", sub: "Convertir objets C# en JSON et vice-versa", ch: "🗄️ BDD" },
+  { n: 50, t: "Projet Final", sub: "Mettre tout en pratique : app complète", ch: "🎯 Projet" },
+];
+
+remainingLessons.forEach(({ n, t, sub, ch }) => {
+  lessonsFull.push({
+    title: t,
+    chapter: ch,
+    subtitle: sub,
+    content: `<p class="prose">Leçon ${n} : <strong>${t}</strong> — ${sub}.</p><div class="info-block concept"><span class="info-icon">💡</span><div>Cette leçon couvre ${t} en profondeur. Consultez l'assistant IA pour poser des questions spécifiques sur ce sujet !</div></div>`,
+    code: `using System;\n\nclass Program {\n    static void Main() {\n        // Leçon ${n} : ${t}\n        // Modifiez ce code et expérimentez !\n        Console.WriteLine("Leçon ${n} : ${t}");\n        Console.WriteLine("Posez une question à l'assistant IA ↗");\n    }\n}`,
+    quiz: null
+  });
+});
+
+// ─── STATE ────────────────────────────────────────
+let currentLesson = 0;
+let completedLessons = new Set();
+let xp = 0;
+
+// ─── BUILD LESSON LIST ────────────────────────────
+function buildLessonList() {
+  const container = document.getElementById('lesson-list');
+  let lastChapter = '';
+  let html = '';
+
+  lessonsFull.forEach((lesson, i) => {
+    if (lesson.chapter !== lastChapter) {
+      html += `<div class="chapter-label">${lesson.chapter}</div>`;
+      lastChapter = lesson.chapter;
+    }
+    const done = completedLessons.has(i) ? 'done' : '';
+    const active = i === currentLesson ? 'active' : '';
+    const numDisplay = completedLessons.has(i) ? '✓' : (i + 1);
+    html += `<div class="lesson-item ${active} ${done}" onclick="goToLesson(${i})" id="li-${i}">
+      <div class="lesson-num">${numDisplay}</div>
+      <div class="lesson-title">${lesson.title}</div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+// ─── RENDER LESSON ────────────────────────────────
+function renderLesson(i) {
+  const lesson = lessonsFull[i];
+  const editor = document.getElementById('code-editor');
+  editor.value = lesson.code || '';
+
+  const quizHTML = lesson.quiz ? `
+    <div class="section-title">Mini Quiz</div>
+    <div class="quiz-block" id="quiz-${i}">
+      <div class="quiz-q">🎯 ${lesson.quiz.q}</div>
+      ${lesson.quiz.opts.map((opt, j) => `<button class="quiz-opt" onclick="checkQuiz(${i}, ${j})">${opt}</button>`).join('')}
+      <div class="quiz-feedback" id="qf-${i}"></div>
+    </div>` : '';
+
+  document.getElementById('lesson-content').innerHTML = `
+    <div class="lesson-header">
+      <div class="lesson-number-badge">Leçon ${i + 1} / ${lessonsFull.length}</div>
+      <h1 class="lesson-h1">${lesson.title}</h1>
+      <p class="lesson-subtitle">${lesson.subtitle}</p>
+    </div>
+    ${lesson.content}
+    <div class="section-title">Code Complet</div>
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+        <span class="code-lang">C#</span>
+        <button class="code-copy" onclick="copyCode(${i})">Copier</button>
+      </div>
+      <div class="code-body">${highlightCode(lesson.code)}</div>
+    </div>
+    ${quizHTML}
+    <div class="lesson-nav">
+      ${i > 0 ? `<button class="nav-arrow" onclick="goToLesson(${i - 1})">← Précédent</button>` : ''}
+      <button class="done-btn" onclick="markDone(${i})">✓ Marquer comme apprise</button>
+      ${i < lessonsFull.length - 1 ? `<button class="nav-arrow primary" onclick="goToLesson(${i + 1})">Suivant →</button>` : '<span style="margin-left:auto;color:var(--green);font-weight:600">🎉 Cours terminé !</span>'}
+    </div>
+  `;
+
+  // Scroll top
+  document.getElementById('lesson-content').scrollTop = 0;
+}
+
+function highlightCode(code) {
+  return code
+    .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/\/\/.*/g, m => `<span class="cm">${m}</span>`)
+    .replace(/\b(using|namespace|class|static|void|return|new|if|else|for|foreach|while|do|switch|case|break|continue|default|throw|try|catch|finally|public|private|protected|override|virtual|abstract|interface|var|in|out|ref|const|this|base)\b/g, m => `<span class="kw">${m}</span>`)
+    .replace(/\b(int|string|double|float|bool|char|decimal|long|byte|short|List|Dictionary|Array|Math|Console|DateTime|Task|void)\b/g, m => `<span class="ty">${m}</span>`)
+    .replace(/"([^"]*)"/g, m => `<span class="st">${m}</span>`)
+    .replace(/\b(\d+\.?\d*)\b/g, m => `<span class="nm">${m}</span>`);
+}
+
+function goToLesson(i) {
+  currentLesson = i;
+  renderLesson(i);
+  buildLessonList();
+  document.getElementById(`li-${i}`)?.scrollIntoView({ block: 'nearest' });
+}
+
+function markDone(i) {
+  if (!completedLessons.has(i)) {
+    completedLessons.add(i);
+    xp += 20;
+    document.getElementById('xp-badge').textContent = xp + ' XP';
+    updateProgress();
+    buildLessonList();
+  }
+}
+
+function updateProgress() {
+  const pct = (completedLessons.size / lessonsFull.length) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = `${completedLessons.size} / ${lessonsFull.length} leçons`;
+  document.getElementById('done-count').textContent = completedLessons.size + ' complétées';
+}
+
+function copyCode(i) {
+  navigator.clipboard.writeText(lessonsFull[i].code);
+}
+
+function checkQuiz(lessonIdx, optIdx) {
+  const q = lessonsFull[lessonIdx].quiz;
+  const block = document.getElementById(`quiz-${lessonIdx}`);
+  const feedback = document.getElementById(`qf-${lessonIdx}`);
+  const btns = block.querySelectorAll('.quiz-opt');
+
+  btns.forEach(b => b.disabled = true);
+  btns[optIdx].classList.add(optIdx === q.ans ? 'correct' : 'wrong');
+  if (optIdx !== q.ans) btns[q.ans].classList.add('correct');
+
+  feedback.style.display = 'block';
+  feedback.textContent = q.exp;
+  feedback.style.color = optIdx === q.ans ? 'var(--green)' : 'var(--red)';
+
+  if (optIdx === q.ans) {
+    xp += 10;
+    document.getElementById('xp-badge').textContent = xp + ' XP';
+  }
+}
+
+function filterLessons() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  document.querySelectorAll('.lesson-item').forEach((el, i) => {
+    const title = lessonsFull[i].title.toLowerCase();
+    el.style.display = title.includes(q) ? '' : 'none';
+  });
+  document.querySelectorAll('.chapter-label').forEach(el => {
+    el.style.display = q ? 'none' : '';
+  });
+}
+
+// ─── EDITOR ───────────────────────────────────────
+function showCode() {
+  const code = document.getElementById('code-editor').value;
+  const out = document.getElementById('output-box');
+  out.className = 'output-box';
+  out.innerHTML = `<div style="color:var(--muted);font-size:11px;margin-bottom:12px">// Votre code C# :</div>` + highlightCode(code);
+  switchEditorTab('output');
+}
+
+function switchEditorTab(tab) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.etab').forEach(b => b.classList.remove('active'));
+  document.getElementById(`tab-${tab}`).classList.add('active');
+  document.querySelectorAll('.etab').forEach(b => {
+    if (b.textContent.toLowerCase().includes(tab) || (tab === 'ai' && b.textContent.includes('IA'))) {
+      b.classList.add('active');
+    }
+  });
+}
+
+// ─── AI ───────────────────────────────────────────
+async function sendAI() {
+  const input = document.getElementById('ai-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+
+  const lesson = lessonsFull[currentLesson];
+  appendMsg(msg, 'user');
+  document.getElementById('typing').style.display = 'flex';
+
+  const systemPrompt = `Tu es un assistant pédagogique expert en C#, répondant en français. L'utilisateur apprend C# et est actuellement à la leçon "${lesson.title}" (${lesson.subtitle}). Réponds de façon claire, concise et pédagogique. Utilise des exemples de code courts si utile. Si l'utilisateur colle du code, explique-le.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: msg }]
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.map(c => c.text || '').join('') || "Désolé, je n'ai pas pu répondre.";
+    document.getElementById('typing').style.display = 'none';
+    appendMsg(reply, 'ai');
+  } catch {
+    document.getElementById('typing').style.display = 'none';
+    appendMsg("Erreur de connexion. Vérifiez votre connexion internet.", 'ai');
+  }
+}
+
+function appendMsg(text, role) {
+  const container = document.getElementById('ai-messages');
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+  div.innerHTML = text
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\n/g, '<br>');
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function handleAiKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendAI();
+  }
+}
+
+function setTab(tab) {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+}
+
+// ─── INIT ─────────────────────────────────────────
+buildLessonList();
+renderLesson(0);
 </script>
-
 </body>
 </html>
