@@ -1,3 +1,3219 @@
+ <!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apprendre le Langage C — 50 Leçons</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0c0e14;
+  --panel: #131620;
+  --card: #1a1e2e;
+  --border: #252a3d;
+  --green: #00e887;
+  --green2: #00b865;
+  --blue: #4f8cff;
+  --orange: #ff8c42;
+  --text: #e2e8f8;
+  --muted: #6b7591;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Sora', sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--green);
+  letter-spacing: -0.5px;
+}
+
+.logo-icon {
+  background: var(--green);
+  color: #000;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.header-info {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+
+.progress-bar-wrap {
+  width: 200px;
+  background: var(--border);
+  border-radius: 20px;
+  height: 6px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green), var(--blue));
+  border-radius: 20px;
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+/* ── LAYOUT ── */
+.workspace {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 260px;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+.sidebar-title {
+  padding: 16px 20px 12px;
+  font-size: 10px;
+  font-family: var(--mono);
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 1px solid var(--border);
+}
+
+.lesson-nav-item {
+  padding: 10px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-left: 3px solid transparent;
+  transition: all 0.2s;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.lesson-nav-item:hover {
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  border-left-color: var(--border);
+}
+
+.lesson-nav-item.active {
+  background: rgba(0,232,135,0.07);
+  color: var(--green);
+  border-left-color: var(--green);
+  font-weight: 600;
+}
+
+.lesson-nav-item.done .nav-num {
+  background: var(--green2);
+  color: #000;
+}
+
+.nav-num {
+  background: var(--border);
+  color: var(--muted);
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+/* ── MAIN CONTENT ── */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.main::-webkit-scrollbar { width: 5px; }
+.main::-webkit-scrollbar-thumb { background: var(--border); border-radius: 5px; }
+
+/* ── LESSON CARD ── */
+.lesson-card {
+  display: none;
+  animation: fadeIn 0.35s ease;
+}
+
+.lesson-card.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.lesson-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.lesson-num-big {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--green);
+  background: rgba(0,232,135,0.1);
+  border: 1px solid rgba(0,232,135,0.25);
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  margin-top: 4px;
+}
+
+.lesson-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+
+.lesson-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+  font-weight: 300;
+}
+
+.section-block {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px 24px;
+  margin-bottom: 18px;
+}
+
+.section-label {
+  font-size: 10px;
+  font-family: var(--mono);
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.section-block p {
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: #b8c0d8;
+  margin-bottom: 10px;
+}
+
+.section-block p:last-child { margin-bottom: 0; }
+
+.section-block ul {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.section-block ul li {
+  font-size: 14px;
+  color: #b8c0d8;
+  line-height: 1.7;
+}
+
+.highlight { color: var(--green); font-family: var(--mono); font-size: 13px; }
+.highlight-blue { color: var(--blue); font-family: var(--mono); font-size: 13px; }
+.highlight-orange { color: var(--orange); }
+
+code-block {
+  display: block;
+  background: #0a0c12;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+
+.code-top {
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.code-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.code-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.code-top-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.copy-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.copy-btn:hover {
+  border-color: var(--green);
+  color: var(--green);
+  background: rgba(0,232,135,0.05);
+}
+
+pre.code-body {
+  padding: 18px 20px;
+  font-family: var(--mono);
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: #c9d1e9;
+  overflow-x: auto;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+}
+
+pre.code-body .kw { color: #c792ea; }
+pre.code-body .fn { color: var(--blue); }
+pre.code-body .str { color: #c3e88d; }
+pre.code-body .num { color: var(--orange); }
+pre.code-body .cmt { color: var(--muted); font-style: italic; }
+pre.code-body .inc { color: #89ddff; }
+pre.code-body .type { color: #ffcb6b; }
+
+.nav-arrows {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.arrow-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+}
+
+.arrow-btn:hover {
+  border-color: var(--green);
+  color: var(--green);
+  background: rgba(0,232,135,0.06);
+}
+
+.arrow-btn.primary {
+  background: var(--green);
+  color: #000;
+  border-color: var(--green);
+}
+
+.arrow-btn.primary:hover {
+  background: var(--green2);
+  border-color: var(--green2);
+  color: #000;
+}
+
+.arrow-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.done-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--green);
+  background: rgba(0,232,135,0.1);
+  border: 1px solid rgba(0,232,135,0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* ── EDITOR PANEL ── */
+.editor-panel {
+  width: 420px;
+  background: var(--panel);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.editor-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.editor-title {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.editor-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.editor-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+}
+
+.editor-tab {
+  padding: 10px 18px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.editor-tab.active {
+  color: var(--green);
+  border-bottom-color: var(--green);
+  background: rgba(0,232,135,0.05);
+}
+
+#code-editor {
+  flex: 1;
+  background: #090b10;
+  color: #c9d1e9;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.7;
+  border: none;
+  outline: none;
+  padding: 18px;
+  resize: none;
+  tab-size: 4;
+}
+
+.run-btn {
+  margin: 14px 16px;
+  padding: 12px;
+  background: var(--green);
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+}
+
+.run-btn:hover { background: var(--green2); }
+
+.output-area {
+  border-top: 1px solid var(--border);
+  flex: 0 0 auto;
+  max-height: 220px;
+  display: flex;
+  flex-direction: column;
+}
+
+.output-label {
+  padding: 8px 16px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.output-clear {
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 10px;
+  transition: color 0.2s;
+}
+
+.output-clear:hover { color: var(--text); }
+
+#output-display {
+  padding: 14px 16px;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.7;
+  color: #c9d1e9;
+  overflow-y: auto;
+  flex: 1;
+  background: #07090d;
+}
+
+#output-display .out-line { color: var(--green); }
+#output-display .out-info { color: var(--muted); font-size: 11px; }
+#output-display .out-err { color: #ff6b6b; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1100px) {
+  .sidebar { display: none; }
+  .editor-panel { width: 380px; }
+}
+
+@media (max-width: 800px) {
+  .workspace { flex-direction: column; }
+  .editor-panel { width: 100%; border-left: none; border-top: 1px solid var(--border); height: 50vh; }
+  .main { padding: 20px; }
+  body { overflow: auto; height: auto; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">C</div>
+    Apprendre le C — 50 Leçons
+  </div>
+  <div style="display:flex; align-items:center; gap:16px;">
+    <div>
+      <div style="font-size:11px; color:var(--muted); margin-bottom:4px; font-family:var(--mono);" id="progress-label">0 / 50 complétées</div>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-fill"></div></div>
+    </div>
+  </div>
+  <div class="header-info" id="lesson-indicator">Leçon 1 / 50</div>
+</header>
+
+<div class="workspace">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-title">Leçons</div>
+    <div id="sidebar-nav"></div>
+  </div>
+
+  <!-- MAIN LESSON CONTENT -->
+  <div class="main" id="main-content"></div>
+
+  <!-- EDITOR PANEL -->
+  <div class="editor-panel">
+    <div class="editor-header">
+      <div class="editor-title">
+        <div class="editor-dot"></div>
+        main.c
+      </div>
+      <div style="font-size:11px; color:var(--muted); font-family:var(--mono);">C Simulator</div>
+    </div>
+
+    <div class="editor-tabs">
+      <div class="editor-tab active">main.c</div>
+      <div class="editor-tab" style="color:var(--muted); opacity:0.5; cursor:default;">output</div>
+    </div>
+
+    <textarea id="code-editor" spellcheck="false">#include &lt;stdio.h&gt;
+
+int main() {
+    printf("Bonjour, monde !\n");
+    printf("J'apprends le C.\n");
+    return 0;
+}</textarea>
+
+    <button class="run-btn" onclick="simulateRun()">
+      ▶ &nbsp;Exécuter le Code
+    </button>
+
+    <div class="output-area">
+      <div class="output-label">
+        Sortie
+        <span class="output-clear" onclick="clearOutput()">✕ effacer</span>
+      </div>
+      <div id="output-display">
+        <div class="out-info">// Cliquez sur Exécuter pour voir le résultat...</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ─────────────── LESSON DATA ───────────────
+const lessons = [
+{
+  title: "Introduction au Langage C",
+  subtitle: "Histoire, contexte et pourquoi apprendre le C",
+  theory: `<p>Le langage <span class="highlight">C</span> est l'un des langages de programmation les plus importants et influents de l'histoire de l'informatique. Il a été créé en <span class="highlight-orange">1972</span> par <strong>Dennis Ritchie</strong> aux laboratoires Bell d'AT&T, principalement pour réécrire le système d'exploitation UNIX.</p>
+  <p>Le C est un langage de <span class="highlight-orange">bas niveau</span> qui offre un accès direct à la mémoire et aux ressources matérielles, tout en conservant une syntaxe lisible. C'est pour cela qu'il est utilisé dans les systèmes d'exploitation, les drivers matériels, les systèmes embarqués et les logiciels nécessitant des performances maximales.</p>
+  <p>Apprendre le C vous permettra de comprendre le fonctionnement interne des ordinateurs, et de maîtriser la plupart des autres langages plus facilement ensuite.</p>`,
+  points: ["Créé en 1972 par Dennis Ritchie", "Langage compilé : le code est transformé en binaire avant exécution", "Utilisé dans Linux, Windows, les microcontrôleurs, les moteurs de jeux", "Base de nombreux langages modernes : C++, Java, Python, Rust"],
+  code: `/* Mon premier fichier C */
+/* Le symbole # indique une directive de préprocesseur */
+#include <stdio.h>   /* Inclure la bibliothèque standard d'entrée/sortie */
+
+/* Tout programme C commence ici */
+int main() {
+    /* Le code s'exécute ligne par ligne */
+    return 0;  /* 0 = programme terminé avec succès */
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    /* Bienvenue dans le monde du C ! */
+    printf("J'apprends le langage C !\\n");
+    return 0;
+}`
+},
+{
+  title: "Premier Programme : Hello World",
+  subtitle: "Écrire, comprendre et exécuter votre premier programme",
+  theory: `<p>Par tradition, le premier programme qu'on écrit dans un langage est le fameux <strong>"Hello, World!"</strong>. Cette tradition remonte au livre <em>The C Programming Language</em> de Kernighan et Ritchie (1978), le livre qui a défini le C moderne.</p>
+  <p>Ce programme simple cache des concepts fondamentaux : la fonction <span class="highlight">main()</span> est le point d'entrée, <span class="highlight">printf()</span> est une fonction qui affiche du texte, et le <span class="highlight-orange">\\n</span> est un caractère spécial qui crée un retour à la ligne.</p>`,
+  points: ["#include charge une bibliothèque de fonctions", "main() est obligatoire dans tout programme C", "printf() affiche du texte dans le terminal", "\\n = saut de ligne (newline), \\t = tabulation", "Le point-virgule ; termine chaque instruction"],
+  code: `#include <stdio.h>   /* Bibliothèque pour printf */
+
+int main() {
+    printf("Hello, World!\\n");  /* Affiche et passe à la ligne */
+    printf("Je suis un programme C.\\n");
+    printf("J'ai %d ans.\\n", 1972);  /* %d = entier */
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    printf("Bonjour tout le monde !\\n");
+    printf("Mon nom est C.\\n");
+    printf("Je suis né en 1972.\\n");
+    return 0;
+}`
+},
+{
+  title: "La Fonction main()",
+  subtitle: "Le point d'entrée de tout programme C",
+  theory: `<p>La fonction <span class="highlight">main()</span> est unique et obligatoire : c'est le <strong>point d'entrée</strong> de tout programme C. Quand vous lancez un programme, le système d'exploitation appelle automatiquement cette fonction.</p>
+  <p>Le mot <span class="highlight">int</span> avant <code>main</code> signifie que la fonction renvoie un entier. Par convention, renvoyer <span class="highlight-orange">0</span> indique que le programme s'est terminé <strong>sans erreur</strong>. Toute autre valeur indique une erreur.</p>
+  <p>Les accolades <span class="highlight">{}</span> délimitent le corps de la fonction : tout le code à exécuter s'y trouve.</p>`,
+  points: ["main() est appelée automatiquement au démarrage", "int main() signifie que main renvoie un entier", "return 0 = exécution réussie", "return 1 (ou autre) = une erreur s'est produite", "Le code s'exécute dans l'ordre, ligne par ligne"],
+  code: `#include <stdio.h>
+
+int main() {                 /* Début de main */
+
+    printf("Ligne 1\\n");    /* Exécutée en premier */
+    printf("Ligne 2\\n");    /* Puis cette ligne */
+    printf("Ligne 3\\n");    /* Et enfin celle-ci */
+
+    return 0;                /* Fin normale du programme */
+
+}                            /* Fin de main */`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    printf("=== Mon Programme ===\\n");
+    printf("Démarrage...\\n");
+    printf("Traitement...\\n");
+    printf("Terminé !\\n");
+    return 0;
+}`
+},
+{
+  title: "La Fonction printf()",
+  subtitle: "Afficher des données formatées dans le terminal",
+  theory: `<p><span class="highlight">printf()</span> est l'une des fonctions les plus utilisées en C. Elle permet d'afficher du texte <strong>formaté</strong> dans la console. Le "f" dans printf signifie justement "format".</p>
+  <p>Elle utilise des <span class="highlight-orange">spécificateurs de format</span> pour insérer des variables dans le texte :</p>
+  <ul><li><span class="highlight">%d</span> — entier (int)</li><li><span class="highlight">%f</span> — décimal (float/double)</li><li><span class="highlight">%c</span> — caractère (char)</li><li><span class="highlight">%s</span> — chaîne de caractères (string)</li></ul>
+  <p>Les <span class="highlight-orange">séquences d'échappement</span> sont des codes spéciaux : <code>\\n</code> (nouvelle ligne), <code>\\t</code> (tabulation), <code>\\\\</code> (barre oblique).</p>`,
+  points: ["%d pour les entiers", "%f pour les flottants (%.2f pour 2 décimales)", "%c pour un caractère", "%s pour une chaîne de texte", "\\n = saut de ligne, \\t = tabulation, \\\\ = \\"],
+  code: `#include <stdio.h>
+
+int main() {
+    /* Afficher du texte simple */
+    printf("Texte simple\\n");
+
+    /* Insérer des valeurs avec des spécificateurs */
+    printf("Entier : %d\\n", 42);
+    printf("Décimal : %.2f\\n", 3.14159);
+    printf("Caractère : %c\\n", 'A');
+    printf("Chaîne : %s\\n", "Bonjour");
+
+    /* Plusieurs valeurs dans une phrase */
+    printf("Age : %d, Note : %.1f\\n", 20, 15.5);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    printf("Nom : %s\\n", "Alice");
+    printf("Age : %d ans\\n", 22);
+    printf("Note : %.1f / 20\\n", 17.5);
+    printf("Mention : %s\\n", "Très Bien");
+    return 0;
+}`
+},
+{
+  title: "Les Variables",
+  subtitle: "Stocker et manipuler des données en mémoire",
+  theory: `<p>Une <span class="highlight">variable</span> est un espace mémoire nommé qui contient une valeur pouvant changer au cours de l'exécution. En C, toute variable doit être <strong>déclarée</strong> avant utilisation, avec son type précis.</p>
+  <p>La syntaxe est : <span class="highlight">type nom = valeur;</span></p>
+  <p>Le nom d'une variable peut contenir des lettres, chiffres et underscores, mais doit commencer par une lettre. C distingue les majuscules des minuscules : <span class="highlight-orange">age</span> et <span class="highlight-orange">Age</span> sont deux variables différentes !</p>`,
+  points: ["Toujours déclarer le type avant d'utiliser une variable", "Le nom doit commencer par une lettre ou un _", "C est sensible à la casse (age ≠ Age)", "Initialiser une variable = lui donner une valeur dès la déclaration", "Une variable non initialisée contient une valeur imprévisible (garbage)"],
+  code: `#include <stdio.h>
+
+int main() {
+    /* Déclaration et initialisation */
+    int age = 20;
+    float taille = 1.75;
+    char initiale = 'A';
+
+    /* Modification de la valeur */
+    age = 21;           /* age vaut maintenant 21 */
+
+    /* Affichage */
+    printf("Age : %d\\n", age);
+    printf("Taille : %.2f m\\n", taille);
+    printf("Initiale : %c\\n", initiale);
+
+    /* Déclaration sans initialisation */
+    int score;
+    score = 100;        /* On lui donne une valeur plus tard */
+    printf("Score : %d\\n", score);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    int annee = 2024;
+    float temperature = 36.6;
+    char grade = 'A';
+
+    printf("Année : %d\\n", annee);
+    printf("Température : %.1f°C\\n", temperature);
+    printf("Grade : %c\\n", grade);
+    return 0;
+}`
+},
+{
+  title: "Les Types de Données",
+  subtitle: "int, float, double, char — choisir le bon type",
+  theory: `<p>Le C est un langage à <strong>typage statique</strong> : chaque variable a un type fixé à la compilation. Ce type détermine la quantité de mémoire réservée et les opérations possibles.</p>
+  <p>Les types fondamentaux :</p>
+  <ul><li><span class="highlight">int</span> — entier signé, 4 octets, de -2 147 483 648 à 2 147 483 647</li><li><span class="highlight">float</span> — décimal simple précision, 4 octets, 6-7 chiffres significatifs</li><li><span class="highlight">double</span> — décimal double précision, 8 octets, 15-16 chiffres significatifs</li><li><span class="highlight">char</span> — un caractère, 1 octet (valeur ASCII 0-255)</li></ul>`,
+  points: ["int pour les entiers courants", "long int pour les très grands entiers", "float pour les calculs décimaux (moins précis)", "double pour la précision maximale (recommandé)", "char pour un seul caractère ASCII"],
+  code: `#include <stdio.h>
+
+int main() {
+    int entier = 42;
+    float decimal = 3.14f;       /* f = littéral float */
+    double precis = 3.14159265;  /* double par défaut */
+    char lettre = 'Z';
+
+    /* Taille en mémoire (en octets) */
+    printf("int : %lu octets\\n", sizeof(int));
+    printf("float : %lu octets\\n", sizeof(float));
+    printf("double : %lu octets\\n", sizeof(double));
+    printf("char : %lu octet\\n", sizeof(char));
+
+    /* Affichage */
+    printf("int : %d\\n", entier);
+    printf("float : %f\\n", decimal);
+    printf("double : %lf\\n", precis);
+    printf("char : %c (ASCII: %d)\\n", lettre, lettre);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    int population = 1000000;
+    double pi = 3.14159265358979;
+    char symbole = 'C';
+    float prix = 19.99f;
+
+    printf("Population : %d\\n", population);
+    printf("Pi : %.10lf\\n", pi);
+    printf("Symbole : %c\\n", symbole);
+    printf("Prix : %.2f€\\n", prix);
+    return 0;
+}`
+},
+{
+  title: "Les Entiers (int)",
+  subtitle: "Travailler avec les nombres entiers et leurs variantes",
+  theory: `<p>Le type <span class="highlight">int</span> est le type entier standard en C. Il occupe généralement <strong>4 octets</strong> (32 bits) en mémoire, ce qui lui permet de stocker des valeurs entre environ -2 milliards et +2 milliards.</p>
+  <p>Le C propose plusieurs variantes selon le besoin :</p>
+  <ul><li><span class="highlight">short int</span> — 2 octets (-32 768 à 32 767)</li><li><span class="highlight">int</span> — 4 octets (le plus courant)</li><li><span class="highlight">long int</span> — 4 ou 8 octets (selon la plateforme)</li><li><span class="highlight">unsigned int</span> — entiers positifs uniquement (0 à 4 milliards)</li></ul>`,
+  points: ["int est le type entier par défaut", "unsigned int pour les valeurs toujours positives", "short int pour économiser la mémoire", "long long int pour de très grands nombres", "Le dépassement (overflow) est un danger à éviter"],
+  code: `#include <stdio.h>
+
+int main() {
+    int a = 100;
+    int b = 37;
+
+    /* Opérations arithmétiques */
+    printf("Addition : %d\\n", a + b);
+    printf("Soustraction : %d\\n", a - b);
+    printf("Multiplication : %d\\n", a * b);
+    printf("Division entière : %d\\n", a / b);
+    printf("Modulo (reste) : %d\\n", a % b);
+
+    /* Incrément / Décrément */
+    a++;   /* a = a + 1 */
+    b--;   /* b = b - 1 */
+    printf("a++ = %d, b-- = %d\\n", a, b);
+
+    /* Unsigned */
+    unsigned int u = 4000000000u;
+    printf("Unsigned : %u\\n", u);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    int x = 17;
+    int y = 5;
+    printf("%d + %d = %d\\n", x, y, x + y);
+    printf("%d - %d = %d\\n", x, y, x - y);
+    printf("%d * %d = %d\\n", x, y, x * y);
+    printf("%d / %d = %d\\n", x, y, x / y);
+    printf("%d %% %d = %d\\n", x, y, x % y);
+    return 0;
+}`
+},
+{
+  title: "Les Décimaux (float / double)",
+  subtitle: "Nombres à virgule flottante et précision",
+  theory: `<p>Les types <span class="highlight">float</span> et <span class="highlight">double</span> permettent de stocker des nombres avec une partie décimale. En C, les divisions produisent un résultat entier si les deux opérandes sont entiers — il faut utiliser des flottants pour avoir la décimale.</p>
+  <p>Attention : les flottants ne sont <strong>pas exactement représentés</strong> en binaire. Par exemple, 0.1 n'a pas de représentation exacte, ce qui peut causer de légères imprécisions dans les calculs.</p>
+  <p>Préférez toujours <span class="highlight">double</span> à <span class="highlight">float</span> pour une meilleure précision.</p>`,
+  points: ["float : précision de ~7 chiffres, double : ~15 chiffres", "Pour la division décimale, au moins un opérande doit être float/double", "Utiliser %f pour float, %lf pour double", "Spécifier la précision : %.2f pour 2 décimales", "Ne jamais comparer des flottants avec == (utiliser fabs(a-b) < epsilon)"],
+  code: `#include <stdio.h>
+
+int main() {
+    /* Division entière vs décimale */
+    int a = 7, b = 2;
+    printf("7 / 2 (int) = %d\\n", a / b);           /* = 3 */
+    printf("7.0 / 2 (float) = %.1f\\n", 7.0 / 2);   /* = 3.5 */
+
+    /* Opérations avec double */
+    double x = 1.5, y = 2.7;
+    printf("x + y = %.2f\\n", x + y);
+    printf("x * y = %.4f\\n", x * y);
+
+    /* Précision */
+    printf("Pi (float)  : %.7f\\n", 3.14159265f);
+    printf("Pi (double) : %.15lf\\n", 3.14159265358979);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    double rayon = 5.0;
+    double pi = 3.14159265;
+    double surface = pi * rayon * rayon;
+    double perimetre = 2 * pi * rayon;
+    printf("Rayon : %.1f\\n", rayon);
+    printf("Surface : %.4f\\n", surface);
+    printf("Périmètre : %.4f\\n", perimetre);
+    return 0;
+}`
+},
+{
+  title: "Les Caractères (char)",
+  subtitle: "ASCII, caractères et chaînes simples",
+  theory: `<p>Le type <span class="highlight">char</span> stocke un <strong>seul caractère</strong> sur 1 octet. En C, les caractères sont en réalité des petits entiers correspondant à leur code <span class="highlight-orange">ASCII</span>. Par exemple, 'A' correspond à 65, 'a' à 97, '0' à 48.</p>
+  <p>Cette correspondance permet de faire des opérations arithmétiques sur les caractères. Par exemple, <span class="highlight">'A' + 1</span> donne <span class="highlight">'B'</span>.</p>
+  <p>Un <span class="highlight">char</span> s'écrit entre guillemets simples : <code>'A'</code>. Une <span class="highlight">chaîne</span> (plusieurs chars) s'écrit entre guillemets doubles : <code>"Bonjour"</code>.</p>`,
+  points: ["char stocke un caractère sur 1 octet", "Les caractères sont des entiers ASCII", "'A' = 65, 'a' = 97, '0' = 48", "Guillemets simples pour char, doubles pour les chaînes", "On peut faire des calculs avec les chars : 'A' + 3 = 'D'"],
+  code: `#include <stdio.h>
+
+int main() {
+    char c = 'A';
+
+    /* Afficher comme caractère ou entier */
+    printf("Caractère : %c\\n", c);         /* A */
+    printf("Valeur ASCII : %d\\n", c);      /* 65 */
+
+    /* Arithmétique sur les chars */
+    printf("Lettre suivante : %c\\n", c + 1);   /* B */
+    printf("Minuscule : %c\\n", c + 32);         /* a (car 'a' = 'A' + 32) */
+
+    /* Tester un caractère */
+    char chiffre = '7';
+    printf("'7' en valeur : %d\\n", chiffre - '0');  /* = 7 */
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    /* Afficher les lettres A à E */
+    char lettre = 'A';
+    printf("%c %c %c %c %c\\n",
+        lettre, lettre+1, lettre+2, lettre+3, lettre+4);
+    /* Afficher leurs codes ASCII */
+    printf("%d %d %d %d %d\\n",
+        lettre, lettre+1, lettre+2, lettre+3, lettre+4);
+    return 0;
+}`
+},
+{
+  title: "scanf() — Lire l'Entrée Utilisateur",
+  subtitle: "Récupérer des données saisies au clavier",
+  theory: `<p><span class="highlight">scanf()</span> est la fonction complémentaire de printf() : elle lit les données saisies par l'utilisateur au clavier. Comme printf(), elle utilise des <span class="highlight-orange">spécificateurs de format</span> pour savoir quel type de donnée lire.</p>
+  <p>Point crucial : il faut passer l'<strong>adresse</strong> de la variable avec l'opérateur <span class="highlight">&</span> (sauf pour les chaînes). Cela permet à scanf de stocker la valeur directement dans la mémoire de la variable.</p>
+  <p><strong>Attention</strong> : scanf() peut être dangereux avec les chaînes de caractères (risque de débordement). Dans un code professionnel, on préfère <code>fgets()</code>.</p>`,
+  points: ["scanf() lit une valeur et la stocke dans une variable", "Utilisez & devant la variable (son adresse mémoire)", "Mêmes spécificateurs qu'avec printf : %d, %f, %c, %s", "scanf() s'arrête aux espaces pour %s", "Toujours vérifier ce que l'utilisateur entre (validation)"],
+  code: `#include <stdio.h>
+
+int main() {
+    int age;
+    float note;
+    char prenom[50];  /* Tableau pour stocker une chaîne */
+
+    /* Demander et lire un entier */
+    printf("Entrez votre âge : ");
+    scanf("%d", &age);       /* & = adresse de age */
+
+    /* Demander et lire un flottant */
+    printf("Entrez votre note : ");
+    scanf("%f", &note);
+
+    /* Lire une chaîne (sans &) */
+    printf("Entrez votre prénom : ");
+    scanf("%s", prenom);
+
+    /* Afficher le résultat */
+    printf("\\nBienvenue %s !\\n", prenom);
+    printf("Âge : %d ans\\n", age);
+    printf("Note : %.1f / 20\\n", note);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    int a, b;
+    printf("Entrez deux nombres entiers : ");
+    scanf("%d %d", &a, &b);
+    printf("Somme : %d\\n", a + b);
+    printf("Produit : %d\\n", a * b);
+    printf("Quotient : %.2f\\n", (float)a / b);
+    return 0;
+}`
+},
+{
+  title: "Les Opérateurs",
+  subtitle: "Arithmétique, comparaison, logique, affectation",
+  theory: `<p>Le C dispose de plusieurs catégories d'opérateurs :</p>
+  <p><strong>Arithmétiques</strong> : + - * / % (modulo = reste de division)</p>
+  <p><strong>Comparaison</strong> : == (égal), != (différent), &lt; &gt; &lt;= &gt;=</p>
+  <p><strong>Logiques</strong> : && (ET), || (OU), ! (NON)</p>
+  <p><strong>Affectation raccourcie</strong> : += -= *= /= %= (ex: x += 5 équivaut à x = x + 5)</p>
+  <p><strong>Incrémentation</strong> : ++ (ajoute 1), -- (soustrait 1)</p>`,
+  points: ["== pour comparer (≠ = qui est l'affectation !)", "% donne le reste : 10 % 3 = 1", "&& et || sont les opérateurs logiques", "+= est équivalent à x = x + quelquechose", "i++ (post-incrémentation) vs ++i (pré-incrémentation)"],
+  code: `#include <stdio.h>
+
+int main() {
+    int a = 10, b = 3;
+
+    /* Arithmétiques */
+    printf("%d + %d = %d\\n", a, b, a + b);
+    printf("%d %% %d = %d\\n", a, b, a % b);  /* % littéral = %% */
+
+    /* Comparaisons (1 = vrai, 0 = faux) */
+    printf("a > b : %d\\n", a > b);
+    printf("a == b : %d\\n", a == b);
+    printf("a != b : %d\\n", a != b);
+
+    /* Logiques */
+    int x = 1, y = 0;
+    printf("x && y : %d\\n", x && y);   /* 0 */
+    printf("x || y : %d\\n", x || y);   /* 1 */
+    printf("!x : %d\\n", !x);           /* 0 */
+
+    /* Affectation raccourcie */
+    a += 5;   printf("a += 5 → %d\\n", a);
+    a *= 2;   printf("a *= 2 → %d\\n", a);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    int n = 17;
+    printf("Pair ? %d\\n", n % 2 == 0);     /* 0 = non */
+    printf("Impair ? %d\\n", n % 2 != 0);   /* 1 = oui */
+    printf("Entre 10 et 20 ? %d\\n", n > 10 && n < 20);
+    printf("Carré : %d\\n", n * n);
+    return 0;
+}`
+},
+{
+  title: "Condition if",
+  subtitle: "Prendre des décisions dans le code",
+  theory: `<p>L'instruction <span class="highlight">if</span> permet d'exécuter un bloc de code <strong>seulement si</strong> une condition est vraie. En C, une condition est vraie si elle vaut une valeur non nulle.</p>
+  <p>Syntaxe : <code>if (condition) { ... }</code></p>
+  <p>La condition est une expression évaluée comme vrai (non-zéro) ou faux (zéro). On peut y utiliser des comparaisons (<span class="highlight">&gt; &lt; == !=</span>) ou des opérateurs logiques (<span class="highlight">&& ||</span>).</p>`,
+  points: ["La condition est entre parenthèses obligatoirement", "Les accolades {} délimitent le bloc à exécuter", "Sans accolades, seule la ligne suivante est conditionnelle", "0 = faux, tout autre valeur = vrai", "Ne jamais confondre = (affectation) et == (comparaison)"],
+  code: `#include <stdio.h>
+
+int main() {
+    int age = 20;
+    int solde = -50;
+
+    /* if simple */
+    if (age >= 18) {
+        printf("Vous êtes majeur.\\n");
+    }
+
+    /* if avec plusieurs conditions */
+    if (age >= 18 && age <= 65) {
+        printf("Vous êtes en âge de travailler.\\n");
+    }
+
+    /* Vérifier le solde */
+    if (solde < 0) {
+        printf("Attention : solde négatif (%d€)\\n", solde);
+    }
+
+    /* Valeur numérique comme booléen */
+    int connecte = 1;
+    if (connecte) {
+        printf("Utilisateur connecté.\\n");
+    }
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    int note = 15;
+    if (note >= 10) {
+        printf("Reçu !\\n");
+    }
+    if (note >= 16) {
+        printf("Très bien !\\n");
+    }
+    if (note < 10) {
+        printf("Recalé.\\n");
+    }
+    return 0;
+}`
+},
+{
+  title: "Condition else",
+  subtitle: "Gérer le cas où la condition est fausse",
+  theory: `<p>L'instruction <span class="highlight">else</span> permet d'exécuter un bloc alternatif quand la condition du <span class="highlight">if</span> est fausse. Les deux blocs sont <strong>mutuellement exclusifs</strong> : l'un OU l'autre s'exécute, jamais les deux.</p>
+  <p>C'est l'équivalent du "sinon" en langage naturel : <em>"Si la note est supérieure à 10, afficher Reçu, sinon afficher Recalé."</em></p>`,
+  points: ["else s'exécute si et seulement si le if est faux", "Un seul else par if (mais on peut les imbriquer)", "if/else remplace les switch dans les cas simples", "L'ordre if/else est toujours : if d'abord, else ensuite", "Possible d'imbriquer des if/else (nested conditions)"],
+  code: `#include <stdio.h>
+
+int main() {
+    int temperature = 15;
+    int age = 16;
+
+    /* if / else simple */
+    if (temperature > 20) {
+        printf("Il fait chaud.\\n");
+    } else {
+        printf("Il fait frais.\\n");
+    }
+
+    /* Vérification de majorité */
+    if (age >= 18) {
+        printf("Accès autorisé.\\n");
+    } else {
+        printf("Accès refusé (age minimum : 18 ans).\\n");
+        printf("Votre age : %d ans. Il vous manque %d ans.\\n",
+               age, 18 - age);
+    }
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    int nombre = 7;
+    if (nombre % 2 == 0) {
+        printf("%d est pair.\\n", nombre);
+    } else {
+        printf("%d est impair.\\n", nombre);
+    }
+    if (nombre > 0) {
+        printf("Positif.\\n");
+    } else {
+        printf("Négatif ou zéro.\\n");
+    }
+    return 0;
+}`
+},
+{
+  title: "else if — Conditions Multiples",
+  subtitle: "Chaîner plusieurs conditions avec else if",
+  theory: `<p>Quand on a plus de deux cas possibles, on utilise <span class="highlight">else if</span> pour chaîner les conditions. Le programme évalue les conditions dans l'ordre et exécute le premier bloc dont la condition est vraie, puis ignore le reste.</p>
+  <p>C'est idéal pour des scénarios comme : <em>"Si A, faire ceci. Sinon si B, faire cela. Sinon faire autre chose."</em></p>`,
+  points: ["Les conditions sont évaluées dans l'ordre de haut en bas", "Dès qu'une condition est vraie, les autres sont ignorées", "Le else final est optionnel mais recommandé", "Utiliser else if plutôt que plusieurs if indépendants", "Penser à l'ordre : du plus restrictif au plus général"],
+  code: `#include <stdio.h>
+
+int main() {
+    int note = 14;
+
+    if (note >= 18) {
+        printf("Mention Très Bien\\n");
+    } else if (note >= 16) {
+        printf("Mention Bien\\n");
+    } else if (note >= 14) {
+        printf("Mention Assez Bien\\n");
+    } else if (note >= 10) {
+        printf("Admis\\n");
+    } else {
+        printf("Recalé\\n");
+    }
+
+    /* Exemple avec BMI */
+    float bmi = 22.5;
+    if (bmi < 18.5)       printf("Insuffisance pondérale\\n");
+    else if (bmi < 25.0)  printf("Poids normal\\n");
+    else if (bmi < 30.0)  printf("Surpoids\\n");
+    else                  printf("Obésité\\n");
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    int heure = 14;
+    if (heure < 12) {
+        printf("Bonjour !\\n");
+    } else if (heure < 18) {
+        printf("Bon après-midi !\\n");
+    } else if (heure < 22) {
+        printf("Bonsoir !\\n");
+    } else {
+        printf("Bonne nuit !\\n");
+    }
+    return 0;
+}`
+},
+{
+  title: "switch — Choix Multiple",
+  subtitle: "Comparer une variable à plusieurs valeurs constantes",
+  theory: `<p>L'instruction <span class="highlight">switch</span> est une alternative aux longues chaînes de <code>else if</code> quand on compare une variable à des <strong>valeurs constantes précises</strong>. Le code saute directement au bon <span class="highlight">case</span>.</p>
+  <p>Chaque <span class="highlight">case</span> doit se terminer par <span class="highlight">break</span> pour éviter le "fall-through" (exécution des cases suivants). Le bloc <span class="highlight">default</span> s'exécute si aucun case ne correspond.</p>`,
+  points: ["switch compare avec des valeurs constantes (pas des intervalles)", "break est indispensable à la fin de chaque case", "Sans break, l'exécution continue dans le case suivant", "default = le cas qui correspond à tout le reste", "switch fonctionne avec int, char, mais pas avec float ou chaînes"],
+  code: `#include <stdio.h>
+
+int main() {
+    int jour = 3;
+
+    switch (jour) {
+        case 1:
+            printf("Lundi\\n");
+            break;
+        case 2:
+            printf("Mardi\\n");
+            break;
+        case 3:
+            printf("Mercredi\\n");
+            break;
+        case 4:
+            printf("Jeudi\\n");
+            break;
+        case 5:
+            printf("Vendredi\\n");
+            break;
+        case 6:
+        case 7:
+            printf("Week-end !\\n");  /* cases 6 et 7 ensemble */
+            break;
+        default:
+            printf("Numéro de jour invalide.\\n");
+    }
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    char op = '*';
+    int a = 8, b = 4;
+    switch (op) {
+        case '+': printf("%d\\n", a + b); break;
+        case '-': printf("%d\\n", a - b); break;
+        case '*': printf("%d\\n", a * b); break;
+        case '/': printf("%d\\n", a / b); break;
+        default:  printf("Opérateur inconnu\\n");
+    }
+    return 0;
+}`
+},
+{
+  title: "Boucle for",
+  subtitle: "Répéter des instructions un nombre défini de fois",
+  theory: `<p>La boucle <span class="highlight">for</span> est utilisée quand on connaît à l'avance le nombre d'itérations. Elle est composée de trois parties séparées par des points-virgules :</p>
+  <ol style="padding-left:20px; margin-top:8px;"><li><span class="highlight">initialisation</span> — exécutée une seule fois au début</li><li><span class="highlight">condition</span> — vérifiée avant chaque itération</li><li><span class="highlight">mise à jour</span> — exécutée après chaque itération</li></ol>
+  <p>Syntaxe : <code>for (init; condition; update) { ... }</code></p>`,
+  points: ["La variable de boucle (souvent i) est l'indice courant", "for(i=0; i<n; i++) fait n itérations (0 à n-1)", "On peut décrémenter : for(i=10; i>0; i--)", "Possible d'imbriquer des boucles for (tableaux 2D)", "i++ est plus courant que ++i dans une boucle for"],
+  code: `#include <stdio.h>
+
+int main() {
+    /* Compter de 1 à 5 */
+    for (int i = 1; i <= 5; i++) {
+        printf("i = %d\\n", i);
+    }
+
+    /* Table de multiplication de 7 */
+    printf("\\nTable de 7 :\\n");
+    for (int j = 1; j <= 10; j++) {
+        printf("7 x %2d = %2d\\n", j, 7 * j);
+    }
+
+    /* Compter en décroissant */
+    printf("\\nCompte à rebours : ");
+    for (int k = 5; k >= 1; k--) {
+        printf("%d ", k);
+    }
+    printf("Décollage !\\n");
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    int somme = 0;
+    for (int i = 1; i <= 100; i++) {
+        somme += i;
+    }
+    printf("Somme 1+2+...+100 = %d\\n", somme);
+
+    /* Afficher les nombres pairs de 2 à 20 */
+    for (int i = 2; i <= 20; i += 2) {
+        printf("%d ", i);
+    }
+    printf("\\n");
+    return 0;
+}`
+},
+{
+  title: "Boucle while",
+  subtitle: "Répéter tant qu'une condition est vraie",
+  theory: `<p>La boucle <span class="highlight">while</span> est utilisée quand on ne sait pas à l'avance combien d'itérations seront nécessaires. Elle continue tant que la condition reste vraie.</p>
+  <p>Attention à la <span class="highlight-orange">boucle infinie</span> : si la condition ne devient jamais fausse, le programme tourne indéfiniment. Il faut toujours s'assurer que la variable de condition est modifiée dans la boucle.</p>
+  <p>Syntaxe : <code>while (condition) { ... }</code></p>`,
+  points: ["La condition est vérifiée AVANT chaque itération", "Si la condition est fausse dès le départ, la boucle ne s'exécute jamais", "Toujours modifier la variable de condition dans la boucle", "while est idéal pour lire des données jusqu'à un marqueur de fin", "Boucle infinie : while(1) { ... } (quitter avec break)"],
+  code: `#include <stdio.h>
+
+int main() {
+    /* Compter jusqu'à 5 */
+    int i = 1;
+    while (i <= 5) {
+        printf("Compteur : %d\\n", i);
+        i++;  /* OBLIGATOIRE sinon boucle infinie ! */
+    }
+
+    /* Trouver la première puissance de 2 > 1000 */
+    int puissance = 1;
+    int exposant = 0;
+    while (puissance <= 1000) {
+        puissance *= 2;
+        exposant++;
+    }
+    printf("\\n2^%d = %d > 1000\\n", exposant, puissance);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    /* Suite de Collatz : diviser par 2 si pair, 3n+1 si impair */
+    int n = 27;
+    int etapes = 0;
+    printf("Départ : %d\\n", n);
+    while (n != 1) {
+        if (n % 2 == 0) n /= 2;
+        else n = 3 * n + 1;
+        etapes++;
+    }
+    printf("Arrivée à 1 en %d étapes.\\n", etapes);
+    return 0;
+}`
+},
+{
+  title: "Boucle do...while",
+  subtitle: "Exécuter au moins une fois avant de vérifier",
+  theory: `<p>La boucle <span class="highlight">do...while</span> est similaire à <code>while</code>, mais avec une différence cruciale : la condition est vérifiée <strong>après</strong> le premier passage. Le corps de la boucle s'exécute donc <span class="highlight-orange">au moins une fois</span>, même si la condition est fausse.</p>
+  <p>C'est très utile pour les menus interactifs ou les validations d'entrée utilisateur, où on veut toujours afficher au moins une fois avant de demander si on continue.</p>
+  <p>Syntaxe : <code>do { ... } while (condition);</code> — notez le point-virgule à la fin !</p>`,
+  points: ["Le corps s'exécute TOUJOURS au moins une fois", "La condition est vérifiée APRÈS chaque exécution", "Ne pas oublier le point-virgule après la parenthèse fermante", "Idéal pour les menus et la validation d'entrée", "Moins fréquent que for et while, mais utile dans ces cas précis"],
+  code: `#include <stdio.h>
+
+int main() {
+    int i = 10;
+
+    /* Même si i > 5, le bloc s'exécute une fois */
+    do {
+        printf("i = %d (exécuté au moins une fois)\\n", i);
+        i++;
+    } while (i < 5);
+
+    /* Exemple classique : menu */
+    int choix;
+    do {
+        printf("\\n=== MENU ===\\n");
+        printf("1. Option A\\n");
+        printf("2. Option B\\n");
+        printf("0. Quitter\\n");
+        printf("Choix : ");
+        /* scanf("%d", &choix); */ /* Simulé ici */
+        choix = 0; /* Simule que l'utilisateur entre 0 */
+        printf("Vous avez choisi : %d\\n", choix);
+    } while (choix != 0);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    int n = 1;
+    do {
+        printf("2^%d = %d\\n", n, 1 << n);
+        n++;
+    } while (n <= 8);
+    return 0;
+}`
+},
+{
+  title: "Les Tableaux (Arrays)",
+  subtitle: "Stocker plusieurs valeurs du même type",
+  theory: `<p>Un <span class="highlight">tableau</span> (array) est une collection de valeurs du <strong>même type</strong>, stockées de manière contiguë en mémoire et accessibles par un indice. En C, les indices commencent toujours à <span class="highlight-orange">0</span>.</p>
+  <p>Syntaxe : <code>type nom[taille];</code></p>
+  <p>La taille doit être connue à la compilation (constante). Attention : en C, <strong>aucune vérification des bornes</strong> n'est faite automatiquement — accéder à tab[10] dans un tableau de 5 éléments est un comportement indéfini (bug critique !).</p>`,
+  points: ["Les indices vont de 0 à taille-1 (pas de 1 à taille !)", "Initialisation : int tab[] = {1, 2, 3, 4, 5};", "La taille est fixe (allouée à la compilation)", "Accéder hors limites = comportement indéfini (bug grave)", "Pour parcourir un tableau, utiliser une boucle for"],
+  code: `#include <stdio.h>
+
+int main() {
+    /* Déclaration et initialisation */
+    int notes[5] = {14, 17, 12, 19, 15};
+
+    /* Accès par indice */
+    printf("Première note : %d\\n", notes[0]);
+    printf("Dernière note : %d\\n", notes[4]);
+
+    /* Parcourir avec for */
+    printf("\\nToutes les notes :\\n");
+    for (int i = 0; i < 5; i++) {
+        printf("  notes[%d] = %d\\n", i, notes[i]);
+    }
+
+    /* Calculer la moyenne */
+    int somme = 0;
+    for (int i = 0; i < 5; i++) {
+        somme += notes[i];
+    }
+    printf("\\nMoyenne : %.1f\\n", (float)somme / 5);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    int tab[8] = {3, 7, 1, 9, 4, 6, 2, 8};
+    int max = tab[0], min = tab[0];
+    for (int i = 1; i < 8; i++) {
+        if (tab[i] > max) max = tab[i];
+        if (tab[i] < min) min = tab[i];
+    }
+    printf("Max : %d\\n", max);
+    printf("Min : %d\\n", min);
+    return 0;
+}`
+},
+{
+  title: "Chaînes de Caractères",
+  subtitle: "Tableaux de char et le caractère nul '\\0'",
+  theory: `<p>En C, une chaîne de caractères est simplement un <strong>tableau de char</strong> terminé par le caractère nul <span class="highlight">\\0</span> (valeur ASCII 0). Ce caractère spécial indique la fin de la chaîne.</p>
+  <p>Exemple : "Ali" est stocké comme <span class="highlight-orange">{'A', 'l', 'i', '\\0'}</span> — 4 octets, pas 3 !</p>
+  <p>Les fonctions de manipulation de chaînes sont dans <span class="highlight">&lt;string.h&gt;</span> : strlen(), strcpy(), strcat(), strcmp()...</p>`,
+  points: ["Toujours prévoir un octet de plus pour le \\0 final", "char nom[50] = \"Bonjour\"; initialise automatiquement", "strlen() compte les caractères (sans compter \\0)", "Ne jamais dépasser la taille du tableau (buffer overflow !)", "%s dans printf affiche jusqu'au \\0"],
+  code: `#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char prenom[20] = "Ahmed";
+    char nom[20] = "Diallo";
+
+    /* Afficher */
+    printf("Prénom : %s\\n", prenom);
+    printf("Nom : %s\\n", nom);
+
+    /* Longueur */
+    printf("Longueur de '%s' : %lu\\n", prenom, strlen(prenom));
+
+    /* Accéder aux caractères */
+    printf("Première lettre : %c\\n", prenom[0]);
+    printf("Dernière lettre : %c\\n", prenom[strlen(prenom)-1]);
+
+    /* Le caractère nul */
+    printf("prenom[5] = %d (c'est \\\\0)\\n", prenom[5]);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char mot[] = "Programmation";
+    printf("Mot : %s\\n", mot);
+    printf("Longueur : %lu\\n", strlen(mot));
+    printf("Première lettre : %c\\n", mot[0]);
+    printf("Dernière lettre : %c\\n", mot[strlen(mot)-1]);
+    /* Inverser la casse de la 1ère lettre */
+    mot[0] = mot[0] + 32;  /* Minuscule */
+    printf("Après modif : %s\\n", mot);
+    return 0;
+}`
+},
+{
+  title: "Les Fonctions",
+  subtitle: "Décomposer le code en blocs réutilisables",
+  theory: `<p>Une <span class="highlight">fonction</span> est un bloc de code nommé qu'on peut appeler plusieurs fois. Elles permettent de :</p>
+  <ul><li>Éviter la répétition (principe <strong>DRY</strong> : Don't Repeat Yourself)</li><li>Organiser le code en modules clairs</li><li>Faciliter le débogage et la maintenance</li></ul>
+  <p>Syntaxe : <code>type_retour nom(paramètres) { ... }</code></p>
+  <p>Si une fonction ne retourne rien, son type est <span class="highlight">void</span>. Elle doit être <strong>déclarée avant</strong> d'être utilisée (ou son prototype fourni).</p>`,
+  points: ["void = la fonction ne retourne aucune valeur", "Déclarer la fonction avant de l'appeler (ou écrire un prototype)", "Les paramètres sont des variables locales à la fonction", "Une fonction peut appeler d'autres fonctions", "main() est elle-même une fonction, la principale"],
+  code: `#include <stdio.h>
+
+/* Prototype (déclaration anticipée) */
+int addition(int a, int b);
+void afficher_etoiles(int n);
+
+/* Définitions des fonctions */
+int addition(int a, int b) {
+    return a + b;   /* Renvoie la somme */
+}
+
+void afficher_etoiles(int n) {
+    for (int i = 0; i < n; i++) {
+        printf("*");
+    }
+    printf("\\n");
+}
+
+int main() {
+    int resultat = addition(10, 25);
+    printf("10 + 25 = %d\\n", resultat);
+
+    afficher_etoiles(5);
+    afficher_etoiles(10);
+    afficher_etoiles(3);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+int est_pair(int n) {
+    return n % 2 == 0;
+}
+
+int main() {
+    printf("max(7, 12) = %d\\n", max(7, 12));
+    printf("max(100, 3) = %d\\n", max(100, 3));
+    printf("8 est pair : %d\\n", est_pair(8));
+    printf("9 est pair : %d\\n", est_pair(9));
+    return 0;
+}`
+},
+{
+  title: "return — Renvoyer une Valeur",
+  subtitle: "Retourner des résultats depuis une fonction",
+  theory: `<p>L'instruction <span class="highlight">return</span> a deux rôles : elle termine l'exécution de la fonction et, si la fonction n'est pas void, elle renvoie une valeur à l'appelant.</p>
+  <p>Une fonction peut avoir <strong>plusieurs return</strong>, mais une seule sera exécutée (selon les conditions). Dès que <code>return</code> est atteint, la fonction s'arrête immédiatement.</p>
+  <p>Le type de la valeur retournée doit correspondre au type déclaré de la fonction.</p>`,
+  points: ["return termine immédiatement la fonction", "La valeur retournée doit correspondre au type déclaré", "void: pas de return (ou return; sans valeur)", "Plusieurs return possibles dans une même fonction", "return dans main() envoie le code de sortie au système"],
+  code: `#include <stdio.h>
+
+/* Valeur absolue */
+int valeur_absolue(int n) {
+    if (n < 0) return -n;   /* Return anticipé */
+    return n;
+}
+
+/* Factorielle (récursive) */
+int factorielle(int n) {
+    if (n <= 1) return 1;   /* Cas de base */
+    return n * factorielle(n - 1);  /* Appel récursif */
+}
+
+/* Est-ce premier ? */
+int est_premier(int n) {
+    if (n < 2) return 0;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) return 0;  /* Pas premier */
+    }
+    return 1;  /* Premier */
+}
+
+int main() {
+    printf("|−7| = %d\\n", valeur_absolue(-7));
+    printf("5! = %d\\n", factorielle(5));
+    printf("17 premier ? %d\\n", est_premier(17));
+    printf("18 premier ? %d\\n", est_premier(18));
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int puissance(int base, int exp) {
+    int result = 1;
+    for (int i = 0; i < exp; i++) {
+        result *= base;
+    }
+    return result;
+}
+
+int main() {
+    printf("2^10 = %d\\n", puissance(2, 10));
+    printf("3^4  = %d\\n", puissance(3, 4));
+    printf("5^3  = %d\\n", puissance(5, 3));
+    return 0;
+}`
+},
+{
+  title: "Paramètres de Fonction",
+  subtitle: "Passage par valeur et organisation des arguments",
+  theory: `<p>En C, les paramètres sont passés <strong>par valeur</strong> : la fonction reçoit une <em>copie</em> de la valeur, pas la variable originale. Modifier un paramètre dans une fonction ne change pas la variable de l'appelant.</p>
+  <p>Pour modifier la variable originale, il faut passer son <strong>adresse</strong> (avec un pointeur — voir leçon 24).</p>
+  <p>Une fonction peut accepter autant de paramètres que nécessaire, chacun avec son type. Les paramètres sont des variables locales à la fonction.</p>`,
+  points: ["Passage par valeur = copie, pas la variable originale", "Modifier un paramètre n'affecte pas l'appelant", "Pour modifier l'original, passer l'adresse (&) et utiliser un pointeur", "Les paramètres sont initialisés à chaque appel", "Nommer clairement les paramètres pour la lisibilité"],
+  code: `#include <stdio.h>
+
+/* Calcul d'intérêts composés */
+double interets(double capital, double taux, int annees) {
+    for (int i = 0; i < annees; i++) {
+        capital *= (1 + taux);  /* Modifier le paramètre local OK */
+    }
+    return capital;
+}
+
+/* Convertisseur de température */
+double celsius_en_fahrenheit(double celsius) {
+    return celsius * 9.0 / 5.0 + 32;
+}
+
+/* Vérifier la modification n'affecte pas l'original */
+void essai_modification(int x) {
+    x = 999;  /* Ne modifie que la copie locale ! */
+    printf("  Dans la fonction, x = %d\\n", x);
+}
+
+int main() {
+    printf("1000€ à 5%% pendant 10 ans : %.2f€\\n",
+           interets(1000, 0.05, 10));
+
+    printf("37°C = %.1f°F\\n", celsius_en_fahrenheit(37.0));
+
+    int val = 42;
+    printf("Avant : val = %d\\n", val);
+    essai_modification(val);
+    printf("Après : val = %d (inchangé !)\\n", val);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+double moyenne(double a, double b, double c) {
+    return (a + b + c) / 3.0;
+}
+
+int clamp(int val, int min, int max) {
+    if (val < min) return min;
+    if (val > max) return max;
+    return val;
+}
+
+int main() {
+    printf("Moyenne : %.2f\\n", moyenne(12.5, 17.0, 14.5));
+    printf("clamp(150, 0, 100) = %d\\n", clamp(150, 0, 100));
+    printf("clamp(-5, 0, 100) = %d\\n", clamp(-5, 0, 100));
+    return 0;
+}`
+},
+{
+  title: "Les Pointeurs",
+  subtitle: "Adresses mémoire et manipulation directe",
+  theory: `<p>Un <span class="highlight">pointeur</span> est une variable qui contient une <strong>adresse mémoire</strong>. Au lieu de stocker une valeur (comme 42), il stocke l'emplacement où se trouve cette valeur en mémoire.</p>
+  <p>Deux opérateurs essentiels :</p>
+  <ul><li><span class="highlight">&variable</span> — l'opérateur "adresse de" : donne l'adresse mémoire de la variable</li><li><span class="highlight">*pointeur</span> — l'opérateur de "déréférencement" : accède à la valeur à l'adresse stockée</li></ul>
+  <p>Les pointeurs sont l'une des fonctionnalités les plus puissantes du C, mais aussi les plus délicates. Un pointeur mal géré cause des bugs difficiles à détecter.</p>`,
+  points: ["int *p; déclare un pointeur vers un int", "p = &x; stocke l'adresse de x dans p", "*p accède à la valeur pointée (déréférencement)", "*p = 10; modifie la valeur à l'adresse pointée", "Un pointeur non initialisé est dangereux (toujours initialiser)"],
+  code: `#include <stdio.h>
+
+int main() {
+    int age = 25;
+    int *p;       /* Déclaration d'un pointeur vers int */
+
+    p = &age;     /* p pointe vers age */
+
+    printf("Valeur de age : %d\\n", age);
+    printf("Adresse de age : %p\\n", (void*)&age);
+    printf("p contient : %p\\n", (void*)p);
+    printf("Valeur pointée *p : %d\\n", *p);
+
+    /* Modifier via le pointeur */
+    *p = 30;
+    printf("\\nAprès *p = 30 :\\n");
+    printf("age = %d (modifié via pointeur !)\\n", age);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+/* Passer par pointeur pour modifier l'original */
+void doubler(int *n) {
+    *n = *n * 2;
+}
+
+void echanger(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int main() {
+    int x = 5;
+    doubler(&x);
+    printf("x après doubler : %d\\n", x);  /* 10 */
+
+    int a = 3, b = 7;
+    echanger(&a, &b);
+    printf("a=%d, b=%d (échangés)\\n", a, b);
+    return 0;
+}`
+},
+{
+  title: "Adresses Mémoire",
+  subtitle: "Comprendre la mémoire et l'opérateur &",
+  theory: `<p>La <span class="highlight">mémoire RAM</span> est organisée comme une longue liste de cases, chacune avec une adresse unique. Quand vous déclarez une variable, le système lui réserve une ou plusieurs cases consécutives selon son type.</p>
+  <p>L'opérateur <span class="highlight">&</span> permet d'obtenir l'adresse d'une variable. Cette adresse est un nombre hexadécimal représentant l'emplacement physique dans la RAM.</p>
+  <p>Les pointeurs permettent de manipuler directement ces adresses, ce qui donne au C sa puissance unique.</p>`,
+  points: ["Chaque variable a une adresse unique en mémoire", "& donne l'adresse (un nombre hexadécimal)", "Les variables contiguës ont des adresses contiguës", "sizeof() donne la taille en octets d'un type", "Les adresses varient à chaque exécution (ASLR)"],
+  code: `#include <stdio.h>
+
+int main() {
+    int a = 10;
+    int b = 20;
+    char c = 'X';
+    double d = 3.14;
+
+    /* Afficher adresses et tailles */
+    printf("Variable  Valeur  Adresse          Taille\\n");
+    printf("a         %d       %p   %lu o\\n", a, (void*)&a, sizeof(a));
+    printf("b         %d       %p   %lu o\\n", b, (void*)&b, sizeof(b));
+    printf("c         %c       %p   %lu o\\n", c, (void*)&c, sizeof(c));
+    printf("d         %.2f    %p   %lu o\\n", d, (void*)&d, sizeof(d));
+
+    /* Arithmétique de pointeur */
+    int *p = &a;
+    printf("\\np = %p\\n", (void*)p);
+    printf("p+1 = %p (décalé de %lu octets)\\n",
+           (void*)(p+1), sizeof(int));
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    int tab[5] = {10, 20, 30, 40, 50};
+    /* Un tableau est une suite d'adresses contiguës */
+    for (int i = 0; i < 5; i++) {
+        printf("tab[%d] = %d | adresse = %p\\n",
+               i, tab[i], (void*)&tab[i]);
+    }
+    return 0;
+}`
+},
+{
+  title: "Les Structures",
+  subtitle: "Regrouper des données hétérogènes",
+  theory: `<p>Une <span class="highlight">structure</span> (struct) permet de regrouper plusieurs variables de types différents sous un même nom. C'est l'ancêtre des objets en programmation orientée objet.</p>
+  <p>On accède aux membres avec l'opérateur <span class="highlight">.</span> (point) si on a une variable, ou avec <span class="highlight">-&gt;</span> si on a un pointeur vers la structure.</p>
+  <p>Les structures sont fondamentales pour modéliser des entités réelles : un étudiant a un nom, une note et un âge — regroupons-les dans une struct Etudiant.</p>`,
+  points: ["struct regroupe des données de types différents", ". pour accéder aux membres (variable)", "-> pour accéder aux membres (pointeur)", "sizeof(struct) donne la taille totale", "On peut avoir des tableaux de structures"],
+  code: `#include <stdio.h>
+#include <string.h>
+
+/* Définition de la structure */
+struct Etudiant {
+    char nom[50];
+    int age;
+    float moyenne;
+};
+
+/* Fonction qui prend une structure */
+void afficher(struct Etudiant e) {
+    printf("Nom : %-15s | Age : %d | Moy : %.1f\\n",
+           e.nom, e.age, e.moyenne);
+}
+
+int main() {
+    /* Créer et initialiser des étudiants */
+    struct Etudiant e1 = {"Amadou Diallo", 20, 15.5};
+    struct Etudiant e2;
+
+    strcpy(e2.nom, "Fatou Sow");
+    e2.age = 22;
+    e2.moyenne = 17.0;
+
+    afficher(e1);
+    afficher(e2);
+
+    printf("\\nTaille de struct Etudiant : %lu octets\\n",
+           sizeof(struct Etudiant));
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+struct Rectangle {
+    double largeur;
+    double hauteur;
+};
+
+double surface(struct Rectangle r) {
+    return r.largeur * r.hauteur;
+}
+
+double perimetre(struct Rectangle r) {
+    return 2 * (r.largeur + r.hauteur);
+}
+
+int main() {
+    struct Rectangle r = {5.0, 3.0};
+    printf("Surface : %.2f\\n", surface(r));
+    printf("Périmètre : %.2f\\n", perimetre(r));
+    return 0;
+}`
+},
+{
+  title: "typedef",
+  subtitle: "Créer des alias de types pour simplifier le code",
+  theory: `<p><span class="highlight">typedef</span> permet de créer un <strong>alias</strong> pour un type existant. Cela rend le code plus lisible et plus facile à maintenir.</p>
+  <p>L'usage le plus courant est de simplifier la déclaration des structures : au lieu d'écrire <code>struct Point p;</code>, on peut écrire simplement <code>Point p;</code>.</p>
+  <p>C'est aussi utile pour rendre le code portable : <code>typedef unsigned char uint8;</code> permet de changer le type sous-jacent en un seul endroit.</p>`,
+  points: ["typedef type NouveauNom; crée un alias", "Très utilisé avec les structures pour éviter de répéter struct", "Améliore la lisibilité du code", "Les bool en C89 sont souvent définis avec typedef", "Ne crée pas un nouveau type, juste un nom différent"],
+  code: `#include <stdio.h>
+
+/* typedef pour les types primitifs */
+typedef unsigned int uint;
+typedef double reel;
+
+/* typedef pour une structure */
+typedef struct {
+    double x;
+    double y;
+} Point;
+
+/* typedef pour un tableau */
+typedef char Chaine[100];
+
+/* Utilisation */
+double distance(Point a, Point b) {
+    double dx = a.x - b.x;
+    double dy = a.y - b.y;
+    return dx*dx + dy*dy;  /* Distance au carré */
+}
+
+int main() {
+    uint age = 25;
+    reel pi = 3.14159;
+
+    Point p1 = {0.0, 0.0};
+    Point p2 = {3.0, 4.0};
+
+    printf("Age : %u\\n", age);
+    printf("Pi : %.5f\\n", pi);
+    printf("Distance² de (0,0) à (3,4) : %.1f\\n", distance(p1, p2));
+
+    Chaine message = "Hello avec typedef !";
+    printf("%s\\n", message);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+typedef struct {
+    char marque[30];
+    int annee;
+    float prix;
+} Voiture;
+
+void afficher_voiture(Voiture v) {
+    printf("%s (%d) - %.0f€\\n", v.marque, v.annee, v.prix);
+}
+
+int main() {
+    Voiture v1 = {"Toyota", 2020, 15000.0};
+    Voiture v2 = {"Renault", 2018, 9500.0};
+    afficher_voiture(v1);
+    afficher_voiture(v2);
+    return 0;
+}`
+},
+{
+  title: "Fichiers — FILE*",
+  subtitle: "Lire et écrire des données persistantes",
+  theory: `<p>Le C permet de lire et d'écrire dans des <strong>fichiers</strong> sur le disque dur, pour persister des données entre les exécutions du programme. Les opérations sur fichiers utilisent le type <span class="highlight">FILE*</span> (un pointeur vers une structure FILE).</p>
+  <p>Les modes d'ouverture principaux :</p>
+  <ul><li><span class="highlight">"r"</span> — lecture seule (le fichier doit exister)</li><li><span class="highlight">"w"</span> — écriture (crée ou efface le fichier)</li><li><span class="highlight">"a"</span> — ajout à la fin</li><li><span class="highlight">"r+"</span> — lecture et écriture</li></ul>`,
+  points: ["Toujours vérifier que fopen() ne retourne pas NULL", "Toujours fermer le fichier avec fclose()", "\"w\" efface le contenu existant du fichier !", "\"a\" ajoute à la fin sans effacer", "Penser à gérer les erreurs (fichier non trouvé, droits insuffisants)"],
+  code: `#include <stdio.h>
+
+int main() {
+    FILE *fichier;
+
+    /* Écrire dans un fichier */
+    fichier = fopen("donnees.txt", "w");
+    if (fichier == NULL) {
+        printf("Erreur : impossible d'ouvrir le fichier\\n");
+        return 1;
+    }
+    fprintf(fichier, "Bonjour depuis le C !\\n");
+    fprintf(fichier, "Nombre : %d\\n", 42);
+    fclose(fichier);
+    printf("Fichier écrit avec succès.\\n");
+
+    /* Lire le fichier */
+    fichier = fopen("donnees.txt", "r");
+    if (fichier != NULL) {
+        char ligne[200];
+        while (fgets(ligne, sizeof(ligne), fichier) != NULL) {
+            printf("Lu : %s", ligne);
+        }
+        fclose(fichier);
+    }
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    /* Simuler l'écriture/lecture de notes */
+    FILE *f = fopen("notes.txt", "w");
+    if (!f) return 1;
+    int notes[] = {14, 17, 12, 19, 15};
+    for (int i = 0; i < 5; i++) {
+        fprintf(f, "%d\\n", notes[i]);
+    }
+    fclose(f);
+    printf("Notes sauvegardées.\\n");
+    return 0;
+}`
+},
+{
+  title: "fopen() et fclose()",
+  subtitle: "Ouvrir et fermer correctement les fichiers",
+  theory: `<p><span class="highlight">fopen()</span> ouvre un fichier et retourne un pointeur <code>FILE*</code>. Elle prend deux arguments : le nom du fichier et le mode d'ouverture. Elle retourne <span class="highlight">NULL</span> si l'ouverture échoue.</p>
+  <p><span class="highlight">fclose()</span> ferme le fichier et libère les ressources associées. C'est <strong>indispensable</strong> de toujours fermer un fichier après utilisation pour éviter la perte de données (les données en buffer sont écrites sur le disque seulement à la fermeture).</p>`,
+  points: ["Toujours vérifier if(fichier == NULL) après fopen", "fclose() vide le tampon et libère les ressources", "Un programme peut ouvrir plusieurs fichiers simultanément", "fopen avec \"w\" crée le fichier s'il n'existe pas", "Utiliser perror() pour afficher le message d'erreur système"],
+  code: `#include <stdio.h>
+
+int main() {
+    FILE *f;
+
+    /* Ouverture en écriture */
+    f = fopen("test.txt", "w");
+    if (f == NULL) {
+        perror("Erreur fopen");  /* Affiche le message d'erreur */
+        return 1;
+    }
+    printf("Fichier ouvert en écriture.\\n");
+    fprintf(f, "Ligne 1\\n");
+    fprintf(f, "Ligne 2\\n");
+    fclose(f);  /* INDISPENSABLE */
+    printf("Fichier fermé.\\n");
+
+    /* Ouverture en lecture */
+    f = fopen("test.txt", "r");
+    if (f == NULL) {
+        perror("Impossible de lire");
+        return 1;
+    }
+    char buf[100];
+    while (fgets(buf, sizeof(buf), f) != NULL) {
+        printf("Contenu : %s", buf);
+    }
+    fclose(f);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    /* Vérifier si un fichier existe */
+    FILE *f = fopen("existant.txt", "r");
+    if (f == NULL) {
+        printf("Le fichier n'existe pas. Création...\\n");
+        f = fopen("existant.txt", "w");
+        fprintf(f, "Créé maintenant !\\n");
+    } else {
+        printf("Fichier trouvé !\\n");
+    }
+    fclose(f);
+    return 0;
+}`
+},
+{
+  title: "fprintf() et fscanf()",
+  subtitle: "Écrire et lire avec format dans les fichiers",
+  theory: `<p><span class="highlight">fprintf()</span> et <span class="highlight">fscanf()</span> sont les équivalents de printf() et scanf() pour les fichiers. La seule différence est le premier paramètre : un pointeur FILE* au lieu de la sortie standard.</p>
+  <p>Il existe aussi <span class="highlight">fgets()</span> (recommandé) pour lire une ligne entière de manière sécurisée, et <span class="highlight">fputs()</span> pour écrire une chaîne.</p>`,
+  points: ["fprintf(fichier, format, valeurs) = printf vers un fichier", "fscanf(fichier, format, &var) = scanf depuis un fichier", "fgets(buffer, taille, fichier) lit une ligne entière (plus sûr)", "fputs(chaine, fichier) écrit une chaîne dans le fichier", "EOF (-1) signale la fin du fichier"],
+  code: `#include <stdio.h>
+
+struct Eleve {
+    char nom[30];
+    int age;
+    float note;
+};
+
+int main() {
+    FILE *f;
+
+    /* Écrire des données structurées */
+    f = fopen("eleves.txt", "w");
+    struct Eleve eleves[] = {
+        {"Alice", 20, 16.5},
+        {"Bob", 21, 14.0},
+        {"Carla", 19, 18.0}
+    };
+    for (int i = 0; i < 3; i++) {
+        fprintf(f, "%s %d %.1f\\n",
+                eleves[i].nom, eleves[i].age, eleves[i].note);
+    }
+    fclose(f);
+
+    /* Relire et afficher */
+    f = fopen("eleves.txt", "r");
+    struct Eleve e;
+    printf("Données lues :\\n");
+    while (fscanf(f, "%s %d %f", e.nom, &e.age, &e.note) == 3) {
+        printf("  %s, %d ans, %.1f/20\\n", e.nom, e.age, e.note);
+    }
+    fclose(f);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    /* Écrire un fichier CSV */
+    FILE *f = fopen("data.csv", "w");
+    fprintf(f, "Nom,Valeur\\n");
+    fprintf(f, "Alpha,100\\n");
+    fprintf(f, "Beta,200\\n");
+    fprintf(f, "Gamma,300\\n");
+    fclose(f);
+    printf("CSV généré.\\n");
+    return 0;
+}`
+},
+{
+  title: "malloc() — Allocation Dynamique",
+  subtitle: "Réserver de la mémoire au moment de l'exécution",
+  theory: `<p><span class="highlight">malloc()</span> (Memory ALLOCation) alloue dynamiquement un bloc de mémoire sur le <strong>tas</strong> (heap) pendant l'exécution. Contrairement aux tableaux statiques dont la taille est fixée à la compilation, malloc permet de choisir la taille au moment voulu.</p>
+  <p>Elle retourne un pointeur <span class="highlight">void*</span> (à convertir en type approprié) ou <span class="highlight">NULL</span> si l'allocation a échoué (mémoire insuffisante).</p>
+  <p>Toute mémoire allouée avec malloc doit être libérée avec <span class="highlight">free()</span> pour éviter les <strong>fuites mémoire</strong>.</p>`,
+  points: ["malloc(n * sizeof(type)) pour allouer un tableau de n éléments", "Toujours vérifier si malloc retourne NULL", "La mémoire allouée contient des valeurs indéterminées", "calloc() alloue et initialise à zéro", "realloc() redimensionne un bloc alloué"],
+  code: `#include <stdio.h>
+#include <stdlib.h>  /* Pour malloc et free */
+
+int main() {
+    int n = 5;
+
+    /* Allouer un tableau de n entiers dynamiquement */
+    int *tableau = (int*)malloc(n * sizeof(int));
+
+    if (tableau == NULL) {
+        printf("Erreur : mémoire insuffisante !\\n");
+        return 1;
+    }
+
+    /* Utiliser le tableau */
+    for (int i = 0; i < n; i++) {
+        tableau[i] = (i + 1) * 10;
+    }
+
+    /* Afficher */
+    for (int i = 0; i < n; i++) {
+        printf("tableau[%d] = %d\\n", i, tableau[i]);
+    }
+
+    /* Libérer la mémoire */
+    free(tableau);
+    tableau = NULL;  /* Bonne pratique : mettre à NULL après free */
+
+    printf("Mémoire libérée.\\n");
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int n = 8;
+    int *fib = (int*)malloc(n * sizeof(int));
+    if (!fib) return 1;
+
+    fib[0] = 0; fib[1] = 1;
+    for (int i = 2; i < n; i++) {
+        fib[i] = fib[i-1] + fib[i-2];
+    }
+    printf("Fibonacci : ");
+    for (int i = 0; i < n; i++) printf("%d ", fib[i]);
+    printf("\\n");
+
+    free(fib);
+    return 0;
+}`
+},
+{
+  title: "free() — Libérer la Mémoire",
+  subtitle: "Éviter les fuites mémoire",
+  theory: `<p><span class="highlight">free()</span> libère un bloc de mémoire préalablement alloué avec <code>malloc()</code>, <code>calloc()</code> ou <code>realloc()</code>. Ne pas appeler free() après malloc provoque une <span class="highlight-orange">fuite mémoire</span> : la mémoire reste réservée mais inutilisable jusqu'à la fin du programme.</p>
+  <p>Règles d'or :</p>
+  <ul><li>Un malloc = un free correspondant</li><li>Ne jamais appeler free() deux fois sur le même pointeur</li><li>Mettre le pointeur à NULL après free()</li><li>Ne jamais utiliser un pointeur après free() (dangling pointer)</li></ul>`,
+  points: ["free() libère la mémoire allouée par malloc/calloc/realloc", "Mettre le pointeur à NULL après free() (sécurité)", "Double free = comportement indéfini (plantage possible)", "Ne pas utiliser le pointeur après free() (dangling pointer)", "Les outils comme Valgrind détectent les fuites mémoire"],
+  code: `#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char* dupliquer_chaine(const char *source) {
+    /* Allouer la mémoire nécessaire */
+    char *copie = (char*)malloc(strlen(source) + 1);
+    if (copie != NULL) {
+        strcpy(copie, source);
+    }
+    return copie;
+}
+
+int main() {
+    char *s1 = dupliquer_chaine("Bonjour le monde !");
+    char *s2 = dupliquer_chaine("Programmation en C");
+
+    printf("s1 : %s\\n", s1);
+    printf("s2 : %s\\n", s2);
+
+    /* Modifier s1 sans affecter l'original */
+    s1[0] = 'b';
+    printf("s1 modifié : %s\\n", s1);
+
+    /* Libérer */
+    free(s1); s1 = NULL;
+    free(s2); s2 = NULL;
+
+    printf("Mémoire proprement libérée.\\n");
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+#include <stdlib.h>
+
+int* creer_tableau(int n, int valeur_initiale) {
+    int *t = (int*)malloc(n * sizeof(int));
+    if (!t) return NULL;
+    for (int i = 0; i < n; i++) t[i] = valeur_initiale;
+    return t;
+}
+
+int main() {
+    int *t = creer_tableau(5, 99);
+    for (int i = 0; i < 5; i++) printf("%d ", t[i]);
+    printf("\\n");
+    free(t);
+    t = NULL;
+    return 0;
+}`
+},
+{
+  title: "Constantes avec const",
+  subtitle: "Déclarer des valeurs immuables",
+  theory: `<p>Le mot-clé <span class="highlight">const</span> indique au compilateur qu'une variable ne peut pas être modifiée après son initialisation. C'est une protection qui rend le code plus sûr et plus lisible.</p>
+  <p>Avantages de const sur les macros #define :</p>
+  <ul><li>const a un <strong>type</strong> (vérification à la compilation)</li><li>const a une <strong>portée</strong> (limitée à son bloc)</li><li>const est visible dans le débogueur</li></ul>
+  <p>Convention : les constantes globales sont souvent nommées en MAJUSCULES.</p>`,
+  points: ["const empêche la modification après initialisation", "Toujours initialiser une variable const à la déclaration", "const est préférable à #define pour les constantes typées", "const int* = pointeur vers entier constant", "int* const = pointeur constant vers entier"],
+  code: `#include <stdio.h>
+#include <math.h>
+
+int main() {
+    /* Constantes mathématiques */
+    const double PI = 3.14159265358979;
+    const double E  = 2.71828182845905;
+
+    /* Constantes physiques */
+    const int VITESSE_LUMIERE = 299792458;  /* m/s */
+
+    /* Utilisation */
+    double rayon = 7.0;
+    printf("Aire d'un cercle (r=%.0f) : %.4f\\n",
+           rayon, PI * rayon * rayon);
+
+    printf("Périmètre : %.4f\\n", 2 * PI * rayon);
+
+    printf("Vitesse de la lumière : %d m/s\\n", VITESSE_LUMIERE);
+
+    /* Erreur : PI = 3; ne compile pas ! */
+    /* const garantit la protection */
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    const int JOURS_PAR_SEMAINE = 7;
+    const int MOIS_PAR_AN = 12;
+    const int HEURES_PAR_JOUR = 24;
+
+    int semaines = 52;
+    printf("%d semaines = %d jours\\n",
+           semaines, semaines * JOURS_PAR_SEMAINE);
+    printf("1 an = %d mois = %d semaines\\n",
+           MOIS_PAR_AN, semaines);
+    return 0;
+}`
+},
+{
+  title: "Les Macros #define",
+  subtitle: "Préprocesseur C : constantes et macros-fonctions",
+  theory: `<p><span class="highlight">#define</span> est une directive du <strong>préprocesseur</strong> qui effectue un remplacement textuel avant la compilation. Contrairement à <code>const</code>, ce n'est pas une variable — c'est une substitution de texte.</p>
+  <p>Les macros peuvent aussi ressembler à des fonctions avec des paramètres. Attention aux effets de bord : toujours mettre les arguments entre parenthèses !</p>
+  <p>Le préprocesseur est une étape qui se déroule avant la vraie compilation.</p>`,
+  points: ["#define NOM valeur substitue NOM par valeur partout", "Pas de point-virgule à la fin d'un #define", "Les macros-fonctions doivent mettre les arguments entre ()", "#define peut créer des bugs subtils si mal écrit", "Préférer const et inline pour les nouvelles fonctions"],
+  code: `#include <stdio.h>
+
+/* Constantes */
+#define PI      3.14159265
+#define MAX     100
+#define VERSION "1.0.3"
+
+/* Macros-fonctions */
+#define CARRE(x)    ((x) * (x))
+#define MAX2(a, b)  ((a) > (b) ? (a) : (b))
+#define ABS(x)      ((x) < 0 ? -(x) : (x))
+
+int main() {
+    printf("PI = %.5f\\n", PI);
+    printf("Version : %s\\n", VERSION);
+
+    printf("Carré de 7 : %d\\n", CARRE(7));
+    printf("Max(15, 23) : %d\\n", MAX2(15, 23));
+    printf("|−42| = %d\\n", ABS(-42));
+
+    /* Danger sans parenthèses : */
+    /* CARRE(2+3) sans () = 2+3*2+3 = 11 (FAUX) */
+    /* Avec () = (2+3)*(2+3) = 25 (CORRECT) */
+    printf("CARRE(2+3) = %d\\n", CARRE(2 + 3));
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+#define CELSIUS_EN_FAHRENHEIT(c) ((c) * 9.0 / 5.0 + 32)
+#define FAHRENHEIT_EN_CELSIUS(f) (((f) - 32) * 5.0 / 9.0)
+
+int main() {
+    printf("100°C = %.1f°F\\n", CELSIUS_EN_FAHRENHEIT(100));
+    printf("212°F = %.1f°C\\n", FAHRENHEIT_EN_CELSIUS(212));
+    printf("37°C = %.1f°F\\n", CELSIUS_EN_FAHRENHEIT(37));
+    return 0;
+}`
+},
+{
+  title: "break et continue",
+  subtitle: "Contrôler le flux dans les boucles",
+  theory: `<p><span class="highlight">break</span> interrompt immédiatement la boucle et continue l'exécution après celle-ci. <span class="highlight">continue</span> saute le reste de l'itération en cours et passe à la suivante.</p>
+  <p>Ces instructions permettent de contrôler finement le comportement des boucles, mais trop les utiliser peut rendre le code difficile à lire. Utilisez-les avec parcimonie.</p>`,
+  points: ["break = quitter la boucle immédiatement", "continue = passer à l'itération suivante", "break sort uniquement de la boucle la plus interne", "Utile pour éviter des niveaux d'imbrication excessifs", "Dans un switch, break empêche le fall-through"],
+  code: `#include <stdio.h>
+
+int main() {
+    /* break : arrêter dès qu'on trouve 7 */
+    printf("Recherche de 7 :\\n");
+    for (int i = 0; i < 20; i++) {
+        if (i == 7) {
+            printf("Trouvé %d ! Arrêt.\\n", i);
+            break;
+        }
+        printf("%d ", i);
+    }
+
+    /* continue : afficher uniquement les impairs */
+    printf("\\nNombres impairs :\\n");
+    for (int i = 0; i < 15; i++) {
+        if (i % 2 == 0) continue;   /* Sauter les pairs */
+        printf("%d ", i);
+    }
+
+    /* Combinaison dans une boucle while */
+    printf("\\n\\nRecherche premier multiple de 7 et 11 :\\n");
+    int n = 1;
+    while (1) {   /* Boucle infinie */
+        if (n % 7 == 0 && n % 11 == 0) {
+            printf("Trouvé : %d\\n", n);
+            break;
+        }
+        n++;
+    }
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    /* Afficher nombres de 1 à 50, sauter les multiples de 3 */
+    for (int i = 1; i <= 50; i++) {
+        if (i % 3 == 0) continue;
+        printf("%d ", i);
+    }
+    printf("\\n");
+
+    /* Trouver le premier nombre divisible par 13 et 17 */
+    for (int i = 1; i <= 10000; i++) {
+        if (i % 13 == 0 && i % 17 == 0) {
+            printf("Premier multiple de 13 et 17 : %d\\n", i);
+            break;
+        }
+    }
+    return 0;
+}`
+},
+{
+  title: "enum — Énumérations",
+  subtitle: "Nommer des constantes entières liées",
+  theory: `<p>Un <span class="highlight">enum</span> (énumération) crée un ensemble de <strong>constantes entières nommées</strong>. Cela rend le code plus lisible en remplaçant des nombres arbitraires par des noms significatifs.</p>
+  <p>Par défaut, les valeurs commencent à 0 et s'incrémentent de 1. On peut assigner des valeurs personnalisées.</p>
+  <p>Les enum sont souvent utilisés pour représenter des états, des directions, des codes d'erreur, des jours de la semaine, etc.</p>`,
+  points: ["Les valeurs d'enum commencent à 0 par défaut", "On peut assigner des valeurs personnalisées", "Les noms d'enum sont globaux (attention aux conflits)", "Utiliser avec switch pour un code clair", "enum améliore la lisibilité vs des constantes magiques"],
+  code: `#include <stdio.h>
+
+/* Jours de la semaine */
+enum Jour {
+    LUNDI = 1, MARDI, MERCREDI, JEUDI, VENDREDI, SAMEDI, DIMANCHE
+};
+
+/* Direction */
+enum Direction { NORD, SUD, EST, OUEST };
+
+/* Couleurs */
+enum Couleur { ROUGE = 0xFF0000, VERT = 0x00FF00, BLEU = 0x0000FF };
+
+void afficher_jour(enum Jour j) {
+    switch (j) {
+        case LUNDI:    printf("Lundi\\n"); break;
+        case MARDI:    printf("Mardi\\n"); break;
+        case MERCREDI: printf("Mercredi\\n"); break;
+        case JEUDI:    printf("Jeudi\\n"); break;
+        case VENDREDI: printf("Vendredi\\n"); break;
+        case SAMEDI:   printf("Samedi\\n"); break;
+        case DIMANCHE: printf("Dimanche\\n"); break;
+    }
+}
+
+int main() {
+    enum Jour aujourd_hui = MERCREDI;
+    printf("Aujourd'hui : "); afficher_jour(aujourd_hui);
+    printf("Valeur : %d\\n", aujourd_hui);
+
+    enum Direction dir = NORD;
+    printf("Direction : %d (NORD=0, SUD=1, ...)\\n", dir);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+typedef enum { HIVER, PRINTEMPS, ETE, AUTOMNE } Saison;
+
+void afficher_saison(Saison s) {
+    const char *noms[] = {"Hiver", "Printemps", "Été", "Automne"};
+    printf("Saison : %s\\n", noms[s]);
+}
+
+int main() {
+    for (Saison s = HIVER; s <= AUTOMNE; s++) {
+        afficher_saison(s);
+    }
+    return 0;
+}`
+},
+{
+  title: "union",
+  subtitle: "Partager la même zone mémoire entre plusieurs types",
+  theory: `<p>Une <span class="highlight">union</span> est similaire à une struct, mais tous ses membres <strong>partagent la même zone mémoire</strong>. Sa taille est celle de son plus grand membre. Seul un membre peut être valide à un instant donné.</p>
+  <p>Les unions sont utilisées pour optimiser la mémoire ou pour accéder aux mêmes données sous différentes représentations (ex: accéder aux octets individuels d'un entier).</p>`,
+  points: ["Tous les membres d'une union occupent le même espace mémoire", "La taille de l'union = taille du plus grand membre", "Un seul membre est valide à la fois", "Utile pour l'inspection de bits ou l'optimisation mémoire", "Combiné avec struct pour créer un type variant"],
+  code: `#include <stdio.h>
+
+/* Union simple */
+union Nombre {
+    int entier;
+    float decimal;
+    char octets[4];
+};
+
+int main() {
+    union Nombre n;
+
+    /* Stocker un entier et voir ses octets */
+    n.entier = 0x41424344;   /* 'DCBA' en ASCII */
+    printf("Entier : %d\\n", n.entier);
+    printf("Comme char[0] : %c\\n", n.octets[0]);
+    printf("Comme char[1] : %c\\n", n.octets[1]);
+
+    /* Stocker un flottant */
+    n.decimal = 3.14f;
+    printf("\\nFlottant : %f\\n", n.decimal);
+    /* L'entier n'est plus valide ! */
+
+    printf("\\nTaille union : %lu octets\\n", sizeof(union Nombre));
+    printf("Taille int : %lu, float : %lu, char[4] : %lu\\n",
+           sizeof(int), sizeof(float), sizeof(char[4]));
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+union Couleur {
+    unsigned int valeur;
+    struct { unsigned char b, g, r, a; } composantes;
+};
+
+int main() {
+    union Couleur rouge;
+    rouge.valeur = 0x00FF0000;  /* Rouge en ARGB */
+    printf("Rouge: R=%d G=%d B=%d\\n",
+           rouge.composantes.r,
+           rouge.composantes.g,
+           rouge.composantes.b);
+    return 0;
+}`
+},
+{
+  title: "Les Bibliothèques Standard",
+  subtitle: "#include et les bibliothèques du C",
+  theory: `<p>Le C fournit de nombreuses <span class="highlight">bibliothèques standard</span> qui étendent les fonctionnalités du langage. Chaque bibliothèque est incluse avec <code>#include &lt;nom.h&gt;</code>.</p>
+  <p>Les bibliothèques les plus importantes :</p>
+  <ul><li><span class="highlight">&lt;stdio.h&gt;</span> — entrées/sorties (printf, scanf, fopen...)</li><li><span class="highlight">&lt;stdlib.h&gt;</span> — utilitaires (malloc, free, rand, atoi...)</li><li><span class="highlight">&lt;string.h&gt;</span> — chaînes (strlen, strcpy, strcmp...)</li><li><span class="highlight">&lt;math.h&gt;</span> — maths (sqrt, pow, sin, cos...)</li><li><span class="highlight">&lt;time.h&gt;</span> — temps (time, clock, strftime...)</li></ul>`,
+  points: ["#include <nom.h> pour les bibliothèques standard", "#include \"nom.h\" pour vos propres fichiers d'en-tête", "Compiler avec -lm pour utiliser math.h (gcc prog.c -lm)", "stdlib.h contient des utilitaires essentiels (malloc, exit, rand)", "time.h pour mesurer le temps d'exécution"],
+  code: `#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <time.h>
+
+int main() {
+    /* math.h */
+    printf("sqrt(144) = %.0f\\n", sqrt(144));
+    printf("pow(2, 10) = %.0f\\n", pow(2, 10));
+    printf("sin(PI/6) = %.4f\\n", sin(3.14159 / 6));
+
+    /* stdlib.h : nombres aléatoires */
+    srand(time(NULL));  /* Initialiser le générateur */
+    printf("\\nNombres aléatoires (0-99) : ");
+    for (int i = 0; i < 5; i++) {
+        printf("%d ", rand() % 100);
+    }
+    printf("\\n");
+
+    /* stdlib.h : conversion de chaîne */
+    char nombre[] = "42";
+    int valeur = atoi(nombre);
+    printf("\\natoi(\\"42\\") = %d\\n", valeur);
+
+    /* time.h */
+    time_t maintenant = time(NULL);
+    printf("Timestamp : %ld\\n", (long)maintenant);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+#include <math.h>
+
+int main() {
+    /* Calculer l'hypoténuse avec le théorème de Pythagore */
+    double a = 3.0, b = 4.0;
+    double c = sqrt(a*a + b*b);
+    printf("Hypoténuse : %.2f\\n", c);
+
+    /* Logarithme et exponentielle */
+    printf("log(e) = %.4f\\n", log(2.71828));
+    printf("e^1 = %.4f\\n", exp(1.0));
+    return 0;
+}`
+},
+{
+  title: "sqrt() et Fonctions Mathématiques",
+  subtitle: "Bibliothèque math.h : les fonctions essentielles",
+  theory: `<p>La bibliothèque <span class="highlight">&lt;math.h&gt;</span> fournit des fonctions mathématiques avancées. Elle doit être compilée avec l'option <code>-lm</code> sous Linux.</p>
+  <p>Fonctions principales :</p>
+  <ul><li><span class="highlight">sqrt(x)</span> — racine carrée</li><li><span class="highlight">pow(x, n)</span> — x à la puissance n</li><li><span class="highlight">fabs(x)</span> — valeur absolue pour flottants</li><li><span class="highlight">floor(x)</span> — arrondi inférieur, ceil(x) supérieur</li><li><span class="highlight">sin(x), cos(x), tan(x)</span> — trigonométrie (en radians !)</li></ul>`,
+  points: ["Compiler avec gcc prog.c -o prog -lm", "Les angles sont en radians, pas en degrés", "fabs() pour les flottants, abs() pour les entiers (stdlib.h)", "floor() arrondit vers le bas, ceil() vers le haut, round() au plus proche", "log() = logarithme naturel (base e), log10() = base 10"],
+  code: `#include <stdio.h>
+#include <math.h>
+
+#define PI 3.14159265358979
+
+int main() {
+    /* Racines et puissances */
+    printf("sqrt(2) = %.6f\\n", sqrt(2));
+    printf("cbrt(27) = %.0f\\n", cbrt(27));   /* Racine cubique */
+    printf("2^32 = %.0f\\n", pow(2, 32));
+
+    /* Arrondi */
+    double x = 3.7;
+    printf("\\nfloor(%.1f) = %.0f\\n", x, floor(x));
+    printf("ceil(%.1f)  = %.0f\\n", x, ceil(x));
+    printf("round(%.1f) = %.0f\\n", x, round(x));
+
+    /* Trigonométrie */
+    printf("\\nsin(90°) = %.4f\\n", sin(PI / 2));
+    printf("cos(0°) = %.4f\\n", cos(0));
+    printf("tan(45°) = %.4f\\n", tan(PI / 4));
+
+    /* Logarithmes */
+    printf("\\nlog(e) = %.4f\\n", log(exp(1)));
+    printf("log10(1000) = %.0f\\n", log10(1000));
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+#include <math.h>
+
+int main() {
+    /* Résoudre ax² + bx + c = 0 */
+    double a = 1, b = -5, c = 6;
+    double delta = b*b - 4*a*c;
+    printf("Discriminant : %.2f\\n", delta);
+    if (delta > 0) {
+        printf("x1 = %.2f\\n", (-b + sqrt(delta)) / (2*a));
+        printf("x2 = %.2f\\n", (-b - sqrt(delta)) / (2*a));
+    } else if (delta == 0) {
+        printf("x = %.2f\\n", -b / (2*a));
+    }
+    return 0;
+}`
+},
+{
+  title: "strlen() — Longueur de Chaîne",
+  subtitle: "Mesurer et parcourir des chaînes de caractères",
+  theory: `<p><span class="highlight">strlen()</span> (string length) retourne le nombre de caractères dans une chaîne, <strong>sans compter le caractère nul</strong> <code>'\\0'</code> final. Elle est disponible dans <code>&lt;string.h&gt;</code>.</p>
+  <p>On peut aussi calculer la longueur manuellement en parcourant jusqu'au <code>'\\0'</code>, ce qui illustre bien comment les chaînes fonctionnent en C.</p>
+  <p>Attention : strlen() est O(n) — elle parcourt toute la chaîne. Ne pas l'appeler dans une boucle si possible.</p>`,
+  points: ["strlen() retourne le nombre de chars sans compter \\0", "La déclaration : size_t strlen(const char *s);", "strlen(\"hello\") = 5, mais sizeof(\"hello\") = 6", "Pour les performances, stocker strlen() dans une variable", "Parcourir une chaîne : for(i=0; s[i] != '\\0'; i++)"],
+  code: `#include <stdio.h>
+#include <string.h>
+
+/* Implémenter strlen manuellement */
+int ma_strlen(const char *s) {
+    int n = 0;
+    while (s[n] != '\\0') n++;
+    return n;
+}
+
+int main() {
+    char s1[] = "Bonjour";
+    char s2[] = "Programmation en C";
+    char s3[] = "";
+
+    printf("strlen(\\"Bonjour\\") = %lu\\n", strlen(s1));
+    printf("strlen(\\"Programmation en C\\") = %lu\\n", strlen(s2));
+    printf("strlen(\\"\\") = %lu\\n", strlen(s3));
+
+    printf("\\nMa version : %d\\n", ma_strlen(s1));
+
+    /* Différence strlen vs sizeof */
+    printf("\\nsizeof(\\"Bonjour\\") = %lu (inclut \\\\0)\\n",
+           sizeof(s1));
+
+    /* Parcourir la chaîne */
+    printf("\\nCaractères de \\"Bonjour\\" :\\n");
+    for (int i = 0; s1[i] != '\\0'; i++) {
+        printf("  [%d] = '%c'\\n", i, s1[i]);
+    }
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char phrase[] = "Le C est puissant";
+    int voyelles = 0, consonnes = 0, espaces = 0;
+    for (int i = 0; phrase[i]; i++) {
+        char c = phrase[i];
+        if (c == ' ') espaces++;
+        else if (c=='a'||c=='e'||c=='i'||c=='o'||c=='u'||
+                 c=='é'||c=='è') voyelles++;
+        else consonnes++;
+    }
+    printf("Phrase : \\"%s\\"\\n", phrase);
+    printf("Longueur : %lu | Voyelles : %d | Espaces : %d\\n",
+           strlen(phrase), voyelles, espaces);
+    return 0;
+}`
+},
+{
+  title: "strcpy() et strcat()",
+  subtitle: "Copier et concaténer des chaînes",
+  theory: `<p><span class="highlight">strcpy(dest, src)</span> copie la chaîne src dans dest (en incluant le <code>'\\0'</code>). <span class="highlight">strcat(dest, src)</span> concatène src à la fin de dest.</p>
+  <p><strong>Danger</strong> : ces fonctions ne vérifient pas la taille du tampon de destination ! Si dest est trop petit, on a un <span class="highlight-orange">buffer overflow</span>, une vulnérabilité de sécurité critique.</p>
+  <p>Versions sûres (recommandées) : <span class="highlight">strncpy(dest, src, n)</span> et <span class="highlight">strncat(dest, src, n)</span> qui limitent le nombre de caractères copiés.</p>`,
+  points: ["strcpy copie y compris le \\0 final", "strcat ajoute src à la fin de dest", "Toujours s'assurer que dest est assez grand !", "Préférer strncpy et strncat pour la sécurité", "strncat(dest, src, n) copie au plus n caractères de src"],
+  code: `#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char prenom[50] = "Amadou";
+    char nom[50] = "Diallo";
+    char nom_complet[100];
+
+    /* strcpy : copier */
+    strcpy(nom_complet, prenom);
+    printf("Après strcpy : '%s'\\n", nom_complet);
+
+    /* strcat : concaténer */
+    strcat(nom_complet, " ");     /* Ajouter un espace */
+    strcat(nom_complet, nom);     /* Ajouter le nom */
+    printf("Après strcat : '%s'\\n", nom_complet);
+
+    /* Version sécurisée */
+    char dest[20];
+    strncpy(dest, "Bonjour tout le monde !", sizeof(dest) - 1);
+    dest[sizeof(dest) - 1] = '\\0';  /* Garantir la terminaison */
+    printf("Tronqué : '%s'\\n", dest);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char resultat[200] = "";
+    const char *mots[] = {"C", " est", " un", " beau", " langage"};
+    int n = 5;
+
+    for (int i = 0; i < n; i++) {
+        strcat(resultat, mots[i]);
+    }
+    printf("Phrase : %s\\n", resultat);
+    printf("Longueur : %lu\\n", strlen(resultat));
+    return 0;
+}`
+},
+{
+  title: "strcmp() — Comparer des Chaînes",
+  subtitle: "Trier et comparer des chaînes alphabétiquement",
+  theory: `<p><span class="highlight">strcmp(s1, s2)</span> compare lexicographiquement deux chaînes et retourne :</p>
+  <ul><li><span class="highlight">0</span> si les chaînes sont identiques</li><li><span class="highlight">&lt; 0</span> si s1 vient avant s2 alphabétiquement</li><li><span class="highlight">&gt; 0</span> si s1 vient après s2</li></ul>
+  <p>Important : <strong>ne jamais comparer des chaînes avec ==</strong> en C, car cela comparerait les adresses mémoire, pas les contenus !</p>
+  <p><span class="highlight">strncmp(s1, s2, n)</span> compare au maximum n caractères.</p>`,
+  points: ["Ne JAMAIS utiliser == pour comparer des chaînes", "strcmp retourne 0 si égales, <0 ou >0 sinon", "La comparaison est basée sur les codes ASCII", "strcasecmp() compare sans tenir compte de la casse (non standard)", "strncmp compare au maximum n caractères"],
+  code: `#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s1[] = "Bonjour";
+    char s2[] = "Bonjour";
+    char s3[] = "bonjour";
+    char s4[] = "Bonsoir";
+
+    /* Comparaison */
+    printf("strcmp(s1, s2) = %d (identiques)\\n", strcmp(s1, s2));
+    printf("strcmp(s1, s3) = %d (maj vs min)\\n", strcmp(s1, s3));
+    printf("strcmp(s1, s4) = %d\\n", strcmp(s1, s4));
+
+    /* Utilisation pratique */
+    char mot_secret[] = "C_est_cool";
+    char tentative[] = "C_est_cool";
+
+    if (strcmp(mot_secret, tentative) == 0) {
+        printf("\\nMot de passe correct !\\n");
+    } else {
+        printf("\\nMot de passe incorrect.\\n");
+    }
+
+    /* Tri avec strcmp */
+    char noms[3][20] = {"Zara", "Alice", "Mehdi"};
+    printf("\\nAvant tri : %s %s %s\\n", noms[0], noms[1], noms[2]);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char noms[4][20] = {"Zara", "Alice", "Omar", "Beatrice"};
+    /* Tri à bulles avec strcmp */
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3 - i; j++) {
+            if (strcmp(noms[j], noms[j+1]) > 0) {
+                char tmp[20];
+                strcpy(tmp, noms[j]);
+                strcpy(noms[j], noms[j+1]);
+                strcpy(noms[j+1], tmp);
+            }
+        }
+    }
+    printf("Tri alphabétique :\\n");
+    for (int i = 0; i < 4; i++) printf("  %s\\n", noms[i]);
+    return 0;
+}`
+},
+{
+  title: "Tableaux 2D et Matrices",
+  subtitle: "Tableaux à plusieurs dimensions",
+  theory: `<p>Un <span class="highlight">tableau 2D</span> est un tableau de tableaux. Il est stocké en mémoire de manière contiguë, ligne par ligne. On y accède avec deux indices : <code>tab[ligne][colonne]</code>.</p>
+  <p>Les tableaux 2D sont utilisés pour représenter des matrices, des grilles, des images en pixels, des plateaux de jeu, etc.</p>
+  <p>En mémoire, <code>tab[i][j]</code> se trouve à l'adresse de base + (i × colonnes + j) × sizeof(type).</p>`,
+  points: ["Syntaxe : int tab[lignes][colonnes];", "Indices : tab[0][0] est en haut à gauche", "Parcourir avec deux boucles for imbriquées", "Passer un tableau 2D à une fonction nécessite de préciser le nb de colonnes", "Stockage en mémoire : ligne par ligne (row-major)"],
+  code: `#include <stdio.h>
+
+#define LIGNES 3
+#define COLS   3
+
+int main() {
+    /* Initialisation d'une matrice 3x3 */
+    int mat[LIGNES][COLS] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+
+    /* Afficher la matrice */
+    printf("Matrice 3x3 :\\n");
+    for (int i = 0; i < LIGNES; i++) {
+        for (int j = 0; j < COLS; j++) {
+            printf("%3d", mat[i][j]);
+        }
+        printf("\\n");
+    }
+
+    /* Calculer la trace (somme diagonale) */
+    int trace = 0;
+    for (int i = 0; i < LIGNES; i++) {
+        trace += mat[i][i];
+    }
+    printf("\\nTrace : %d\\n", trace);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+int main() {
+    /* Multiplication de matrices 2x2 */
+    int A[2][2] = {{1, 2}, {3, 4}};
+    int B[2][2] = {{5, 6}, {7, 8}};
+    int C[2][2] = {0};
+
+    for (int i = 0; i < 2; i++)
+        for (int j = 0; j < 2; j++)
+            for (int k = 0; k < 2; k++)
+                C[i][j] += A[i][k] * B[k][j];
+
+    printf("A * B =\\n");
+    for (int i = 0; i < 2; i++) {
+        printf("[%3d %3d]\\n", C[i][0], C[i][1]);
+    }
+    return 0;
+}`
+},
+{
+  title: "Arguments de main()",
+  subtitle: "argc et argv : arguments en ligne de commande",
+  theory: `<p>La fonction <span class="highlight">main()</span> peut accepter des arguments passés en ligne de commande :</p>
+  <ul><li><span class="highlight">argc</span> (argument count) — le nombre d'arguments (inclut le nom du programme)</li><li><span class="highlight">argv</span> (argument vector) — un tableau de chaînes contenant les arguments</li></ul>
+  <p><code>argv[0]</code> est toujours le nom du programme, <code>argv[1]</code> le premier argument, etc.</p>
+  <p>Exemple : <code>./programme Alice 25</code> → argc=3, argv[1]="Alice", argv[2]="25"</p>`,
+  points: ["argc inclut le nom du programme (argv[0])", "argv est un tableau de char* (chaînes)", "argv[argc] vaut toujours NULL", "Utiliser atoi() ou strtol() pour convertir des nombres", "Vérifier argc avant d'accéder à argv[n]"],
+  code: `#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    printf("Nombre d'arguments : %d\\n", argc);
+
+    for (int i = 0; i < argc; i++) {
+        printf("argv[%d] = \\"%s\\"\\n", i, argv[i]);
+    }
+
+    /* Vérifier et utiliser les arguments */
+    if (argc < 3) {
+        printf("\\nUsage : %s <nom> <age>\\n", argv[0]);
+        printf("Exemple : ./prog Alice 25\\n");
+        return 1;
+    }
+
+    char *nom = argv[1];
+    int age = atoi(argv[2]);  /* Convertir chaîne -> entier */
+
+    printf("\\nBonjour %s ! Vous avez %d ans.\\n", nom, age);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    if (argc < 3) {
+        printf("Usage : %s <num1> <num2>\\n", argv[0]);
+        return 1;
+    }
+    double a = atof(argv[1]);
+    double b = atof(argv[2]);
+    printf("%.2f + %.2f = %.2f\\n", a, b, a + b);
+    printf("%.2f * %.2f = %.2f\\n", a, b, a * b);
+    return 0;
+}`
+},
+{
+  title: "Compilation avec GCC",
+  subtitle: "De la source au binaire exécutable",
+  theory: `<p>La <span class="highlight">compilation</span> transforme votre code source C en un programme exécutable binaire. Ce processus comporte 4 étapes :</p>
+  <ol style="padding-left:20px; margin-top:8px;"><li><span class="highlight">Préprocessing</span> — traiter les directives #include, #define</li><li><span class="highlight">Compilation</span> — transformer le C en code assembleur</li><li><span class="highlight">Assemblage</span> — transformer l'assembleur en code objet</li><li><span class="highlight">Édition de liens (Linking)</span> — assembler les fichiers objets en exécutable</li></ol>
+  <p>GCC (GNU Compiler Collection) est le compilateur C le plus utilisé.</p>`,
+  points: ["gcc fichier.c -o nom_exe : compiler et nommer l'exécutable", "-Wall : activer tous les avertissements (très recommandé)", "-g : inclure les infos de debug", "-O2 : optimisation (code plus rapide)", "-lm : lier la bibliothèque mathématique"],
+  code: `/* Commandes de compilation GCC */
+
+/* Compilation simple */
+// gcc main.c -o programme
+
+/* Avec avertissements (recommandé) */
+// gcc -Wall -Wextra main.c -o programme
+
+/* Avec symboles de debug */
+// gcc -g -Wall main.c -o programme
+
+/* Avec optimisation */
+// gcc -O2 -Wall main.c -o programme
+
+/* Avec bibliothèque math */
+// gcc main.c -o programme -lm
+
+/* Compiler plusieurs fichiers */
+// gcc fichier1.c fichier2.c -o programme
+
+/* Vérifier les erreurs sans compiler */
+// gcc -fsyntax-only main.c
+
+/* Afficher la version de GCC */
+// gcc --version
+
+#include <stdio.h>
+int main() {
+    printf("Ce programme a été compilé avec GCC.\\n");
+    printf("Compilé le : %s à %s\\n", __DATE__, __TIME__);
+    printf("Fichier source : %s\\n", __FILE__);
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+/* Programme qui affiche les infos de compilation */
+int main() {
+    printf("=== Informations de compilation ===\\n");
+    printf("Fichier : %s\\n", __FILE__);
+    printf("Date    : %s\\n", __DATE__);
+    printf("Heure   : %s\\n", __TIME__);
+    printf("Version C: %ld\\n", __STDC_VERSION__);
+    return 0;
+}`
+},
+{
+  title: "Debug — Trouver les Erreurs",
+  subtitle: "Techniques et outils pour déboguer un programme C",
+  theory: `<p>Le <span class="highlight">debug</span> (débogage) est l'art de trouver et corriger les erreurs dans un programme. En C, il existe plusieurs catégories d'erreurs :</p>
+  <ul><li><span class="highlight-orange">Erreurs de syntaxe</span> — détectées à la compilation (oubli de ;, accolade manquante...)</li><li><span class="highlight-orange">Erreurs de logique</span> — le programme compile mais donne des résultats incorrects</li><li><span class="highlight-orange">Erreurs d'exécution</span> — le programme plante (segfault, division par zéro...)</li></ul>
+  <p>Techniques : printf de debug, GDB, Valgrind, assertions.</p>`,
+  points: ["printf() pour afficher les valeurs intermédiaires", "assert() pour vérifier des invariants", "GDB : débogueur en ligne de commande puissant", "Valgrind : détecter les fuites mémoire", "Compiler avec -g pour le debug, -Wall pour voir les warnings"],
+  code: `#include <stdio.h>
+#include <assert.h>
+
+int diviser(int a, int b) {
+    /* assert arrête le programme si la condition est fausse */
+    assert(b != 0 && "Division par zéro !");
+    return a / b;
+}
+
+int main() {
+    /* Technique 1 : printf de debug */
+    int x = 5;
+    printf("[DEBUG] x = %d avant traitement\\n", x);
+    x *= 2;
+    printf("[DEBUG] x = %d après traitement\\n", x);
+
+    /* Technique 2 : assert */
+    int resultat = diviser(10, 2);
+    printf("10 / 2 = %d\\n", resultat);
+
+    /* Vérifier les bornes d'un tableau */
+    int tab[5] = {1, 2, 3, 4, 5};
+    int i = 3;
+    assert(i >= 0 && i < 5);  /* Vérifier l'indice */
+    printf("tab[%d] = %d\\n", i, tab[i]);
+
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+
+/* Déboguer cette fonction qui calcule la somme des éléments */
+int somme_tableau(int *tab, int n) {
+    printf("[DEBUG] n = %d\\n", n);
+    int total = 0;
+    for (int i = 0; i < n; i++) {
+        printf("[DEBUG] tab[%d] = %d\\n", i, tab[i]);
+        total += tab[i];
+    }
+    printf("[DEBUG] total = %d\\n", total);
+    return total;
+}
+
+int main() {
+    int t[] = {5, 3, 8, 1, 9};
+    printf("Somme : %d\\n", somme_tableau(t, 5));
+    return 0;
+}`
+},
+{
+  title: "Projet Final : Mini-Applications",
+  subtitle: "Créez vos premières vraies applications en C",
+  theory: `<p>Félicitations ! Vous avez parcouru les 49 leçons du langage C. Il est temps de mettre en pratique tout ce que vous avez appris en réalisant de vrais projets.</p>
+  <p>Voici 3 projets de niveau croissant :</p>
+  <ul><li><span class="highlight">Calculatrice</span> — utiliser les opérateurs, scanf, switch</li><li><span class="highlight">Gestion d'étudiants</span> — utiliser les structures, tableaux, fonctions, fichiers</li><li><span class="highlight">Mini jeu de devinette</span> — utiliser rand(), boucles, conditions</li></ul>
+  <p>Commencez par le projet qui vous attire le plus, et n'hésitez pas à ajouter vos propres fonctionnalités !</p>`,
+  points: ["Commencer petit et ajouter des fonctionnalités progressivement", "Tester chaque fonction séparément avant d'assembler", "Documenter votre code avec des commentaires", "Gérer les cas d'erreur (entrées invalides, fichiers manquants...)", "La pratique régulière est la clé du progrès"],
+  code: `#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+/* === PROJET : Jeu de Devinette === */
+
+int main() {
+    srand(time(NULL));
+    int secret = rand() % 100 + 1;  /* 1 à 100 */
+    int essai;
+    int tentatives = 0;
+    int max_essais = 7;
+
+    printf("=== JEU DE DEVINETTE ===\\n");
+    printf("Devinez un nombre entre 1 et 100\\n");
+    printf("Vous avez %d essais.\\n\\n", max_essais);
+
+    do {
+        tentatives++;
+        printf("Essai %d/%d : ", tentatives, max_essais);
+        /* Simuler l'entrée utilisateur */
+        essai = secret + (rand() % 21 - 10);
+        printf("%d\\n", essai);
+
+        if (essai < secret) {
+            printf("  → Trop petit !\\n");
+        } else if (essai > secret) {
+            printf("  → Trop grand !\\n");
+        } else {
+            printf("\\n🎉 Bravo ! Trouvé en %d essais !\\n", tentatives);
+            return 0;
+        }
+    } while (tentatives < max_essais);
+
+    printf("\\nPerdu ! C'était %d.\\n", secret);
+    return 0;
+}`,
+  exercise: `#include <stdio.h>
+#include <string.h>
+
+/* Mini gestion d'étudiants */
+typedef struct {
+    char nom[30];
+    float notes[3];
+    float moyenne;
+} Etudiant;
+
+float calc_moyenne(float *notes, int n) {
+    float s = 0;
+    for (int i = 0; i < n; i++) s += notes[i];
+    return s / n;
+}
+
+int main() {
+    Etudiant promo[3] = {
+        {"Alice",   {15, 17, 14}},
+        {"Bernard", {12, 10, 13}},
+        {"Carla",   {18, 19, 17}}
+    };
+
+    printf("%-10s | %-20s | Moy\\n", "Nom", "Notes");
+    printf("----------------------------------------\\n");
+    for (int i = 0; i < 3; i++) {
+        promo[i].moyenne = calc_moyenne(promo[i].notes, 3);
+        printf("%-10s | %5.1f %5.1f %5.1f   | %.1f\\n",
+               promo[i].nom,
+               promo[i].notes[0], promo[i].notes[1], promo[i].notes[2],
+               promo[i].moyenne);
+    }
+    return 0;
+}`
+}
+];
+
+// ─────────────── STATE ───────────────
+let currentLesson = 0;
+let completed = new Set();
+
+// ─────────────── BUILD UI ───────────────
+function buildSidebar() {
+  const nav = document.getElementById('sidebar-nav');
+  lessons.forEach((l, i) => {
+    const item = document.createElement('div');
+    item.className = 'lesson-nav-item' + (i === 0 ? ' active' : '');
+    item.id = `nav-${i}`;
+    item.innerHTML = `<span class="nav-num">${String(i+1).padStart(2,'0')}</span>${l.title.split(':')[0] || l.title}`;
+    item.onclick = () => goToLesson(i);
+    nav.appendChild(item);
+  });
+}
+
+function buildCodeBlock(code, label = 'exemple.c') {
+  return `<code-block>
+    <div class="code-top">
+      <div class="code-dots">
+        <div class="code-dot" style="background:#ff5f57"></div>
+        <div class="code-dot" style="background:#febc2e"></div>
+        <div class="code-dot" style="background:#28c840"></div>
+      </div>
+      <div class="code-top-label">${label}</div>
+      <button class="copy-btn" onclick="copyCode(this)">copier</button>
+    </div>
+    <pre class="code-body">${escHtml(code)}</pre>
+  </code-block>`;
+}
+
+function buildLesson(l, i) {
+  const pointsHtml = l.points.map(p => `<li>${p}</li>`).join('');
+  return `
+  <div class="lesson-card" id="lesson-${i}">
+    <div class="lesson-header">
+      <span class="lesson-num-big">LEÇON ${String(i+1).padStart(2,'0')}</span>
+      <div>
+        <div class="lesson-title">${l.title}</div>
+        <div class="lesson-subtitle">${l.subtitle}</div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Explication</div>
+      ${l.theory}
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Points clés</div>
+      <ul>${pointsHtml}</ul>
+    </div>
+
+    ${buildCodeBlock(l.code)}
+
+    <div class="section-block" style="border-color: rgba(79,140,255,0.3);">
+      <div class="section-label" style="color:var(--blue)">Exercice pratique</div>
+      <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">Copiez ce code dans l'éditeur à droite et essayez de le modifier !</p>
+      ${buildCodeBlock(l.exercise, 'exercice.c')}
+    </div>
+
+    <div class="nav-arrows">
+      <button class="arrow-btn" onclick="goToLesson(${i-1})" ${i===0?'disabled':''}>← Précédent</button>
+      <div id="done-${i}"></div>
+      <button class="arrow-btn primary" onclick="completeAndNext(${i})">
+        ${i === lessons.length-1 ? '✓ Terminer' : 'Suivant →'}
+      </button>
+    </div>
+  </div>`;
+}
+
+function buildAllLessons() {
+  const main = document.getElementById('main-content');
+  main.innerHTML = lessons.map((l, i) => buildLesson(l, i)).join('');
+}
+
+// ─────────────── NAVIGATION ───────────────
+function goToLesson(i) {
+  if (i < 0 || i >= lessons.length) return;
+
+  document.querySelector(`#lesson-${currentLesson}`)?.classList.remove('active');
+  document.querySelector(`#nav-${currentLesson}`)?.classList.remove('active');
+
+  currentLesson = i;
+
+  document.querySelector(`#lesson-${i}`)?.classList.add('active');
+  document.querySelector(`#nav-${i}`)?.classList.add('active');
+  document.querySelector(`#nav-${i}`)?.scrollIntoView({ block: 'nearest' });
+  document.getElementById('main-content').scrollTop = 0;
+
+  document.getElementById('lesson-indicator').textContent = `Leçon ${i+1} / ${lessons.length}`;
+
+  // Load exercise into editor
+  document.getElementById('code-editor').value = decodeEntities(lessons[i].exercise);
+}
+
+function completeAndNext(i) {
+  completed.add(i);
+  document.querySelector(`#nav-${i}`)?.classList.add('done');
+
+  // Mark done badge
+  const doneEl = document.getElementById(`done-${i}`);
+  if (doneEl) doneEl.innerHTML = `<div class="done-badge">✓ Complétée</div>`;
+
+  updateProgress();
+
+  if (i < lessons.length - 1) {
+    goToLesson(i + 1);
+  }
+}
+
+function updateProgress() {
+  const pct = (completed.size / lessons.length) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = `${completed.size} / ${lessons.length} complétées`;
+}
+
+// ─────────────── EDITOR / RUNNER ───────────────
+function simulateRun() {
+  const code = document.getElementById('code-editor').value;
+  const out = document.getElementById('output-display');
+
+  out.innerHTML = '<div class="out-info">▶ Simulation C...</div><br>';
+
+  // Extract printf strings (simplified simulation)
+  const lines = [];
+  const printfRe = /printf\s*\(\s*"((?:[^"\\]|\\.)*)"\s*(?:,\s*([^)]*))?\s*\)/g;
+  let match;
+  while ((match = printfRe.exec(code)) !== null) {
+    let fmt = match[1];
+    const args = match[2] ? match[2].split(',').map(s => s.trim()) : [];
+
+    // Resolve simple variable or literal args
+    const resolved = args.map(arg => {
+      const numMatch = arg.match(/^-?\d+(\.\d+)?$/);
+      if (numMatch) return parseFloat(arg);
+      const strMatch = arg.match(/^"(.*)"$/);
+      if (strMatch) return strMatch[1];
+      return arg;
+    });
+
+    // Simple format substitution
+    let result = fmt;
+    result = result.replace(/\\n/g, '\n');
+    result = result.replace(/\\t/g, '\t');
+    result = result.replace(/\\0/g, '');
+
+    let argIdx = 0;
+    result = result.replace(/%(-?\d*\.?\d*)?([disfclu%])/g, (m, flags, type) => {
+      if (type === '%') return '%';
+      const val = resolved[argIdx++];
+      if (val === undefined) return m;
+      if (type === 'd' || type === 'i') return Math.floor(Number(val));
+      if (type === 'f') {
+        const prec = flags?.includes('.') ? parseInt(flags.split('.')[1]) || 6 : 6;
+        return parseFloat(val).toFixed(prec);
+      }
+      if (type === 's') return val;
+      if (type === 'c') return typeof val === 'number' ? String.fromCharCode(val) : val;
+      if (type === 'l' || type === 'u') return Math.floor(Number(val));
+      return val;
+    });
+
+    lines.push(result);
+  }
+
+  if (lines.length === 0) {
+    out.innerHTML += '<div class="out-info">// Aucun printf() trouvé — vérifiez votre code.</div>';
+    return;
+  }
+
+  const full = lines.join('');
+  const displayLines = full.split('\n');
+  displayLines.forEach(line => {
+    if (line.trim() !== '') {
+      const div = document.createElement('div');
+      div.className = 'out-line';
+      div.textContent = line;
+      out.appendChild(div);
+    }
+  });
+
+  const info = document.createElement('div');
+  info.className = 'out-info';
+  info.textContent = `\n// Programme terminé (return 0)`;
+  out.appendChild(info);
+}
+
+function clearOutput() {
+  document.getElementById('output-display').innerHTML =
+    '<div class="out-info">// Sortie effacée.</div>';
+}
+
+function copyCode(btn) {
+  const pre = btn.closest('code-block').querySelector('pre');
+  navigator.clipboard.writeText(pre.textContent).then(() => {
+    btn.textContent = 'copié !';
+    setTimeout(() => btn.textContent = 'copier', 1500);
+  });
+}
+
+// ─────────────── UTILS ───────────────
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function decodeEntities(s) {
+  return s.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+}
+
+// ─────────────── INIT ───────────────
+buildSidebar();
+buildAllLessons();
+goToLesson(0);
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
