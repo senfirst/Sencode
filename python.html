@@ -4,726 +4,1792 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Apprendre Python - 50 Leçons</title>
-
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial;
+:root {
+  --bg: #0d1117;
+  --surface: #131920;
+  --surface2: #1a2332;
+  --border: #253040;
+  --accent: #3b82f6;
+  --accent2: #60a5fa;
+  --text: #e2eaf8;
+  --muted: #6b80a0;
+  --green: #34d399;
+  --amber: #fbbf24;
+  --red: #f87171;
+  --code-bg: #080d14;
+  --py-yellow: #f7d14a;
+  --py-blue: #4ca3f7;
 }
 
-body{
-    background:#f3f4f6;
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Sora', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-.header{
-    background:#1e293b;
-    color:#4ade80;
-    text-align:center;
-    padding:20px;
-    font-size:32px;
-    font-weight:bold;
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+  z-index: 10;
 }
 
-.container{
-    display:flex;
-    height:calc(100vh - 80px);
+.logo { display: flex; align-items: center; gap: 10px; }
+
+.logo-icon {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--py-blue), var(--py-yellow));
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; font-weight: 600; color: #0d1117;
 }
 
-.lessons{
-    width:50%;
-    background:white;
-    overflow-y:auto;
-    padding:25px;
+.logo-text {
+  font-size: 16px; font-weight: 700;
+  background: linear-gradient(90deg, var(--py-blue), var(--py-yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.lesson{
-    background:white;
-    border-left:5px solid #4ade80;
-    padding:20px;
-    margin-bottom:25px;
-    border-radius:8px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+.header-info { margin-left: auto; display: flex; align-items: center; gap: 20px; }
+
+.progress-bar-wrap { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--muted); }
+
+.progress-track { width: 120px; height: 4px; background: var(--border); border-radius: 99px; overflow: hidden; }
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--py-blue), var(--py-yellow));
+  border-radius: 99px; transition: width 0.4s;
 }
 
-.lesson h2{
-    margin-bottom:15px;
-    color:#111827;
+.badge {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 20px; padding: 4px 12px; font-size: 12px; color: var(--muted);
 }
 
-.lesson p{
-    margin-bottom:12px;
-    line-height:1.7;
-    color:#374151;
+.main { display: flex; flex: 1; overflow: hidden; }
+
+.sidebar {
+  width: 72px; background: var(--surface); border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; align-items: center;
+  padding: 16px 0; gap: 8px; flex-shrink: 0;
 }
 
-pre{
-    background:#e5e7eb;
-    padding:15px;
-    border-radius:6px;
-    overflow:auto;
+.nav-btn {
+  width: 44px; height: 44px; border-radius: 10px; border: none;
+  background: transparent; color: var(--muted); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; transition: all 0.2s; position: relative;
 }
 
-.editor-section{
-    width:50%;
-    background:#111827;
-    padding:20px;
-    display:flex;
-    flex-direction:column;
+.nav-btn:hover, .nav-btn.active { background: var(--surface2); color: var(--accent2); }
+
+.nav-btn.active::before {
+  content: ''; position: absolute; left: -1px; top: 50%;
+  transform: translateY(-50%); width: 3px; height: 24px;
+  background: var(--accent); border-radius: 0 3px 3px 0;
 }
 
-.editor-title{
-    color:white;
-    font-size:25px;
-    margin-bottom:15px;
+.lessons-panel {
+  width: 320px; background: var(--surface); border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; flex-shrink: 0;
 }
 
-textarea{
-    width:100%;
-    height:300px;
-    border:none;
-    border-radius:8px;
-    padding:15px;
-    resize:none;
-    font-size:16px;
-    outline:none;
+.panel-header {
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  font-size: 13px; font-weight: 600; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  display: flex; align-items: center; justify-content: space-between;
 }
 
-button{
-    margin-top:15px;
-    padding:14px;
-    background:#22c55e;
-    border:none;
-    color:white;
-    font-size:18px;
-    border-radius:6px;
-    cursor:pointer;
-    font-weight:bold;
+.search-box {
+  margin: 12px 16px; background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 8px;
 }
 
-button:hover{
-    background:#16a34a;
+.search-box input {
+  background: transparent; border: none; outline: none;
+  color: var(--text); font-family: 'Sora', sans-serif; font-size: 13px; width: 100%;
 }
 
-iframe{
-    margin-top:20px;
-    flex:1;
-    border:none;
-    background:white;
-    border-radius:8px;
+.search-box input::placeholder { color: var(--muted); }
+
+.lesson-list { flex: 1; overflow-y: auto; padding: 8px; }
+.lesson-list::-webkit-scrollbar { width: 4px; }
+.lesson-list::-webkit-scrollbar-track { background: transparent; }
+.lesson-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.chapter-label {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--muted); padding: 14px 12px 6px;
 }
 
-.output{
-    margin-top:20px;
-    background:black;
-    color:#4ade80;
-    padding:20px;
-    border-radius:8px;
-    font-family:monospace;
-    min-height:250px;
-    overflow:auto;
+.lesson-item {
+  display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+  border-radius: 8px; cursor: pointer; transition: all 0.15s; border: 1px solid transparent;
 }
 
-@media(max-width:900px){
+.lesson-item:hover { background: var(--surface2); }
 
-.container{
-    flex-direction:column;
-    height:auto;
+.lesson-item.active {
+  background: rgba(59, 130, 246, 0.12);
+  border-color: rgba(59, 130, 246, 0.3);
 }
 
-.lessons,
-.editor-section{
-    width:100%;
+.lesson-num {
+  width: 22px; height: 22px; border-radius: 6px;
+  background: var(--surface2); border: 1px solid var(--border);
+  font-size: 10px; font-family: 'JetBrains Mono', monospace;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; color: var(--muted); transition: all 0.15s;
 }
 
+.lesson-item.active .lesson-num, .lesson-item:hover .lesson-num {
+  background: var(--accent); border-color: var(--accent); color: white;
 }
 
+.lesson-item.done .lesson-num {
+  background: rgba(52, 211, 153, 0.15); border-color: var(--green); color: var(--green);
+}
+
+.lesson-title { font-size: 13px; color: var(--text); line-height: 1.4; flex: 1; }
+.lesson-item.active .lesson-title { color: var(--accent2); }
+
+.content-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+.lesson-content { flex: 1; overflow-y: auto; padding: 32px 40px; }
+.lesson-content::-webkit-scrollbar { width: 4px; }
+.lesson-content::-webkit-scrollbar-track { background: transparent; }
+.lesson-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.lesson-header { margin-bottom: 28px; }
+
+.lesson-number-badge {
+  font-size: 12px; color: var(--accent2); font-family: 'JetBrains Mono', monospace;
+  font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;
+}
+
+.lesson-number-badge::before {
+  content: ''; width: 20px; height: 1px; background: var(--accent);
+}
+
+.lesson-h1 { font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 6px; line-height: 1.3; }
+.lesson-subtitle { font-size: 14px; color: var(--muted); }
+
+.info-block {
+  display: flex; gap: 14px; padding: 16px 20px; border-radius: 10px;
+  margin: 20px 0; font-size: 14px; line-height: 1.7; border: 1px solid;
+}
+
+.info-block.concept { background: rgba(59, 130, 246, 0.08); border-color: rgba(59, 130, 246, 0.25); color: #93c5fd; }
+.info-block.tip { background: rgba(52, 211, 153, 0.07); border-color: rgba(52, 211, 153, 0.25); color: #6ee7b7; }
+.info-block.warn { background: rgba(251, 191, 36, 0.07); border-color: rgba(251, 191, 36, 0.2); color: #fde68a; }
+
+.info-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+.prose { font-size: 15px; line-height: 1.85; color: #c0cce0; margin-bottom: 18px; }
+.prose strong { color: var(--text); font-weight: 600; }
+.prose code {
+  font-family: 'JetBrains Mono', monospace; font-size: 13px;
+  background: rgba(59, 130, 246, 0.12); color: var(--accent2);
+  padding: 1px 6px; border-radius: 4px;
+}
+
+.code-block {
+  background: var(--code-bg); border: 1px solid var(--border);
+  border-radius: 10px; margin: 20px 0; overflow: hidden;
+}
+
+.code-header {
+  display: flex; align-items: center; padding: 10px 16px;
+  background: var(--surface); border-bottom: 1px solid var(--border); gap: 8px;
+}
+
+.code-dots { display: flex; gap: 5px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot-r { background: #f87171; }
+.dot-y { background: #fbbf24; }
+.dot-g { background: #34d399; }
+
+.code-lang {
+  margin-left: auto; font-size: 11px; color: var(--muted);
+  font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.05em;
+}
+
+.code-copy {
+  background: var(--surface2); border: 1px solid var(--border); color: var(--muted);
+  font-size: 11px; padding: 3px 8px; border-radius: 4px; cursor: pointer;
+  font-family: 'Sora', sans-serif; transition: all 0.15s;
+}
+
+.code-copy:hover { color: var(--text); border-color: var(--accent); }
+
+.code-body {
+  padding: 20px; font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; line-height: 1.7; overflow-x: auto; color: #e2eaf8; white-space: pre;
+}
+
+.kw { color: #c084fc; }
+.ty { color: #60a5fa; }
+.st { color: #34d399; }
+.cm { color: #4a5577; }
+.nm { color: #fb923c; }
+.fn { color: #a78bfa; }
+.bi { color: #f7d14a; }
+
+.lesson-nav {
+  display: flex; align-items: center; gap: 12px;
+  margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--border);
+}
+
+.nav-arrow {
+  padding: 10px 20px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--text); font-family: 'Sora', sans-serif;
+  font-size: 14px; cursor: pointer; transition: all 0.15s;
+}
+
+.nav-arrow:hover { border-color: var(--accent); color: var(--accent2); }
+.nav-arrow.primary { background: var(--accent); border-color: var(--accent); color: white; margin-left: auto; }
+.nav-arrow.primary:hover { background: #2563eb; }
+
+.editor-panel {
+  width: 400px; background: var(--surface); border-left: 1px solid var(--border);
+  display: flex; flex-direction: column; flex-shrink: 0;
+}
+
+.editor-header {
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+
+.editor-tabs { display: flex; gap: 2px; }
+
+.etab {
+  padding: 6px 14px; font-size: 12px; font-weight: 600; border-radius: 6px;
+  cursor: pointer; color: var(--muted); transition: all 0.15s;
+  border: none; background: transparent; font-family: 'Sora', sans-serif;
+}
+
+.etab.active { background: var(--surface2); color: var(--text); }
+
+.run-btn {
+  margin-left: auto; padding: 6px 14px; background: var(--accent); color: white;
+  border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;
+  font-family: 'Sora', sans-serif; display: flex; align-items: center; gap: 6px;
+  transition: background 0.15s;
+}
+
+.run-btn:hover { background: #2563eb; }
+
+.editor-body { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+.tab-pane { display: none; flex: 1; flex-direction: column; overflow: hidden; }
+.tab-pane.active { display: flex; }
+
+textarea#code-editor {
+  flex: 1; background: var(--code-bg); border: none;
+  border-bottom: 1px solid var(--border); color: var(--text);
+  font-family: 'JetBrains Mono', monospace; font-size: 13px;
+  padding: 20px; resize: none; outline: none; line-height: 1.7; tab-size: 4;
+}
+
+.output-box {
+  background: var(--code-bg); flex: 1; overflow: auto; padding: 20px;
+  font-family: 'JetBrains Mono', monospace; font-size: 13px;
+  line-height: 1.7; color: var(--green); border-bottom: 1px solid var(--border);
+}
+
+.output-box.empty { color: var(--muted); }
+
+.ai-pane { display: none; flex: 1; flex-direction: column; overflow: hidden; }
+.ai-pane.active { display: flex; }
+
+.ai-messages {
+  flex: 1; overflow-y: auto; padding: 16px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+
+.ai-messages::-webkit-scrollbar { width: 3px; }
+.ai-messages::-webkit-scrollbar-thumb { background: var(--border); }
+
+.msg {
+  padding: 12px 14px; border-radius: 10px;
+  font-size: 13px; line-height: 1.65; max-width: 95%;
+}
+
+.msg.user {
+  background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3);
+  color: #bfdbfe; align-self: flex-end;
+}
+
+.msg.ai { background: var(--surface2); border: 1px solid var(--border); color: var(--text); align-self: flex-start; }
+
+.msg.ai code {
+  font-family: 'JetBrains Mono', monospace; background: rgba(0,0,0,0.4);
+  padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--accent2);
+}
+
+.ai-input-row {
+  padding: 12px 16px; border-top: 1px solid var(--border);
+  display: flex; gap: 8px; align-items: flex-end;
+}
+
+.ai-input {
+  flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+  padding: 10px 12px; color: var(--text); font-family: 'Sora', sans-serif; font-size: 13px;
+  outline: none; resize: none; line-height: 1.5; min-height: 40px; max-height: 100px;
+  transition: border 0.15s;
+}
+
+.ai-input:focus { border-color: var(--accent); }
+.ai-input::placeholder { color: var(--muted); }
+
+.send-btn {
+  width: 36px; height: 36px; border-radius: 8px; background: var(--accent); border: none;
+  color: white; font-size: 16px; cursor: pointer; display: flex;
+  align-items: center; justify-content: center; transition: background 0.15s; flex-shrink: 0;
+}
+
+.send-btn:hover { background: #2563eb; }
+
+.typing-indicator {
+  display: none; align-items: center; gap: 4px; padding: 10px 14px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 10px; width: fit-content;
+}
+
+.typing-indicator span {
+  width: 6px; height: 6px; background: var(--muted); border-radius: 50%;
+  animation: bounce 1.2s infinite;
+}
+
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-5px); opacity: 1; }
+}
+
+.concept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+
+.concept-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px;
+}
+
+.cc-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 8px; }
+.cc-value { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--accent2); }
+.cc-desc { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+
+.section-title {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
+  font-weight: 600; margin: 28px 0 12px; display: flex; align-items: center; gap: 10px;
+}
+
+.section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.done-btn {
+  padding: 8px 16px; border-radius: 8px; background: rgba(52, 211, 153, 0.1);
+  border: 1px solid rgba(52, 211, 153, 0.3); color: var(--green);
+  font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: all 0.15s;
+}
+
+.done-btn:hover { background: rgba(52, 211, 153, 0.2); }
+
+@media (max-width: 1100px) {
+  .editor-panel { width: 340px; }
+  .lessons-panel { width: 280px; }
+}
+
+@media (max-width: 800px) {
+  .sidebar { display: none; }
+  .lessons-panel { width: 100%; position: absolute; z-index: 5; transform: translateX(-100%); transition: transform 0.3s; }
+  .lessons-panel.open { transform: none; }
+  .editor-panel { display: none; }
+}
+
+.quiz-block {
+  border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 10px; padding: 18px;
+  margin: 20px 0; background: rgba(59, 130, 246, 0.05);
+}
+
+.quiz-q { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: var(--text); }
+
+.quiz-opt {
+  padding: 9px 14px; border-radius: 7px; border: 1px solid var(--border);
+  background: var(--surface2); margin-bottom: 8px; cursor: pointer;
+  font-size: 13px; color: var(--text); transition: all 0.15s;
+  display: block; width: 100%; text-align: left; font-family: 'Sora', sans-serif;
+}
+
+.quiz-opt:hover { border-color: var(--accent); color: var(--accent2); }
+.quiz-opt.correct { border-color: var(--green); background: rgba(52, 211, 153, 0.1); color: var(--green); }
+.quiz-opt.wrong { border-color: var(--red); background: rgba(248, 113, 113, 0.1); color: var(--red); }
+
+.quiz-feedback { margin-top: 10px; font-size: 13px; display: none; }
 </style>
 </head>
 <body>
 
 <div class="header">
-Apprendre Python - 50 Leçons Complètes
+  <div class="logo">
+    <div class="logo-icon">Py</div>
+    <span class="logo-text">Python Academy</span>
+  </div>
+  <div class="header-info">
+    <div class="progress-bar-wrap">
+      <span id="progress-text">0 / 50 leçons</span>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+    </div>
+    <div class="badge" id="xp-badge">0 XP</div>
+  </div>
 </div>
 
-<div class="container">
+<div class="main">
 
-<div class="lessons">
+  <div class="sidebar">
+    <button class="nav-btn active" title="Leçons" onclick="setTab(event)">📚</button>
+    <button class="nav-btn" title="Éditeur" onclick="setTab(event)">⌨️</button>
+    <button class="nav-btn" title="Assistant IA" onclick="setTab(event)">✨</button>
+  </div>
 
-<div class="lesson">
-<h2>Leçon 1 : Introduction à Python</h2>
-<p>
-Python est un langage simple et puissant.
-Il est utilisé pour les applications,
-l’intelligence artificielle et le web.
-</p>
-<pre>
-print("Bonjour")
-</pre>
-</div>
+  <div class="lessons-panel" id="lessons-panel">
+    <div class="panel-header">
+      <span>50 Leçons</span>
+      <span id="done-count" style="font-size:11px;color:var(--green)">0 complétées</span>
+    </div>
+    <div class="search-box">
+      <span style="color:var(--muted);font-size:14px">🔍</span>
+      <input type="text" id="search-input" placeholder="Rechercher une leçon..." oninput="filterLessons()">
+    </div>
+    <div class="lesson-list" id="lesson-list"></div>
+  </div>
 
-<div class="lesson">
-<h2>Leçon 2 : Print</h2>
-<p>
-Print affiche du texte.
-</p>
-<pre>
-print("Bienvenue")
-</pre>
-</div>
+  <div class="content-area">
+    <div class="lesson-content" id="lesson-content"></div>
+  </div>
 
-<div class="lesson">
-<h2>Leçon 3 : Variables</h2>
-<p>
-Les variables stockent des données.
-</p>
-<pre>
-nom = "Ali"
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 4 : Les Nombres</h2>
-<p>
-Python gère les nombres facilement.
-</p>
-<pre>
-age = 20
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 5 : Les Chaînes</h2>
-<p>
-Les chaînes contiennent du texte.
-</p>
-<pre>
-texte = "Bonjour"
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 6 : Addition</h2>
-<p>
-Python peut faire des calculs.
-</p>
-<pre>
-print(5 + 5)
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 7 : Input</h2>
-<p>
-Input récupère une valeur utilisateur.
-</p>
-<pre>
-nom = input("Votre nom")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 8 : If</h2>
-<p>
-If vérifie une condition.
-</p>
-<pre>
-if age > 18:
- print("Majeur")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 9 : Else</h2>
-<p>
-Else exécute une autre action.
-</p>
-<pre>
-if age > 18:
- print("Oui")
-else:
- print("Non")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 10 : Elif</h2>
-<p>
-Elif ajoute plusieurs conditions.
-</p>
-<pre>
-if note > 15:
- print("Bien")
-elif note > 10:
- print("Passable")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 11 : Boucle For</h2>
-<p>
-For répète du code.
-</p>
-<pre>
-for i in range(5):
- print(i)
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 12 : While</h2>
-<p>
-While boucle tant qu’une condition est vraie.
-</p>
-<pre>
-x = 0
-while x < 5:
- x += 1
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 13 : Fonctions</h2>
-<p>
-Les fonctions regroupent du code.
-</p>
-<pre>
-def salut():
- print("Bonjour")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 14 : Paramètres</h2>
-<p>
-Les paramètres rendent les fonctions dynamiques.
-</p>
-<pre>
-def salut(nom):
- print(nom)
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 15 : Return</h2>
-<p>
-Return renvoie une valeur.
-</p>
-<pre>
-def add(a,b):
- return a+b
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 16 : Listes</h2>
-<p>
-Les listes stockent plusieurs valeurs.
-</p>
-<pre>
-fruits = ["Pomme","Orange"]
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 17 : Tuples</h2>
-<p>
-Les tuples sont des listes fixes.
-</p>
-<pre>
-notes = (10,15,18)
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 18 : Dictionnaires</h2>
-<p>
-Les dictionnaires utilisent des clés.
-</p>
-<pre>
-user = {
- "nom":"Ali"
-}
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 19 : Sets</h2>
-<p>
-Les sets évitent les doublons.
-</p>
-<pre>
-nums = {1,2,3}
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 20 : Append</h2>
-<p>
-Append ajoute une valeur.
-</p>
-<pre>
-fruits.append("Banane")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 21 : Remove</h2>
-<p>
-Remove supprime une valeur.
-</p>
-<pre>
-fruits.remove("Pomme")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 22 : Import</h2>
-<p>
-Import charge une bibliothèque.
-</p>
-<pre>
-import math
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 23 : Math</h2>
-<p>
-Math ajoute des fonctions mathématiques.
-</p>
-<pre>
-math.sqrt(16)
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 24 : Random</h2>
-<p>
-Random génère des nombres aléatoires.
-</p>
-<pre>
-import random
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 25 : Try Except</h2>
-<p>
-Try Except gère les erreurs.
-</p>
-<pre>
-try:
- print(x)
-except:
- print("Erreur")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 26 : Classes</h2>
-<p>
-Les classes créent des objets.
-</p>
-<pre>
-class User:
- pass
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 27 : Constructor</h2>
-<p>
-Init initialise un objet.
-</p>
-<pre>
-def __init__(self,name):
- self.name = name
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 28 : Héritage</h2>
-<p>
-Une classe peut hériter d’une autre.
-</p>
-<pre>
-class Admin(User):
- pass
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 29 : Fichiers</h2>
-<p>
-Python peut lire des fichiers.
-</p>
-<pre>
-open("test.txt")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 30 : Write</h2>
-<p>
-Write écrit dans un fichier.
-</p>
-<pre>
-file.write("Bonjour")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 31 : JSON</h2>
-<p>
-JSON stocke des données.
-</p>
-<pre>
-import json
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 32 : Lambda</h2>
-<p>
-Lambda crée des fonctions rapides.
-</p>
-<pre>
-lambda x:x+1
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 33 : Map</h2>
-<p>
-Map applique une fonction.
-</p>
-<pre>
-map(str, [1,2,3])
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 34 : Filter</h2>
-<p>
-Filter filtre les données.
-</p>
-<pre>
-filter(lambda x:x>5, notes)
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 35 : Modules</h2>
-<p>
-Les modules séparent le code.
-</p>
-<pre>
-import monmodule
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 36 : Pip</h2>
-<p>
-Pip installe des bibliothèques.
-</p>
-<pre>
-pip install flask
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 37 : Datetime</h2>
-<p>
-Datetime gère les dates.
-</p>
-<pre>
-from datetime import datetime
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 38 : Requests</h2>
-<p>
-Requests récupère des données internet.
-</p>
-<pre>
-import requests
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 39 : API</h2>
-<p>
-Les API permettent de communiquer avec des services.
-</p>
-<pre>
-requests.get("https://api.com")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 40 : Flask</h2>
-<p>
-Flask crée des sites web Python.
-</p>
-<pre>
-from flask import Flask
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 41 : Tkinter</h2>
-<p>
-Tkinter crée des interfaces graphiques.
-</p>
-<pre>
-import tkinter
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 42 : Numpy</h2>
-<p>
-Numpy gère les calculs scientifiques.
-</p>
-<pre>
-import numpy as np
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 43 : Pandas</h2>
-<p>
-Pandas analyse des données.
-</p>
-<pre>
-import pandas as pd
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 44 : Matplotlib</h2>
-<p>
-Matplotlib crée des graphiques.
-</p>
-<pre>
-import matplotlib.pyplot as plt
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 45 : IA</h2>
-<p>
-Python est très utilisé en intelligence artificielle.
-</p>
-<pre>
-from sklearn import datasets
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 46 : Web Scraping</h2>
-<p>
-Python peut récupérer des données web.
-</p>
-<pre>
-from bs4 import BeautifulSoup
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 47 : Regex</h2>
-<p>
-Regex recherche du texte.
-</p>
-<pre>
-import re
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 48 : Threads</h2>
-<p>
-Threads exécutent plusieurs tâches.
-</p>
-<pre>
-import threading
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 49 : SQLite</h2>
-<p>
-SQLite crée des bases de données.
-</p>
-<pre>
-import sqlite3
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 50 : Projet Final</h2>
-<p>
-Combine toutes les notions pour créer une application Python moderne.
-</p>
-<pre>
-print("Projet terminé")
-</pre>
-</div>
-
-</div>
-
-<div class="editor-section">
-
-<h2 class="editor-title">
-Essayez votre Python
-</h2>
-
-<textarea id="editor">
-print("Bonjour Python")
-
-nom = "Ali"
-
-print(nom)
-</textarea>
-
-<button onclick="runCode()">
-Exécuter le Python
-</button>
-
-<div class="output" id="result">
-Résultat Python...
-</div>
-
-</div>
+  <div class="editor-panel">
+    <div class="editor-header">
+      <div class="editor-tabs">
+        <button class="etab active" onclick="switchEditorTab('code')">Éditeur</button>
+        <button class="etab" onclick="switchEditorTab('output')">Sortie</button>
+        <button class="etab" onclick="switchEditorTab('ai')">✨ IA</button>
+      </div>
+      <button class="run-btn" onclick="showCode()">▶ Afficher</button>
+    </div>
+    <div class="editor-body">
+      <div class="tab-pane active" id="tab-code">
+        <textarea id="code-editor"># Votre premier programme Python
+print("Bonjour et bienvenue en Python !")</textarea>
+      </div>
+      <div class="tab-pane" id="tab-output">
+        <div class="output-box empty" id="output-box">▶ Cliquez "Afficher" pour voir le résultat...</div>
+      </div>
+      <div class="ai-pane" id="tab-ai">
+        <div class="ai-messages" id="ai-messages">
+          <div class="msg ai">🐍 Bonjour ! Je suis ton assistant Python. Pose-moi n'importe quelle question sur Python, sur la leçon actuelle, ou demande-moi d'expliquer ton code !</div>
+        </div>
+        <div class="typing-indicator" id="typing" style="margin: 0 16px 8px;">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="ai-input-row">
+          <textarea class="ai-input" id="ai-input" placeholder="Pose une question en Python..." rows="1" onkeydown="handleAiKey(event)"></textarea>
+          <button class="send-btn" onclick="sendAI()">➤</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
 
 <script>
+const lessons = [
+  {
+    title: "Introduction à Python",
+    chapter: "🏁 Démarrage",
+    subtitle: "Histoire, philosophie et écosystème Python",
+    content: `
+<p class="prose">Python est un langage de programmation <strong>simple, lisible et polyvalent</strong>, créé par Guido van Rossum en 1991. Il est aujourd'hui le langage le plus populaire au monde, utilisé en data science, IA, web, scripts, et bien plus.</p>
 
-function runCode(){
+<div class="info-block concept"><span class="info-icon">💡</span><div>Le nom "Python" vient des <strong>Monty Python</strong>, groupe comique britannique. La philosophie de Python tient en une phrase : "Il devrait y avoir une — et de préférence une seule — façon évidente de faire les choses."</div></div>
 
-let code = document.getElementById('editor').value;
+<div class="section-title">Pourquoi Python ?</div>
+<div class="concept-grid">
+  <div class="concept-card"><div class="cc-label">Lisibilité</div><div class="cc-value">Syntaxe claire</div><div class="cc-desc">Code lisible comme du pseudo-code anglais</div></div>
+  <div class="concept-card"><div class="cc-label">Polyvalence</div><div class="cc-value">Tout usage</div><div class="cc-desc">Web, IA, Data, Scripts, Jeux, IoT...</div></div>
+  <div class="concept-card"><div class="cc-label">Communauté</div><div class="cc-value">Immense</div><div class="cc-desc">Millions de bibliothèques sur PyPI</div></div>
+  <div class="concept-card"><div class="cc-label">Typage</div><div class="cc-value">Dynamique</div><div class="cc-desc">Pas besoin de déclarer les types</div></div>
+</div>
 
-let result = document.getElementById('result');
+<div class="section-title">Le Zen de Python</div>
+<p class="prose">Python a une philosophie officielle appelée "The Zen of Python". Les règles clés : <strong>Simple vaut mieux que complexe</strong>, la lisibilité compte, les erreurs ne doivent jamais passer silencieusement.</p>`,
+    code: `# Le Zen de Python (aperçu)
+# Tapez "import this" dans Python pour le voir complet
 
-result.innerHTML = `
-&gt;&gt;&gt; ${code.replace(/\n/g,'<br>&gt;&gt;&gt; ')}
-<br><br>
-Simulation Python dans le navigateur.<br>
-Pour exécuter du vrai Python utilisez Python ou Pyodide.
-`;
+print("Bienvenue en Python !")
+print("Version Python : 3.x")
 
+# Python peut faire des calculs directement
+print(2 + 2)          # 4
+print(10 / 3)         # 3.333...
+print(10 ** 3)        # 1000 (puissance)
+
+# La lisibilité de Python
+nom = "Thierno"
+age = 22
+print(f"Bonjour {nom}, tu as {age} ans !")
+
+# Sans accolades, sans point-virgule
+# L'indentation structure le code`,
+    quiz: { q: "Qui a créé Python ?", opts: ["Bill Gates", "Guido van Rossum", "Linus Torvalds", "James Gosling"], ans: 1, exp: "✅ Guido van Rossum a créé Python en 1991. Il a été surnommé 'Benevolent Dictator For Life' (BDFL) de la communauté Python." }
+  },
+  {
+    title: "print() et Affichage",
+    chapter: "🏁 Démarrage",
+    subtitle: "Afficher des données — toutes les formes de print()",
+    content: `
+<p class="prose">La fonction <code>print()</code> est votre premier outil en Python. Elle affiche du texte, des nombres, des variables, et bien plus dans la console. Elle est beaucoup plus flexible que son équivalent dans d'autres langages.</p>
+
+<div class="info-block tip"><span class="info-icon">✅</span><div>En Python 3, <code>print()</code> est une <strong>fonction</strong> (avec parenthèses). En Python 2, c'était une instruction. Assurez-vous toujours d'utiliser Python 3.</div></div>`,
+    code: `# ── Affichage de base ────────────────────────────
+print("Bonjour tout le monde !")
+print(42)
+print(3.14)
+print(True)
+
+# ── Plusieurs valeurs dans un seul print ──────────
+print("Prénom :", "Thierno", "| Âge :", 22)  # Séparés par espace
+
+# ── Séparateur personnalisé ───────────────────────
+print("rouge", "vert", "bleu", sep=" - ")     # rouge - vert - bleu
+print("A", "B", "C", sep="")                  # ABC
+
+# ── Fin de ligne personnalisée ────────────────────
+print("Ligne 1", end=" ")      # Pas de saut de ligne
+print("Ligne 2", end="\\n")    # Saut de ligne explicite
+print()                         # Ligne vide
+
+# ── f-strings (interpolation moderne, Python 3.6+) ─
+prenom = "Thierno"
+age = 22
+ville = "Dakar"
+print(f"Je m'appelle {prenom}, j'ai {age} ans et j'habite à {ville}.")
+print(f"Dans 10 ans, j'aurai {age + 10} ans.")
+
+# ── Formatage des nombres ─────────────────────────
+pi = 3.14159265
+print(f"Pi = {pi:.2f}")      # 2 décimales
+print(f"Pi = {pi:.4f}")      # 4 décimales
+prix = 1234567.89
+print(f"Prix = {prix:,.2f} FCFA")  # Avec séparateurs de milliers`,
+    quiz: { q: "Comment afficher 'a', 'b', 'c' séparés par '-' ?", opts: ["print('a-b-c')", "print('a','b','c', sep='-')", "print('a','b','c', separator='-')", "print('a' - 'b' - 'c')"], ans: 1, exp: "✅ Exact ! Le paramètre 'sep' de print() définit le séparateur entre plusieurs valeurs. Par défaut c'est un espace." }
+  },
+  {
+    title: "Variables",
+    chapter: "🏁 Démarrage",
+    subtitle: "Déclarer et utiliser des variables en Python",
+    content: `
+<p class="prose">En Python, les variables sont créées <strong>à la volée</strong>, sans mot-clé de déclaration. Pas de <code>int</code>, <code>string</code> ou <code>var</code> à écrire — il suffit d'assigner une valeur. Python est <strong>dynamiquement typé</strong>.</p>
+
+<div class="info-block concept"><span class="info-icon">💡</span><div>Contrairement à C# ou Java, Python détermine le type automatiquement. Une variable peut même changer de type ! <code>x = 5</code> puis <code>x = "cinq"</code> est valide en Python (mais déconseillé).</div></div>
+
+<div class="section-title">Conventions de nommage</div>
+<div class="concept-grid">
+  <div class="concept-card"><div class="cc-label">Style Python</div><div class="cc-value">snake_case</div><div class="cc-desc">mon_age, prix_total, nom_complet</div></div>
+  <div class="concept-card"><div class="cc-label">Constantes</div><div class="cc-value">MAJUSCULES</div><div class="cc-desc">PI, MAX_TAILLE, COULEUR_DEFAUT</div></div>
+  <div class="concept-card"><div class="cc-label">Interdit ❌</div><div class="cc-value">2age, mon-age</div><div class="cc-desc">Chiffre en début, tiret, mot réservé</div></div>
+  <div class="concept-card"><div class="cc-label">Privé (convention)</div><div class="cc-value">_variable</div><div class="cc-desc">Underscore = usage interne</div></div>
+</div>`,
+    code: `# ── Création de variables ─────────────────────────
+age = 22
+prenom = "Thierno"
+salaire = 1500.50
+est_actif = True
+
+# ── Affectation multiple ───────────────────────────
+x = y = z = 0           # Les trois valent 0
+a, b, c = 1, 2, 3       # Déballage (unpacking)
+print(a, b, c)           # 1 2 3
+
+# ── Swap (échange) en une ligne ────────────────────
+a, b = b, a              # Python fait ça élégamment !
+print(a, b)              # 2 1
+
+# ── Vérifier le type d'une variable ───────────────
+print(type(age))         # <class 'int'>
+print(type(prenom))      # <class 'str'>
+print(type(salaire))     # <class 'float'>
+print(type(est_actif))   # <class 'bool'>
+
+# ── Constantes (convention, Python n'impose pas) ──
+PI = 3.14159
+MAX_CONNEXIONS = 100
+COULEUR_FOND = "#0d1117"
+
+# ── Vérifier si variable existe ────────────────────
+print("age" in dir())    # Vérifie si 'age' est défini
+
+# ── Supprimer une variable ────────────────────────
+temporaire = 42
+del temporaire           # Supprime la variable`,
+    quiz: { q: "Comment s'appelle la convention de nommage Python ?", opts: ["camelCase", "PascalCase", "snake_case", "SCREAMING_CASE"], ans: 2, exp: "✅ snake_case ! En Python, on utilise des underscores entre les mots (mon_age). C'est défini dans le guide de style PEP 8." }
+  },
+  {
+    title: "Types de Données",
+    chapter: "📦 Types",
+    subtitle: "int, float, str, bool, None — les types fondamentaux",
+    content: `
+<p class="prose">Python possède des types de données intégrés simples et puissants. Contrairement aux langages statiques, vous n'avez pas à les déclarer — Python les détecte automatiquement.</p>
+
+<div class="info-block tip"><span class="info-icon">✅</span><div><code>None</code> est l'équivalent Python de <code>null</code> en C#. Il représente l'absence de valeur. Toujours utiliser <code>is None</code> ou <code>is not None</code> pour le comparer, jamais <code>== None</code>.</div></div>`,
+    code: `# ── Entiers (int) ─────────────────────────────────
+age = 25
+grand = 1_000_000        # Underscore pour lisibilité (1 million)
+negatif = -42
+binaire = 0b1010         # 10 en binaire
+hexa = 0xFF              # 255 en hexadécimal
+print(type(age), age)
+
+# ── Flottants (float) ─────────────────────────────
+prix = 19.99
+pi = 3.14159
+scientifique = 1.5e10    # 15 000 000 000
+print(type(prix), prix)
+
+# ── Chaînes (str) ─────────────────────────────────
+simple = 'Bonjour'
+double = "Monde"
+triple = """Texte
+sur plusieurs
+lignes"""
+print(type(simple))
+
+# ── Booléens (bool) ───────────────────────────────
+vrai = True
+faux = False
+# En Python, True = 1 et False = 0 !
+print(True + True)       # 2
+print(True * 5)          # 5
+
+# ── None (absence de valeur) ──────────────────────
+resultat = None
+print(type(resultat))    # <class 'NoneType'>
+print(resultat is None)  # True
+
+# ── Conversions de type ───────────────────────────
+print(int("42"))         # str → int
+print(float("3.14"))     # str → float
+print(str(100))          # int → str
+print(bool(0))           # 0 → False
+print(bool(""))          # "" → False (chaîne vide)
+print(bool("texte"))     # "texte" → True`,
+    quiz: { q: "Que vaut bool('') en Python ?", opts: ["True", "False", "None", "Erreur"], ans: 1, exp: "✅ False ! En Python, les valeurs 'falsy' sont : 0, 0.0, '', [], {}, (), None. Toute chaîne non vide est True." }
+  },
+  {
+    title: "Les Entiers et Opérations",
+    chapter: "📦 Types",
+    subtitle: "Arithmétique, puissance, modulo et fonctions math",
+    content: `
+<p class="prose">Python offre toutes les opérations arithmétiques habituelles, plus quelques spécificités utiles : la <strong>division entière</strong> <code>//</code>, la <strong>puissance</strong> <code>**</code>, et l'opérateur <strong>modulo</strong> <code>%</code>.</p>
+
+<div class="info-block concept"><span class="info-icon">💡</span><div>En Python, les entiers ont une <strong>précision illimitée</strong> ! Vous pouvez calculer <code>2 ** 1000</code> sans overflow. C'est très différent des langages comme C# ou Java.</div></div>`,
+    code: `# ── Opérations de base ────────────────────────────
+a, b = 17, 5
+
+print(f"{a} + {b} = {a + b}")    # 22
+print(f"{a} - {b} = {a - b}")    # 12
+print(f"{a} * {b} = {a * b}")    # 85
+print(f"{a} / {b} = {a / b}")    # 3.4 (division réelle, toujours float)
+print(f"{a} // {b} = {a // b}")  # 3 (division entière, floor)
+print(f"{a} % {b} = {a % b}")    # 2 (reste / modulo)
+print(f"{a} ** {b} = {a ** b}")  # 1419857 (puissance)
+
+# ── Précision illimitée des entiers ───────────────
+grand = 2 ** 100
+print(f"2^100 = {grand}")        # Un nombre ÉNORME, sans erreur !
+
+# ── Opérateurs d'assignation ──────────────────────
+x = 10
+x += 5    # x = 15
+x -= 3    # x = 12
+x *= 2    # x = 24
+x //= 5   # x = 4
+x **= 3   # x = 64
+print(f"x = {x}")
+
+# ── Module math ───────────────────────────────────
+import math
+
+print(math.sqrt(16))       # 4.0 — racine carrée
+print(math.pi)             # 3.141592...
+print(math.floor(3.9))     # 3 — arrondi vers le bas
+print(math.ceil(3.1))      # 4 — arrondi vers le haut
+print(math.abs(-42))       # Erreur ! Utilisez abs() native
+print(abs(-42))            # 42 — fonction native Python
+
+# ── Fonctions natives utiles ──────────────────────
+nombres = [3, 1, 4, 1, 5, 9, 2, 6]
+print(f"Min : {min(nombres)}")   # 1
+print(f"Max : {max(nombres)}")   # 9
+print(f"Somme : {sum(nombres)}") # 31`,
+    quiz: { q: "Que vaut 17 // 5 en Python ?", opts: ["3.4", "3", "2", "4"], ans: 1, exp: "✅ 3 ! L'opérateur // est la division entière (floor division). Il retourne le quotient entier sans les décimales." }
+  },
+  {
+    title: "Les Chaînes (str)",
+    chapter: "📦 Types",
+    subtitle: "Manipulation avancée du texte en Python",
+    content: `
+<p class="prose">En Python, les chaînes de caractères (<code>str</code>) sont des séquences immuables. Python offre des dizaines de méthodes intégrées pour les manipuler, et les <strong>f-strings</strong> rendent l'interpolation très lisible.</p>
+
+<div class="info-block tip"><span class="info-icon">✅</span><div>Les strings Python sont <strong>immuables</strong> : une méthode comme <code>.upper()</code> ne modifie pas la chaîne originale, elle en retourne une nouvelle. Pensez toujours à récupérer le résultat !</div></div>`,
+    code: `# ── Créer des chaînes ────────────────────────────
+s1 = 'Guillemets simples'
+s2 = "Guillemets doubles"
+s3 = """Chaîne
+multi-lignes"""
+s4 = r"C:\\Users\\Thierno"   # Raw string (backslashes littéraux)
+
+# ── Concaténation et répétition ───────────────────
+prenom = "Thierno"
+nom = "Diallo"
+complet = prenom + " " + nom       # Concaténation
+ligne = "-" * 30                   # Répétition : 30 tirets
+print(complet)
+print(ligne)
+
+# ── Méthodes essentielles ─────────────────────────
+texte = "  Bonjour le Monde  "
+print(texte.strip())               # Supprime espaces début/fin
+print(texte.lower())               # bonjour le monde
+print(texte.upper())               # BONJOUR LE MONDE
+print(texte.title())               # Bonjour Le Monde
+print(texte.replace("Monde", "Python"))
+
+phrase = "rouge,vert,bleu,jaune"
+couleurs = phrase.split(",")       # Séparation → liste
+print(couleurs)                    # ['rouge', 'vert', 'bleu', 'jaune']
+print(" | ".join(couleurs))        # rouge | vert | bleu | jaune
+
+# ── Vérifications ─────────────────────────────────
+print("Python".startswith("Py"))   # True
+print("Hello".endswith("lo"))      # True
+print("monde" in "Bonjour monde")  # True (recherche)
+print(len("Bonjour"))              # 7
+
+# ── Indexation et découpe (slicing) ──────────────
+mot = "Python"
+print(mot[0])      # P (premier)
+print(mot[-1])     # n (dernier)
+print(mot[1:4])    # yth (index 1 à 3)
+print(mot[::-1])   # nohtyP (inversé !)`,
+    quiz: { q: "Que retourne 'Python'[::-1] ?", opts: ["Python", "nohtyP", "Pytho", "Erreur"], ans: 1, exp: "✅ nohtyP ! Le slicing [::-1] inverse la chaîne. C'est une astuce Python très connue : début:fin:pas, avec un pas de -1." }
+  },
+  {
+    title: "Les Listes",
+    chapter: "📦 Types",
+    subtitle: "La collection la plus utilisée en Python",
+    content: `
+<p class="prose">Une liste Python est une collection <strong>ordonnée, modifiable</strong> qui peut contenir des éléments de types différents. C'est l'équivalent du <code>List&lt;T&gt;</code> en C#, mais encore plus flexible car elle accepte des types mixtes.</p>
+
+<div class="info-block warn"><span class="info-icon">⚠️</span><div>Les listes sont <strong>mutables</strong> ! Contrairement aux strings et tuples, vous pouvez modifier leurs éléments directement. Attention aux effets de bord si vous passez une liste à une fonction.</div></div>`,
+    code: `# ── Créer une liste ───────────────────────────────
+fruits = ["mangue", "papaye", "ananas", "banane"]
+mixte = [1, "deux", 3.0, True, None]   # Types différents !
+vide = []
+crees = list(range(1, 6))              # [1, 2, 3, 4, 5]
+
+# ── Accès et modification ─────────────────────────
+print(fruits[0])           # mangue (premier)
+print(fruits[-1])          # banane (dernier)
+print(fruits[1:3])         # ['papaye', 'ananas']
+fruits[0] = "avocat"       # Modification directe
+
+# ── Méthodes essentielles ─────────────────────────
+fruits.append("orange")    # Ajouter à la fin
+fruits.insert(1, "citron") # Insérer à l'index 1
+fruits.remove("banane")    # Supprimer par valeur
+popped = fruits.pop()      # Retire et retourne le dernier
+popped2 = fruits.pop(0)    # Retire et retourne l'index 0
+
+print(len(fruits))          # Longueur
+print("ananas" in fruits)   # True/False
+print(fruits.index("ananas")) # Position
+
+# ── Trier et inverser ─────────────────────────────
+nombres = [3, 1, 4, 1, 5, 9, 2, 6]
+nombres.sort()              # Tri en place (modifie la liste)
+print(nombres)
+
+trie = sorted([5, 2, 8, 1]) # sorted() retourne une nouvelle liste
+print(trie)
+
+nombres.reverse()           # Inverse en place
+inverse = list(reversed([1, 2, 3]))  # reversed() retourne un itérateur
+
+# ── List comprehension (Python way !) ─────────────
+carres = [x**2 for x in range(1, 6)]         # [1, 4, 9, 16, 25]
+pairs = [x for x in range(20) if x % 2 == 0] # [0, 2, 4, ...]
+print(carres)
+print(pairs[:5])`,
+    quiz: { q: "Quelle est la différence entre sort() et sorted() ?", opts: ["Aucune différence", "sort() modifie la liste originale, sorted() crée une nouvelle liste", "sorted() est plus rapide", "sort() ne fonctionne que sur les nombres"], ans: 1, exp: "✅ Exact ! sort() est une méthode qui modifie la liste en place (in-place). sorted() est une fonction native qui retourne une NOUVELLE liste triée." }
+  },
+  {
+    title: "Les Dictionnaires",
+    chapter: "📦 Types",
+    subtitle: "Paires clé-valeur — la structure de données Python par excellence",
+    content: `
+<p class="prose">Un dictionnaire Python (<code>dict</code>) stocke des paires clé-valeur. Depuis Python 3.7+, les dictionnaires <strong>préservent l'ordre d'insertion</strong>. La recherche par clé est extrêmement rapide (O(1)).</p>
+
+<div class="info-block concept"><span class="info-icon">💡</span><div>Les dictionnaires Python sont omniprésents : les objets JSON sont des dictionnaires, les configurations d'applications, les données de requêtes web. C'est la structure de données la plus importante à maîtriser.</div></div>`,
+    code: `# ── Créer un dictionnaire ─────────────────────────
+personne = {
+    "prenom": "Thierno",
+    "nom": "Diallo",
+    "age": 22,
+    "ville": "Dakar"
 }
 
-runCode();
+# Dictionnaire vide
+vide = {}
+vide2 = dict()
 
+# ── Accès et modification ─────────────────────────
+print(personne["prenom"])               # Thierno
+print(personne.get("email", "N/A"))     # N/A (clé absente, valeur par défaut)
+
+personne["email"] = "thierno@gmail.com" # Ajouter une clé
+personne["age"] = 23                    # Modifier une valeur
+del personne["ville"]                   # Supprimer une clé
+
+# ── Méthodes essentielles ─────────────────────────
+print(personne.keys())      # dict_keys(['prenom', 'nom', ...])
+print(personne.values())    # dict_values(['Thierno', 'Diallo', ...])
+print(personne.items())     # Paires clé-valeur
+
+print("prenom" in personne)  # True — vérifier si clé existe
+print(len(personne))         # Nombre de paires
+
+# ── Parcourir un dictionnaire ─────────────────────
+for cle, valeur in personne.items():
+    print(f"  {cle}: {valeur}")
+
+# ── Dict comprehension ────────────────────────────
+carres = {x: x**2 for x in range(1, 6)}
+print(carres)  # {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+
+# ── Fusionner des dictionnaires (Python 3.9+) ─────
+d1 = {"a": 1, "b": 2}
+d2 = {"c": 3, "d": 4}
+fusionne = d1 | d2          # Opérateur |
+print(fusionne)
+
+# ── Cas pratique : compter des mots ───────────────
+texte = "python python java python java c"
+compteur = {}
+for mot in texte.split():
+    compteur[mot] = compteur.get(mot, 0) + 1
+print(compteur)`,
+    quiz: { q: "Quelle méthode accède à une valeur sans risquer une erreur ?", opts: ["dict['cle']", "dict.get('cle')", "dict.fetch('cle')", "dict.safe('cle')"], ans: 1, exp: "✅ .get() ! Si la clé n'existe pas, .get() retourne None (ou une valeur par défaut) au lieu de lever un KeyError." }
+  },
+  {
+    title: "Les Tuples et Sets",
+    chapter: "📦 Types",
+    subtitle: "Tuples immuables et ensembles sans doublons",
+    content: `
+<p class="prose">Python offre deux autres types de collections : les <strong>tuples</strong> (listes immuables) et les <strong>sets</strong> (ensembles sans doublons, non ordonnés). Chacun a ses cas d'usage spécifiques.</p>
+
+<div class="info-block tip"><span class="info-icon">✅</span><div>Utilisez un <strong>tuple</strong> quand vos données ne doivent pas changer (coordonnées GPS, couleur RGB...). Utilisez un <strong>set</strong> pour éliminer des doublons ou tester l'appartenance très rapidement.</div></div>`,
+    code: `# ════════════ TUPLES ════════════
+# Immuable : on ne peut pas modifier les éléments
+coordonnees = (48.8566, 2.3522)   # Latitude, Longitude de Paris
+couleur_rgb = (255, 128, 0)
+singleton = (42,)                  # Virgule obligatoire pour tuple d'1 élément
+
+print(coordonnees[0])              # 48.8566
+lat, lon = coordonnees             # Déballage (unpacking)
+print(f"Latitude: {lat}, Longitude: {lon}")
+
+# Les tuples sont plus rapides que les listes !
+# Utilisez-les pour des données constantes
+
+# ════════════ SETS ════════════
+# Non ordonné, pas de doublons, très rapide pour "x in set"
+fruits = {"mangue", "ananas", "papaye", "mangue"}  # Doublon ignoré
+print(fruits)    # {'mangue', 'ananas', 'papaye'} (ordre non garanti)
+
+# Opérations ensemblistes (comme en maths !)
+a = {1, 2, 3, 4, 5}
+b = {4, 5, 6, 7, 8}
+
+print(a | b)    # Union : {1,2,3,4,5,6,7,8}
+print(a & b)    # Intersection : {4, 5}
+print(a - b)    # Différence : {1, 2, 3}
+print(a ^ b)    # Différence symétrique : {1,2,3,6,7,8}
+
+# Éliminer les doublons d'une liste
+avec_doublons = [1, 2, 2, 3, 3, 3, 4]
+sans_doublons = list(set(avec_doublons))
+print(sans_doublons)  # [1, 2, 3, 4] (ordre peut varier)
+
+# Test d'appartenance ultra-rapide
+grands_nombres = set(range(1_000_000))
+print(999999 in grands_nombres)   # True — instantané !`,
+    quiz: { q: "Quelle est la différence principale entre liste et tuple ?", opts: ["Le tuple est plus lent", "Le tuple est immuable (non modifiable)", "La liste ne peut pas avoir de doublons", "Le tuple utilise des crochets"], ans: 1, exp: "✅ Immuable ! Un tuple ne peut pas être modifié après création. Les listes sont mutables. Les tuples sont aussi légèrement plus rapides." }
+  },
+  {
+    title: "Le type bool et Conditions",
+    chapter: "📦 Types",
+    subtitle: "Valeurs booléennes et évaluation de vérité en Python",
+    content: `
+<p class="prose">En Python, presque toute valeur peut être évaluée comme <code>True</code> ou <code>False</code>. C'est le concept de <strong>truthiness</strong>. Les opérateurs logiques Python (<code>and</code>, <code>or</code>, <code>not</code>) sont en anglais lisible.</p>
+
+<div class="info-block concept"><span class="info-icon">💡</span><div>Python utilise des <strong>mots anglais</strong> pour les opérateurs logiques, pas des symboles. <code>and</code> au lieu de <code>&&</code>, <code>or</code> au lieu de <code>||</code>, <code>not</code> au lieu de <code>!</code>. Plus lisible !</div></div>`,
+    code: `# ── Valeurs booléennes ────────────────────────────
+vrai = True
+faux = False
+
+# ── Valeurs "falsy" (évaluées comme False) ────────
+fausses = [0, 0.0, "", [], {}, (), None, False]
+for v in fausses:
+    print(f"bool({repr(v)}) = {bool(v)}")
+
+# ── Opérateurs de comparaison ─────────────────────
+x = 10
+print(x > 5)          # True
+print(x == 10)        # True (égalité, PAS d'affectation)
+print(x != 10)        # False
+print(x >= 10)        # True
+
+# ── Comparaisons chaînées (unique à Python !) ─────
+age = 22
+print(18 <= age < 65)   # True (équivalent à age >= 18 and age < 65)
+print(1 < 2 < 3 < 4)   # True !
+
+# ── Opérateurs logiques ───────────────────────────
+est_majeur = True
+a_carte = False
+
+print(est_majeur and a_carte)   # False (les DEUX doivent être vrais)
+print(est_majeur or a_carte)    # True (au moins UN vrai)
+print(not est_majeur)           # False
+
+# ── Opérateurs is vs == ───────────────────────────
+a = [1, 2, 3]
+b = [1, 2, 3]
+c = a
+
+print(a == b)   # True (mêmes valeurs)
+print(a is b)   # False (objets différents en mémoire)
+print(a is c)   # True (même objet !)
+
+# ── None comparaison ─────────────────────────────
+valeur = None
+print(valeur is None)      # ✅ Correct
+print(valeur == None)      # ⚠️ Fonctionne mais déconseillé`,
+    quiz: { q: "Quel opérateur Python remplace '&&' ?", opts: ["&&", "AND", "and", "&"], ans: 2, exp: "✅ 'and' en minuscules ! Python utilise and, or, not en lettres anglaises plutôt que &&, ||, !. C'est plus lisible." }
+  },
+  {
+    title: "input() — Saisie utilisateur",
+    chapter: "🖥️ Entrées/Sorties",
+    subtitle: "Lire les données saisies par l'utilisateur",
+    content: `
+<p class="prose">La fonction <code>input()</code> attend que l'utilisateur tape quelque chose et appuie sur Entrée. Elle retourne toujours une <strong>chaîne de caractères</strong>, même si l'utilisateur tape un nombre. Il faut toujours convertir.</p>
+
+<div class="info-block warn"><span class="info-icon">⚠️</span><div>input() retourne TOUJOURS un <code>str</code>. Si vous voulez un entier, utilisez <code>int(input(...))</code>. Mais attention : si l'utilisateur tape "abc", ça plantera ! Utilisez try/except pour sécuriser.</div></div>`,
+    code: `# ── Lecture simple ────────────────────────────────
+# En mode script réel (pas ici en simulation) :
+# prenom = input("Entrez votre prénom : ")
+
+# ── Simulation (pour l'exemple) ───────────────────
+prenom = "Thierno"   # Simule input()
+print(f"Bonjour, {prenom} !")
+
+# ── Conversion directe ────────────────────────────
+# age = int(input("Votre âge : "))   ← peut planter !
+
+# ── Version sécurisée avec try/except ─────────────
+def lire_entier(message, minimum=None, maximum=None):
+    while True:
+        try:
+            valeur = int(input(message) if False else "22")  # Simulé
+            if minimum is not None and valeur < minimum:
+                print(f"Valeur minimale : {minimum}")
+                continue
+            if maximum is not None and valeur > maximum:
+                print(f"Valeur maximale : {maximum}")
+                continue
+            return valeur
+        except ValueError:
+            print("Veuillez entrer un nombre entier valide.")
+
+# ── Exemples de conversions ───────────────────────
+saisie_age = "22"
+age = int(saisie_age)
+print(f"Dans 10 ans : {age + 10} ans")
+
+saisie_prix = "19.99"
+prix = float(saisie_prix)
+print(f"Prix TTC : {prix * 1.18:.2f} €")
+
+# ── Valider un choix ──────────────────────────────
+choix_valides = ["1", "2", "3", "q"]
+# choix = input("Choix (1/2/3/q) : ")
+choix = "2"   # Simulation
+
+if choix in choix_valides:
+    print(f"Choix '{choix}' valide !")
+else:
+    print("Choix invalide !")`,
+    quiz: { q: "Que retourne toujours input() ?", opts: ["int", "float", "str", "Dépend de la saisie"], ans: 2, exp: "✅ str ! input() retourne toujours une chaîne. Même si l'utilisateur tape '42', c'est la chaîne '42', pas le nombre 42." }
+  },
+  {
+    title: "Conditions if / elif / else",
+    chapter: "🔀 Conditions",
+    subtitle: "Prendre des décisions dans votre code",
+    content: `
+<p class="prose">Python utilise <code>if / elif / else</code> (remarquez <code>elif</code>, pas <code>else if</code>). L'<strong>indentation</strong> est obligatoire et définit les blocs — pas d'accolades en Python !</p>
+
+<div class="info-block warn"><span class="info-icon">⚠️</span><div>L'indentation n'est pas optionnelle en Python, elle est <strong>syntaxiquement obligatoire</strong>. Une mauvaise indentation provoque une <code>IndentationError</code>. Utilisez toujours 4 espaces (PEP 8).</div></div>`,
+    code: `# ── if / elif / else ──────────────────────────────
+note = 75
+
+if note >= 90:
+    print("A — Excellent !")
+elif note >= 80:
+    print("B — Très bien")
+elif note >= 70:
+    print("C — Bien")          # ← s'exécute ici
+elif note >= 60:
+    print("D — Passable")
+else:
+    print("F — Échec")
+
+# ── Opérateur ternaire Python ─────────────────────
+# valeur_si_vrai if condition else valeur_si_faux
+statut = "Reçu" if note >= 60 else "Échoué"
+print(f"Statut : {statut}")
+
+# ── Conditions combinées ──────────────────────────
+age = 22
+a_carte_etudiant = True
+
+if age < 26 and a_carte_etudiant:
+    print("Tarif étudiant : -30%")
+elif age >= 60:
+    print("Tarif senior : -25%")
+else:
+    print("Tarif normal")
+
+# ── match/case (Python 3.10+, équivalent de switch) ─
+jour = 3
+match jour:
+    case 1: print("Lundi")
+    case 2: print("Mardi")
+    case 3: print("Mercredi")   # ← s'exécute
+    case 6 | 7: print("Week-end !")
+    case _: print("Jour inconnu")   # _ = default
+
+# ── Vérifier plusieurs conditions ────────────────
+valeur = 42
+if 0 < valeur < 100:            # Chaînage de comparaisons !
+    print("Entre 0 et 100")`,
+    quiz: { q: "Comment s'écrit 'else if' en Python ?", opts: ["elseif", "else if", "elif", "ei"], ans: 2, exp: "✅ elif ! Python utilise 'elif' (contraction de 'else if') pour éviter l'imbrication. C'est plus concis et lisible." }
+  },
+  {
+    title: "Boucle for",
+    chapter: "🔁 Boucles",
+    subtitle: "Itérer sur des séquences — la façon Python",
+    content: `
+<p class="prose">La boucle <code>for</code> Python est fondamentalement différente de C# : elle <strong>itère directement sur des séquences</strong> (listes, strings, range...) plutôt que de compter des indices. C'est beaucoup plus naturel et Pythonique.</p>
+
+<div class="info-block concept"><span class="info-icon">💡</span><div><code>range(n)</code> génère les nombres de 0 à n-1. <code>range(start, stop)</code> de start à stop-1. <code>range(start, stop, step)</code> avec un pas. C'est l'équivalent du <code>for(int i=0; i&lt;n; i++)</code>.</div></div>`,
+    code: `# ── for sur range ────────────────────────────────
+for i in range(5):
+    print(i, end=" ")     # 0 1 2 3 4
+print()
+
+for i in range(2, 10, 2):
+    print(i, end=" ")     # 2 4 6 8
+print()
+
+# ── for sur une liste ──────────────────────────────
+fruits = ["mangue", "ananas", "papaye", "banane"]
+for fruit in fruits:
+    print(f"  Fruit : {fruit}")
+
+# ── for avec enumerate (index + valeur) ───────────
+for i, fruit in enumerate(fruits):
+    print(f"  [{i}] {fruit}")
+
+# ── for sur un dictionnaire ───────────────────────
+capitales = {"Sénégal": "Dakar", "France": "Paris", "Maroc": "Rabat"}
+for pays, capitale in capitales.items():
+    print(f"  {pays} → {capitale}")
+
+# ── for sur une chaîne ────────────────────────────
+for lettre in "Python":
+    print(lettre, end="-")     # P-y-t-h-o-n-
+print()
+
+# ── zip() — parcourir deux listes ensemble ────────
+prenoms = ["Thierno", "Amina", "Omar"]
+ages = [22, 25, 30]
+for prenom, age in zip(prenoms, ages):
+    print(f"  {prenom} : {age} ans")
+
+# ── Table de multiplication ───────────────────────
+n = 7
+print(f"\nTable de {n} :")
+for i in range(1, 11):
+    print(f"  {n} × {i:2} = {n*i:3}")`,
+    quiz: { q: "Que retourne enumerate(['a','b','c']) ?", opts: ["[0,1,2]", "Paires (index, valeur)", "Un dictionnaire", "Erreur"], ans: 1, exp: "✅ Des paires (index, valeur) ! enumerate() ajoute automatiquement un compteur à tout itérable. Très utilisé en Python." }
+  },
+  {
+    title: "Boucle while",
+    chapter: "🔁 Boucles",
+    subtitle: "Répéter tant qu'une condition est vraie",
+    content: `
+<p class="prose">La boucle <code>while</code> répète un bloc tant qu'une condition est vraie. Python ajoute une fonctionnalité unique : le <code>else</code> sur une boucle while, qui s'exécute si la boucle se termine normalement (sans <code>break</code>).</p>
+
+<div class="info-block warn"><span class="info-icon">⚠️</span><div>Attention à la boucle infinie ! Si vous oubliez de modifier la condition, <code>while True</code> tourne indéfiniment. En Python, <kbd>Ctrl+C</kbd> dans le terminal arrête le programme.</div></div>`,
+    code: `# ── while simple ──────────────────────────────────
+compteur = 1
+while compteur <= 5:
+    print(f"Tour {compteur}")
+    compteur += 1    # Ne pas oublier !
+
+# ── while avec break ──────────────────────────────
+n = 0
+while True:               # Boucle infinie contrôlée
+    n += 1
+    if n > 10:
+        break             # Sortir de la boucle
+print(f"n final : {n}")  # 11
+
+# ── while avec continue ───────────────────────────
+i = 0
+while i < 10:
+    i += 1
+    if i % 2 == 0:
+        continue          # Sauter les pairs
+    print(i, end=" ")     # 1 3 5 7 9
+print()
+
+# ── while / else (unique à Python !) ─────────────
+secret = 42
+tentatives = 0
+devinettes = [10, 30, 42]   # Simulation
+
+while tentatives < len(devinettes):
+    guess = devinettes[tentatives]
+    tentatives += 1
+    if guess == secret:
+        print(f"Trouvé en {tentatives} tentatives !")
+        break
+else:
+    # S'exécute SEULEMENT si la boucle ne s'est pas terminée par break
+    print("Nombre de tentatives épuisé !")
+
+# ── Calcul itératif ────────────────────────────────
+valeur = 1
+puissance = 0
+while valeur < 1_000_000:
+    valeur *= 2
+    puissance += 1
+print(f"2^{puissance} = {valeur:,} (premier > 1 000 000)")`,
+    quiz: { q: "Quand s'exécute le 'else' d'un while ?", opts: ["Jamais", "Quand la condition devient False sans break", "Quand une erreur survient", "À chaque itération"], ans: 1, exp: "✅ Quand la boucle se termine normalement ! Le else s'exécute si while sort par condition False. Si la boucle sort par break, le else est ignoré." }
+  },
+  {
+    title: "Fonctions",
+    chapter: "🧩 Fonctions",
+    subtitle: "Définir et appeler des fonctions Python",
+    content: `
+<p class="prose">En Python, les fonctions sont des <strong>objets de première classe</strong> — elles peuvent être passées comme arguments, retournées, stockées dans des listes. Le mot-clé <code>def</code> définit une fonction.</p>
+
+<div class="info-block concept"><span class="info-icon">💡</span><div>Python permet des fonctions avec des valeurs par défaut, des arguments nommés (kwargs), et un nombre variable d'arguments (*args, **kwargs). C'est beaucoup plus flexible que C# ou Java.</div></div>`,
+    code: `# ── Fonction simple ───────────────────────────────
+def bonjour(prenom):
+    """Affiche un message de bienvenue.
+    
+    Les docstrings (triple guillemets) documentent la fonction.
+    Accessible via help(bonjour) ou bonjour.__doc__
+    """
+    print(f"Bonjour, {prenom} !")
+
+bonjour("Thierno")
+
+# ── Avec valeur de retour ──────────────────────────
+def additionner(a, b):
+    return a + b
+
+resultat = additionner(15, 27)
+print(f"15 + 27 = {resultat}")
+
+# ── Valeurs par défaut ────────────────────────────
+def saluer(prenom, salutation="Bonjour", ponctuation="!"):
+    return f"{salutation}, {prenom}{ponctuation}"
+
+print(saluer("Thierno"))                          # Bonjour, Thierno!
+print(saluer("Amina", salutation="Bonsoir"))      # Bonsoir, Amina!
+print(saluer("Omar", "Salut", "."))               # Salut, Omar.
+
+# ── Retourner plusieurs valeurs ───────────────────
+def statistiques(liste):
+    return min(liste), max(liste), sum(liste) / len(liste)
+
+minimum, maximum, moyenne = statistiques([3, 1, 4, 1, 5, 9, 2, 6])
+print(f"Min={minimum}, Max={maximum}, Moy={moyenne:.2f}")
+
+# ── *args (arguments positionnels variables) ──────
+def somme_totale(*args):
+    return sum(args)
+
+print(somme_totale(1, 2, 3, 4, 5))   # 15
+
+# ── **kwargs (arguments nommés variables) ─────────
+def afficher_infos(**kwargs):
+    for cle, valeur in kwargs.items():
+        print(f"  {cle}: {valeur}")
+
+afficher_infos(prenom="Thierno", ville="Dakar", age=22)`,
+    quiz: { q: "Que fait '*args' dans une fonction ?", opts: ["Multiplie les arguments", "Accepte un nombre variable d'arguments positionnels", "Marque un argument obligatoire", "Crée une liste"], ans: 1, exp: "✅ *args collecte tous les arguments positionnels supplémentaires dans un tuple. **kwargs fait la même chose pour les arguments nommés." }
+  },
+  {
+    title: "Classes et POO",
+    chapter: "🏗️ POO",
+    subtitle: "Programmation orientée objet en Python",
+    content: `
+<p class="prose">Python est un langage orienté objet. Une <strong>classe</strong> est un modèle pour créer des objets. Python utilise <code>self</code> comme premier paramètre de toutes les méthodes d'instance — l'équivalent de <code>this</code> en C#.</p>
+
+<div class="info-block concept"><span class="info-icon">💡</span><div><code>__init__</code> est le constructeur Python. Les méthodes qui commencent et finissent par __ s'appellent des "dunder methods" (double underscore) ou méthodes magiques. Elles définissent le comportement des objets.</div></div>`,
+    code: `class Etudiant:
+    """Représente un étudiant avec ses notes."""
+    
+    # Attribut de classe (partagé par toutes les instances)
+    etablissement = "Université de Dakar"
+    
+    def __init__(self, prenom, nom, age):
+        """Constructeur — appelé lors de la création."""
+        self.prenom = prenom    # Attributs d'instance
+        self.nom = nom
+        self.age = age
+        self._notes = []        # _ = convention "privé"
+    
+    # Propriété (getter) avec @property
+    @property
+    def nom_complet(self):
+        return f"{self.prenom} {self.nom}"
+    
+    # Méthode d'instance
+    def ajouter_note(self, note):
+        if 0 <= note <= 20:
+            self._notes.append(note)
+        else:
+            print(f"Note invalide : {note}")
+    
+    def calculer_moyenne(self):
+        if not self._notes:
+            return 0
+        return sum(self._notes) / len(self._notes)
+    
+    # Méthode magique __str__ (comme ToString() en C#)
+    def __str__(self):
+        return f"Étudiant({self.nom_complet}, {self.age} ans)"
+    
+    def __repr__(self):
+        return f"Etudiant('{self.prenom}', '{self.nom}', {self.age})"
+
+# ── Créer des objets ──────────────────────────────
+e1 = Etudiant("Thierno", "Diallo", 22)
+e2 = Etudiant("Amina", "Bah", 20)
+
+e1.ajouter_note(14)
+e1.ajouter_note(17)
+e1.ajouter_note(15)
+
+print(e1)                              # __str__
+print(f"Nom complet : {e1.nom_complet}")  # Propriété
+print(f"Moyenne : {e1.calculer_moyenne():.2f}")
+print(f"Établissement : {Etudiant.etablissement}")`,
+    quiz: { q: "À quoi sert 'self' dans une méthode Python ?", opts: ["C'est optionnel", "Référence à l'instance actuelle (comme 'this' en C#)", "Définit une méthode statique", "Crée une copie de l'objet"], ans: 1, exp: "✅ self référence l'instance ! C'est l'équivalent de 'this' en C#/Java. En Python, il doit être explicitement déclaré comme premier paramètre." }
+  },
+  {
+    title: "Héritage",
+    chapter: "🏗️ POO",
+    subtitle: "Réutiliser et étendre des classes",
+    content: `
+<p class="prose">Python supporte l'héritage simple et <strong>multiple</strong>. Une classe fille hérite de la classe mère via <code>class Fille(Mere)</code>. La fonction <code>super()</code> appelle les méthodes de la classe parent.</p>
+
+<div class="info-block tip"><span class="info-icon">✅</span><div>Python supporte l'héritage multiple : <code>class C(A, B)</code>. Mais utilisez-le avec précaution ! Pour les cas complexes, préférez la composition (avoir un objet d'une autre classe comme attribut).</div></div>`,
+    code: `class Animal:
+    def __init__(self, nom, age):
+        self.nom = nom
+        self.age = age
+    
+    def faire_du_bruit(self):
+        print(f"{self.nom} fait un bruit...")
+    
+    def respirer(self):
+        print(f"{self.nom} respire.")
+    
+    def __str__(self):
+        return f"{self.__class__.__name__}({self.nom}, {self.age} ans)"
+
+class Chien(Animal):   # Chien hérite d'Animal
+    def __init__(self, nom, age, race):
+        super().__init__(nom, age)   # Appel constructeur parent
+        self.race = race
+    
+    def faire_du_bruit(self):       # Override (redéfinition)
+        print(f"{self.nom} aboie : Wouf Wouf !")
+    
+    def fetch(self):
+        print(f"{self.nom} rapporte la balle !")
+
+class Chat(Animal):
+    def faire_du_bruit(self):
+        print(f"{self.nom} miaule : Miaou !")
+
+class ChattonSauvage(Chat, Animal):  # Héritage multiple !
+    def __init__(self, nom):
+        super().__init__(nom, 1)
+
+# ── Utilisation ───────────────────────────────────
+rex = Chien("Rex", 3, "Berger allemand")
+mimi = Chat("Mimi", 5)
+
+animaux = [rex, mimi]
+for animal in animaux:
+    animal.faire_du_bruit()   # Polymorphisme
+    animal.respirer()
+    print()
+
+rex.fetch()
+
+# ── isinstance() et issubclass() ─────────────────
+print(isinstance(rex, Chien))   # True
+print(isinstance(rex, Animal))  # True (héritage !)
+print(issubclass(Chien, Animal)) # True`,
+    quiz: { q: "Que fait super().__init__() ?", opts: ["Crée une copie", "Appelle le constructeur de la classe parente", "Définit une superclasse", "Supprime l'objet"], ans: 1, exp: "✅ super() donne accès à la classe parente. super().__init__() appelle son constructeur, évitant de réécrire le code commun." }
+  },
+  {
+    title: "Gestion des Erreurs",
+    chapter: "⚠️ Erreurs",
+    subtitle: "try, except, finally, raise — gérer les exceptions",
+    content: `
+<p class="prose">Python utilise <code>try / except / else / finally</code> pour gérer les erreurs (exceptions). La structure est similaire à C# mais avec un bloc <code>else</code> supplémentaire qui s'exécute si <em>aucune</em> exception n'a été levée.</p>
+
+<div class="info-block warn"><span class="info-icon">⚠️</span><div>Ne capturez jamais toutes les exceptions avec <code>except:</code> (sans type). Soyez spécifique ! Un <code>except Exception</code> peut cacher des bugs. Utilisez toujours le type d'exception précis quand c'est possible.</div></div>`,
+    code: `# ── try / except de base ──────────────────────────
+try:
+    liste = [1, 2, 3]
+    print(liste[10])           # IndexError !
+except IndexError as e:
+    print(f"Erreur d'index : {e}")
+
+# ── Plusieurs types d'exceptions ───────────────────
+try:
+    saisie = "abc"
+    nombre = int(saisie)       # ValueError !
+except (ValueError, TypeError) as e:
+    print(f"Erreur de conversion : {e}")
+
+# ── try / except / else / finally ─────────────────
+try:
+    result = 10 / 2
+except ZeroDivisionError:
+    print("Division par zéro !")
+else:
+    # S'exécute SEULEMENT si aucune exception
+    print(f"Résultat : {result}")
+finally:
+    # S'exécute TOUJOURS (succès ou erreur)
+    print("Bloc finally : nettoyage...")
+
+# ── Lever sa propre exception ─────────────────────
+def valider_age(age):
+    if not isinstance(age, int):
+        raise TypeError(f"L'âge doit être un entier, pas {type(age)}")
+    if age < 0 or age > 150:
+        raise ValueError(f"Âge invalide : {age}")
+    return True
+
+try:
+    valider_age(-5)
+except ValueError as e:
+    print(f"Validation échouée : {e}")
+
+# ── Exceptions personnalisées ─────────────────────
+class SoldeInsuffisantError(Exception):
+    def __init__(self, solde, montant):
+        self.solde = solde
+        self.montant = montant
+        super().__init__(f"Solde {solde} insuffisant pour retirer {montant}")
+
+try:
+    raise SoldeInsuffisantError(100, 500)
+except SoldeInsuffisantError as e:
+    print(f"Erreur bancaire : {e}")`,
+    quiz: { q: "Quand s'exécute le bloc 'else' dans try/except/else ?", opts: ["Toujours", "Quand une exception est levée", "Quand AUCUNE exception n'est levée", "Jamais"], ans: 2, exp: "✅ Quand aucune exception ! Le else Python après try/except s'exécute si le bloc try s'est terminé normalement, sans exception. C'est différent de finally." }
+  },
+  {
+    title: "List Comprehensions",
+    chapter: "🔍 Avancé",
+    subtitle: "Créer des listes élégamment — la façon Pythonique",
+    content: `
+<p class="prose">Les <strong>list comprehensions</strong> sont l'une des fonctionnalités les plus appréciées de Python. Elles permettent de créer des listes en une seule ligne lisible, souvent plus rapide qu'une boucle for classique.</p>
+
+<div class="info-block concept"><span class="info-icon">💡</span><div>Syntaxe : <code>[expression for element in iterable if condition]</code>. La condition est optionnelle. Python a aussi des dict comprehensions <code>{}</code>, des set comprehensions <code>{}</code>, et des generator expressions <code>()</code>.</div></div>`,
+    code: `# ── List comprehension de base ────────────────────
+carres = [x**2 for x in range(1, 11)]
+print(carres)   # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+
+# ── Avec condition (filtre) ────────────────────────
+pairs = [x for x in range(20) if x % 2 == 0]
+print(pairs)    # [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+
+grands_carres = [x**2 for x in range(1, 20) if x % 3 == 0]
+print(grands_carres)  # [9, 36, 81, 144, 225, 324]
+
+# ── Transformation de listes ───────────────────────
+mots = ["bonjour", "monde", "python", "code"]
+majuscules = [mot.upper() for mot in mots]
+longueurs = [len(mot) for mot in mots]
+print(majuscules)
+print(longueurs)
+
+# ── Comprehension imbriquée ────────────────────────
+matrice = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+aplatie = [elem for ligne in matrice for elem in ligne]
+print(aplatie)   # [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+# ── Dict comprehension ────────────────────────────
+prenoms = ["Thierno", "Amina", "Omar"]
+longueurs_dict = {p: len(p) for p in prenoms}
+print(longueurs_dict)  # {'Thierno': 7, 'Amina': 5, 'Omar': 4}
+
+# ── Set comprehension ─────────────────────────────
+lettres = {lettre.lower() for lettre in "Python Programming"}
+print(sorted(lettres))  # Lettres uniques, triées
+
+# ── Generator expression (économise de la mémoire) ─
+somme_carres = sum(x**2 for x in range(1, 1001))  # 0 à 1000²
+print(f"Somme des carrés : {somme_carres:,}")`,
+    quiz: { q: "Quel est l'avantage d'une generator expression vs list comprehension ?", opts: ["Elle est plus rapide", "Elle utilise moins de mémoire (génération lazy)", "Elle supporte plus de conditions", "Elle crée des tuples"], ans: 1, exp: "✅ Mémoire ! Une generator expression () génère les valeurs une par une à la demande, sans tout stocker en mémoire. Idéale pour de grands volumes de données." }
+  },
+  {
+    title: "Modules et import",
+    chapter: "🔍 Avancé",
+    subtitle: "Organiser et réutiliser le code avec les modules",
+    content: `
+<p class="prose">Un module Python est simplement un fichier <code>.py</code>. Python possède une bibliothèque standard immense, et PyPI offre des millions de packages supplémentaires. Le mot-clé <code>import</code> donne accès à ces ressources.</p>
+
+<div class="info-block tip"><span class="info-icon">✅</span><div>Les imports les plus courants en data science : <code>numpy</code>, <code>pandas</code>, <code>matplotlib</code>. En web : <code>flask</code>, <code>fastapi</code>, <code>django</code>. En IA : <code>scikit-learn</code>, <code>tensorflow</code>, <code>torch</code>.</div></div>`,
+    code: `# ── Importer un module entier ─────────────────────
+import math
+print(math.sqrt(144))   # 12.0
+print(math.pi)          # 3.14159...
+print(math.factorial(10))  # 3628800
+
+# ── Importer avec alias ────────────────────────────
+import datetime as dt
+maintenant = dt.datetime.now()
+print(f"Maintenant : {maintenant}")
+print(f"Année : {maintenant.year}")
+print(f"Heure : {maintenant.strftime('%H:%M:%S')}")
+
+# ── Importer des éléments spécifiques ─────────────
+from math import sqrt, pi, ceil, floor
+print(sqrt(25))   # 5.0 — pas besoin d'écrire math.sqrt
+
+from random import choice, shuffle, randint
+nombres = list(range(1, 11))
+shuffle(nombres)
+print(nombres)
+print(f"Choix aléatoire : {choice(nombres)}")
+print(f"Nombre aléatoire 1-100 : {randint(1, 100)}")
+
+# ── Module os (système d'exploitation) ─────────────
+import os
+print(f"Répertoire courant : {os.getcwd()}")
+print(f"Séparateur de chemin : {os.sep}")
+
+# ── Module json ────────────────────────────────────
+import json
+donnees = {"prenom": "Thierno", "age": 22, "ville": "Dakar"}
+json_str = json.dumps(donnees, ensure_ascii=False, indent=2)
+print(json_str)
+
+retour = json.loads(json_str)
+print(retour["prenom"])
+
+# ── Module collections ─────────────────────────────
+from collections import Counter, defaultdict
+texte = "abracadabra"
+print(Counter(texte))  # Compte les occurrences`,
+    quiz: { q: "Quelle syntaxe importe uniquement sqrt depuis math ?", opts: ["import math.sqrt", "from math import sqrt", "import sqrt from math", "use math.sqrt"], ans: 1, exp: "✅ 'from math import sqrt' ! Cela importe uniquement sqrt, évitant d'écrire math.sqrt à chaque fois. Pratique pour les fonctions très utilisées." }
+  }
+];
+
+// Leçons 22–50 générées
+const lessonsFull = [...lessons];
+const remaining = [
+  { n: 22, t: "Fonctions lambda", sub: "Fonctions anonymes en une ligne", ch: "🧩 Fonctions" },
+  { n: 23, t: "Décorateurs", sub: "Modifier le comportement des fonctions", ch: "🧩 Fonctions" },
+  { n: 24, t: "Générateurs", sub: "yield et les itérateurs paresseux", ch: "🧩 Fonctions" },
+  { n: 25, t: "map, filter, reduce", sub: "Programmation fonctionnelle en Python", ch: "🧩 Fonctions" },
+  { n: 26, t: "Encapsulation", sub: "Protéger les données d'une classe", ch: "🏗️ POO" },
+  { n: 27, t: "Méthodes spéciales", sub: "Dunder methods : __str__, __len__, __eq__...", ch: "🏗️ POO" },
+  { n: 28, t: "Propriétés @property", sub: "Getters et setters Pythoniques", ch: "🏗️ POO" },
+  { n: 29, t: "Interfaces abstraites", sub: "ABC — Abstract Base Classes", ch: "🏗️ POO" },
+  { n: 30, t: "Dataclasses", sub: "Classes de données simplifiées (Python 3.7+)", ch: "🏗️ POO" },
+  { n: 31, t: "Fichiers — Lecture", sub: "Lire des fichiers texte et CSV", ch: "📂 Fichiers" },
+  { n: 32, t: "Fichiers — Écriture", sub: "Écrire et sauvegarder des données", ch: "📂 Fichiers" },
+  { n: 33, t: "JSON", sub: "Lire et écrire du JSON", ch: "📂 Fichiers" },
+  { n: 34, t: "Expressions régulières", sub: "Rechercher et transformer du texte avec re", ch: "📂 Fichiers" },
+  { n: 35, t: "datetime", sub: "Gérer les dates et heures", ch: "⏰ Temps" },
+  { n: 36, t: "timedelta", sub: "Calculer des durées", ch: "⏰ Temps" },
+  { n: 37, t: "Async / Await", sub: "Programmation asynchrone avec asyncio", ch: "⚡ Async" },
+  { n: 38, t: "Threading", sub: "Exécution parallèle en Python", ch: "⚡ Async" },
+  { n: 39, t: "pip et venv", sub: "Gérer les packages et environnements", ch: "🏛️ Outils" },
+  { n: 40, t: "Tests unitaires", sub: "unittest et pytest", ch: "🏛️ Outils" },
+  { n: 41, t: "NumPy — Bases", sub: "Calcul scientifique avec tableaux", ch: "📊 Data" },
+  { n: 42, t: "Pandas — DataFrames", sub: "Analyser des données tabulaires", ch: "📊 Data" },
+  { n: 43, t: "Matplotlib", sub: "Visualiser des données avec des graphiques", ch: "📊 Data" },
+  { n: 44, t: "Flask — Bases", sub: "Créer une API web minimale", ch: "🌐 Web" },
+  { n: 45, t: "FastAPI", sub: "API REST moderne et performante", ch: "🌐 Web" },
+  { n: 46, t: "SQLite avec Python", sub: "Base de données légère intégrée", ch: "🗄️ BDD" },
+  { n: 47, t: "SQLAlchemy", sub: "ORM pour Python", ch: "🗄️ BDD" },
+  { n: 48, t: "Web Scraping", sub: "Extraire des données du web avec requests", ch: "🌐 Web" },
+  { n: 49, t: "Machine Learning intro", sub: "scikit-learn : premiers modèles", ch: "🤖 IA" },
+  { n: 50, t: "Projet Final", sub: "Application complète : mini-API avec base de données", ch: "🎯 Projet" },
+];
+
+remaining.forEach(({ n, t, sub, ch }) => {
+  lessonsFull.push({
+    title: t, chapter: ch, subtitle: sub,
+    content: `<p class="prose">Leçon ${n} : <strong>${t}</strong> — ${sub}.</p><div class="info-block concept"><span class="info-icon">💡</span><div>Cette leçon explore ${t} en Python. Consultez l'assistant IA pour des exemples personnalisés !</div></div>`,
+    code: `# Leçon ${n} : ${t}\n# ${sub}\n\n# Modifiez ce code et expérimentez !\nprint("Leçon ${n} : ${t}")\nprint("Posez une question à l'assistant IA ✨")`,
+    quiz: null
+  });
+});
+
+// ─── STATE ─────────────────────────────────────────
+let currentLesson = 0;
+let completedLessons = new Set();
+let xp = 0;
+
+// ─── BUILD LIST ─────────────────────────────────────
+function buildLessonList() {
+  const container = document.getElementById('lesson-list');
+  let lastChapter = '';
+  let html = '';
+  lessonsFull.forEach((lesson, i) => {
+    if (lesson.chapter !== lastChapter) {
+      html += `<div class="chapter-label">${lesson.chapter}</div>`;
+      lastChapter = lesson.chapter;
+    }
+    const done = completedLessons.has(i) ? 'done' : '';
+    const active = i === currentLesson ? 'active' : '';
+    const num = completedLessons.has(i) ? '✓' : (i + 1);
+    html += `<div class="lesson-item ${active} ${done}" onclick="goToLesson(${i})" id="li-${i}">
+      <div class="lesson-num">${num}</div>
+      <div class="lesson-title">${lesson.title}</div>
+    </div>`;
+  });
+  container.innerHTML = html;
+}
+
+// ─── RENDER LESSON ──────────────────────────────────
+function renderLesson(i) {
+  const lesson = lessonsFull[i];
+  document.getElementById('code-editor').value = lesson.code || '';
+
+  const quizHTML = lesson.quiz ? `
+    <div class="section-title">Mini Quiz</div>
+    <div class="quiz-block" id="quiz-${i}">
+      <div class="quiz-q">🎯 ${lesson.quiz.q}</div>
+      ${lesson.quiz.opts.map((opt, j) => `<button class="quiz-opt" onclick="checkQuiz(${i},${j})">${opt}</button>`).join('')}
+      <div class="quiz-feedback" id="qf-${i}"></div>
+    </div>` : '';
+
+  document.getElementById('lesson-content').innerHTML = `
+    <div class="lesson-header">
+      <div class="lesson-number-badge">Leçon ${i + 1} / ${lessonsFull.length}</div>
+      <h1 class="lesson-h1">${lesson.title}</h1>
+      <p class="lesson-subtitle">${lesson.subtitle}</p>
+    </div>
+    ${lesson.content}
+    <div class="section-title">Code Complet</div>
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+        <span class="code-lang">Python</span>
+        <button class="code-copy" onclick="copyCode(${i})">Copier</button>
+      </div>
+      <div class="code-body">${highlightPython(lesson.code)}</div>
+    </div>
+    ${quizHTML}
+    <div class="lesson-nav">
+      ${i > 0 ? `<button class="nav-arrow" onclick="goToLesson(${i-1})">← Précédent</button>` : ''}
+      <button class="done-btn" onclick="markDone(${i})">✓ Marquer comme apprise</button>
+      ${i < lessonsFull.length - 1 ? `<button class="nav-arrow primary" onclick="goToLesson(${i+1})">Suivant →</button>` : '<span style="margin-left:auto;color:var(--green);font-weight:600">🎉 Cours terminé !</span>'}
+    </div>
+  `;
+  document.getElementById('lesson-content').scrollTop = 0;
+}
+
+function highlightPython(code) {
+  return code
+    .replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/#.*/g, m => `<span class="cm">${m}</span>`)
+    .replace(/"""[\s\S]*?"""|'''[\s\S]*?'''/g, m => `<span class="st">${m}</span>`)
+    .replace(/"([^"]*)"|'([^']*)'/g, m => `<span class="st">${m}</span>`)
+    .replace(/\b(def|class|return|if|elif|else|for|while|in|not|and|or|import|from|as|try|except|finally|raise|with|pass|break|continue|yield|lambda|del|global|nonlocal|async|await|match|case)\b/g, m => `<span class="kw">${m}</span>`)
+    .replace(/\b(int|str|float|bool|list|dict|tuple|set|None|True|False|type|len|range|print|input|super|self|open|zip|map|filter|sorted|reversed|enumerate|sum|min|max|abs|round)\b/g, m => `<span class="bi">${m}</span>`)
+    .replace(/\b(\d+\.?\d*)\b/g, m => `<span class="nm">${m}</span>`);
+}
+
+function goToLesson(i) {
+  currentLesson = i;
+  renderLesson(i);
+  buildLessonList();
+  document.getElementById(`li-${i}`)?.scrollIntoView({ block: 'nearest' });
+}
+
+function markDone(i) {
+  if (!completedLessons.has(i)) {
+    completedLessons.add(i);
+    xp += 20;
+    document.getElementById('xp-badge').textContent = xp + ' XP';
+    updateProgress();
+    buildLessonList();
+  }
+}
+
+function updateProgress() {
+  const pct = (completedLessons.size / lessonsFull.length) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = `${completedLessons.size} / ${lessonsFull.length} leçons`;
+  document.getElementById('done-count').textContent = completedLessons.size + ' complétées';
+}
+
+function copyCode(i) { navigator.clipboard.writeText(lessonsFull[i].code); }
+
+function checkQuiz(li, oi) {
+  const q = lessonsFull[li].quiz;
+  const block = document.getElementById(`quiz-${li}`);
+  const feedback = document.getElementById(`qf-${li}`);
+  const btns = block.querySelectorAll('.quiz-opt');
+  btns.forEach(b => b.disabled = true);
+  btns[oi].classList.add(oi === q.ans ? 'correct' : 'wrong');
+  if (oi !== q.ans) btns[q.ans].classList.add('correct');
+  feedback.style.display = 'block';
+  feedback.textContent = q.exp;
+  feedback.style.color = oi === q.ans ? 'var(--green)' : 'var(--red)';
+  if (oi === q.ans) { xp += 10; document.getElementById('xp-badge').textContent = xp + ' XP'; }
+}
+
+function filterLessons() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  document.querySelectorAll('.lesson-item').forEach((el, i) => {
+    el.style.display = lessonsFull[i].title.toLowerCase().includes(q) ? '' : 'none';
+  });
+  document.querySelectorAll('.chapter-label').forEach(el => {
+    el.style.display = q ? 'none' : '';
+  });
+}
+
+function showCode() {
+  const code = document.getElementById('code-editor').value;
+  const out = document.getElementById('output-box');
+  out.className = 'output-box';
+  out.innerHTML = `<div style="color:var(--muted);font-size:11px;margin-bottom:12px"># Votre code Python :</div>` + highlightPython(code);
+  switchEditorTab('output');
+}
+
+function switchEditorTab(tab) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.etab').forEach(b => b.classList.remove('active'));
+  document.getElementById(`tab-${tab}`).classList.add('active');
+  document.querySelectorAll('.etab').forEach(b => {
+    if (b.textContent.toLowerCase().includes(tab) || (tab === 'ai' && b.textContent.includes('IA'))) {
+      b.classList.add('active');
+    }
+  });
+}
+
+async function sendAI() {
+  const input = document.getElementById('ai-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+  const lesson = lessonsFull[currentLesson];
+  appendMsg(msg, 'user');
+  document.getElementById('typing').style.display = 'flex';
+
+  const sys = `Tu es un assistant pédagogique expert en Python, répondant en français. L'utilisateur apprend Python et est à la leçon "${lesson.title}" (${lesson.subtitle}). Réponds de façon claire, concise et pédagogique. Utilise des exemples courts. Si du code est collé, explique-le.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514', max_tokens: 1000,
+        system: sys,
+        messages: [{ role: 'user', content: msg }]
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.map(c => c.text || '').join('') || "Désolé, je n'ai pas pu répondre.";
+    document.getElementById('typing').style.display = 'none';
+    appendMsg(reply, 'ai');
+  } catch {
+    document.getElementById('typing').style.display = 'none';
+    appendMsg("Erreur de connexion. Vérifiez votre connexion internet.", 'ai');
+  }
+}
+
+function appendMsg(text, role) {
+  const c = document.getElementById('ai-messages');
+  const d = document.createElement('div');
+  d.className = `msg ${role}`;
+  d.innerHTML = text.replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\n/g,'<br>');
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+}
+
+function handleAiKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendAI(); }
+}
+
+function setTab(e) {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  e.currentTarget.classList.add('active');
+}
+
+buildLessonList();
+renderLesson(0);
 </script>
-
 </body>
 </html>
-```
