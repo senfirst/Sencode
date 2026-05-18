@@ -3,764 +3,1514 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apprendre JavaScript - 50 Leçons</title>
-
+<title>Apprendre JavaScript — 50 Leçons</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial;
+:root {
+  --bg: #0d0f14;
+  --surface: #151820;
+  --surface2: #1e2230;
+  --border: #2a2f40;
+  --accent: #f0c040;
+  --accent2: #7c6af5;
+  --text: #e8eaf0;
+  --text-muted: #8890aa;
+  --green: #4ade80;
+  --red: #f87171;
+  --code-bg: #0a0c10;
 }
 
-body{
-    background:#f3f4f6;
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-.header{
-    background:#111827;
-    color:#facc15;
-    text-align:center;
-    padding:20px;
-    font-size:32px;
-    font-weight:bold;
+/* ─── HEADER ─── */
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
 }
 
-.container{
-    display:flex;
-    height:calc(100vh - 80px);
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.lessons{
-    width:50%;
-    background:white;
-    overflow-y:auto;
-    padding:25px;
+.logo-badge {
+  background: var(--accent);
+  color: #000;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
 }
 
-.lesson{
-    background:white;
-    border-left:5px solid #facc15;
-    padding:20px;
-    margin-bottom:25px;
-    border-radius:8px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+.progress-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--text-muted);
 }
 
-.lesson h2{
-    margin-bottom:15px;
-    color:#111827;
+.progress-bar {
+  width: 160px;
+  height: 6px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
 }
 
-.lesson p{
-    margin-bottom:12px;
-    line-height:1.7;
-    color:#374151;
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 99px;
+  transition: width 0.4s ease;
+  width: 0%;
 }
 
-pre{
-    background:#e5e7eb;
-    padding:15px;
-    border-radius:6px;
-    overflow:auto;
+/* ─── LAYOUT ─── */
+.workspace {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
 }
 
-.editor-section{
-    width:50%;
-    background:#111827;
-    padding:20px;
-    display:flex;
-    flex-direction:column;
+/* ─── SIDEBAR ─── */
+.sidebar {
+  width: 220px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  flex-shrink: 0;
+  padding: 12px 0;
 }
 
-.editor-title{
-    color:white;
-    font-size:25px;
-    margin-bottom:15px;
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.sidebar-section {
+  padding: 8px 14px 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
 }
 
-textarea{
-    width:100%;
-    height:300px;
-    border:none;
-    border-radius:8px;
-    padding:15px;
-    resize:none;
-    font-size:16px;
-    outline:none;
+.sidebar-item {
+  padding: 7px 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-left: 2px solid transparent;
+  transition: all 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-button{
-    margin-top:15px;
-    padding:14px;
-    background:#facc15;
-    border:none;
-    color:black;
-    font-size:18px;
-    border-radius:6px;
-    cursor:pointer;
-    font-weight:bold;
+.sidebar-item:hover { color: var(--text); background: var(--surface2); }
+.sidebar-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(240,192,64,0.07); }
+.sidebar-item.done .num { background: var(--green); color: #000; }
+
+.num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  background: var(--border);
+  color: var(--text-muted);
+  padding: 1px 5px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  min-width: 26px;
+  text-align: center;
 }
 
-button:hover{
-    background:#eab308;
+/* ─── LESSON PANEL ─── */
+.lesson-panel {
+  flex: 1;
+  overflow-y: auto;
+  padding: 36px 40px;
+  max-width: 620px;
 }
 
-iframe{
-    margin-top:20px;
-    flex:1;
-    border:none;
-    background:white;
-    border-radius:8px;
+.lesson-panel::-webkit-scrollbar { width: 4px; }
+.lesson-panel::-webkit-scrollbar-track { background: transparent; }
+.lesson-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.lesson-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
 }
+
+.lesson-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
+}
+
+.lesson-desc {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-bottom: 20px;
+  line-height: 1.8;
+  color: var(--text);
+  font-size: 14.5px;
+}
+
+.lesson-desc p { margin-bottom: 10px; }
+.lesson-desc p:last-child { margin-bottom: 0; }
+
+.lesson-desc strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.lesson-desc .tip {
+  background: rgba(124,106,245,0.12);
+  border-left: 3px solid var(--accent2);
+  padding: 10px 14px;
+  border-radius: 0 6px 6px 0;
+  margin-top: 12px;
+  font-size: 13.5px;
+  color: #c0baff;
+}
+
+.lesson-desc .warning {
+  background: rgba(248,113,113,0.1);
+  border-left: 3px solid var(--red);
+  padding: 10px 14px;
+  border-radius: 0 6px 6px 0;
+  margin-top: 12px;
+  font-size: 13.5px;
+  color: #fca5a5;
+}
+
+.code-block {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.code-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 16px;
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.try-btn {
+  background: rgba(240,192,64,0.15);
+  color: var(--accent);
+  border: 1px solid rgba(240,192,64,0.3);
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+
+.try-btn:hover { background: rgba(240,192,64,0.25); }
+
+code, pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13.5px;
+}
+
+.code-block pre {
+  padding: 18px 20px;
+  line-height: 1.7;
+  color: #e0e6f8;
+  overflow-x: auto;
+}
+
+/* Syntax colors */
+.kw { color: #c084fc; }
+.fn { color: #60a5fa; }
+.str { color: #86efac; }
+.num-lit { color: #fb923c; }
+.cmt { color: #4b5563; font-style: italic; }
+.op { color: var(--accent); }
+
+.nav-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.nav-btn {
+  padding: 10px 20px;
+  border-radius: 7px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+
+.nav-btn.prev { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); }
+.nav-btn.prev:hover { color: var(--text); }
+.nav-btn.next { background: var(--accent); color: #000; }
+.nav-btn.next:hover { background: #f5d060; transform: translateY(-1px); }
+
+/* ─── EDITOR ─── */
+.editor-panel {
+  width: 400px;
+  flex-shrink: 0;
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+}
+
+.editor-topbar {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.editor-topbar-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.run-btn {
+  background: var(--accent);
+  color: #000;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.run-btn:hover { background: #f5d060; transform: translateY(-1px); }
+
+textarea#editor {
+  flex: 1;
+  background: var(--code-bg);
+  color: #e0e6f8;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  resize: none;
+  outline: none;
+  min-height: 220px;
+  max-height: 300px;
+}
+
+.output-label {
+  padding: 8px 16px;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  letter-spacing: 0.5px;
+}
+
+iframe#result {
+  flex: 1;
+  border: none;
+  background: white;
+}
+
+/* SCROLLBARS */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
 @media(max-width:900px){
-
-.container{
-    flex-direction:column;
-    height:auto;
-}
-
-.lessons,
-.editor-section{
-    width:100%;
-}
-
-iframe{
-    height:400px;
-}
-
+  .sidebar { display: none; }
+  .workspace { flex-direction: column; overflow: auto; height: auto; }
+  body { overflow: auto; height: auto; }
+  .lesson-panel { max-width: 100%; padding: 24px 20px; }
+  .editor-panel { width: 100%; border-left: none; border-top: 1px solid var(--border); }
+  textarea#editor { max-height: 200px; }
 }
 
 </style>
 </head>
 <body>
 
-<div class="header">
-Apprendre JavaScript - 50 Leçons Complètes
+<header>
+  <div class="logo">
+    <span>JS<span style="color:var(--accent)">.</span>cours</span>
+    <span class="logo-badge">50 LEÇONS</span>
+  </div>
+  <div class="progress-bar-wrap">
+    <span id="progress-text">0 / 50</span>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+</header>
+
+<div class="workspace">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar"></div>
+
+  <!-- LESSON PANEL -->
+  <div class="lesson-panel" id="lesson-panel"></div>
+
+  <!-- EDITOR -->
+  <div class="editor-panel">
+    <div class="editor-topbar">
+      <span class="editor-topbar-title">▶ playground.js</span>
+      <button class="run-btn" onclick="runCode()">⚡ Exécuter</button>
+    </div>
+    <textarea id="editor" spellcheck="false">// Modifiez ce code et cliquez sur Exécuter !
+let message = "Bonjour JavaScript"
+document.querySelector("h1").innerHTML = message
+document.body.style.background = "#111"
+document.body.style.color = "white"</textarea>
+    <div class="output-label">RÉSULTAT</div>
+    <iframe id="result"></iframe>
+  </div>
+
 </div>
 
-<div class="container">
+<script>
 
-<div class="lessons">
+const lessons = [
+  {
+    title: "Introduction à JavaScript",
+    desc: `
+      <p>JavaScript est le <strong>langage de programmation du web</strong>. Il permet d'ajouter de l'interactivité à vos pages HTML : animations, boutons, formulaires dynamiques, jeux, et bien plus encore.</p>
+      <p>Il s'exécute directement dans le navigateur, sans installation. C'est pourquoi c'est l'un des langages les plus populaires au monde.</p>
+      <p><strong>console.log()</strong> est la première instruction à connaître : elle affiche un message dans la console du navigateur (ouvrez les DevTools avec F12 pour la voir).</p>
+      <div class="tip">💡 JavaScript est différent de Java. Ce sont deux langages distincts malgré leur nom similaire.</div>
+    `,
+    code: `// Afficher un message dans la console
+console.log("Bonjour le monde !")
 
-<div class="lesson">
-<h2>Leçon 1 : Introduction à JavaScript</h2>
-<p>
-JavaScript permet de rendre un site interactif.
-C’est le langage utilisé pour les animations,
-les boutons et les actions dynamiques.
-</p>
-<pre>
-console.log("Bonjour")
-</pre>
-</div>
+// Vous pouvez afficher des nombres aussi
+console.log(42)`,
+    starter: `console.log("Bonjour JavaScript")\nconsole.log("Mon premier programme")`
+  },
+  {
+    title: "Variables avec let",
+    desc: `
+      <p>Une <strong>variable</strong> est une boîte qui stocke une valeur. Le mot-clé <strong>let</strong> permet de créer une variable dont la valeur peut changer au cours du programme.</p>
+      <p>On utilise le symbole <code>=</code> pour <strong>assigner</strong> une valeur. Ce n'est pas une égalité mathématique, c'est une affectation : « mets cette valeur dans cette boîte ».</p>
+      <div class="tip">💡 Vous pouvez changer la valeur d'une variable <code>let</code> à n'importe quel moment.</div>
+    `,
+    code: `let nom = "Ali"
+console.log(nom) // Affiche : Ali
 
-<div class="lesson">
-<h2>Leçon 2 : Variables</h2>
-<p>
-Les variables servent à stocker des données.
-</p>
-<pre>
+// Modifier la variable
+nom = "Fatou"
+console.log(nom) // Affiche : Fatou`,
+    starter: `let prenom = "Votre prénom"\nlet ville = "Dakar"\nconsole.log(prenom)\nconsole.log(ville)`
+  },
+  {
+    title: "Constantes avec const",
+    desc: `
+      <p><strong>const</strong> crée une variable dont la valeur <strong>ne peut pas être changée</strong> après sa création. On l'utilise pour les valeurs fixes comme l'âge de majorité, un taux de TVA, une couleur de thème.</p>
+      <p>Si vous essayez de modifier une <code>const</code>, JavaScript affichera une erreur.</p>
+      <div class="warning">⚠️ const ne peut pas être réassignée. Utilisez let si vous devez modifier la valeur plus tard.</div>
+      <div class="tip">💡 Bonne pratique : utilisez const par défaut, et let seulement si vous avez besoin de modifier la valeur.</div>
+    `,
+    code: `const age = 20
+console.log(age) // 20
+
+// Ceci provoquerait une erreur :
+// age = 21  → TypeError !
+
+const PI = 3.14159
+console.log(PI)`,
+    starter: `const pays = "Sénégal"\nconst annee = 2025\nconsole.log(pays)\nconsole.log(annee)`
+  },
+  {
+    title: "Alert — Boîte de dialogue",
+    desc: `
+      <p><strong>alert()</strong> affiche une boîte de dialogue dans le navigateur avec un message. L'utilisateur doit cliquer sur OK pour continuer.</p>
+      <p>C'est utile pour tester rapidement, mais à éviter dans les vraies applications car c'est intrusif et bloque l'exécution du code.</p>
+      <div class="tip">💡 Dans la sandbox de ce cours, alert() s'affiche dans la zone de résultat. Dans un vrai navigateur, c'est une popup qui bloque tout.</div>
+    `,
+    code: `alert("Bienvenue sur mon site !")
+
+// Vous pouvez alerter avec des variables
 let nom = "Ali"
-</pre>
-</div>
+alert("Bonjour " + nom)`,
+    starter: `alert("Bonjour !")`
+  },
+  {
+    title: "console.log en détail",
+    desc: `
+      <p><strong>console.log()</strong> est l'outil numéro 1 du développeur pour déboguer son code. Il affiche n'importe quelle valeur dans la console.</p>
+      <p>Vous pouvez passer plusieurs arguments séparés par des virgules, et JavaScript les affichera tous sur la même ligne.</p>
+      <div class="tip">💡 Pour voir la console : appuyez sur F12 dans Chrome/Firefox → onglet "Console".</div>
+    `,
+    code: `console.log("Un seul message")
+console.log("Plusieurs", "valeurs", "séparées")
+console.log("Résultat :", 5 + 3)
 
-<div class="lesson">
-<h2>Leçon 3 : Const</h2>
-<p>
-Const crée une variable fixe.
-</p>
-<pre>
-const age = 20
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 4 : Alert</h2>
-<p>
-Alert affiche une boîte de dialogue.
-</p>
-<pre>
-alert("Bienvenue")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 5 : Console Log</h2>
-<p>
-Console.log affiche des informations dans la console.
-</p>
-<pre>
-console.log("Test")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 6 : Les Nombres</h2>
-<p>
-JavaScript peut manipuler des nombres.
-</p>
-<pre>
 let x = 10
-</pre>
-</div>
+console.log("La valeur de x est :", x)`,
+    starter: `let a = 5\nlet b = 3\nconsole.log("a =", a)\nconsole.log("b =", b)\nconsole.log("Somme =", a + b)`
+  },
+  {
+    title: "Les Nombres",
+    desc: `
+      <p>JavaScript gère deux types de nombres : les <strong>entiers</strong> (1, 42, -5) et les <strong>décimaux</strong> (3.14, -0.5). Il n'y a pas de distinction de type entre eux, ils sont tous de type <code>number</code>.</p>
+      <p>Les opérations de base sont disponibles : <strong>+</strong> (addition), <strong>-</strong> (soustraction), <strong>*</strong> (multiplication), <strong>/</strong> (division), <strong>%</strong> (modulo = reste de la division).</p>
+      <div class="tip">💡 Le modulo <code>%</code> est très utile : <code>10 % 3</code> donne <code>1</code> car 10 = 3×3 + 1.</div>
+    `,
+    code: `let entier = 42
+let decimal = 3.14
 
-<div class="lesson">
-<h2>Leçon 7 : Les Chaînes</h2>
-<p>
-Les chaînes contiennent du texte.
-</p>
-<pre>
-let texte = "Bonjour"
-</pre>
-</div>
+console.log(entier + decimal)  // 45.14
+console.log(10 * 5)            // 50
+console.log(10 / 3)            // 3.333...
+console.log(10 % 3)            // 1 (reste)`,
+    starter: `let prix = 1500\nlet quantite = 3\nlet total = prix * quantite\nconsole.log("Total :", total, "FCFA")`
+  },
+  {
+    title: "Les Chaînes de caractères",
+    desc: `
+      <p>Une <strong>chaîne de caractères</strong> (string) est un texte entouré de guillemets simples <code>'...'</code>, doubles <code>"..."</code> ou backticks <code>\`...\`</code>.</p>
+      <p>L'opérateur <strong>+</strong> permet de <strong>concatener</strong> (coller) des chaînes ensemble. La propriété <code>.length</code> donne la longueur du texte.</p>
+      <div class="tip">💡 <code>"5" + 3</code> donne <code>"53"</code> (concatenation) et non <code>8</code> ! Faites attention aux types.</div>
+    `,
+    code: `let prenom = "Aminata"
+let nom = "Diallo"
+let nomComplet = prenom + " " + nom
+console.log(nomComplet)     // Aminata Diallo
 
-<div class="lesson">
-<h2>Leçon 8 : Addition</h2>
-<p>
-JavaScript peut additionner.
-</p>
-<pre>
-let total = 5 + 5
-</pre>
-</div>
+console.log(nomComplet.length)  // 14 (nb de caractères)
+console.log(prenom.toUpperCase()) // AMINATA`,
+    starter: `let salutation = "Bonjour"\nlet prenom = "Moussa"\nconsole.log(salutation + " " + prenom + " !")`
+  },
+  {
+    title: "Opérations mathématiques",
+    desc: `
+      <p>Au-delà des 4 opérations, JavaScript offre l'objet <strong>Math</strong> pour des calculs avancés. Voici les plus utiles :</p>
+      <p><strong>Math.round()</strong> arrondit, <strong>Math.floor()</strong> arrondit vers le bas, <strong>Math.ceil()</strong> vers le haut, <strong>Math.abs()</strong> donne la valeur absolue, <strong>Math.pow()</strong> calcule une puissance.</p>
+      <div class="tip">💡 <code>**</code> est un raccourci pour les puissances : <code>2 ** 10</code> = 1024.</div>
+    `,
+    code: `console.log(5 + 3)        // 8
+console.log(10 - 4)       // 6
+console.log(3 * 7)        // 21
+console.log(15 / 4)       // 3.75
+console.log(Math.round(3.7)) // 4
+console.log(2 ** 8)       // 256`,
+    starter: `let base = 5\nlet hauteur = 12\nlet aire = (base * hauteur) / 2\nconsole.log("Aire du triangle :", aire)`
+  },
+  {
+    title: "Condition if",
+    desc: `
+      <p>La structure <strong>if</strong> permet d'exécuter du code uniquement si une condition est vraie. La condition est entre parenthèses, le code à exécuter entre accolades.</p>
+      <p>Les opérateurs de comparaison : <strong>></strong> (supérieur), <strong><</strong> (inférieur), <strong>>=</strong> (supérieur ou égal), <strong><=</strong> (inférieur ou égal), <strong>===</strong> (strictement égal), <strong>!==</strong> (différent).</p>
+      <div class="tip">💡 Utilisez <code>===</code> et non <code>==</code>. Le triple égal vérifie aussi le type : <code>"5" == 5</code> est vrai, mais <code>"5" === 5</code> est faux.</div>
+    `,
+    code: `let age = 20
 
-<div class="lesson">
-<h2>Leçon 9 : Conditions If</h2>
-<p>
-If exécute du code selon une condition.
-</p>
-<pre>
-if(age > 18){
- console.log("Majeur")
+if (age >= 18) {
+  console.log("Vous êtes majeur")
 }
-</pre>
-</div>
 
-<div class="lesson">
-<h2>Leçon 10 : Else</h2>
-<p>
-Else exécute une autre action.
-</p>
-<pre>
-if(age > 18){
- console.log("OK")
-}else{
- console.log("Non")
+if (age >= 65) {
+  console.log("Vous êtes senior")
+}`,
+    starter: `let note = 14\nif (note >= 10) {\n  console.log("Admis !")\n}\nif (note >= 16) {\n  console.log("Félicitations !")\n}`
+  },
+  {
+    title: "Condition if / else",
+    desc: `
+      <p><strong>else</strong> s'exécute quand la condition du <code>if</code> est <strong>fausse</strong>. On peut enchaîner avec <strong>else if</strong> pour gérer plusieurs cas.</p>
+      <p>L'ordre des conditions est important : JavaScript s'arrête dès qu'il en trouve une vraie.</p>
+      <div class="tip">💡 Les opérateurs logiques : <code>&&</code> (ET), <code>||</code> (OU), <code>!</code> (NON). Exemple : <code>age > 12 && age < 18</code>.</div>
+    `,
+    code: `let note = 14
+
+if (note >= 16) {
+  console.log("Très bien")
+} else if (note >= 10) {
+  console.log("Passable")
+} else {
+  console.log("Insuffisant")
+}`,
+    starter: `let heure = 14\nif (heure < 12) {\n  console.log("Bonjour !")\n} else if (heure < 18) {\n  console.log("Bon après-midi !")\n} else {\n  console.log("Bonsoir !")\n}`
+  },
+  {
+    title: "Les Fonctions",
+    desc: `
+      <p>Une <strong>fonction</strong> est un bloc de code réutilisable. On la définit une fois avec le mot-clé <strong>function</strong>, puis on peut l'appeler autant de fois qu'on veut.</p>
+      <p>Cela évite de répéter du code (principe <strong>DRY</strong> : Don't Repeat Yourself) et rend le code plus lisible et maintenable.</p>
+      <div class="tip">💡 Nommez vos fonctions avec un verbe : <code>calculerTotal()</code>, <code>afficherMessage()</code>, <code>validerFormulaire()</code>.</div>
+    `,
+    code: `function direBonjour() {
+  console.log("Bonjour tout le monde !")
 }
-</pre>
-</div>
 
-<div class="lesson">
-<h2>Leçon 11 : Fonctions</h2>
-<p>
-Les fonctions regroupent du code.
-</p>
-<pre>
-function salut(){
- alert("Bonjour")
+// Appeler la fonction (3 fois)
+direBonjour()
+direBonjour()
+direBonjour()`,
+    starter: `function afficherBienvenue() {\n  console.log("Bienvenue !")\n  console.log("Bonne chance dans l'apprentissage.")\n}\n\nafficherBienvenue()`
+  },
+  {
+    title: "Paramètres de fonctions",
+    desc: `
+      <p>Les <strong>paramètres</strong> sont des variables passées à une fonction pour la rendre dynamique. On les déclare dans les parenthèses lors de la définition.</p>
+      <p>Quand on appelle la fonction, on passe des <strong>arguments</strong> (les valeurs réelles). On peut avoir plusieurs paramètres séparés par des virgules.</p>
+      <div class="tip">💡 Vous pouvez définir des valeurs par défaut : <code>function salut(nom = "ami")</code> — si aucun argument n'est passé, nom vaut "ami".</div>
+    `,
+    code: `function saluer(prenom, ville) {
+  console.log("Bonjour " + prenom + " de " + ville + " !")
 }
-</pre>
-</div>
 
-<div class="lesson">
-<h2>Leçon 12 : Paramètres</h2>
-<p>
-Les paramètres rendent les fonctions dynamiques.
-</p>
-<pre>
-function salut(nom){
- console.log(nom)
+saluer("Aminata", "Dakar")
+saluer("Moussa", "Thiès")
+saluer("Fatou", "Saint-Louis")`,
+    starter: `function calculerSurface(longueur, largeur) {\n  let surface = longueur * largeur\n  console.log("Surface :", surface, "m²")\n}\n\ncalculerSurface(5, 3)\ncalculerSurface(10, 7)`
+  },
+  {
+    title: "Return — retourner une valeur",
+    desc: `
+      <p><strong>return</strong> permet à une fonction de <strong>renvoyer un résultat</strong> qu'on peut stocker dans une variable ou utiliser dans une expression. Sans return, la fonction renvoie <code>undefined</code>.</p>
+      <p>Le code après un <code>return</code> n'est jamais exécuté — return quitte immédiatement la fonction.</p>
+      <div class="tip">💡 Une fonction avec return est plus flexible qu'une fonction qui fait juste un console.log, car le résultat peut être réutilisé.</div>
+    `,
+    code: `function additionner(a, b) {
+  return a + b
 }
-</pre>
-</div>
 
-<div class="lesson">
-<h2>Leçon 13 : Return</h2>
-<p>
-Return renvoie une valeur.
-</p>
-<pre>
-function add(a,b){
- return a+b
+let resultat = additionner(5, 3)
+console.log(resultat)  // 8
+
+// Utiliser directement dans une expression
+console.log(additionner(10, 20) * 2)  // 60`,
+    starter: `function multiplier(a, b) {\n  return a * b\n}\n\nlet produit = multiplier(6, 7)\nconsole.log("6 × 7 =", produit)`
+  },
+  {
+    title: "Les Tableaux (Arrays)",
+    desc: `
+      <p>Un <strong>tableau</strong> stocke plusieurs valeurs dans une seule variable. On y accède via un <strong>index</strong> qui commence à 0 (pas à 1 !).</p>
+      <p>Méthodes essentielles : <strong>.push()</strong> ajoute à la fin, <strong>.pop()</strong> supprime le dernier, <strong>.length</strong> donne la taille, <strong>.indexOf()</strong> trouve la position.</p>
+      <div class="tip">💡 Le premier élément est à l'index 0. Un tableau de 5 éléments a des index de 0 à 4.</div>
+    `,
+    code: `let fruits = ["Mangue", "Orange", "Papaye"]
+
+console.log(fruits[0])    // Mangue
+console.log(fruits[2])    // Papaye
+console.log(fruits.length) // 3
+
+fruits.push("Banane")
+console.log(fruits)       // 4 fruits maintenant`,
+    starter: `let notes = [12, 15, 8, 18, 10]\nconsole.log("Nombre de notes :", notes.length)\nconsole.log("Première note :", notes[0])\nconsole.log("Dernière note :", notes[notes.length - 1])`
+  },
+  {
+    title: "Les Objets",
+    desc: `
+      <p>Un <strong>objet</strong> regroupe des <strong>propriétés</strong> sous forme de paires clé:valeur. C'est parfait pour représenter une entité réelle (personne, produit, ville...).</p>
+      <p>On accède aux propriétés avec le <strong>point</strong> <code>objet.propriete</code> ou avec les <strong>crochets</strong> <code>objet["propriete"]</code>. On peut modifier une propriété ou en ajouter de nouvelles.</p>
+      <div class="tip">💡 Un objet peut contenir des tableaux, d'autres objets, des fonctions... On appelle une fonction dans un objet une "méthode".</div>
+    `,
+    code: `let etudiant = {
+  prenom: "Fatou",
+  age: 22,
+  ville: "Dakar",
+  note: 16
 }
-</pre>
-</div>
 
-<div class="lesson">
-<h2>Leçon 14 : Tableaux</h2>
-<p>
-Les tableaux stockent plusieurs valeurs.
-</p>
-<pre>
-let fruits = ["Pomme","Orange"]
-</pre>
-</div>
+console.log(etudiant.prenom)  // Fatou
+console.log(etudiant.note)    // 16
 
-<div class="lesson">
-<h2>Leçon 15 : Objets</h2>
-<p>
-Les objets regroupent plusieurs informations.
-</p>
-<pre>
-let user = {
- nom:"Ali",
- age:20
+etudiant.age = 23  // Modifier
+etudiant.lycee = "CETI"  // Ajouter`,
+    starter: `let voiture = {\n  marque: "Renault",\n  modele: "Logan",\n  annee: 2020,\n  couleur: "blanc"\n}\nconsole.log(voiture.marque, voiture.modele)\nconsole.log("Année :", voiture.annee)`
+  },
+  {
+    title: "Boucle for",
+    desc: `
+      <p>La boucle <strong>for</strong> répète un bloc de code un nombre défini de fois. Elle a 3 parties : <strong>initialisation</strong> (let i=0), <strong>condition</strong> (i<5), et <strong>incrément</strong> (i++).</p>
+      <p><code>i++</code> est un raccourci pour <code>i = i + 1</code>. La boucle continue tant que la condition est vraie.</p>
+      <div class="tip">💡 Pour parcourir un tableau, utilisez <code>for(let i=0; i &lt; tableau.length; i++)</code> — ça s'adapte automatiquement à la taille.</div>
+    `,
+    code: `// Compter de 1 à 5
+for (let i = 1; i <= 5; i++) {
+  console.log("Tour numéro :", i)
 }
-</pre>
-</div>
 
-<div class="lesson">
-<h2>Leçon 16 : Boucle For</h2>
-<p>
-For répète du code.
-</p>
-<pre>
-for(let i=0;i<5;i++){
- console.log(i)
+// Parcourir un tableau
+let jours = ["Lundi", "Mardi", "Mercredi"]
+for (let i = 0; i < jours.length; i++) {
+  console.log(jours[i])
+}`,
+    starter: `let nombres = [3, 7, 2, 9, 1]\nlet somme = 0\nfor (let i = 0; i < nombres.length; i++) {\n  somme = somme + nombres[i]\n}\nconsole.log("Somme :", somme)`
+  },
+  {
+    title: "Boucle while",
+    desc: `
+      <p><strong>while</strong> répète du code tant qu'une condition est vraie. On l'utilise quand on ne connaît pas à l'avance le nombre de répétitions.</p>
+      <p>Attention : si la condition ne devient jamais fausse, la boucle tourne à l'infini ! Assurez-vous de modifier la variable de condition à l'intérieur de la boucle.</p>
+      <div class="warning">⚠️ Une boucle infinie fait planter le navigateur. Vérifiez toujours que votre condition deviendra fausse un jour.</div>
+    `,
+    code: `let compteur = 0
+
+while (compteur < 5) {
+  console.log("Compteur :", compteur)
+  compteur++  // IMPORTANT : incrémenter !
 }
-</pre>
-</div>
 
-<div class="lesson">
-<h2>Leçon 17 : While</h2>
-<p>
-While répète tant qu’une condition est vraie.
-</p>
-<pre>
-while(x < 5){
- x++
-}
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 18 : Query Selector</h2>
-<p>
-QuerySelector sélectionne un élément HTML.
-</p>
-<pre>
-document.querySelector("h1")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 19 : InnerHTML</h2>
-<p>
-InnerHTML modifie le contenu HTML.
-</p>
-<pre>
-document.querySelector("h1").innerHTML = "Bonjour"
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 20 : Style</h2>
-<p>
-Style change le CSS avec JavaScript.
-</p>
-<pre>
-document.body.style.background = "black"
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 21 : Add Event Listener</h2>
-<p>
-Ajoute un événement.
-</p>
-<pre>
-button.addEventListener("click", function(){
- alert("Click")
-})
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 22 : Click</h2>
-<p>
-Click détecte un clic.
-</p>
-<pre>
-button.onclick = function(){
- alert("Bonjour")
-}
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 23 : Input Value</h2>
-<p>
-Value récupère une valeur.
-</p>
-<pre>
-input.value
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 24 : Create Element</h2>
-<p>
-CreateElement crée un élément HTML.
-</p>
-<pre>
-document.createElement("div")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 25 : Append Child</h2>
-<p>
-AppendChild ajoute un élément.
-</p>
-<pre>
-document.body.appendChild(div)
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 26 : Remove</h2>
-<p>
-Remove supprime un élément.
-</p>
-<pre>
-div.remove()
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 27 : ClassList</h2>
-<p>
-ClassList ajoute des classes CSS.
-</p>
-<pre>
-div.classList.add("active")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 28 : Toggle</h2>
-<p>
-Toggle active ou désactive une classe.
-</p>
-<pre>
-div.classList.toggle("dark")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 29 : Math Random</h2>
-<p>
-Math.random génère un nombre aléatoire.
-</p>
-<pre>
-Math.random()
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 30 : Date</h2>
-<p>
-Date récupère la date actuelle.
-</p>
-<pre>
-new Date()
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 31 : SetTimeout</h2>
-<p>
-SetTimeout attend avant d’exécuter du code.
-</p>
-<pre>
-setTimeout(function(){
- alert("Bonjour")
-},2000)
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 32 : SetInterval</h2>
-<p>
-SetInterval répète du code.
-</p>
-<pre>
-setInterval(function(){
- console.log("Test")
-},1000)
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 33 : JSON</h2>
-<p>
-JSON stocke des données.
-</p>
-<pre>
-let data = {
- nom:"Ali"
-}
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 34 : LocalStorage</h2>
-<p>
-LocalStorage sauvegarde des données.
-</p>
-<pre>
-localStorage.setItem("nom","Ali")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 35 : Switch</h2>
-<p>
-Switch gère plusieurs cas.
-</p>
-<pre>
-switch(x){
- case 1:
- break
-}
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 36 : Arrow Function</h2>
-<p>
-Les fonctions fléchées sont plus modernes.
-</p>
-<pre>
-const test = () => {
- console.log("OK")
-}
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 37 : Map</h2>
-<p>
-Map parcourt un tableau.
-</p>
-<pre>
-fruits.map(item => console.log(item))
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 38 : Filter</h2>
-<p>
-Filter filtre des données.
-</p>
-<pre>
-notes.filter(note => note > 10)
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 39 : Includes</h2>
-<p>
-Includes vérifie une valeur.
-</p>
-<pre>
-fruits.includes("Pomme")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 40 : Fetch API</h2>
-<p>
-Fetch récupère des données depuis internet.
-</p>
-<pre>
-fetch("url")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 41 : Async Await</h2>
-<p>
-Async Await simplifie les requêtes.
-</p>
-<pre>
-async function test(){
-}
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 42 : Try Catch</h2>
-<p>
-Try Catch gère les erreurs.
-</p>
-<pre>
-try{
-}
-catch(error){
-}
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 43 : Template String</h2>
-<p>
-Les templates simplifient les chaînes.
-</p>
-<pre>
-`Bonjour ${nom}`
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 44 : Destructuring</h2>
-<p>
-Destructuring extrait des valeurs.
-</p>
-<pre>
-const {nom} = user
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 45 : Spread Operator</h2>
-<p>
-Spread copie des données.
-</p>
-<pre>
-let newArray = [...array]
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 46 : Modules</h2>
-<p>
-Les modules séparent le code.
-</p>
-<pre>
-export default test
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 47 : Classes</h2>
-<p>
-Les classes créent des objets.
-</p>
-<pre>
-class User{}
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 48 : Constructor</h2>
-<p>
-Constructor initialise un objet.
-</p>
-<pre>
-constructor(name){
- this.name = name
-}
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 49 : API</h2>
-<p>
-Les API permettent de communiquer avec des services.
-</p>
-<pre>
-fetch("https://api.com")
-</pre>
-</div>
-
-<div class="lesson">
-<h2>Leçon 50 : Projet Final</h2>
-<p>
-Combine HTML, CSS et JavaScript pour créer une application moderne.
-</p>
-<pre>
-console.log("Projet terminé")
-</pre>
-</div>
-
-</div>
-
-<div class="editor-section">
-
-<h2 class="editor-title">
-Essayez votre JavaScript
-</h2>
-
-<textarea id="editor">
+console.log("Boucle terminée")`,
+    starter: `let n = 1\nlet resultat = 1\n// Calculer 5! (factorielle)\nwhile (n <= 5) {\n  resultat = resultat * n\n  n++\n}\nconsole.log("5! =", resultat)`
+  },
+  {
+    title: "querySelector",
+    desc: `
+      <p><strong>document.querySelector()</strong> sélectionne le <strong>premier élément HTML</strong> qui correspond au sélecteur CSS passé en argument. C'est la porte d'entrée vers la manipulation du DOM.</p>
+      <p>Vous pouvez utiliser n'importe quel sélecteur CSS : tag (<code>"h1"</code>), classe (<code>".monBouton"</code>), id (<code>"#titre"</code>), attribut...</p>
+      <div class="tip">💡 Pour sélectionner plusieurs éléments, utilisez <code>document.querySelectorAll()</code> qui retourne une liste.</div>
+    `,
+    code: `// Sélectionner par tag
 let titre = document.querySelector("h1")
+console.log(titre)
 
-titre.innerHTML = "Bonjour JavaScript"
+// Sélectionner par classe
+let btn = document.querySelector(".bouton")
 
-document.body.style.background = "black"
+// Sélectionner par id
+let hero = document.querySelector("#hero")`,
+    starter: `let h1 = document.querySelector("h1")\nconsole.log("Texte du h1 :", h1.textContent)\n\nlet p = document.querySelector("p")\nconsole.log("Texte du p :", p.textContent)`
+  },
+  {
+    title: "innerHTML — Modifier le HTML",
+    desc: `
+      <p><strong>innerHTML</strong> permet de lire ou <strong>modifier le contenu HTML</strong> d'un élément. On peut y insérer du texte simple ou même du HTML complet (balises incluses).</p>
+      <p><strong>textContent</strong> est similaire mais n'interprète pas le HTML — il traite tout comme du texte brut, ce qui est plus sécurisé.</p>
+      <div class="warning">⚠️ N'injectez jamais du HTML provenant de l'utilisateur via innerHTML sans le nettoyer — risque de failles XSS !</div>
+    `,
+    code: `let titre = document.querySelector("h1")
 
-document.body.style.color = "white"
-</textarea>
+// Modifier le texte
+titre.innerHTML = "Nouveau titre !"
 
-<button onclick="runCode()">
-Exécuter le JavaScript
-</button>
+// Injecter du HTML
+let para = document.querySelector("p")
+para.innerHTML = "Texte en <strong>gras</strong> !"`,
+    starter: `let h1 = document.querySelector("h1")\nh1.innerHTML = "🎉 Page Modifiée !"\n\nlet p = document.querySelector("p")\np.innerHTML = "Ce texte vient de <em>JavaScript</em>."`
+  },
+  {
+    title: "Modifier le style CSS",
+    desc: `
+      <p>La propriété <strong>.style</strong> d'un élément permet de modifier son CSS directement depuis JavaScript. Les noms CSS avec tiret s'écrivent en camelCase : <code>background-color</code> → <code>backgroundColor</code>.</p>
+      <p>Cette méthode modifie le style <strong>inline</strong>. Pour une meilleure organisation, préférez ajouter/retirer des classes CSS avec <code>classList</code>.</p>
+      <div class="tip">💡 <code>background-color</code> → <code>backgroundColor</code>, <code>font-size</code> → <code>fontSize</code>, <code>border-radius</code> → <code>borderRadius</code>.</div>
+    `,
+    code: `let titre = document.querySelector("h1")
 
-<iframe id="result"></iframe>
+titre.style.color = "red"
+titre.style.fontSize = "48px"
+titre.style.backgroundColor = "#222"
+titre.style.padding = "10px"
 
-</div>
+document.body.style.background = "black"`,
+    starter: `let titre = document.querySelector("h1")\ntitre.style.color = "#f0c040"\ntitre.style.fontFamily = "serif"\ntitre.style.fontSize = "42px"\ndocument.body.style.background = "#111"\ndocument.body.style.padding = "20px"`
+  },
+  {
+    title: "addEventListener — Écouter les événements",
+    desc: `
+      <p><strong>addEventListener</strong> permet de déclencher du code lorsqu'un événement survient sur un élément (clic, survol, touche clavier, etc.).</p>
+      <p>Syntaxe : <code>element.addEventListener("événement", fonction)</code>. Les événements courants : <code>"click"</code>, <code>"mouseover"</code>, <code>"keydown"</code>, <code>"submit"</code>, <code>"change"</code>.</p>
+      <div class="tip">💡 Préférez addEventListener à onclick car on peut ajouter plusieurs listeners sur le même élément sans écraser les précédents.</div>
+    `,
+    code: `let btn = document.querySelector("button")
 
-</div>
+btn.addEventListener("click", function() {
+  alert("Bouton cliqué !")
+})
 
-<script>
+// Survol de la souris
+btn.addEventListener("mouseover", function() {
+  btn.style.background = "gold"
+})`,
+    starter: `let btn = document.querySelector("button")\nlet compteur = 0\nbtn.addEventListener("click", function() {\n  compteur++\n  document.querySelector("h1").innerHTML = "Clics : " + compteur\n})`
+  },
+  {
+    title: "Événement click",
+    desc: `
+      <p>L'événement <strong>click</strong> est le plus courant. Il se déclenche quand l'utilisateur clique sur un élément. La propriété <strong>onclick</strong> est une alternative plus courte à addEventListener.</p>
+      <p>La fonction reçoit un objet <strong>event</strong> qui contient des informations sur l'événement (position du clic, élément ciblé, etc.).</p>
+      <div class="tip">💡 <code>event.target</code> désigne l'élément sur lequel l'utilisateur a cliqué — utile pour les listes de boutons dynamiques.</div>
+    `,
+    code: `let btn = document.querySelector("button")
 
-function runCode(){
-
-let js = document.getElementById('editor').value;
-
-let iframe = document.getElementById('result');
-
-iframe.srcdoc = `
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-body{
- font-family:Arial;
- padding:20px;
+// Méthode 1 : onclick
+btn.onclick = function() {
+  console.log("Clic détecté !")
 }
-button{
- padding:10px;
-}
-</style>
-</head>
-<body>
 
+// Méthode 2 : addEventListener
+btn.addEventListener("click", function(event) {
+  console.log("Clic sur :", event.target)
+})`,
+    starter: `let btn = document.querySelector("button")\nbtn.addEventListener("click", function() {\n  document.querySelector("h1").innerHTML = "Bouton cliqué !"\n  document.body.style.background = "#1a1a2e"\n  document.body.style.color = "white"\n})`
+  },
+  {
+    title: "Input value — Lire la saisie",
+    desc: `
+      <p>La propriété <strong>.value</strong> permet de lire ou de modifier la valeur d'un champ de saisie (<code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;select&gt;</code>).</p>
+      <p>On l'utilise souvent après un clic sur un bouton "Valider" pour récupérer ce que l'utilisateur a tapé.</p>
+      <div class="tip">💡 <code>input.value</code> est toujours une chaîne de caractères. Si vous attendez un nombre, utilisez <code>Number(input.value)</code> ou <code>parseInt(input.value)</code>.</div>
+    `,
+    code: `// Dans la sandbox, créez d'abord un input
+let input = document.createElement("input")
+input.placeholder = "Tapez votre nom"
+document.body.appendChild(input)
+
+let btn = document.querySelector("button")
+btn.addEventListener("click", function() {
+  let texte = input.value
+  alert("Vous avez tapé : " + texte)
+})`,
+    starter: `let input = document.createElement("input")\ninput.placeholder = "Votre nom"\ndocument.body.insertBefore(input, document.querySelector("button"))\n\nlet btn = document.querySelector("button")\nbtn.addEventListener("click", function() {\n  let nom = input.value\n  document.querySelector("h1").innerHTML = "Bonjour " + nom + " !"\n})`
+  },
+  {
+    title: "createElement — Créer des éléments",
+    desc: `
+      <p><strong>document.createElement()</strong> crée un nouvel élément HTML en mémoire. Il n'apparaît pas encore sur la page — il faut l'ajouter avec <strong>appendChild()</strong> ou <strong>append()</strong>.</p>
+      <p>On peut configurer l'élément avant de l'ajouter : modifier son innerHTML, son style, ses classes, ses attributs...</p>
+      <div class="tip">💡 Créer des éléments dynamiquement est la base des applications modernes (Todo lists, feeds, grilles de produits...).</div>
+    `,
+    code: `// Créer un élément
+let div = document.createElement("div")
+div.innerHTML = "Je suis une nouvelle div !"
+div.style.background = "gold"
+div.style.padding = "10px"
+div.style.margin = "10px"
+
+// L'ajouter à la page
+document.body.appendChild(div)`,
+    starter: `for (let i = 1; i <= 3; i++) {\n  let para = document.createElement("p")\n  para.innerHTML = "Paragraphe numéro " + i\n  para.style.color = "darkblue"\n  document.body.appendChild(para)\n}`
+  },
+  {
+    title: "appendChild — Ajouter dans le DOM",
+    desc: `
+      <p><strong>appendChild()</strong> insère un élément comme <strong>dernier enfant</strong> d'un parent. Il existe aussi <strong>prepend()</strong> pour ajouter au début, et <strong>insertBefore()</strong> pour une position précise.</p>
+      <p><strong>append()</strong> est une version plus moderne qui accepte aussi du texte directement.</p>
+      <div class="tip">💡 Pour déplacer un élément qui existe déjà, appellezjuste appendChild — il sera automatiquement retiré de son emplacement actuel.</div>
+    `,
+    code: `let liste = document.createElement("ul")
+document.body.appendChild(liste)
+
+let fruits = ["Mangue", "Orange", "Banane"]
+fruits.forEach(function(fruit) {
+  let item = document.createElement("li")
+  item.innerHTML = fruit
+  liste.appendChild(item)
+})`,
+    starter: `let liste = document.createElement("ul")\ndocument.body.appendChild(liste)\n\nlet prenoms = ["Fatou", "Moussa", "Aminata"]\nprenoms.forEach(function(p) {\n  let li = document.createElement("li")\n  li.innerHTML = p\n  liste.appendChild(li)\n})`
+  },
+  {
+    title: "remove() — Supprimer un élément",
+    desc: `
+      <p><strong>.remove()</strong> supprime l'élément du DOM. C'est la méthode moderne. L'ancienne méthode était <code>parentElement.removeChild(element)</code>.</p>
+      <p>L'élément est retiré de la page mais reste en mémoire (dans la variable). Vous pouvez le réajouter plus tard si besoin.</p>
+      <div class="tip">💡 Pour supprimer tous les enfants d'un élément rapidement : <code>element.innerHTML = ""</code>.</div>
+    `,
+    code: `let para = document.querySelector("p")
+let btn = document.querySelector("button")
+
+btn.addEventListener("click", function() {
+  para.remove()
+  console.log("Paragraphe supprimé !")
+})`,
+    starter: `let titre = document.querySelector("h1")\nlet btn = document.querySelector("button")\nlet clics = 0\nbtn.addEventListener("click", function() {\n  clics++\n  if (clics >= 3) {\n    titre.remove()\n    btn.innerHTML = "Titre supprimé !"\n  } else {\n    titre.innerHTML = "Encore " + (3-clics) + " clics..."\n  }\n})`
+  },
+  {
+    title: "classList — Gérer les classes CSS",
+    desc: `
+      <p><strong>classList</strong> offre des méthodes pour manipuler les classes CSS d'un élément sans toucher à toutes les autres.</p>
+      <p><strong>.add()</strong> ajoute, <strong>.remove()</strong> supprime, <strong>.contains()</strong> vérifie la présence d'une classe. C'est meilleur que modifier <code>element.className</code> qui écrase tout.</p>
+      <div class="tip">💡 Combiner JavaScript + CSS avec classList est la meilleure pratique : définissez les styles dans CSS, activez-les avec JS.</div>
+    `,
+    code: `let div = document.querySelector("div") || document.body
+
+// Ajouter une classe
+div.classList.add("surligné")
+
+// Vérifier
+console.log(div.classList.contains("surligné")) // true
+
+// Retirer
+div.classList.remove("surligné")`,
+    starter: `let titre = document.querySelector("h1")\nlet btn = document.querySelector("button")\n\nbtn.addEventListener("click", function() {\n  titre.style.color = titre.style.color === "red" ? "black" : "red"\n  titre.style.fontSize = titre.style.color === "red" ? "40px" : "24px"\n})`
+  },
+  {
+    title: "classList.toggle — Basculer une classe",
+    desc: `
+      <p><strong>classList.toggle()</strong> est très pratique : si la classe est absente, il l'ajoute ; si elle est présente, il la retire. C'est parfait pour les menus, les modes sombre/clair, les accordéons.</p>
+      <p>Il retourne <code>true</code> si la classe a été ajoutée, <code>false</code> si elle a été retirée.</p>
+      <div class="tip">💡 C'est la base du "dark mode" : une classe "dark" sur le body, et une condition CSS qui change les couleurs selon cette classe.</div>
+    `,
+    code: `let btn = document.querySelector("button")
+
+btn.addEventListener("click", function() {
+  // Bascule la classe "sombre" sur le body
+  let isDark = document.body.classList.toggle("dark")
+  btn.innerHTML = isDark ? "Mode Clair" : "Mode Sombre"
+})`,
+    starter: `let btn = document.querySelector("button")\nbtn.innerHTML = "Mode Sombre"\nbtn.addEventListener("click", function() {\n  let sombre = document.body.classList.toggle("dark")\n  document.body.style.background = sombre ? "#111" : "white"\n  document.body.style.color = sombre ? "white" : "black"\n  btn.innerHTML = sombre ? "Mode Clair" : "Mode Sombre"\n})`
+  },
+  {
+    title: "Math.random() — Nombres aléatoires",
+    desc: `
+      <p><strong>Math.random()</strong> génère un nombre décimal aléatoire entre 0 (inclus) et 1 (exclus). Pour obtenir un entier entre 0 et N : <code>Math.floor(Math.random() * N)</code>.</p>
+      <p>Pour un entier entre min et max : <code>Math.floor(Math.random() * (max - min + 1)) + min</code>.</p>
+      <div class="tip">💡 Math.random() est la base des jeux, des couleurs aléatoires, des sélections au hasard dans une liste.</div>
+    `,
+    code: `// Nombre entre 0 et 1
+console.log(Math.random())
+
+// Entier entre 1 et 6 (dé)
+let de = Math.floor(Math.random() * 6) + 1
+console.log("Dé :", de)
+
+// Couleur aléatoire
+let r = Math.floor(Math.random() * 256)
+let g = Math.floor(Math.random() * 256)
+let b = Math.floor(Math.random() * 256)
+document.body.style.background = \`rgb(\${r},\${g},\${b})\``,
+    starter: `let btn = document.querySelector("button")\nbtn.innerHTML = "Couleur aléatoire"\nbtn.addEventListener("click", function() {\n  let r = Math.floor(Math.random() * 256)\n  let g = Math.floor(Math.random() * 256)\n  let b = Math.floor(Math.random() * 256)\n  document.body.style.background = \`rgb(\${r},\${g},\${b})\`\n})`
+  },
+  {
+    title: "Date — Travailler avec les dates",
+    desc: `
+      <p>L'objet <strong>Date</strong> donne accès à la date et l'heure actuelle. Les méthodes principales : <strong>.getHours()</strong>, <strong>.getMinutes()</strong>, <strong>.getDate()</strong>, <strong>.getMonth()</strong> (0-11 !), <strong>.getFullYear()</strong>.</p>
+      <p>Attention : <code>getMonth()</code> retourne 0 pour janvier et 11 pour décembre. Ajoutez +1 pour l'affichage.</p>
+      <div class="tip">💡 Pour formater des dates proprement, regardez <code>toLocaleDateString("fr-FR")</code> qui gère automatiquement le format local.</div>
+    `,
+    code: `let maintenant = new Date()
+
+let heure = maintenant.getHours()
+let minutes = maintenant.getMinutes()
+let jour = maintenant.getDate()
+let mois = maintenant.getMonth() + 1  // +1 !
+let annee = maintenant.getFullYear()
+
+console.log(\`\${jour}/\${mois}/\${annee} \${heure}h\${minutes}\`)`,
+    starter: `let d = new Date()\nlet h = d.getHours()\nlet msg = h < 12 ? "Bonjour" : h < 18 ? "Bon après-midi" : "Bonsoir"\ndocument.querySelector("h1").innerHTML = msg + " ! Il est " + h + "h"\ndocument.querySelector("p").innerHTML = d.toLocaleDateString("fr-FR")`
+  },
+  {
+    title: "setTimeout — Délai d'exécution",
+    desc: `
+      <p><strong>setTimeout(fonction, délai)</strong> exécute une fonction une seule fois après un délai en <strong>millisecondes</strong>. 1000 ms = 1 seconde.</p>
+      <p>Il retourne un identifiant qu'on peut passer à <strong>clearTimeout(id)</strong> pour annuler l'exécution avant qu'elle n'ait lieu.</p>
+      <div class="tip">💡 setTimeout avec un délai de 0 ms ne s'exécute pas immédiatement — il attend quand même la fin du code en cours. C'est une subtilité importante du moteur JS.</div>
+    `,
+    code: `console.log("Début")
+
+setTimeout(function() {
+  console.log("3 secondes plus tard !")
+  document.querySelector("h1").innerHTML = "Temps écoulé !"
+}, 3000)
+
+console.log("Ce message apparaît avant !")`,
+    starter: `document.querySelector("h1").innerHTML = "Attendez 2 secondes..."\nsetTimeout(function() {\n  document.querySelector("h1").innerHTML = "✅ Message apparu !"\n  document.querySelector("h1").style.color = "green"\n}, 2000)`
+  },
+  {
+    title: "setInterval — Répétition automatique",
+    desc: `
+      <p><strong>setInterval(fonction, délai)</strong> répète l'exécution d'une fonction à intervalles réguliers. Pour l'arrêter, utilisez <strong>clearInterval(id)</strong> avec l'identifiant retourné.</p>
+      <p>Utile pour les horloges, les animations, les compteurs en temps réel, les slides automatiques.</p>
+      <div class="warning">⚠️ N'oubliez pas de clearInterval quand vous n'en avez plus besoin, sinon ça tourne indéfiniment en mémoire.</div>
+    `,
+    code: `let compteur = 0
+
+let intervalle = setInterval(function() {
+  compteur++
+  document.querySelector("h1").innerHTML = "Secondes : " + compteur
+  
+  if (compteur >= 10) {
+    clearInterval(intervalle)
+    console.log("Arrêté !")
+  }
+}, 1000)`,
+    starter: `// Horloge en temps réel\nlet interval = setInterval(function() {\n  let d = new Date()\n  let h = String(d.getHours()).padStart(2, "0")\n  let m = String(d.getMinutes()).padStart(2, "0")\n  let s = String(d.getSeconds()).padStart(2, "0")\n  document.querySelector("h1").innerHTML = h + ":" + m + ":" + s\n}, 1000)`
+  },
+  {
+    title: "JSON — Format de données",
+    desc: `
+      <p><strong>JSON</strong> (JavaScript Object Notation) est un format texte pour stocker et échanger des données. C'est le format standard des APIs web.</p>
+      <p><strong>JSON.stringify()</strong> convertit un objet JavaScript en texte JSON. <strong>JSON.parse()</strong> fait l'inverse : transforme du texte JSON en objet JavaScript.</p>
+      <div class="tip">💡 JSON ressemble aux objets JS mais les clés doivent être entre guillemets doubles et on ne peut pas mettre de fonctions dedans.</div>
+    `,
+    code: `let utilisateur = {
+  nom: "Fatou",
+  age: 25,
+  villes: ["Dakar", "Thiès"]
+}
+
+// Convertir en texte
+let texteJSON = JSON.stringify(utilisateur)
+console.log(texteJSON)  // {"nom":"Fatou",...}
+
+// Reconvertir en objet
+let objet = JSON.parse(texteJSON)
+console.log(objet.nom)  // Fatou`,
+    starter: `let data = { produit: "Téléphone", prix: 150000, dispo: true }\nlet json = JSON.stringify(data)\nconsole.log("JSON :", json)\nconsole.log("Longueur :", json.length, "caractères")\nlet back = JSON.parse(json)\nconsole.log("Prix :", back.prix, "FCFA")`
+  },
+  {
+    title: "localStorage — Stockage local",
+    desc: `
+      <p><strong>localStorage</strong> permet de sauvegarder des données dans le navigateur qui persistent même après fermeture. <strong>.setItem(clé, valeur)</strong> sauvegarde, <strong>.getItem(clé)</strong> récupère, <strong>.removeItem(clé)</strong> supprime.</p>
+      <p>Important : localStorage ne stocke que des chaînes. Pour des objets, utilisez JSON.stringify() avant de sauvegarder et JSON.parse() après avoir récupéré.</p>
+      <div class="tip">💡 localStorage est limité à environ 5MB et est propre à chaque domaine. N'y stockez jamais de données sensibles (mots de passe, tokens...).</div>
+    `,
+    code: `// Sauvegarder
+localStorage.setItem("prenom", "Moussa")
+localStorage.setItem("score", "1500")
+
+// Récupérer
+let prenom = localStorage.getItem("prenom")
+console.log(prenom)  // Moussa
+
+// Objet en JSON
+let user = { nom: "Diallo", age: 30 }
+localStorage.setItem("user", JSON.stringify(user))`,
+    starter: `let btn = document.querySelector("button")\nlet compteur = parseInt(localStorage.getItem("compteur")) || 0\ndocument.querySelector("h1").innerHTML = "Score : " + compteur\nbtn.innerHTML = "+1 Score"\nbtn.addEventListener("click", function() {\n  compteur++\n  localStorage.setItem("compteur", compteur)\n  document.querySelector("h1").innerHTML = "Score : " + compteur\n})`
+  },
+  {
+    title: "switch — Sélection multiple",
+    desc: `
+      <p><strong>switch</strong> est une alternative à plusieurs if/else quand on compare une variable à des valeurs précises. Chaque cas (<strong>case</strong>) se termine par <strong>break</strong> pour éviter de tomber dans le cas suivant.</p>
+      <p><strong>default</strong> est le cas "fourre-tout", exécuté si aucun case ne correspond.</p>
+      <div class="tip">💡 switch utilise la comparaison stricte (===). Il est surtout utile pour les menus, les gestion d'états, les jours de la semaine, etc.</div>
+    `,
+    code: `let jour = new Date().getDay() // 0=Dim, 1=Lun...
+
+switch (jour) {
+  case 1: console.log("Lundi"); break
+  case 2: console.log("Mardi"); break
+  case 3: console.log("Mercredi"); break
+  case 6:
+  case 0: console.log("Week-end !"); break
+  default: console.log("Autre jour")
+}`,
+    starter: `let saison = "hivernage"\nlet conseil\nswitch (saison) {\n  case "harmattan": conseil = "Pensez à vous hydrater !"; break\n  case "hivernage": conseil = "Prenez un parapluie !"; break\n  case "fraîche": conseil = "Profitez du soleil !"; break\n  default: conseil = "Bonne journée !"\n}\nconsole.log(conseil)\ndocument.querySelector("p").innerHTML = conseil`
+  },
+  {
+    title: "Arrow Functions — Fonctions fléchées",
+    desc: `
+      <p>Les <strong>fonctions fléchées</strong> sont une syntaxe plus concise pour écrire des fonctions. Au lieu de <code>function(x)</code>, on écrit <code>(x) =></code>.</p>
+      <p>Si la fonction tient sur une ligne et retourne une valeur, on peut encore simplifier : <code>x => x * 2</code> est équivalent à <code>function(x) { return x * 2 }</code>.</p>
+      <div class="tip">💡 Les arrow functions ne définissent pas leur propre <code>this</code> — c'est une différence importante avec les fonctions classiques, surtout dans les classes.</div>
+    `,
+    code: `// Fonction classique
+function double(n) { return n * 2 }
+
+// Fonction fléchée
+const doubleArrow = (n) => n * 2
+
+// Avec plusieurs lignes
+const saluer = (prenom) => {
+  let msg = "Bonjour " + prenom + " !"
+  return msg
+}
+
+console.log(doubleArrow(7))   // 14
+console.log(saluer("Fatou"))  // Bonjour Fatou !`,
+    starter: `const carre = n => n * n\nconst cube = n => n * n * n\nconsole.log("3² =", carre(3))\nconsole.log("2³ =", cube(2))\n\nconst estMajeur = age => age >= 18 ? "Majeur" : "Mineur"\nconsole.log(estMajeur(20))\nconsole.log(estMajeur(15))`
+  },
+  {
+    title: "map() — Transformer un tableau",
+    desc: `
+      <p><strong>.map()</strong> crée un <strong>nouveau tableau</strong> en appliquant une fonction à chaque élément. Le tableau original n'est pas modifié.</p>
+      <p>C'est l'une des méthodes de tableau les plus utilisées. Elle retourne toujours un tableau de la même taille que l'original.</p>
+      <div class="tip">💡 map + arrow function = combo puissant : <code>notes.map(n => n * 2)</code> double toutes les notes en une ligne !</div>
+    `,
+    code: `let notes = [12, 8, 15, 6, 18]
+
+// Ajouter 2 points à chaque note
+let notesBonus = notes.map(note => note + 2)
+console.log(notesBonus)  // [14, 10, 17, 8, 20]
+
+// Convertir en messages
+let messages = notes.map(n => "Note : " + n + "/20")
+console.log(messages)`,
+    starter: `let prix = [5000, 12000, 8500, 3000]\nlet prixTTC = prix.map(p => p * 1.18)  // +18% TVA\nconsole.log("Prix HT :", prix)\nconsole.log("Prix TTC :", prixTTC)\nlet affichage = prixTTC.map(p => Math.round(p) + " FCFA")\nconsole.log(affichage)`
+  },
+  {
+    title: "filter() — Filtrer un tableau",
+    desc: `
+      <p><strong>.filter()</strong> retourne un nouveau tableau contenant seulement les éléments pour lesquels la fonction retourne <strong>true</strong>. Le tableau original reste intact.</p>
+      <p>Contrairement à map(), filter() peut retourner un tableau plus petit que l'original.</p>
+      <div class="tip">💡 Combinez filter() et map() : d'abord filtrez, puis transformez. Exemple : garder les notes >10, puis les convertir en mentions.</div>
+    `,
+    code: `let notes = [12, 7, 15, 4, 18, 9, 11]
+
+// Garder les notes >= 10
+let admis = notes.filter(note => note >= 10)
+console.log("Admis :", admis)  // [12, 15, 18, 11]
+
+// Garder les nombres pairs
+let nombres = [1,2,3,4,5,6,7,8]
+let pairs = nombres.filter(n => n % 2 === 0)
+console.log("Pairs :", pairs)`,
+    starter: `let produits = [\n  { nom: "Téléphone", prix: 80000 },\n  { nom: "Casque", prix: 15000 },\n  { nom: "Montre", prix: 45000 },\n  { nom: "Câble", prix: 2000 }\n]\nlet abordables = produits.filter(p => p.prix < 20000)\nconsole.log("Produits < 20 000 FCFA :")\nabordables.forEach(p => console.log(p.nom, ":", p.prix, "FCFA"))`
+  },
+  {
+    title: "includes() — Vérifier l'existence",
+    desc: `
+      <p><strong>.includes()</strong> vérifie si un tableau (ou une chaîne) contient une valeur et retourne <code>true</code> ou <code>false</code>. C'est plus lisible que de chercher avec indexOf.</p>
+      <p>Pour les chaînes, <code>"Dakar Sénégal".includes("Sénégal")</code> retourne <code>true</code>.</p>
+      <div class="tip">💡 <code>includes()</code> utilise la comparaison stricte. Pour des objets, utilisez <code>.find()</code> ou <code>.some()</code> à la place.</div>
+    `,
+    code: `let fruits = ["Mangue", "Orange", "Banane"]
+
+console.log(fruits.includes("Mangue"))  // true
+console.log(fruits.includes("Pomme"))   // false
+
+// Dans une condition
+if (fruits.includes("Orange")) {
+  console.log("On a des oranges !")
+}
+
+// Dans une chaîne
+let texte = "Bonjour depuis Dakar"
+console.log(texte.includes("Dakar"))  // true`,
+    starter: `let vipList = ["Aminata", "Moussa", "Fatou"]\nlet invite = "Moussa"\nif (vipList.includes(invite)) {\n  console.log(invite + " est sur la liste VIP ✅")\n} else {\n  console.log(invite + " n'est pas sur la liste ❌")\n}`
+  },
+  {
+    title: "Fetch API — Requêtes réseau",
+    desc: `
+      <p><strong>fetch()</strong> envoie une requête HTTP et récupère des données depuis une API sur internet. Il retourne une <strong>Promise</strong> (promesse) car la requête prend du temps.</p>
+      <p>On utilise <strong>.then()</strong> pour traiter la réponse quand elle arrive. La réponse brute doit être convertie en JSON avec <code>.json()</code>.</p>
+      <div class="tip">💡 Fetch est la base de toutes les applications web modernes qui récupèrent des données dynamiques (météo, actualités, produits, utilisateurs...).</div>
+    `,
+    code: `// Récupérer des données d'une API publique
+fetch("https://jsonplaceholder.typicode.com/users/1")
+  .then(response => response.json())
+  .then(data => {
+    console.log("Nom :", data.name)
+    console.log("Email :", data.email)
+  })
+  .catch(erreur => {
+    console.log("Erreur :", erreur)
+  })`,
+    starter: `fetch("https://jsonplaceholder.typicode.com/posts/1")\n  .then(res => res.json())\n  .then(post => {\n    document.querySelector("h1").innerHTML = post.title\n    document.querySelector("p").innerHTML = post.body\n  })`
+  },
+  {
+    title: "Async / Await",
+    desc: `
+      <p><strong>async/await</strong> est une syntaxe plus lisible pour gérer les Promises. Une fonction déclarée <strong>async</strong> peut utiliser <strong>await</strong> pour "attendre" une Promise comme si c'était du code synchrone.</p>
+      <p>C'est exactement pareil que .then(), mais beaucoup plus lisible, surtout quand on enchaîne plusieurs requêtes.</p>
+      <div class="tip">💡 <code>await</code> ne fonctionne que dans une fonction déclarée <code>async</code>. C'est le standard moderne pour toutes les requêtes réseau.</div>
+    `,
+    code: `async function chargerUtilisateur(id) {
+  // await "attend" la fin de la requête
+  let reponse = await fetch(\`https://jsonplaceholder.typicode.com/users/\${id}\`)
+  let data = await reponse.json()
+  
+  console.log("Nom :", data.name)
+  console.log("Ville :", data.address.city)
+}
+
+chargerUtilisateur(2)`,
+    starter: `async function chargerPost() {\n  let res = await fetch("https://jsonplaceholder.typicode.com/posts/5")\n  let post = await res.json()\n  document.querySelector("h1").innerHTML = post.title\n  document.querySelector("p").innerHTML = post.body\n}\nchargerPost()`
+  },
+  {
+    title: "try/catch — Gestion des erreurs",
+    desc: `
+      <p><strong>try/catch</strong> permet d'intercepter les erreurs sans faire planter le programme. Le code dans <code>try</code> est testé, et si une erreur survient, elle est capturée dans <code>catch</code>.</p>
+      <p><strong>finally</strong> (optionnel) s'exécute toujours, erreur ou non. Pratique pour fermer des connexions, masquer un loader, etc.</p>
+      <div class="tip">💡 Avec async/await, combinez try/catch pour gérer les erreurs réseau : si le fetch échoue (pas de connexion, serveur down), le catch l'attrape.</div>
+    `,
+    code: `async function chargerDonnees() {
+  try {
+    let res = await fetch("https://jsonplaceholder.typicode.com/posts/1")
+    let data = await res.json()
+    console.log("Succès :", data.title)
+  } catch (erreur) {
+    console.log("Erreur capturée :", erreur.message)
+  } finally {
+    console.log("Requête terminée (succès ou échec)")
+  }
+}
+
+chargerDonnees()`,
+    starter: `try {\n  let resultat = JSON.parse("texte invalide {{{}")\n  console.log(resultat)\n} catch (erreur) {\n  console.log("Erreur JSON :", erreur.message)\n} finally {\n  console.log("Programme continue normalement")\n}`
+  },
+  {
+    title: "Template Strings — Interpolation",
+    desc: `
+      <p>Les <strong>template strings</strong> (littéraux de gabarit) utilisent les backticks <code>\`\`</code> et permettent d'insérer des variables directement dans le texte avec <code>\${variable}</code>. Fini la concatenation avec <code>+</code> !</p>
+      <p>Ils supportent aussi les sauts de ligne directs (sans <code>\\n</code>) et peuvent contenir n'importe quelle expression JS dans les <code>\${}</code>.</p>
+      <div class="tip">💡 Dans <code>\${}</code> vous pouvez mettre n'importe quelle expression : <code>\${age >= 18 ? "majeur" : "mineur"}</code>, <code>\${prix * 1.2}</code>, etc.</div>
+    `,
+    code: `let prenom = "Moussa"
+let age = 25
+let ville = "Dakar"
+
+// Ancienne méthode
+console.log("Bonjour " + prenom + ", " + age + " ans, de " + ville)
+
+// Template string (beaucoup plus lisible !)
+console.log(\`Bonjour \${prenom}, \${age} ans, de \${ville}\`)
+console.log(\`Dans 10 ans : \${age + 10} ans\`)`,
+    starter: `let nom = "Aminata"\nlet note = 17\nlet mention = note >= 16 ? "Très Bien" : note >= 14 ? "Bien" : "Passable"\nconsole.log(\`Étudiant(e) : \${nom}\`)\nconsole.log(\`Note : \${note}/20 — Mention : \${mention}\`)\ndocument.querySelector("h1").innerHTML = \`Résultats de \${nom}\`\ndocument.querySelector("p").innerHTML = \`\${note}/20 — \${mention}\``
+  },
+  {
+    title: "Destructuring — Extraction de valeurs",
+    desc: `
+      <p>Le <strong>destructuring</strong> permet d'extraire des valeurs d'objets ou de tableaux en une seule ligne, plutôt que d'écrire plusieurs assignments.</p>
+      <p>Pour les objets : <code>const { nom, age } = user</code>. Pour les tableaux : <code>const [premier, second] = tableau</code>. On peut aussi renommer : <code>const { nom: prenom } = user</code>.</p>
+      <div class="tip">💡 Le destructuring dans les paramètres de fonction est très courant : <code>function afficher({ nom, age })</code> — on passe un objet et on extrait directement ce dont on a besoin.</div>
+    `,
+    code: `let etudiant = { prenom: "Fatou", age: 22, ville: "Thiès", note: 15 }
+
+// Sans destructuring
+let nom1 = etudiant.prenom
+let age1 = etudiant.age
+
+// Avec destructuring (bien mieux !)
+const { prenom, age, ville, note } = etudiant
+console.log(\`\${prenom}, \${age} ans, \${ville}, note: \${note}\`)
+
+// Tableaux
+const [or, argent, bronze] = ["Moussa", "Fatou", "Ali"]
+console.log("Champion :", or)`,
+    starter: `let produit = { nom: "Laptop", prix: 450000, stock: 12, marque: "Dell" }\nconst { nom, prix, stock } = produit\nconsole.log(\`\${nom} — \${prix} FCFA (stock: \${stock})\`)\n\nconst [a, b, c] = [10, 20, 30]\nconsole.log("Somme :", a + b + c)`
+  },
+  {
+    title: "Spread Operator — Expansion",
+    desc: `
+      <p>L'opérateur <strong>spread</strong> (<code>...</code>) "étale" les éléments d'un tableau ou les propriétés d'un objet. Il est très utile pour copier, fusionner, ou passer des arguments.</p>
+      <p>Pour copier un tableau : <code>[...original]</code>. Pour fusionner : <code>[...tab1, ...tab2]</code>. Pour les objets : <code>{ ...obj1, ...obj2 }</code>.</p>
+      <div class="tip">💡 Sans spread, copier un tableau avec <code>let b = a</code> donne deux variables qui pointent vers le même tableau ! Spread crée une vraie copie indépendante.</div>
+    `,
+    code: `let fruits = ["Mangue", "Orange"]
+let legumes = ["Tomate", "Oignon"]
+
+// Fusionner
+let aliments = [...fruits, ...legumes]
+console.log(aliments)
+
+// Copier sans lien
+let copie = [...fruits]
+copie.push("Banane")
+console.log(fruits)  // Inchangé !
+console.log(copie)   // Avec Banane`,
+    starter: `let user1 = { nom: "Moussa", role: "utilisateur" }\nlet infosSup = { age: 28, ville: "Dakar", premium: true }\n\n// Fusionner les objets\nlet userComplet = { ...user1, ...infosSup }\nconsole.log(userComplet)\nconsole.log("Rôle :", userComplet.role)\nconsole.log("Ville :", userComplet.ville)`
+  },
+  {
+    title: "Modules ES6",
+    desc: `
+      <p>Les <strong>modules</strong> permettent de diviser le code en fichiers séparés. <strong>export</strong> expose des fonctions ou variables, <strong>import</strong> les récupère dans un autre fichier.</p>
+      <p>Il y a deux types : <strong>export default</strong> (un seul par fichier) et les <strong>named exports</strong> (autant qu'on veut). Pour utiliser les modules dans le navigateur, ajoutez <code>type="module"</code> à la balise script.</p>
+      <div class="tip">💡 Les modules sont la base de tout projet JavaScript moderne (React, Vue, Node.js). Ils évitent la pollution de l'espace global et rendent le code plus maintenable.</div>
+    `,
+    code: `// fichier: utils.js
+export function calculerTTC(prix) {
+  return prix * 1.18
+}
+export const TVA = 0.18
+
+// fichier: main.js
+// import { calculerTTC, TVA } from "./utils.js"
+
+// export default (pour la chose principale du fichier)
+// export default class User { ... }`,
+    starter: `// Dans ce playground (sans modules), simulation :
+const utils = {\n  double: n => n * 2,\n  carre: n => n * n,\n  bonjour: nom => \`Bonjour \${nom} !\`\n}\n\nconsole.log(utils.double(5))\nconsole.log(utils.carre(4))\nconsole.log(utils.bonjour("Aminata"))`
+  },
+  {
+    title: "Classes",
+    desc: `
+      <p>Les <strong>classes</strong> sont des modèles pour créer des objets avec la même structure. C'est la programmation <strong>orientée objet</strong>. Une classe définit des propriétés et des méthodes communes.</p>
+      <p>On crée un objet (instance) avec le mot-clé <strong>new</strong>. Chaque instance est indépendante des autres.</p>
+      <div class="tip">💡 Les classes peuvent hériter d'autres classes avec <code>extends</code>. Une classe <code>Etudiant extends Personne</code> hérite de toutes les propriétés de Personne.</div>
+    `,
+    code: `class Animal {
+  parler() {
+    console.log("...")
+  }
+}
+
+class Chien extends Animal {
+  parler() {
+    console.log("Woof !")
+  }
+}
+
+class Chat extends Animal {
+  parler() {
+    console.log("Miaou !")
+  }
+}
+
+new Chien().parler()
+new Chat().parler()`,
+    starter: `class Voiture {\n  demarrer() { console.log(this.marque + " démarre !") }\n  klaxonner() { console.log(this.marque + " : Beep beep !") }\n}\n\nclass Renault extends Voiture {\n  constructor() { super(); this.marque = "Renault" }\n}\n\nlet r = new Renault()\nr.demarrer()\nr.klaxonner()`
+  },
+  {
+    title: "Constructor — Initialisation",
+    desc: `
+      <p>Le <strong>constructor</strong> est une méthode spéciale qui s'exécute automatiquement lors de la création d'une instance avec <code>new</code>. Il initialise les propriétés de l'objet.</p>
+      <p>Le mot-clé <strong>this</strong> fait référence à l'instance en cours de création. <code>this.nom = nom</code> assigne la valeur passée en paramètre à la propriété <code>nom</code> de cet objet spécifique.</p>
+      <div class="tip">💡 Dans une classe enfant, si vous définissez un constructor, appelez <code>super()</code> en premier pour initialiser le parent.</div>
+    `,
+    code: `class Etudiant {
+  constructor(prenom, note) {
+    this.prenom = prenom
+    this.note = note
+    this.mention = note >= 16 ? "Très Bien" : "Passable"
+  }
+  
+  afficher() {
+    console.log(\`\${this.prenom} : \${this.note}/20 (\${this.mention})\`)
+  }
+}
+
+let e1 = new Etudiant("Fatou", 17)
+let e2 = new Etudiant("Moussa", 11)
+e1.afficher()
+e2.afficher()`,
+    starter: `class Produit {\n  constructor(nom, prix) {\n    this.nom = nom\n    this.prix = prix\n  }\n  afficher() {\n    console.log(\`\${this.nom} : \${this.prix} FCFA\`)\n  }\n}\n\nlet p1 = new Produit("Téléphone", 120000)\nlet p2 = new Produit("Casque", 18000)\np1.afficher()\np2.afficher()`
+  },
+  {
+    title: "APIs — Communiquer avec des services",
+    desc: `
+      <p>Une <strong>API</strong> (Application Programming Interface) est un service web qui expose des données ou fonctionnalités. On l'interroge via des URLs (<strong>endpoints</strong>) avec fetch().</p>
+      <p>La plupart des APIs retournent du JSON. Certaines nécessitent une <strong>clé API</strong> (API key) pour s'authentifier — elle s'envoie dans les headers de la requête.</p>
+      <div class="tip">💡 APIs publiques gratuites pour s'exercer : JSONPlaceholder (fausses données), Open-Meteo (météo), RestCountries (pays), PokeAPI (Pokémon)...</div>
+    `,
+    code: `// API publique : informations sur un pays
+async function infoPays(pays) {
+  let res = await fetch(\`https://restcountries.com/v3.1/name/\${pays}\`)
+  let data = await res.json()
+  let info = data[0]
+  console.log("Pays :", info.name.common)
+  console.log("Capitale :", info.capital[0])
+  console.log("Population :", info.population.toLocaleString())
+}
+
+infoPays("senegal")`,
+    starter: `async function infosPays() {\n  let res = await fetch("https://restcountries.com/v3.1/name/senegal")\n  let data = await res.json()\n  let pays = data[0]\n  document.querySelector("h1").innerHTML = pays.name.common\n  document.querySelector("p").innerHTML = \`Capitale : \${pays.capital[0]} | Pop : \${pays.population.toLocaleString()}\`\n}\ninfosPays()`
+  },
+  {
+    title: "🎓 Projet Final — Application complète",
+    desc: `
+      <p>Félicitations ! Vous avez parcouru les 50 leçons essentielles de JavaScript. Vous maîtrisez maintenant les <strong>fondamentaux</strong> : variables, fonctions, DOM, boucles, tableaux, objets, classes, et les API.</p>
+      <p>Le playground ci-contre contient un mini-projet de <strong>Todo List</strong> qui combine tout ce que vous avez appris : manipulation du DOM, événements, tableaux, localStorage, et template strings.</p>
+      <div class="tip">💡 Prochaines étapes : React.js (composants UI), Node.js (JavaScript côté serveur), et TypeScript (JavaScript avec types). Bonne continuation ! 🚀</div>
+    `,
+    code: `// Application Todo List complète
+let todos = JSON.parse(localStorage.getItem("todos")) || []
+
+function sauvegarder() {
+  localStorage.setItem("todos", JSON.stringify(todos))
+}
+
+function afficher() {
+  let liste = document.getElementById("liste")
+  if (!liste) return
+  liste.innerHTML = todos.map((todo, i) =>
+    \`<li style="margin:5px 0;display:flex;gap:8px;align-items:center">
+      <span style="\${todo.fait ? 'text-decoration:line-through;opacity:0.5' : ''}">\${todo.texte}</span>
+      <button onclick="toggleTodo(\${i})" style="padding:2px 8px;font-size:12px">\${todo.fait ? "↩" : "✓"}</button>
+      <button onclick="supprimerTodo(\${i})" style="padding:2px 8px;font-size:12px;background:#f87171">✕</button>
+    </li>\`
+  ).join("")
+}
+
+function ajouterTodo() {
+  let input = document.getElementById("inputTodo")
+  if (!input || !input.value.trim()) return
+  todos.push({ texte: input.value.trim(), fait: false })
+  input.value = ""
+  sauvegarder(); afficher()
+}
+
+function toggleTodo(i) { todos[i].fait = !todos[i].fait; sauvegarder(); afficher() }
+function supprimerTodo(i) { todos.splice(i, 1); sauvegarder(); afficher() }
+
+afficher()`,
+    starter: `// 🎓 Projet Final : Todo List\nlet todos = []\n\nfunction creerInterface() {\n  document.querySelector("h1").innerHTML = "📝 Ma Todo List"\n  let container = document.body\n  let form = document.createElement("div")\n  form.style.cssText = "display:flex;gap:8px;margin:10px 0"\n  form.innerHTML = \`<input id="inputTodo" placeholder="Nouvelle tâche..." style="flex:1;padding:8px;border:1px solid #ccc;border-radius:4px"><button onclick="ajouterTodo()" style="padding:8px 16px">Ajouter</button>\`\n  let liste = document.createElement("ul")\n  liste.id = "liste"\n  liste.style.listStyle = "none"\n  container.appendChild(form)\n  container.appendChild(liste)\n}\n\nfunction ajouterTodo() {\n  let input = document.getElementById("inputTodo")\n  if (!input.value.trim()) return\n  todos.push({ texte: input.value.trim(), fait: false })\n  input.value = ""\n  afficher()\n}\n\nfunction afficher() {\n  let liste = document.getElementById("liste")\n  liste.innerHTML = todos.map((t, i) =>\n    \`<li style="margin:5px 0;display:flex;gap:8px">\n      <span style="\${t.fait ? 'text-decoration:line-through;opacity:0.5' : ''}">\${t.texte}</span>\n      <button onclick="todos[\${i}].fait=!todos[\${i}].fait;afficher()" style="font-size:12px">\${t.fait ? "↩" : "✓"}</button>\n    </li>\`\n  ).join("")\n}\n\ncreerInterface()`
+  }
+]
+
+const CATEGORIES = [
+  { label: "Les bases", range: [0, 7] },
+  { label: "Logique", range: [8, 11] },
+  { label: "Fonctions", range: [12, 14] },
+  { label: "Structures", range: [15, 17] },
+  { label: "DOM", range: [18, 21] },
+  { label: "Événements", range: [22, 25] },
+  { label: "Manipulation", range: [26, 29] },
+  { label: "Temps & Dates", range: [30, 33] },
+  { label: "Avancé", range: [34, 40] },
+  { label: "Asynchrone", range: [41, 43] },
+  { label: "Moderne ES6+", range: [44, 47] },
+  { label: "APIs & POO", range: [48, 49] }
+]
+
+let currentLesson = 0
+let doneLessons = new Set(JSON.parse(localStorage.getItem("doneLessons") || "[]"))
+
+function buildSidebar() {
+  const sb = document.getElementById("sidebar")
+  sb.innerHTML = ""
+  CATEGORIES.forEach(cat => {
+    let section = document.createElement("div")
+    section.className = "sidebar-section"
+    section.textContent = cat.label
+    sb.appendChild(section)
+    for (let i = cat.range[0]; i <= cat.range[1]; i++) {
+      let item = document.createElement("div")
+      item.className = "sidebar-item" + (i === currentLesson ? " active" : "") + (doneLessons.has(i) ? " done" : "")
+      item.dataset.idx = i
+      item.innerHTML = `<span class="num">${String(i+1).padStart(2,"0")}</span><span>${lessons[i].title.replace(/🎓 /,"")}</span>`
+      item.addEventListener("click", () => goTo(i))
+      sb.appendChild(item)
+    }
+  })
+}
+
+function renderLesson() {
+  const l = lessons[currentLesson]
+  const panel = document.getElementById("lesson-panel")
+  panel.innerHTML = `
+    <div class="lesson-number">Leçon ${String(currentLesson+1).padStart(2,"0")} / 50</div>
+    <div class="lesson-title">${l.title}</div>
+    <div class="lesson-desc">${l.desc}</div>
+    <div class="code-block">
+      <div class="code-header">
+        <span>Exemple</span>
+        <button class="try-btn" onclick="loadExample()">Essayer dans le playground →</button>
+      </div>
+      <pre>${highlight(l.code)}</pre>
+    </div>
+    <div class="nav-buttons">
+      ${currentLesson > 0 ? `<button class="nav-btn prev" onclick="goTo(${currentLesson-1})">← Précédent</button>` : ""}
+      ${currentLesson < lessons.length-1 ? `<button class="nav-btn next" onclick="markAndNext()">Suivant →</button>` : `<button class="nav-btn next" onclick="markDone()">✅ Terminer</button>`}
+    </div>
+  `
+  panel.scrollTop = 0
+  document.getElementById("editor").value = lessons[currentLesson].starter
+  runCode()
+  updateProgress()
+}
+
+function highlight(code) {
+  return code
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/\/\/.*/g, m => `<span class="cmt">${m}</span>`)
+    .replace(/\b(let|const|var|function|return|if|else|for|while|class|new|this|async|await|import|export|default|switch|case|break|try|catch|finally|extends|super|typeof|of|in)\b/g, '<span class="kw">$1</span>')
+    .replace(/\b(console|document|Math|Date|localStorage|JSON|fetch|alert|setTimeout|setInterval|clearInterval)\b/g, '<span class="fn">$1</span>')
+    .replace(/"([^"]*)"/g, '<span class="str">"$1"</span>')
+    .replace(/`([^`]*)`/g, (m, s) => `<span class="str">\`${s}\`</span>`)
+    .replace(/\b(\d+\.?\d*)\b/g, '<span class="num-lit">$1</span>')
+}
+
+function goTo(idx) {
+  currentLesson = idx
+  buildSidebar()
+  renderLesson()
+}
+
+function markAndNext() {
+  doneLessons.add(currentLesson)
+  localStorage.setItem("doneLessons", JSON.stringify([...doneLessons]))
+  goTo(currentLesson + 1)
+}
+
+function markDone() {
+  doneLessons.add(currentLesson)
+  localStorage.setItem("doneLessons", JSON.stringify([...doneLessons]))
+  buildSidebar()
+  updateProgress()
+  document.getElementById("lesson-panel").querySelector(".nav-btn.next").innerHTML = "✅ Terminé !"
+}
+
+function loadExample() {
+  document.getElementById("editor").value = lessons[currentLesson].code
+  runCode()
+}
+
+function updateProgress() {
+  const pct = (doneLessons.size / 50 * 100).toFixed(0)
+  document.getElementById("progress-fill").style.width = pct + "%"
+  document.getElementById("progress-text").textContent = `${doneLessons.size} / 50`
+}
+
+function runCode() {
+  let js = document.getElementById('editor').value
+  let iframe = document.getElementById('result')
+  iframe.srcdoc = `<!DOCTYPE html><html><head><style>
+body{font-family:Arial;padding:16px;font-size:14px;line-height:1.6}
+h1{font-size:20px;margin-bottom:8px}
+button{padding:8px 16px;cursor:pointer;border:none;background:#f0c040;border-radius:5px;font-weight:bold}
+input{padding:8px;border:1px solid #ddd;border-radius:4px;font-size:14px}
+ul{padding-left:20px}
+</style></head><body>
 <h1>Bienvenue</h1>
-
-<p>
-Apprenez JavaScript facilement.
-</p>
-
+<p>Apprenez JavaScript facilement.</p>
 <button>Bouton</button>
-
-<script>
-${js}
-<\/script>
-
-</body>
-</html>
-`;
-
+<script>${js}<\/script>
+</body></html>`
 }
 
-runCode();
+// Init
+buildSidebar()
+renderLesson()
 
 </script>
-
 </body>
 </html>
-```
