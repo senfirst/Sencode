@@ -5,498 +5,837 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sencode</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220960902615393"
-     crossorigin="anonymous"></script>
-  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220960902615393" crossorigin="anonymous"></script>
+
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+:root {
+  --green: #00c896;
+  --green-dark: #009e78;
+  --green-glow: rgba(0,200,150,0.18);
+  --bg-dark: #0a0f1a;
+  --bg-card: #101624;
+  --bg-card2: #141d2e;
+  --border: rgba(255,255,255,0.07);
+  --text: #eef2ff;
+  --text-muted: #8892aa;
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'Space Mono', monospace;
 }
 
-body{
-background:#f5f5f5;
-color:#222;
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-header{
-background:#111;
-padding:20px 8%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-position:sticky;
-top:0;
-z-index:1000;
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-dark);
+  color: var(--text);
+  font-family: var(--font-display);
+  overflow-x: hidden;
 }
 
-.logo{
-font-size:32px;
-font-weight:bold;
-color:#00c896;
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { background: var(--green-dark); border-radius: 3px; }
+
+/* ── HEADER ── */
+header {
+  background: rgba(10,15,26,0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 0 8%;
+  height: 68px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--border);
 }
 
-nav a{
-color:white;
-text-decoration:none;
-margin:0 15px;
-font-size:16px;
+.logo {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--green);
+  letter-spacing: -1px;
+  font-family: var(--font-mono);
+}
+.logo span { color: var(--text); }
+
+nav { display: flex; gap: 8px; }
+
+nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+  letter-spacing: 0.3px;
+}
+nav a:hover {
+  color: var(--text);
+  background: rgba(255,255,255,0.05);
 }
 
-.hero{
-height:80vh;
-background:linear-gradient(135deg,#0f172a,#111827);
-color:white;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:20px;
+/* ── HERO ── */
+.hero {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 8% 60px;
+  position: relative;
+  overflow: hidden;
 }
 
-.hero h1{
-font-size:60px;
-margin-bottom:20px;
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 0%, rgba(0,200,150,0.13) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 80% 80%, rgba(0,100,200,0.08) 0%, transparent 60%);
+  pointer-events: none;
 }
 
-.hero p{
-font-size:22px;
-margin-bottom:25px;
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%);
+  pointer-events: none;
 }
 
-.search-box{
-display:flex;
-width:90%;
-max-width:600px;
-background:white;
-border-radius:50px;
-overflow:hidden;
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,200,150,0.1);
+  border: 1px solid rgba(0,200,150,0.25);
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 13px;
+  color: var(--green);
+  font-family: var(--font-mono);
+  margin-bottom: 32px;
+  animation: fadeSlideDown 0.6s ease both;
+}
+.hero-badge::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+.hero h1 {
+  font-size: clamp(44px, 7vw, 82px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -2.5px;
+  margin-bottom: 24px;
+  animation: fadeSlideDown 0.7s 0.1s ease both;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--green);
 }
 
-.search-box input{
-flex:1;
-padding:18px;
-border:none;
-outline:none;
-font-size:18px;
+.hero p {
+  font-size: clamp(16px, 2.2vw, 20px);
+  color: var(--text-muted);
+  max-width: 520px;
+  line-height: 1.65;
+  margin-bottom: 40px;
+  font-weight: 400;
+  animation: fadeSlideDown 0.7s 0.2s ease both;
 }
 
-.search-box button{
-width:70px;
-background:#00c896;
-color:white;
-border:none;
-cursor:pointer;
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.languages{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-padding:70px 8%;
+/* ── SEARCH ── */
+.search-box {
+  display: flex;
+  width: 100%;
+  max-width: 560px;
+  background: var(--bg-card);
+  border: 1px solid rgba(0,200,150,0.25);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  animation: fadeSlideDown 0.7s 0.3s ease both;
+}
+.search-box:focus-within {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(0,200,150,0.12);
+}
+.search-box input {
+  flex: 1;
+  padding: 17px 22px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-display);
+}
+.search-box input::placeholder { color: var(--text-muted); }
+.search-box button {
+  width: 60px;
+  background: var(--green);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 17px;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.search-box button:hover { background: var(--green-dark); }
+
+/* ── SECTION TITLE ── */
+.section-title {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.section-title h2 {
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  margin-bottom: 12px;
+}
+.section-title p {
+  color: var(--text-muted);
+  font-size: 17px;
+}
+.section-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--green);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
 }
 
-.card{
-padding:35px;
-border-radius:20px;
-color:white;
-text-align:center;
-box-shadow:0 10px 25px rgba(0,0,0,0.15);
-transition:0.3s;
+/* ── LANGUAGES / CARDS ── */
+.languages {
+  padding: 90px 8%;
 }
 
-.card:hover{
-transform:translateY(-10px);
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
 }
 
-.card h2{
-font-size:42px;
-margin-bottom:15px;
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 36px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: 20px 20px 0 0;
+  background: var(--card-accent);
+  opacity: 0.9;
+}
+.card:hover {
+  transform: translateY(-6px);
+  border-color: var(--card-accent);
+  box-shadow: 0 20px 50px -12px var(--card-shadow);
 }
 
-.card p{
-margin-bottom:20px;
-font-size:18px;
-line-height:1.5;
+.card-icon {
+  font-size: 42px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--card-accent);
+  line-height: 1;
 }
 
-.card button{
-padding:12px 22px;
-border:none;
-border-radius:8px;
-background:white;
-font-weight:bold;
-cursor:pointer;
-font-size:16px;
+.card h2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
-.card a{
-text-decoration:none;
+.card p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  flex: 1;
 }
 
-.html{background:#e44d26;}
-.css{background:#264de4;}
-.js{background:#f0db4f;color:#111;}
-.python{background:#3776ab;}
-.xml{background:#ff6600;}
-.c{background:#555;}
-.csharp{background:#68217a;}
-.cpp{background:#004482;}
+.card a { text-decoration: none; margin-top: 8px; }
 
-.editor-section{
-padding:80px 8%;
-background:#111827;
-color:white;
+.card button {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--card-accent);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--card-accent);
+  font-weight: 700;
+  font-size: 14px;
+  font-family: var(--font-display);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  letter-spacing: 0.3px;
+}
+.card button:hover {
+  background: var(--card-accent);
+  color: #0a0f1a;
 }
 
-.editor-section h1{
-margin-bottom:20px;
+.html { --card-accent: #e44d26; --card-shadow: rgba(228,77,38,0.25); }
+.css  { --card-accent: #4d7fde; --card-shadow: rgba(77,127,222,0.25); }
+.js   { --card-accent: #f0db4f; --card-shadow: rgba(240,219,79,0.25); }
+.python { --card-accent: #4eb8f0; --card-shadow: rgba(78,184,240,0.25); }
+.xml  { --card-accent: #ff8533; --card-shadow: rgba(255,133,51,0.25); }
+.c    { --card-accent: #9fa8b8; --card-shadow: rgba(159,168,184,0.25); }
+.csharp { --card-accent: #ae75d9; --card-shadow: rgba(174,117,217,0.25); }
+.cpp  { --card-accent: #5b9dce; --card-shadow: rgba(91,157,206,0.25); }
+
+/* ── EDITOR SECTION ── */
+.editor-section {
+  padding: 90px 8%;
+  background: var(--bg-card2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
-.editor-container{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px;
-margin-top:20px;
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-textarea{
-width:100%;
-height:500px;
-background:#0f172a;
-color:#00ff99;
-padding:20px;
-border:none;
-border-radius:15px;
-font-family:monospace;
-font-size:15px;
-resize:none;
+.lang-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
-iframe{
-width:100%;
-height:500px;
-background:white;
-border:none;
-border-radius:15px;
+.lang-tab {
+  padding: 8px 18px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: 0.2s;
+}
+.lang-tab:hover { color: var(--text); border-color: rgba(255,255,255,0.15); }
+.lang-tab.active {
+  background: var(--green);
+  color: #0a0f1a;
+  border-color: var(--green);
 }
 
-.run-btn{
-padding:12px 20px;
-background:#00c896;
-border:none;
-border-radius:8px;
-color:white;
-font-weight:bold;
-cursor:pointer;
+.run-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background: var(--green);
+  border: none;
+  border-radius: 10px;
+  color: #0a0f1a;
+  font-weight: 700;
+  font-size: 14px;
+  font-family: var(--font-display);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.run-btn:hover { background: var(--green-dark); transform: scale(1.03); }
+.run-btn:active { transform: scale(0.98); }
+
+.editor-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
 
-footer{
-background:#111;
-color:white;
-text-align:center;
-padding:25px;
-margin-top:40px;
+.editor-pane {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
 }
 
+.editor-pane-header {
+  background: rgba(255,255,255,0.03);
+  padding: 10px 18px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.editor-pane-header::before {
+  content: '';
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  opacity: 0.7;
+}
+
+textarea {
+  width: 100%;
+  height: 460px;
+  background: #080d16;
+  color: #a9ffcb;
+  padding: 20px;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  resize: none;
+  outline: none;
+  line-height: 1.7;
+  display: block;
+}
+
+iframe {
+  width: 100%;
+  height: 460px;
+  background: white;
+  border: none;
+  display: block;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  padding: 40px 8%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.footer-logo {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--green);
+  font-family: var(--font-mono);
+  letter-spacing: -1px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--green); }
+
+.footer-copy {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* ── COOKIE BANNER ── */
+.cookie-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: var(--bg-card);
+  border: 1px solid rgba(0,200,150,0.2);
+  color: var(--text);
+  padding: 24px 28px;
+  border-radius: 18px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  z-index: 99999;
+  display: none;
+  max-width: 580px;
+  margin: 0 auto;
+  font-family: var(--font-display);
+}
+.cookie-content h3 {
+  margin-bottom: 10px;
+  color: var(--green);
+  font-size: 18px;
+  font-weight: 700;
+}
+.cookie-content p {
+  line-height: 1.65;
+  margin-bottom: 18px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+.cookie-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.cookie-buttons button {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  font-family: var(--font-display);
+  transition: 0.2s;
+}
+#accept-cookies { background: var(--green); color: #0a0f1a; }
+#accept-cookies:hover { background: var(--green-dark); }
+.reject { background: rgba(255,255,255,0.07); color: var(--text); }
+.reject:hover { background: rgba(255,255,255,0.12); }
+.cookie-content a { color: var(--green); text-decoration: none; font-size: 13px; }
+.cookie-content a:hover { text-decoration: underline; }
+
+/* ── ANIMATIONS ── */
+.card {
+  opacity: 0;
+  animation: cardIn 0.5s ease forwards;
+}
+.card:nth-child(1){animation-delay:0.05s}
+.card:nth-child(2){animation-delay:0.1s}
+.card:nth-child(3){animation-delay:0.15s}
+.card:nth-child(4){animation-delay:0.2s}
+.card:nth-child(5){animation-delay:0.25s}
+.card:nth-child(6){animation-delay:0.3s}
+.card:nth-child(7){animation-delay:0.35s}
+.card:nth-child(8){animation-delay:0.4s}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ── */
 @media(max-width:900px){
-
-.hero h1{
-font-size:40px;
+  header { padding: 0 5%; }
+  nav { display: none; }
+  .hero { padding: 60px 5% 40px; }
+  .languages { padding: 60px 5%; }
+  .editor-section { padding: 60px 5%; }
+  .editor-container { grid-template-columns: 1fr; }
+  footer { padding: 30px 5%; }
 }
 
-.editor-container{
-grid-template-columns:1fr;
-}
-
-nav{
-display:none;
-}
-
+@media(max-width:480px){
+  .search-box { border-radius: 12px; }
+  .cards-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
-
 <body>
 
 <header>
-
-<div class="logo">Sencode</div>
-
-<nav>
-<a href="#home">Accueil</a>
-<a href="#courses">Cours</a>
-<a href="#editor">Éditeur</a>
-</nav>
-
+  <div class="logo">Sen<span>code</span></div>
+  <nav>
+    <a href="#home">Accueil</a>
+    <a href="#courses">Cours</a>
+    <a href="#editor">Éditeur</a>
+  </nav>
 </header>
 
+<!-- ── HERO ── -->
 <section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
 
-<h1>Bienvenue sur Sencode</h1>
+  <div class="hero-badge">Plateforme 100% gratuite</div>
 
-<p>Apprends le développement web gratuitement.</p>
-<!-- =========================
-BANNIÈRE COOKIES RGPD + CPRA
-Sencode.site
-========================= -->
+  <h1>Apprends à coder<br><em>dès aujourd'hui.</em></h1>
 
+  <p>Sencode te guide pas à pas dans le développement web, du HTML au Python — avec un éditeur intégré pour pratiquer en direct.</p>
+
+  <div class="search-box">
+    <input type="text" placeholder="Rechercher un cours..." id="searchInput">
+    <button aria-label="Rechercher"><i class="fa fa-search"></i></button>
+  </div>
+</section>
+
+<!-- ── COOKIE BANNER ── -->
 <div id="cookie-banner" class="cookie-banner">
   <div class="cookie-content">
     <h3>🍪 Respect de votre vie privée</h3>
-    
-    <p>
-      Sencode utilise des cookies pour améliorer votre expérience,
-      analyser le trafic et afficher des publicités via Google AdSense.
-      Vous pouvez accepter ou refuser les cookies non essentiels.
-    </p>
-
+    <p>Sencode utilise des cookies pour améliorer votre expérience, analyser le trafic et afficher des publicités via Google AdSense. Vous pouvez accepter ou refuser les cookies non essentiels.</p>
     <div class="cookie-buttons">
       <button id="accept-cookies">Accepter</button>
       <button id="رفض-cookies" class="reject">Refuser</button>
     </div>
-
-    <a href="/politique-confidentialite.html">
-      Voir la politique de confidentialité
-    </a>
+    <a href="/politique-confidentialite.html">Voir la politique de confidentialité</a>
   </div>
 </div>
 
-<style>
-
-.cookie-banner{
-    position:fixed;
-    bottom:20px;
-    left:20px;
-    right:20px;
-    background:#111827;
-    color:white;
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.4);
-    z-index:99999;
-    display:none;
-    max-width:600px;
-    margin:auto;
-    font-family:Arial,sans-serif;
-}
-
-.cookie-content h3{
-    margin-bottom:10px;
-    color:#00d4aa;
-}
-
-.cookie-content p{
-    line-height:1.6;
-    margin-bottom:15px;
-}
-
-.cookie-buttons{
-    display:flex;
-    gap:10px;
-    margin-bottom:10px;
-}
-
-.cookie-buttons button{
-    padding:10px 20px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-#accept-cookies{
-    background:#00d4aa;
-    color:white;
-}
-
-.reject{
-    background:#374151;
-    color:white;
-}
-
-.cookie-content a{
-    color:#00d4aa;
-    text-decoration:none;
-    font-size:14px;
-}
-
-</style>
-
-<script>
-
-const banner = document.getElementById("cookie-banner");
-
-if(!localStorage.getItem("cookieConsent")){
-    banner.style.display = "block";
-}
-
-document.getElementById("accept-cookies")
-.addEventListener("click", () => {
-    localStorage.setItem("cookieConsent","accepted");
-    banner.style.display = "none";
-});
-
-document.getElementById("رفض-cookies")
-.addEventListener("click", () => {
-    localStorage.setItem("cookieConsent","rejected");
-    banner.style.display = "none";
-});
-
-</script>
-<div class="search-box">
-<input type="text" placeholder="Rechercher un cours...">
-<button>
-<i class="fa fa-search"></i>
-</button>
-</div>
-
-</section>
-
+<!-- ── COURSES ── -->
 <section class="languages" id="courses">
+  <div class="section-title">
+    <span class="section-label">// cours disponibles</span>
+    <h2>Choisis ton langage</h2>
+    <p>8 parcours complets pour apprendre à ton rythme</p>
+  </div>
 
-<div class="card html">
-<h2>HTML</h2>
-<p>100 leçons complètes HTML.</p>
-  
-<a href="cour.html">
-    <button>Commencer</button>
-</a>
-</a>
-</div>
+  <div class="cards-grid">
 
-<div class="card css">
-<h2>CSS</h2>
-<p>Apprends le design moderne.</p>
+    <div class="card html">
+      <div class="card-icon">&lt;/&gt;</div>
+      <h2>HTML</h2>
+      <p>100 leçons complètes pour maîtriser la structure du web.</p>
+      <a href="cour.html"><button>Commencer →</button></a>
+    </div>
 
-<a href="css.html">
-<button>Commencer</button>
-</a>
-</div>
+    <div class="card css">
+      <div class="card-icon">#</div>
+      <h2>CSS</h2>
+      <p>Apprends le design moderne et crée des interfaces élégantes.</p>
+      <a href="css.html"><button>Commencer →</button></a>
+    </div>
 
-<div class="card js">
-<h2>JavaScript</h2>
-<p>Ajoute l’interactivité.</p>
+    <div class="card js">
+      <div class="card-icon">JS</div>
+      <h2>JavaScript</h2>
+      <p>Ajoute l'interactivité et la puissance à tes pages web.</p>
+      <a href="Javascript.html"><button>Commencer →</button></a>
+    </div>
 
-<a href="Javascript.html">
-<button>Commencer</button>
-</a>
-</div>
+    <div class="card python">
+      <div class="card-icon">Py</div>
+      <h2>Python</h2>
+      <p>Programmation simple, lisible et puissante pour débuter.</p>
+      <a href="python.html"><button>Commencer →</button></a>
+    </div>
 
-<div class="card python">
-<h2>Python</h2>
-<p>Programmation simple et puissante.</p>
+    <div class="card xml">
+      <div class="card-icon">XML</div>
+      <h2>XML</h2>
+      <p>Structure et organise tes données avec précision.</p>
+      <a href="xml.html"><button>Commencer →</button></a>
+    </div>
 
-<a href="python.html">
-<button>Commencer</button>
-</a>
-</div>
+    <div class="card c">
+      <div class="card-icon">C</div>
+      <h2>C</h2>
+      <p>Le langage système classique — fondation de l'informatique.</p>
+      <a href="c.html"><button>Commencer →</button></a>
+    </div>
 
-<div class="card xml">
-<h2>XML</h2>
-<p>Structure les données.</p>
+    <div class="card csharp">
+      <div class="card-icon">C#</div>
+      <h2>C#</h2>
+      <p>Crée des applications modernes avec l'écosystème Microsoft.</p>
+      <a href="csharp.html"><button>Commencer →</button></a>
+    </div>
 
-<a href="xml.html">
-<button>Commencer</button>
-</a>
-</div>
+    <div class="card cpp">
+      <div class="card-icon">C++</div>
+      <h2>C++</h2>
+      <p>Performance et puissance pour les projets les plus exigeants.</p>
+      <a href="cpp.html"><button>Commencer →</button></a>
+    </div>
 
-<div class="card c">
-<h2>C</h2>
-<p>Langage système classique.</p>
-
-<a href="c.html">
-<button>Commencer</button>
-</a>
-</div>
-
-<div class="card csharp">
-<h2>C#</h2>
-<p>Applications modernes.</p>
-
-<a href="csharp.html">
-<button>Commencer</button>
-</a>
-</div>
-
-<div class="card cpp">
-<h2>C++</h2>
-<p>Performance et puissance.</p>
-
-<a href="cpp.html">
-<button>Commencer</button>
-</a>
-</div>
-
+  </div>
 </section>
 
+<!-- ── EDITOR ── -->
 <section class="editor-section" id="editor">
+  <div class="section-title">
+    <span class="section-label">// éditeur en ligne</span>
+    <h2>Écris. Exécute. Apprends.</h2>
+    <p>Pratique directement dans le navigateur sans rien installer</p>
+  </div>
 
-<h1>Éditeur Sencode</h1>
+  <div class="editor-toolbar">
+    <div class="lang-tabs">
+      <button class="lang-tab active" onclick="loadLang('html',this)">HTML</button>
+      <button class="lang-tab" onclick="loadLang('css',this)">CSS</button>
+      <button class="lang-tab" onclick="loadLang('js',this)">JavaScript</button>
+      <button class="lang-tab" onclick="loadLang('python',this)">Python</button>
+    </div>
+    <button class="run-btn" onclick="runCode()">
+      <i class="fa fa-play"></i> Exécuter
+    </button>
+  </div>
 
-<button class="run-btn" onclick="runCode()">
-Exécuter
-</button>
-
-<div class="editor-container">
-
-<textarea id="codeEditor"></textarea>
-
-<iframe id="preview"></iframe>
-
-</div>
-
+  <div class="editor-container">
+    <div class="editor-pane">
+      <div class="editor-pane-header">code source</div>
+      <textarea id="codeEditor" spellcheck="false"></textarea>
+    </div>
+    <div class="editor-pane">
+      <div class="editor-pane-header">aperçu</div>
+      <iframe id="preview"></iframe>
+    </div>
+  </div>
 </section>
 
+<!-- ── FOOTER ── -->
 <footer>
-
-<p>© 2026 Sencode — Plateforme éducative</p>
-  
-   <a href="privacy.html">Politique de confidentialité</a>
-
-  <br>
-<a href="about.html">À propos</a>
-  <a href="ads.txt">ads</a>
+  <div class="footer-logo">Sencode</div>
+  <div class="footer-links">
+    <a href="privacy.html">Politique de confidentialité</a>
+    <a href="about.html">À propos</a>
+    <a href="ads.txt">Publicités</a>
+  </div>
+  <div class="footer-copy">© 2026 Sencode — Plateforme éducative gratuite</div>
 </footer>
 
 <script>
+/* ─ Cookie banner ─ */
+const banner = document.getElementById("cookie-banner");
+if (!localStorage.getItem("cookieConsent")) banner.style.display = "block";
+document.getElementById("accept-cookies").addEventListener("click", () => {
+  localStorage.setItem("cookieConsent","accepted");
+  banner.style.display = "none";
+});
+document.getElementById("رفض-cookies").addEventListener("click", () => {
+  localStorage.setItem("cookieConsent","rejected");
+  banner.style.display = "none";
+});
+
+/* ─ Editor ─ */
 const editor = document.getElementById('codeEditor');
 const preview = document.getElementById('preview');
 
 const codes = {
-
-html:`<!DOCTYPE html>
-<html>
+  html:`<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #f0fdf4; }
+    h1 { color: #009e78; font-size: 2.5rem; }
+    p { color: #555; }
+  </style>
+</head>
 <body>
-<h1>Hello HTML</h1>
-<p>Bienvenue sur Sencode.</p>
+  <h1>Bonjour, Sencode !</h1>
+  <p>Modifie ce code et clique sur Exécuter.</p>
 </body>
 </html>`,
 
-css:`body{
-background:black;
-color:white;
-text-align:center;
-padding-top:50px;
-}`,
-
-js:`alert('Bienvenue sur Sencode');`,
-
-python:`print('Bienvenue sur Sencode')`
-
-};
-
-function runCode(){
-preview.srcdoc = editor.value;
+  css:`body {
+  background: #0a0f1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
 }
 
-editor.value = codes.html;
-runCode();
+h1 {
+  font-family: monospace;
+  font-size: 2.5rem;
+  color: #00c896;
+  text-align: center;
+  border: 2px solid #00c896;
+  padding: 20px 40px;
+  border-radius: 12px;
+}`,
+
+  js:`// Bienvenue dans l'éditeur Sencode !
+const message = "Apprendre à coder, c'est super.";
+
+document.body.style.cssText = "font-family:monospace;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0;background:#0a0f1a;color:#00c896";
+
+const h = document.createElement("h1");
+h.textContent = "🚀 " + message;
+h.style.fontSize = "1.4rem";
+h.style.textAlign = "center";
+h.style.padding = "20px";
+document.body.appendChild(h);`,
+
+  python:`# Python s'exécute côté serveur — voici un exemple
+print("Bienvenue sur Sencode !")
+print("Python est un langage simple et puissant.")
+
+nombres = [1, 2, 3, 4, 5]
+print("Somme :", sum(nombres))
+print("Carré :", [n**2 for n in nombres])`
+};
+
+function loadLang(lang, btn) {
+  editor.value = codes[lang];
+  document.querySelectorAll('.lang-tab').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  if (lang !== 'python' && lang !== 'css') {
+    runCode();
+  } else if (lang === 'css') {
+    preview.srcdoc = `<html><head><style>${codes.css}</style></head><body><h1>CSS Preview</h1></body></html>`;
+  } else {
+    preview.srcdoc = `<html><body style="font-family:monospace;padding:20px;background:#0a0f1a;color:#a9ffcb;">
+      <p>⚠️ Python ne s'exécute pas directement dans le navigateur.</p>
+      <p>Installe <strong>Python</strong> sur ton ordinateur ou utilise <a href="https://replit.com" target="_blank" style="color:#00c896">Replit</a>.</p>
+      <pre style="margin-top:20px;background:#111;padding:16px;border-radius:8px;color:#a9ffcb;">${codes.python}</pre>
+    </body></html>`;
+  }
+}
+
+function runCode() {
+  preview.srcdoc = editor.value;
+}
+
+/* ─ Search ─ */
+document.querySelector('.search-box button').addEventListener('click', doSearch);
+document.getElementById('searchInput').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
+
+function doSearch(){
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  if(!q) return;
+  const map = {html:'cour.html',css:'css.html',javascript:'Javascript.html',js:'Javascript.html',python:'python.html',xml:'xml.html',c:'c.html','c#':'csharp.html','c++':'cpp.html'};
+  for(const [k,v] of Object.entries(map)){
+    if(q.includes(k)){ window.location.href = v; return; }
+  }
+  const courses = document.getElementById('courses');
+  if(courses) courses.scrollIntoView({behavior:'smooth'});
+}
+
+/* ─ Init ─ */
+loadLang('html', null);
 </script>
 
 </body>
