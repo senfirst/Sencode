@@ -4,718 +4,1126 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Apprendre XML - 50 Leçons</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial;
+:root {
+  --bg: #ffffff;
+  --surface: #f8fafc;
+  --border: #e2e8f0;
+  --accent: #0284c7;
+  --accent-light: #e0f2fe;
+  --accent-dark: #0369a1;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --code-bg: #f1f5f9;
+  --editor-bg: #0f172a;
+  --tag-color: #0369a1;
+  --string-color: #0891b2;
+  --attr-color: #7c3aed;
 }
 
-body{
-    background:#f1f5f9;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.header{
-    background:#0f172a;
-    color:#38bdf8;
-    text-align:center;
-    padding:20px;
-    font-size:32px;
-    font-weight:bold;
+body {
+  background: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text-primary);
 }
 
-.container{
-    display:flex;
-    height:calc(100vh - 80px);
+/* HEADER */
+.header {
+  background: var(--bg);
+  border-bottom: 2px solid var(--border);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.lessons{
-    width:50%;
-    background:white;
-    overflow-y:auto;
-    padding:25px;
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.lesson{
-    background:white;
-    border-left:5px solid #38bdf8;
-    padding:20px;
-    margin-bottom:25px;
-    border-radius:8px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--accent);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
-.lesson h2{
-    margin-bottom:15px;
-    color:#0f172a;
+.header-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
 }
 
-.lesson p{
-    margin-bottom:12px;
-    line-height:1.7;
-    color:#334155;
+.header-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 400;
 }
 
-pre{
-    background:#e2e8f0;
-    padding:15px;
-    border-radius:6px;
-    overflow:auto;
+.header-badge {
+  background: var(--accent-light);
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
 }
 
-.editor-section{
-    width:50%;
-    background:#111827;
-    padding:20px;
-    display:flex;
-    flex-direction:column;
+/* LAYOUT */
+.container {
+  display: flex;
+  height: calc(100vh - 68px);
 }
 
-.editor-title{
-    color:white;
-    font-size:25px;
-    margin-bottom:15px;
+/* LESSONS PANEL */
+.lessons {
+  width: 52%;
+  background: var(--bg);
+  overflow-y: auto;
+  padding: 28px 32px;
+  border-right: 1px solid var(--border);
 }
 
-textarea{
-    width:100%;
-    height:300px;
-    border:none;
-    border-radius:8px;
-    padding:15px;
-    resize:none;
-    font-size:16px;
-    outline:none;
+.lessons::-webkit-scrollbar {
+  width: 6px;
+}
+.lessons::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
 }
 
-button{
-    margin-top:15px;
-    padding:14px;
-    background:#0ea5e9;
-    border:none;
-    color:white;
-    font-size:18px;
-    border-radius:6px;
-    cursor:pointer;
-    font-weight:bold;
+/* LESSON CARD */
+.lesson {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px 24px;
+  margin-bottom: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
 }
 
-button:hover{
-    background:#0284c7;
+.lesson::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 3px 0 0 3px;
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 
-iframe{
-    margin-top:20px;
-    flex:1;
-    border:none;
-    background:white;
-    border-radius:8px;
+.lesson:hover {
+  border-color: #bfdbfe;
+  box-shadow: 0 4px 20px rgba(2, 132, 199, 0.08);
 }
 
-@media(max-width:900px){
-
-.container{
-    flex-direction:column;
-    height:auto;
+.lesson:hover::before {
+  opacity: 1;
 }
 
-.lessons,
-.editor-section{
-    width:100%;
+.lesson-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
-iframe{
-    height:400px;
+.lesson-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-light);
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  min-width: 48px;
+  text-align: center;
 }
 
+.lesson h2 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.2px;
+}
+
+.lesson p {
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  font-weight: 400;
+}
+
+/* CODE BLOCK */
+pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  padding: 14px 16px;
+  border-radius: 8px;
+  overflow: auto;
+  font-family: 'Space Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--text-primary);
+}
+
+/* Simple XML syntax highlighting via CSS */
+pre {
+  color: #334155;
+}
+
+.try-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 6px 14px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.15s;
+}
+
+.try-btn:hover {
+  background: var(--accent-light);
+  border-color: #bfdbfe;
+  color: var(--accent-dark);
+}
+
+.try-btn svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* EDITOR PANEL */
+.editor-section {
+  width: 48%;
+  background: var(--editor-bg);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 68px;
+  height: calc(100vh - 68px);
+}
+
+.editor-top {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.editor-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.editor-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22d3ee;
+}
+
+.editor-title {
+  color: #e2e8f0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.editor-hint {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 400;
+}
+
+.editor-body {
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 12px;
+  overflow: hidden;
+}
+
+textarea {
+  width: 100%;
+  height: 220px;
+  background: #1e293b;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 16px;
+  resize: none;
+  font-size: 13px;
+  font-family: 'Space Mono', monospace;
+  line-height: 1.7;
+  color: #e2e8f0;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+textarea:focus {
+  border-color: rgba(34, 211, 238, 0.3);
+}
+
+.run-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  background: var(--accent);
+  border: none;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: 0.2px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.run-btn:hover {
+  background: var(--accent-dark);
+}
+
+.run-btn:active {
+  transform: scale(0.98);
+}
+
+.run-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* RESULT AREA */
+.result-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+iframe {
+  flex: 1;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: white;
+  border-radius: 10px;
+}
+
+/* PROGRESS BAR */
+.progress-bar {
+  height: 2px;
+  background: var(--border);
+  position: fixed;
+  top: 68px;
+  left: 0;
+  width: 52%;
+  z-index: 99;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  width: 0%;
+  transition: width 0.1s;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .lessons,
+  .editor-section {
+    width: 100%;
+  }
+
+  .editor-section {
+    position: static;
+    height: 520px;
+  }
+
+  .progress-bar {
+    width: 100%;
+  }
+
+  .header {
+    padding: 0 20px;
+  }
+
+  .lessons {
+    padding: 20px;
+  }
 }
 
 </style>
 </head>
 <body>
 
-<div class="header">
-Apprendre XML - 50 Leçons Complètes
+<div class="progress-bar">
+  <div class="progress-fill" id="progressFill"></div>
 </div>
+
+<header class="header">
+  <div class="header-logo">
+    <div class="logo-icon">XML</div>
+    <div>
+      <div class="header-title">Apprendre XML</div>
+      <div class="header-subtitle">Guide complet de A à Z</div>
+    </div>
+  </div>
+  <div class="header-badge">50 Leçons</div>
+</header>
 
 <div class="container">
 
-<div class="lessons">
+  <div class="lessons" id="lessonsPanel">
 
-<div class="lesson">
-<h2>Leçon 1 : Introduction à XML</h2>
-<p>
-XML signifie Extensible Markup Language.
-Il sert à stocker et transporter des données.
-</p>
-<pre>
-&lt;nom&gt;Ali&lt;/nom&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">01</span>
+        <h2>Introduction à XML</h2>
+      </div>
+      <p>XML signifie <strong>Extensible Markup Language</strong>. Il sert à stocker et transporter des données de façon structurée et lisible.</p>
+      <pre>&lt;nom&gt;Ali&lt;/nom&gt;</pre>
+      <button class="try-btn" onclick="loadCode('&lt;nom&gt;Ali&lt;/nom&gt;')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5,3 19,12 5,21"/></svg>
+        Essayer
+      </button>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 2 : Déclaration XML</h2>
-<p>
-La déclaration indique la version XML.
-</p>
-<pre>
-&lt;?xml version="1.0"?&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">02</span>
+        <h2>Déclaration XML</h2>
+      </div>
+      <p>La déclaration en tête du fichier indique la version XML utilisée et l'encodage des caractères.</p>
+      <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 3 : Balises XML</h2>
-<p>
-Les balises contiennent les données.
-</p>
-<pre>
-&lt;ville&gt;Dakar&lt;/ville&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">03</span>
+        <h2>Balises XML</h2>
+      </div>
+      <p>Les balises encadrent les données. Une balise ouvrante et une balise fermante délimitent un élément.</p>
+      <pre>&lt;ville&gt;Dakar&lt;/ville&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 4 : Balise Racine</h2>
-<p>
-Chaque document XML possède une balise racine.
-</p>
-<pre>
-&lt;users&gt;
-&lt;/users&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">04</span>
+        <h2>Balise Racine</h2>
+      </div>
+      <p>Chaque document XML possède une seule balise racine qui englobe tous les autres éléments.</p>
+      <pre>&lt;users&gt;
+  &lt;user&gt;Ali&lt;/user&gt;
+&lt;/users&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 5 : Les Éléments</h2>
-<p>
-Les éléments stockent des informations.
-</p>
-<pre>
-&lt;age&gt;20&lt;/age&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">05</span>
+        <h2>Les Éléments</h2>
+      </div>
+      <p>Les éléments sont les blocs de base de XML. Ils stockent des informations entre leurs balises.</p>
+      <pre>&lt;age&gt;20&lt;/age&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 6 : Les Attributs</h2>
-<p>
-Les attributs ajoutent des informations.
-</p>
-<pre>
-&lt;user id="1"&gt;&lt;/user&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">06</span>
+        <h2>Les Attributs</h2>
+      </div>
+      <p>Les attributs ajoutent des informations supplémentaires à un élément. Ils s'écrivent dans la balise ouvrante.</p>
+      <pre>&lt;user id="1" role="admin"&gt;&lt;/user&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 7 : Commentaires XML</h2>
-<p>
-Les commentaires expliquent le code.
-</p>
-<pre>
-&lt;!-- commentaire --&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">07</span>
+        <h2>Commentaires XML</h2>
+      </div>
+      <p>Les commentaires permettent d'annoter le code sans que ce texte soit traité par le parseur.</p>
+      <pre>&lt;!-- Ceci est un commentaire --&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 8 : Imbrication</h2>
-<p>
-Les balises peuvent être imbriquées.
-</p>
-<pre>
-&lt;user&gt;
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">08</span>
+        <h2>Imbrication</h2>
+      </div>
+      <p>Les balises peuvent être imbriquées les unes dans les autres pour créer une hiérarchie.</p>
+      <pre>&lt;user&gt;
   &lt;nom&gt;Ali&lt;/nom&gt;
-&lt;/user&gt;
-</pre>
-</div>
+  &lt;ville&gt;Dakar&lt;/ville&gt;
+&lt;/user&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 9 : XML Bien Formé</h2>
-<p>
-Un XML bien formé respecte les règles XML.
-</p>
-<pre>
-&lt;note&gt;Bonjour&lt;/note&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">09</span>
+        <h2>XML Bien Formé</h2>
+      </div>
+      <p>Un XML bien formé respecte toutes les règles syntaxiques : balises fermées, imbrication correcte, etc.</p>
+      <pre>&lt;note&gt;Bonjour le monde&lt;/note&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 10 : Sensibilité à la Casse</h2>
-<p>
-XML distingue majuscules et minuscules.
-</p>
-<pre>
-&lt;Nom&gt;&lt;/Nom&gt;
-&lt;nom&gt;&lt;/nom&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">10</span>
+        <h2>Sensibilité à la Casse</h2>
+      </div>
+      <p>XML est sensible à la casse. <code>&lt;Nom&gt;</code> et <code>&lt;nom&gt;</code> sont deux éléments différents.</p>
+      <pre>&lt;Nom&gt;Valeur A&lt;/Nom&gt;
+&lt;nom&gt;Valeur B&lt;/nom&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 11 : Fermeture des Balises</h2>
-<p>
-Chaque balise doit être fermée.
-</p>
-<pre>
-&lt;titre&gt;XML&lt;/titre&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">11</span>
+        <h2>Fermeture des Balises</h2>
+      </div>
+      <p>Contrairement au HTML, toutes les balises XML doivent être fermées explicitement.</p>
+      <pre>&lt;titre&gt;Apprendre XML&lt;/titre&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 12 : Valeurs Attributs</h2>
-<p>
-Les attributs utilisent des guillemets.
-</p>
-<pre>
-&lt;book id="5"&gt;&lt;/book&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">12</span>
+        <h2>Valeurs d'Attributs</h2>
+      </div>
+      <p>Les valeurs des attributs doivent toujours être entourées de guillemets simples ou doubles.</p>
+      <pre>&lt;book id="5" lang="fr"&gt;&lt;/book&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 13 : CDATA</h2>
-<p>
-CDATA protège certains contenus.
-</p>
-<pre>
-&lt;![CDATA[
-&lt;html&gt;
-]]&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">13</span>
+        <h2>CDATA</h2>
+      </div>
+      <p>CDATA permet d'inclure du texte brut sans interprétation XML, utile pour intégrer du HTML ou du code.</p>
+      <pre>&lt;![CDATA[
+  &lt;html&gt;&lt;/html&gt;
+]]&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 14 : Entités XML</h2>
-<p>
-Les entités remplacent les caractères spéciaux.
-</p>
-<pre>
-&amp;lt;
-&amp;gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">14</span>
+        <h2>Entités XML</h2>
+      </div>
+      <p>Les entités remplacent les caractères spéciaux réservés par XML pour éviter les erreurs de parsing.</p>
+      <pre>&amp;lt;   → &lt;
+&amp;gt;   → &gt;
+&amp;amp;  → &amp;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 15 : XML et Données</h2>
-<p>
-XML est utilisé pour échanger des données.
-</p>
-<pre>
-&lt;produit&gt;
-&lt;/produit&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">15</span>
+        <h2>XML et Données</h2>
+      </div>
+      <p>XML est conçu pour stocker et échanger des données entre systèmes différents de manière indépendante.</p>
+      <pre>&lt;produit&gt;
+  &lt;nom&gt;Téléphone&lt;/nom&gt;
+  &lt;prix&gt;199&lt;/prix&gt;
+&lt;/produit&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 16 : Structure XML</h2>
-<p>
-XML possède une structure hiérarchique.
-</p>
-<pre>
-&lt;ecole&gt;
-&lt;eleve&gt;&lt;/eleve&gt;
-&lt;/ecole&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">16</span>
+        <h2>Structure Hiérarchique</h2>
+      </div>
+      <p>XML organise les données en arborescence, avec des relations parent-enfant entre les éléments.</p>
+      <pre>&lt;ecole&gt;
+  &lt;classe&gt;
+    &lt;eleve&gt;Ali&lt;/eleve&gt;
+  &lt;/classe&gt;
+&lt;/ecole&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 17 : XML et HTML</h2>
-<p>
-HTML affiche des données.
-XML stocke des données.
-</p>
-<pre>
-&lt;html&gt;&lt;/html&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">17</span>
+        <h2>XML vs HTML</h2>
+      </div>
+      <p>HTML affiche les données dans un navigateur. XML stocke et transporte des données sans logique d'affichage.</p>
+      <pre>&lt;!-- HTML : affichage --&gt;
+&lt;p&gt;Bonjour&lt;/p&gt;
 
-<div class="lesson">
-<h2>Leçon 18 : XML et JSON</h2>
-<p>
-JSON est plus léger.
-XML est plus structuré.
-</p>
-<pre>
+&lt;!-- XML : données --&gt;
+&lt;message&gt;Bonjour&lt;/message&gt;</pre>
+    </div>
+
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">18</span>
+        <h2>XML vs JSON</h2>
+      </div>
+      <p>JSON est plus léger et courant pour les APIs web. XML est plus verbeux mais plus structuré et validable.</p>
+      <pre>&lt;!-- XML --&gt;
 &lt;nom&gt;Ali&lt;/nom&gt;
-</pre>
-</div>
 
-<div class="lesson">
-<h2>Leçon 19 : Liste XML</h2>
-<p>
-XML peut stocker des listes.
-</p>
-<pre>
-&lt;fruits&gt;
-&lt;fruit&gt;Pomme&lt;/fruit&gt;
-&lt;/fruits&gt;
-</pre>
-</div>
+&lt;!-- JSON équivalent --&gt;
+{ "nom": "Ali" }</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 20 : XML Vide</h2>
-<p>
-Une balise peut être vide.
-</p>
-<pre>
-&lt;br/&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">19</span>
+        <h2>Liste XML</h2>
+      </div>
+      <p>XML représente les listes en répétant des éléments du même nom au sein d'un élément parent.</p>
+      <pre>&lt;fruits&gt;
+  &lt;fruit&gt;Pomme&lt;/fruit&gt;
+  &lt;fruit&gt;Mangue&lt;/fruit&gt;
+  &lt;fruit&gt;Banane&lt;/fruit&gt;
+&lt;/fruits&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 21 : Namespaces</h2>
-<p>
-Les namespaces évitent les conflits.
-</p>
-<pre>
-&lt;h:table&gt;&lt;/h:table&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">20</span>
+        <h2>Balise Vide</h2>
+      </div>
+      <p>Une balise sans contenu peut s'écrire sous forme auto-fermante avec le slash avant le chevron fermant.</p>
+      <pre>&lt;br/&gt;
+&lt;image src="photo.jpg"/&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 22 : UTF-8</h2>
-<p>
-UTF-8 gère les caractères spéciaux.
-</p>
-<pre>
-encoding="UTF-8"
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">21</span>
+        <h2>Namespaces</h2>
+      </div>
+      <p>Les namespaces permettent d'éviter les conflits lorsqu'on mélange des vocabulaires XML différents.</p>
+      <pre>&lt;h:table xmlns:h="html"&gt;
+  &lt;h:tr&gt;&lt;/h:tr&gt;
+&lt;/h:table&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 23 : XPath</h2>
-<p>
-XPath recherche des éléments XML.
-</p>
-<pre>
-/book/title
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">22</span>
+        <h2>Encodage UTF-8</h2>
+      </div>
+      <p>L'encodage UTF-8 permet de gérer tous les caractères internationaux, accents et symboles spéciaux.</p>
+      <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;message&gt;Héllo Wörld&lt;/message&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 24 : XSLT</h2>
-<p>
-XSLT transforme du XML.
-</p>
-<pre>
-&lt;xsl:template&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">23</span>
+        <h2>XPath</h2>
+      </div>
+      <p>XPath est un langage de requête pour naviguer et sélectionner des nœuds dans un document XML.</p>
+      <pre>/librairie/book/title
+//author
+book[@id='1']</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 25 : DTD</h2>
-<p>
-DTD définit la structure XML.
-</p>
-<pre>
-&lt;!DOCTYPE note&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">24</span>
+        <h2>XSLT</h2>
+      </div>
+      <p>XSLT transforme un document XML en un autre format (HTML, texte, autre XML) grâce à des feuilles de style.</p>
+      <pre>&lt;xsl:stylesheet version="1.0"&gt;
+  &lt;xsl:template match="/"&gt;
+  &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 26 : Validation XML</h2>
-<p>
-La validation vérifie le XML.
-</p>
-<pre>
-&lt;schema&gt;&lt;/schema&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">25</span>
+        <h2>DTD</h2>
+      </div>
+      <p>La DTD (Document Type Definition) définit la structure autorisée d'un document XML.</p>
+      <pre>&lt;!DOCTYPE note [
+  &lt;!ELEMENT note (message)&gt;
+  &lt;!ELEMENT message (#PCDATA)&gt;
+]&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 27 : XML Schema</h2>
-<p>
-XML Schema décrit les données XML.
-</p>
-<pre>
-&lt;xs:schema&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">26</span>
+        <h2>Validation XML</h2>
+      </div>
+      <p>Un document XML valide respecte les règles d'une DTD ou d'un schéma XML (XSD) associé.</p>
+      <pre>&lt;!-- Valider avec un schéma --&gt;
+&lt;root xmlns:xsi="..."
+  xsi:noNamespaceSchemaLocation="schema.xsd"&gt;
+&lt;/root&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 28 : Élément Complexe</h2>
-<p>
-Un élément complexe contient d’autres éléments.
-</p>
-<pre>
-&lt;personne&gt;
-&lt;nom&gt;&lt;/nom&gt;
-&lt;/personne&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">27</span>
+        <h2>XML Schema (XSD)</h2>
+      </div>
+      <p>L'XML Schema décrit les types de données, les contraintes et la structure attendue d'un document XML.</p>
+      <pre>&lt;xs:schema xmlns:xs="..."&gt;
+  &lt;xs:element name="nom" type="xs:string"/&gt;
+&lt;/xs:schema&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 29 : Élément Simple</h2>
-<p>
-Un élément simple contient du texte.
-</p>
-<pre>
-&lt;nom&gt;Ali&lt;/nom&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">28</span>
+        <h2>Élément Complexe</h2>
+      </div>
+      <p>Un élément complexe contient d'autres éléments enfants ou des attributs, contrairement aux éléments simples.</p>
+      <pre>&lt;personne&gt;
+  &lt;nom&gt;Ali&lt;/nom&gt;
+  &lt;age&gt;25&lt;/age&gt;
+&lt;/personne&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 30 : XML et Base de Données</h2>
-<p>
-XML peut stocker des données de base.
-</p>
-<pre>
-&lt;client&gt;&lt;/client&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">29</span>
+        <h2>Élément Simple</h2>
+      </div>
+      <p>Un élément simple contient uniquement du texte, sans éléments enfants ni attributs.</p>
+      <pre>&lt;nom&gt;Ali&lt;/nom&gt;
+&lt;prix&gt;29.99&lt;/prix&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 31 : Flux RSS</h2>
-<p>
-RSS utilise XML pour les actualités.
-</p>
-<pre>
-&lt;rss&gt;&lt;/rss&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">30</span>
+        <h2>XML et Base de Données</h2>
+      </div>
+      <p>XML peut servir de format d'échange avec des bases de données relationnelles ou NoSQL.</p>
+      <pre>&lt;clients&gt;
+  &lt;client id="1"&gt;
+    &lt;nom&gt;Fatou&lt;/nom&gt;
+  &lt;/client&gt;
+&lt;/clients&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 32 : Sitemap XML</h2>
-<p>
-Les sitemaps aident Google à indexer un site.
-</p>
-<pre>
-&lt;urlset&gt;&lt;/urlset&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">31</span>
+        <h2>Flux RSS</h2>
+      </div>
+      <p>RSS est un format XML standardisé pour distribuer des fils d'actualités sur le web.</p>
+      <pre>&lt;rss version="2.0"&gt;
+  &lt;channel&gt;
+    &lt;title&gt;Mon Blog&lt;/title&gt;
+  &lt;/channel&gt;
+&lt;/rss&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 33 : SOAP</h2>
-<p>
-SOAP utilise XML pour les services web.
-</p>
-<pre>
-&lt;soap:Envelope&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">32</span>
+        <h2>Sitemap XML</h2>
+      </div>
+      <p>Les fichiers sitemap.xml aident les moteurs de recherche à indexer les pages d'un site web.</p>
+      <pre>&lt;urlset xmlns="..."&gt;
+  &lt;url&gt;
+    &lt;loc&gt;https://exemple.com&lt;/loc&gt;
+  &lt;/url&gt;
+&lt;/urlset&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 34 : XML et Android</h2>
-<p>
-Android utilise XML pour les interfaces.
-</p>
-<pre>
-&lt;TextView/&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">33</span>
+        <h2>SOAP</h2>
+      </div>
+      <p>SOAP (Simple Object Access Protocol) utilise XML pour structurer les messages entre services web.</p>
+      <pre>&lt;soap:Envelope&gt;
+  &lt;soap:Body&gt;
+    &lt;requete/&gt;
+  &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 35 : XML et Java</h2>
-<p>
-Java lit souvent des fichiers XML.
-</p>
-<pre>
-DocumentBuilder
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">34</span>
+        <h2>XML et Android</h2>
+      </div>
+      <p>Android utilise XML pour définir les interfaces utilisateur, les thèmes et les ressources de l'application.</p>
+      <pre>&lt;TextView
+  android:text="Bonjour"
+  android:textSize="16sp"/&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 36 : XML et PHP</h2>
-<p>
-PHP peut manipuler du XML.
-</p>
-<pre>
-simplexml_load_file()
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">35</span>
+        <h2>XML et Java</h2>
+      </div>
+      <p>Java fournit des APIs comme DOM et SAX pour lire, créer et manipuler des documents XML.</p>
+      <pre>DocumentBuilderFactory factory =
+  DocumentBuilderFactory.newInstance();
+DocumentBuilder builder =
+  factory.newDocumentBuilder();</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 37 : XML et Python</h2>
-<p>
-Python possède des bibliothèques XML.
-</p>
-<pre>
-import xml
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">36</span>
+        <h2>XML et PHP</h2>
+      </div>
+      <p>PHP propose des fonctions natives comme SimpleXML pour charger et manipuler facilement du XML.</p>
+      <pre>$xml = simplexml_load_file('data.xml');
+echo $xml-&gt;nom;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 38 : Parser XML</h2>
-<p>
-Un parser lit les fichiers XML.
-</p>
-<pre>
-DOMParser
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">37</span>
+        <h2>XML et Python</h2>
+      </div>
+      <p>Python dispose de bibliothèques comme <code>xml.etree.ElementTree</code> pour traiter des fichiers XML.</p>
+      <pre>import xml.etree.ElementTree as ET
+tree = ET.parse('fichier.xml')
+root = tree.getroot()</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 39 : DOM XML</h2>
-<p>
-Le DOM permet de manipuler XML.
-</p>
-<pre>
-xmlDoc.getElementsByTagName()
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">38</span>
+        <h2>Parser XML</h2>
+      </div>
+      <p>Un parser XML analyse le document et construit une représentation exploitable par programme.</p>
+      <pre>const parser = new DOMParser();
+const xmlDoc = parser.parseFromString(
+  xmlStr, "text/xml"
+);</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 40 : SAX</h2>
-<p>
-SAX lit XML rapidement.
-</p>
-<pre>
-SAXParser
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">39</span>
+        <h2>DOM XML</h2>
+      </div>
+      <p>Le DOM représente un document XML sous forme d'arbre de nœuds navigables et modifiables.</p>
+      <pre>const nodes =
+  xmlDoc.getElementsByTagName("nom");
+console.log(nodes[0].textContent);</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 41 : Attribut Required</h2>
-<p>
-Certains attributs sont obligatoires.
-</p>
-<pre>
-use="required"
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">40</span>
+        <h2>SAX Parser</h2>
+      </div>
+      <p>SAX lit le XML de façon séquentielle, événement par événement — idéal pour les grands fichiers.</p>
+      <pre>SAXParserFactory factory =
+  SAXParserFactory.newInstance();
+SAXParser parser =
+  factory.newSAXParser();</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 42 : Élément Sequence</h2>
-<p>
-Sequence impose un ordre.
-</p>
-<pre>
-&lt;xs:sequence&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">41</span>
+        <h2>Attribut Required</h2>
+      </div>
+      <p>Dans un schéma XSD, on peut rendre un attribut obligatoire avec <code>use="required"</code>.</p>
+      <pre>&lt;xs:attribute name="id"
+  type="xs:integer"
+  use="required"/&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 43 : XML MinOccurs</h2>
-<p>
-MinOccurs définit le minimum.
-</p>
-<pre>
-minOccurs="1"
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">42</span>
+        <h2>Séquence XSD</h2>
+      </div>
+      <p>L'élément <code>xs:sequence</code> impose que les éléments enfants apparaissent dans un ordre précis.</p>
+      <pre>&lt;xs:sequence&gt;
+  &lt;xs:element name="nom"/&gt;
+  &lt;xs:element name="age"/&gt;
+&lt;/xs:sequence&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 44 : XML MaxOccurs</h2>
-<p>
-MaxOccurs définit le maximum.
-</p>
-<pre>
-maxOccurs="5"
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">43</span>
+        <h2>minOccurs</h2>
+      </div>
+      <p><code>minOccurs</code> définit le nombre minimum d'occurrences d'un élément. Zéro le rend optionnel.</p>
+      <pre>&lt;xs:element name="phone"
+  minOccurs="0"
+  maxOccurs="3"/&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 45 : XML Documentation</h2>
-<p>
-XML documente les données.
-</p>
-<pre>
-&lt;documentation&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">44</span>
+        <h2>maxOccurs</h2>
+      </div>
+      <p><code>maxOccurs="unbounded"</code> permet un nombre illimité de répétitions d'un élément.</p>
+      <pre>&lt;xs:element name="item"
+  minOccurs="1"
+  maxOccurs="unbounded"/&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 46 : XML Sécurité</h2>
-<p>
-XML doit être sécurisé.
-</p>
-<pre>
-&lt;secure&gt;true&lt;/secure&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">45</span>
+        <h2>Documentation XML</h2>
+      </div>
+      <p>XML peut inclure des éléments de documentation dans les schémas pour décrire les champs.</p>
+      <pre>&lt;xs:annotation&gt;
+  &lt;xs:documentation&gt;
+    Identifiant unique du client
+  &lt;/xs:documentation&gt;
+&lt;/xs:annotation&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 47 : XML et APIs</h2>
-<p>
-Certaines API utilisent XML.
-</p>
-<pre>
-&lt;response&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">46</span>
+        <h2>Sécurité XML</h2>
+      </div>
+      <p>Les attaques XXE (XML External Entity) exploitent les parseurs XML. Toujours désactiver les entités externes.</p>
+      <pre>&lt;!-- Éviter les entités externes --&gt;
+&lt;!ENTITY xxe SYSTEM
+  "file:///etc/passwd"&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 48 : XML Avantages</h2>
-<p>
-XML est lisible et structuré.
-</p>
-<pre>
-&lt;data&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">47</span>
+        <h2>XML et APIs</h2>
+      </div>
+      <p>Certaines APIs REST ou SOAP retournent encore des réponses en XML, notamment dans les systèmes anciens.</p>
+      <pre>&lt;response status="200"&gt;
+  &lt;data&gt;
+    &lt;result&gt;OK&lt;/result&gt;
+  &lt;/data&gt;
+&lt;/response&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 49 : XML Inconvénients</h2>
-<p>
-XML peut devenir volumineux.
-</p>
-<pre>
-&lt;heavy&gt;
-</pre>
-</div>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">48</span>
+        <h2>Avantages de XML</h2>
+      </div>
+      <p>XML est lisible par l'humain, extensible, indépendant de la plateforme et largement supporté.</p>
+      <pre>&lt;avantages&gt;
+  &lt;lisible&gt;oui&lt;/lisible&gt;
+  &lt;extensible&gt;oui&lt;/extensible&gt;
+  &lt;portable&gt;oui&lt;/portable&gt;
+&lt;/avantages&gt;</pre>
+    </div>
 
-<div class="lesson">
-<h2>Leçon 50 : Projet Final XML</h2>
-<p>
-Créer une base XML complète avec utilisateurs,
-produits et données structurées.
-</p>
-<pre>
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">49</span>
+        <h2>Inconvénients de XML</h2>
+      </div>
+      <p>XML est verbeux et volumineux comparé à JSON. Le parsing peut être lent sur de très grands fichiers.</p>
+      <pre>&lt;inconvenients&gt;
+  &lt;verbeux&gt;oui&lt;/verbeux&gt;
+  &lt;lourd&gt;oui&lt;/lourd&gt;
+&lt;/inconvenients&gt;</pre>
+    </div>
+
+    <div class="lesson">
+      <div class="lesson-header">
+        <span class="lesson-num">50</span>
+        <h2>🎓 Projet Final XML</h2>
+      </div>
+      <p>Créez une base XML complète avec utilisateurs, produits et commandes. Félicitations, vous maîtrisez XML !</p>
+      <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;database&gt;
-&lt;/database&gt;
-</pre>
-</div>
+  &lt;users&gt;
+    &lt;user id="1"&gt;
+      &lt;nom&gt;Ali&lt;/nom&gt;
+      &lt;email&gt;ali@mail.com&lt;/email&gt;
+    &lt;/user&gt;
+  &lt;/users&gt;
+  &lt;produits&gt;
+    &lt;produit id="1"&gt;
+      &lt;nom&gt;Laptop&lt;/nom&gt;
+      &lt;prix&gt;599&lt;/prix&gt;
+    &lt;/produit&gt;
+  &lt;/produits&gt;
+&lt;/database&gt;</pre>
+      <button class="try-btn" onclick="loadCode('&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;\n&lt;database&gt;\n  &lt;users&gt;\n    &lt;user id=&quot;1&quot;&gt;\n      &lt;nom&gt;Ali&lt;/nom&gt;\n      &lt;email&gt;ali@mail.com&lt;/email&gt;\n    &lt;/user&gt;\n  &lt;/users&gt;\n&lt;/database&gt;')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5,3 19,12 5,21"/></svg>
+        Essayer le projet final
+      </button>
+    </div>
 
-</div>
+  </div><!-- end .lessons -->
 
-<div class="editor-section">
+  <!-- EDITOR PANEL -->
+  <div class="editor-section">
 
-<h2 class="editor-title">
-Essayez votre XML
-</h2>
+    <div class="editor-top">
+      <div class="editor-label">
+        <div class="editor-dot"></div>
+        <span class="editor-title">Éditeur XML</span>
+      </div>
+      <div class="editor-hint">Écrivez votre XML et cliquez sur Exécuter</div>
+    </div>
 
-<textarea id="editor">
-<?xml version="1.0"?>
+    <div class="editor-body">
+      <textarea id="editor" spellcheck="false">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 
-<user>
-    <nom>Ali</nom>
-    <age>20</age>
-</user>
-</textarea>
+&lt;user&gt;
+    &lt;nom&gt;Ali&lt;/nom&gt;
+    &lt;age&gt;20&lt;/age&gt;
+    &lt;ville&gt;Dakar&lt;/ville&gt;
+&lt;/user&gt;</textarea>
 
-<button onclick="runCode()">
-Afficher le XML
-</button>
+      <button class="run-btn" onclick="runCode()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5,3 19,12 5,21"/></svg>
+        Exécuter
+      </button>
 
-<iframe id="result"></iframe>
+      <div class="result-label">Aperçu</div>
 
-</div>
+      <iframe id="result"></iframe>
+    </div>
 
-</div>
+  </div>
+
+</div><!-- end .container -->
 
 <script>
 
-function runCode(){
-
-let code = document.getElementById('editor').value;
-
-let iframe = document.getElementById('result');
-
-iframe.srcdoc = `
-<html>
-<body style="font-family:Arial;padding:20px;background:#f8fafc;">
-<h2>Résultat XML</h2>
-<pre style="background:#e2e8f0;padding:15px;border-radius:8px;">
-${code.replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-</pre>
-</body>
-</html>
-`;
-
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
-runCode();
+function highlightXml(str) {
+  return str
+    .replace(/&lt;\?[\s\S]*?\?&gt;/g, m => `<span style="color:#64748b;font-style:italic">${m}</span>`)
+    .replace(/&lt;!--[\s\S]*?--&gt;/g, m => `<span style="color:#94a3b8;font-style:italic">${m}</span>`)
+    .replace(/(&lt;\/?)([\w:.-]+)/g, (_, bracket, tag) =>
+      `<span style="color:#334155">${bracket}</span><span style="color:#0369a1;font-weight:600">${tag}</span>`)
+    .replace(/([\w:.-]+)=(&quot;[^&]*&quot;)/g, (_, attr, val) =>
+      `<span style="color:#7c3aed">${attr}</span>=<span style="color:#0891b2">${val}</span>`);
+}
 
+function runCode() {
+  let code = document.getElementById('editor').value;
+  let iframe = document.getElementById('result');
+  let escaped = escapeHtml(code);
+  let highlighted = highlightXml(escaped);
+
+  iframe.srcdoc = `
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { margin: 0; padding: 20px; background: #ffffff; font-family: 'Space Mono', monospace; }
+  pre {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 13px;
+    line-height: 1.8;
+    overflow: auto;
+    color: #334155;
+    margin: 0;
+  }
+  .label {
+    font-family: sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: #94a3b8;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="label">Résultat XML</div>
+<pre>${highlighted}</pre>
+</body>
+</html>`;
+}
+
+function loadCode(code) {
+  document.getElementById('editor').value = code
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, '&');
+  runCode();
+  document.querySelector('.editor-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Progress bar
+const lessonsPanel = document.getElementById('lessonsPanel');
+const progressFill = document.getElementById('progressFill');
+
+lessonsPanel.addEventListener('scroll', () => {
+  const scrollTop = lessonsPanel.scrollTop;
+  const scrollHeight = lessonsPanel.scrollHeight - lessonsPanel.clientHeight;
+  const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+  progressFill.style.width = progress + '%';
+});
+
+runCode();
 </script>
 
 </body>
 </html>
-```
