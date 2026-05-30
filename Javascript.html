@@ -1,31 +1,42 @@
-   <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apprendre JavaScript — 50 Leçons</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<title>JS Learn — 50 Leçons JavaScript</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-
 :root {
-  --bg: #f4f5fa;
-  --surface: #ffffff;
-  --surface2: #f0f1f8;
-  --border: #dde0ef;
-  --accent: #6254e8;
-  --accent2: #7c6af7;
-  --text: #1a1d2e;
-  --muted: #6b739a;
-  --green: #0e9e6e;
-  --amber: #c4870a;
-  --red: #d94f4f;
-  --code-bg: #eef0f8;
+  --bg: #0f0f13;
+  --surface: #17171e;
+  --surface2: #1f1f29;
+  --surface3: #252531;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --accent: #f0c060;
+  --accent2: #e8a830;
+  --accent-dim: rgba(240,192,96,0.12);
+  --accent-dim2: rgba(240,192,96,0.2);
+  --text: #f0eee8;
+  --text2: #a8a6a0;
+  --text3: #6a6860;
+  --green: #5dba80;
+  --green-dim: rgba(93,186,128,0.12);
+  --red: #e06060;
+  --blue: #6090e0;
+  --purple: #9060d8;
+  --code-bg: #12121a;
+  --serif: 'Fraunces', serif;
+  --sans: 'DM Sans', sans-serif;
+  --mono: 'IBM Plex Mono', monospace;
+  --radius: 8px;
+  --radius-lg: 12px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  font-family: 'Sora', sans-serif;
+  font-family: var(--sans);
   background: var(--bg);
   color: var(--text);
   height: 100vh;
@@ -38,60 +49,58 @@ body {
 .header {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
-  padding: 0 24px;
-  height: 58px;
+  padding: 0 20px;
+  height: 52px;
   display: flex;
   align-items: center;
   gap: 16px;
   flex-shrink: 0;
-  z-index: 10;
+  z-index: 100;
 }
 
 .logo {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
 }
 
-.logo-icon {
-  width: 32px;
-  height: 32px;
+.logo-mark {
+  width: 28px; height: 28px;
   background: var(--accent);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  font-weight: 600;
-  color: white;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono);
+  font-size: 11px; font-weight: 600;
+  color: #000;
 }
 
 .logo-text {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--accent);
+  font-family: var(--serif);
+  font-size: 17px; font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.02em;
 }
 
-.header-info {
-  margin-left: auto;
+.logo-text span { color: var(--accent); }
+
+.header-mid {
+  flex: 1;
   display: flex;
   align-items: center;
-  gap: 20px;
+  justify-content: center;
+  gap: 16px;
 }
 
-.progress-bar-wrap {
+.progress-wrap {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 12px;
-  color: var(--muted);
 }
 
 .progress-track {
-  width: 120px;
-  height: 4px;
-  background: var(--border);
+  width: 180px; height: 3px;
+  background: var(--surface3);
   border-radius: 99px;
   overflow: hidden;
 }
@@ -100,19 +109,34 @@ body {
   height: 100%;
   background: var(--accent);
   border-radius: 99px;
-  transition: width 0.4s;
+  transition: width 0.5s ease;
 }
 
-.badge {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 4px 12px;
+.progress-label {
   font-size: 12px;
-  color: var(--muted);
+  color: var(--text3);
+  font-family: var(--mono);
+  white-space: nowrap;
 }
 
-/* MAIN LAYOUT */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.streak-badge {
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(255,140,50,0.12);
+  border: 1px solid rgba(255,140,50,0.25);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: #ff9050;
+  font-weight: 500;
+}
+
+/* LAYOUT */
 .main {
   display: flex;
   flex: 1;
@@ -121,174 +145,119 @@ body {
 
 /* SIDEBAR */
 .sidebar {
-  width: 72px;
-  background: var(--surface);
-  border-right: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 16px 0;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-.nav-btn {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  border: none;
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  transition: all 0.2s;
-  position: relative;
-}
-
-.nav-btn:hover, .nav-btn.active {
-  background: var(--surface2);
-  color: var(--accent);
-}
-
-.nav-btn.active::before {
-  content: '';
-  position: absolute;
-  left: -1px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 24px;
-  background: var(--accent);
-  border-radius: 0 3px 3px 0;
-}
-
-/* LESSON LIST */
-.lessons-panel {
-  width: 320px;
+  width: 260px;
   background: var(--surface);
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  overflow: hidden;
 }
 
-.panel-header {
-  padding: 16px 20px;
+.sidebar-top {
+  padding: 14px 16px 10px;
   border-bottom: 1px solid var(--border);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-shrink: 0;
 }
 
-.search-box {
-  margin: 12px 16px;
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   background: var(--surface2);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  border-radius: var(--radius);
+  padding: 7px 11px;
+  transition: border 0.2s;
 }
 
-.search-box input {
-  background: transparent;
-  border: none;
-  outline: none;
+.search-row:focus-within { border-color: var(--border2); }
+
+.search-row svg { color: var(--text3); flex-shrink: 0; }
+
+.search-row input {
+  background: transparent; border: none; outline: none;
   color: var(--text);
-  font-family: 'Sora', sans-serif;
-  font-size: 13px;
-  width: 100%;
+  font-family: var(--sans);
+  font-size: 13px; width: 100%;
 }
 
-.search-box input::placeholder { color: var(--muted); }
+.search-row input::placeholder { color: var(--text3); }
 
-.lesson-list {
+.lesson-list-wrap {
   flex: 1;
   overflow-y: auto;
   padding: 8px;
 }
 
-.lesson-list::-webkit-scrollbar { width: 4px; }
-.lesson-list::-webkit-scrollbar-track { background: transparent; }
-.lesson-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.lesson-list-wrap::-webkit-scrollbar { width: 3px; }
+.lesson-list-wrap::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 2px; }
 
 .chapter-label {
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  padding: 14px 12px 6px;
+  font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.09em;
+  color: var(--text3);
+  padding: 14px 10px 6px;
 }
 
 .lesson-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 8px;
+  display: flex; align-items: center; gap: 9px;
+  padding: 8px 10px;
+  border-radius: var(--radius);
   cursor: pointer;
   transition: all 0.15s;
   border: 1px solid transparent;
+  position: relative;
 }
 
-.lesson-item:hover {
-  background: var(--surface2);
-}
+.lesson-item:hover { background: var(--surface2); }
 
 .lesson-item.active {
-  background: rgba(98, 84, 232, 0.08);
-  border-color: rgba(98, 84, 232, 0.2);
+  background: var(--accent-dim);
+  border-color: rgba(240,192,96,0.2);
 }
 
 .lesson-num {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
+  width: 22px; height: 22px;
+  border-radius: 5px;
+  background: var(--surface3);
   font-size: 10px;
-  font-family: 'JetBrains Mono', monospace;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-family: var(--mono);
+  display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
-  color: var(--muted);
+  color: var(--text3);
   transition: all 0.15s;
 }
 
-.lesson-item.active .lesson-num,
-.lesson-item:hover .lesson-num {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: white;
-}
-
+.lesson-item.active .lesson-num { background: var(--accent); color: #000; }
 .lesson-item.done .lesson-num {
-  background: rgba(14, 158, 110, 0.12);
-  border-color: var(--green);
+  background: var(--green-dim);
   color: var(--green);
+  font-size: 11px;
 }
 
-.lesson-title {
-  font-size: 13px;
-  color: var(--text);
+.lesson-title-text {
+  font-size: 12.5px;
+  color: var(--text2);
   line-height: 1.4;
   flex: 1;
 }
 
-.lesson-item.active .lesson-title { color: var(--accent); }
+.lesson-item.active .lesson-title-text { color: var(--accent); }
+.lesson-item.done .lesson-title-text { color: var(--text3); }
 
-/* CONTENT AREA */
+.done-check {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--green-dim);
+  border: 1px solid var(--green);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 8px;
+  color: var(--green);
+}
+
+/* CONTENT */
 .content-area {
   flex: 1;
   display: flex;
@@ -296,117 +265,107 @@ body {
   overflow: hidden;
 }
 
-.lesson-content {
+.content-scroll {
   flex: 1;
   overflow-y: auto;
-  padding: 32px 40px;
+  padding: 36px 48px;
 }
 
-.lesson-content::-webkit-scrollbar { width: 4px; }
-.lesson-content::-webkit-scrollbar-track { background: transparent; }
-.lesson-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.content-scroll::-webkit-scrollbar { width: 4px; }
+.content-scroll::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 2px; }
 
-.lesson-header {
-  margin-bottom: 28px;
+.lesson-eyebrow {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 12px;
 }
 
-.lesson-number-badge {
-  font-size: 12px;
-  color: var(--accent2);
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 600;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.lesson-num-badge {
+  font-family: var(--mono);
+  font-size: 11px; color: var(--accent2);
+  background: var(--accent-dim);
+  border: 1px solid rgba(240,192,96,0.15);
+  border-radius: 4px;
+  padding: 2px 8px;
 }
 
-.lesson-number-badge::before {
-  content: '';
-  width: 20px;
-  height: 1px;
-  background: var(--accent);
+.cat-tag {
+  font-size: 11px;
+  color: var(--text3);
+  background: var(--surface2);
+  border-radius: 4px;
+  padding: 2px 8px;
 }
 
 .lesson-h1 {
-  font-size: 26px;
-  font-weight: 700;
+  font-family: var(--serif);
+  font-size: 30px;
+  font-weight: 600;
   color: var(--text);
-  margin-bottom: 6px;
-  line-height: 1.3;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 24px;
 }
 
-.lesson-subtitle {
-  font-size: 14px;
-  color: var(--muted);
-}
-
-/* Info blocks */
-.info-block {
-  display: flex;
-  gap: 14px;
-  padding: 16px 20px;
-  border-radius: 10px;
-  margin: 20px 0;
-  font-size: 14px;
-  line-height: 1.7;
-  border: 1px solid;
-}
-
-.info-block.concept {
-  background: rgba(98, 84, 232, 0.06);
-  border-color: rgba(98, 84, 232, 0.2);
-  color: #4a3fc0;
-}
-
-.info-block.tip {
-  background: rgba(14, 158, 110, 0.06);
-  border-color: rgba(14, 158, 110, 0.2);
-  color: #0a6e4f;
-}
-
-.info-block.warn {
-  background: rgba(196, 135, 10, 0.06);
-  border-color: rgba(196, 135, 10, 0.2);
-  color: #8a5e07;
-}
-
-.info-icon {
-  font-size: 18px;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
+/* Content blocks */
 .prose {
-  font-size: 15px;
-  line-height: 1.85;
-  color: #3a3f5c;
-  margin-bottom: 18px;
+  font-size: 14.5px;
+  line-height: 1.9;
+  color: var(--text2);
+  margin-bottom: 16px;
 }
 
-.prose strong { color: var(--text); font-weight: 600; }
+.prose strong { color: var(--text); font-weight: 500; }
 
 .prose code {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  background: rgba(98, 84, 232, 0.1);
+  font-family: var(--mono);
+  font-size: 12.5px;
+  background: var(--surface3);
   color: var(--accent);
   padding: 1px 6px;
   border-radius: 4px;
 }
 
+.callout {
+  display: flex; gap: 12px;
+  padding: 14px 18px;
+  border-radius: var(--radius-lg);
+  margin: 20px 0;
+  font-size: 13.5px;
+  line-height: 1.7;
+  border: 1px solid;
+}
+
+.callout.tip {
+  background: rgba(93,186,128,0.07);
+  border-color: rgba(93,186,128,0.2);
+  color: #7dd8a0;
+}
+
+.callout.warn {
+  background: rgba(224,160,60,0.07);
+  border-color: rgba(224,160,60,0.2);
+  color: #e0a03c;
+}
+
+.callout.info {
+  background: rgba(96,144,224,0.07);
+  border-color: rgba(96,144,224,0.2);
+  color: var(--blue);
+}
+
+.callout-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
 /* Code block */
 .code-block {
   background: var(--code-bg);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   margin: 20px 0;
   overflow: hidden;
 }
 
 .code-header {
-  display: flex;
-  align-items: center;
+  display: flex; align-items: center;
   padding: 10px 16px;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
@@ -414,85 +373,168 @@ body {
 }
 
 .code-dots { display: flex; gap: 5px; }
-.dot { width: 10px; height: 10px; border-radius: 50%; }
-.dot-r { background: #f87171; }
-.dot-y { background: #fbbf24; }
-.dot-g { background: #34d399; }
+.dot { width: 9px; height: 9px; border-radius: 50%; }
+.dot-r { background: #e05555; }
+.dot-y { background: #e0a030; }
+.dot-g { background: #40a055; }
 
 .code-lang {
-  margin-left: auto;
-  font-size: 11px;
-  color: var(--muted);
-  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--text3);
+  font-family: var(--mono);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.07em;
+  margin-left: auto;
 }
 
-.code-copy {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  color: var(--muted);
+.try-btn {
+  background: var(--accent-dim);
+  border: 1px solid rgba(240,192,96,0.2);
+  color: var(--accent);
   font-size: 11px;
-  padding: 3px 8px;
-  border-radius: 4px;
+  padding: 4px 10px;
+  border-radius: 5px;
   cursor: pointer;
-  font-family: 'Sora', sans-serif;
+  font-family: var(--sans);
+  font-weight: 500;
   transition: all 0.15s;
 }
 
-.code-copy:hover { color: var(--text); border-color: var(--accent); }
+.try-btn:hover { background: var(--accent-dim2); }
 
-.code-body {
-  padding: 20px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  line-height: 1.7;
-  overflow-x: auto;
-  color: #2d3152;
-  white-space: pre;
+.copy-btn {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text3);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: all 0.15s;
 }
 
-/* Syntax highlighting */
-.kw  { color: #7c3aed; }   /* keywords */
-.ty  { color: #2563eb; }   /* types */
-.st  { color: #059669; }   /* strings */
-.cm  { color: #9ca3af; }   /* comments */
-.nm  { color: #d97706; }   /* numbers */
-.fn  { color: #6254e8; }   /* functions */
-.cls { color: #0284c7; }   /* classes */
+.copy-btn:hover { color: var(--text); border-color: var(--border2); }
 
-/* Lesson nav */
+.code-body {
+  padding: 20px 22px;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.75;
+  overflow-x: auto;
+  white-space: pre;
+  color: #c0beb6;
+}
+
+/* Syntax */
+.kw  { color: #b08ad8; }
+.fn  { color: #70a0e8; }
+.st  { color: #80c880; }
+.cm  { color: #4a4a5a; font-style: italic; }
+.nm  { color: #e8a060; }
+.op  { color: #d890c0; }
+
+/* Section */
+.section-title {
+  font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--text3); font-weight: 600;
+  margin: 32px 0 12px;
+  display: flex; align-items: center; gap: 10px;
+}
+
+.section-title::after {
+  content: ''; flex: 1; height: 1px;
+  background: var(--border);
+}
+
+/* Concept cards */
+.concept-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.concept-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+}
+
+.cc-label {
+  font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--text3); margin-bottom: 6px;
+}
+
+.cc-value {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--accent);
+}
+
+.cc-desc {
+  font-size: 11.5px;
+  color: var(--text3);
+  margin-top: 5px;
+  line-height: 1.5;
+}
+
+/* Nav bottom */
 .lesson-nav {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 40px;
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 48px;
   padding-top: 28px;
   border-top: 1px solid var(--border);
 }
 
-.nav-arrow {
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--text);
-  font-family: 'Sora', sans-serif;
-  font-size: 14px;
+.nav-prev, .nav-next {
+  padding: 9px 18px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border2);
+  background: var(--surface2);
+  color: var(--text2);
+  font-family: var(--sans);
+  font-size: 13px; font-weight: 500;
   cursor: pointer;
   transition: all 0.15s;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: flex; align-items: center; gap: 6px;
 }
 
-.nav-arrow:hover { border-color: var(--accent); color: var(--accent); }
-.nav-arrow.primary { background: var(--accent); border-color: var(--accent); color: white; margin-left: auto; }
-.nav-arrow.primary:hover { background: #5244d0; }
+.nav-prev:hover, .nav-next:hover {
+  border-color: rgba(240,192,96,0.3);
+  color: var(--accent);
+}
+
+.nav-next.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000;
+  margin-left: auto;
+  font-weight: 600;
+}
+
+.nav-next.primary:hover { background: var(--accent2); }
+
+.mark-done-btn {
+  padding: 9px 18px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(93,186,128,0.25);
+  background: rgba(93,186,128,0.08);
+  color: var(--green);
+  font-family: var(--sans);
+  font-size: 13px; font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.mark-done-btn:hover { background: rgba(93,186,128,0.15); }
 
 /* EDITOR PANEL */
 .editor-panel {
-  width: 400px;
+  width: 420px;
   background: var(--surface);
   border-left: 1px solid var(--border);
   display: flex;
@@ -500,1370 +542,1081 @@ body {
   flex-shrink: 0;
 }
 
-.editor-header {
-  padding: 12px 16px;
+.editor-tabs-bar {
+  padding: 0 16px;
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
-  gap: 10px;
-}
-
-.editor-tabs {
-  display: flex;
-  gap: 2px;
+  gap: 0;
+  height: 44px;
 }
 
 .etab {
-  padding: 6px 14px;
-  font-size: 12px;
-  font-weight: 600;
-  border-radius: 6px;
+  padding: 0 14px;
+  height: 44px;
+  line-height: 44px;
+  font-size: 12.5px;
+  font-weight: 500;
   cursor: pointer;
-  color: var(--muted);
+  color: var(--text3);
   transition: all 0.15s;
   border: none;
   background: transparent;
-  font-family: 'Sora', sans-serif;
+  font-family: var(--sans);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
 }
 
-.etab.active {
-  background: var(--surface2);
-  color: var(--text);
-}
+.etab.active { color: var(--accent); border-bottom-color: var(--accent); }
 
 .run-btn {
   margin-left: auto;
   padding: 6px 14px;
   background: var(--accent);
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
+  color: #000;
+  border: none; border-radius: var(--radius);
+  font-size: 12px; font-weight: 600;
   cursor: pointer;
-  font-family: 'Sora', sans-serif;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  font-family: var(--sans);
+  display: flex; align-items: center; gap: 5px;
   transition: background 0.15s;
 }
 
-.run-btn:hover { background: #5244d0; }
+.run-btn:hover { background: var(--accent2); }
 
-.editor-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
+.run-btn svg { width: 12px; height: 12px; }
+
+.editor-body { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
 .tab-pane { display: none; flex: 1; flex-direction: column; overflow: hidden; }
 .tab-pane.active { display: flex; }
+
+/* Code editor */
+.editor-container {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+.line-numbers {
+  background: var(--code-bg);
+  padding: 16px 10px 16px 14px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: var(--text3);
+  text-align: right;
+  min-width: 42px;
+  border-right: 1px solid var(--border);
+  user-select: none;
+  flex-shrink: 0;
+  overflow: hidden;
+}
 
 textarea#code-editor {
   flex: 1;
   background: var(--code-bg);
   border: none;
-  border-bottom: 1px solid var(--border);
   color: var(--text);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  padding: 20px;
-  resize: none;
-  outline: none;
-  line-height: 1.7;
-  tab-size: 4;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  padding: 16px 16px;
+  resize: none; outline: none;
+  line-height: 1.8;
+  tab-size: 2;
+  caret-color: var(--accent);
 }
 
-.output-box {
-  background: var(--code-bg);
-  flex: 1;
-  overflow: auto;
-  padding: 20px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  line-height: 1.7;
-  color: var(--green);
-  border-bottom: 1px solid var(--border);
-}
-
-.output-box.empty { color: var(--muted); }
-
-/* AI Assistant */
-.ai-pane {
-  display: none;
-  flex: 1;
+/* Output */
+.output-wrap {
+  display: flex;
   flex-direction: column;
+  height: 100%;
   overflow: hidden;
 }
 
+.output-header {
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text3);
+  font-family: var(--mono);
+  display: flex; align-items: center; gap: 8px;
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.output-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.output-frame {
+  flex: 1;
+  border: none;
+  background: #fff;
+}
+
+.console-log-box {
+  background: var(--code-bg);
+  border-top: 1px solid var(--border);
+  padding: 10px 14px;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.7;
+  max-height: 160px;
+  overflow-y: auto;
+  color: var(--green);
+  flex-shrink: 0;
+}
+
+.console-log-box::-webkit-scrollbar { width: 3px; }
+.console-log-box::-webkit-scrollbar-thumb { background: var(--surface3); }
+
+.console-line { padding: 1px 0; }
+.console-line.error { color: var(--red); }
+.console-line.warn { color: var(--accent); }
+.console-line.info { color: var(--blue); }
+
+.console-empty { color: var(--text3); font-style: italic; }
+
+/* AI ASSISTANT */
+.ai-pane {
+  display: none; flex-direction: column; height: 100%;
+}
 .ai-pane.active { display: flex; }
+
+.ai-context-bar {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text3);
+  background: var(--surface);
+  flex-shrink: 0;
+  display: flex; align-items: center; gap: 6px;
+}
+
+.ai-context-bar span {
+  background: var(--accent-dim);
+  color: var(--accent);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 11px;
+}
 
 .ai-messages {
   flex: 1;
   overflow-y: auto;
-  padding: 16px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   background: var(--bg);
 }
 
 .ai-messages::-webkit-scrollbar { width: 3px; }
-.ai-messages::-webkit-scrollbar-thumb { background: var(--border); }
+.ai-messages::-webkit-scrollbar-thumb { background: var(--surface3); }
 
 .msg {
-  padding: 12px 14px;
-  border-radius: 10px;
+  padding: 11px 14px;
+  border-radius: var(--radius-lg);
   font-size: 13px;
-  line-height: 1.65;
-  max-width: 95%;
+  line-height: 1.7;
+  max-width: 96%;
+  animation: msg-in 0.2s ease;
+}
+
+@keyframes msg-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
 }
 
 .msg.user {
-  background: rgba(98, 84, 232, 0.1);
-  border: 1px solid rgba(98, 84, 232, 0.2);
-  color: #3f35b8;
+  background: var(--accent-dim);
+  border: 1px solid rgba(240,192,96,0.15);
+  color: var(--accent);
   align-self: flex-end;
 }
 
 .msg.ai {
   background: var(--surface);
   border: 1px solid var(--border);
-  color: var(--text);
+  color: var(--text2);
   align-self: flex-start;
 }
 
 .msg.ai code {
-  font-family: 'JetBrains Mono', monospace;
-  background: rgba(98, 84, 232, 0.1);
+  font-family: var(--mono);
+  background: var(--surface3);
   padding: 1px 5px;
-  border-radius: 3px;
-  font-size: 12px;
+  border-radius: 4px;
+  font-size: 11.5px;
   color: var(--accent);
 }
 
-.ai-input-row {
-  padding: 12px 16px;
+.msg.system {
+  background: transparent;
+  border: none;
+  color: var(--text3);
+  font-size: 12px;
+  align-self: center;
+  font-style: italic;
+}
+
+.typing-wrap {
+  display: none;
+  align-self: flex-start;
+  padding: 11px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.typing-dots {
+  display: flex; gap: 4px; align-items: center;
+}
+
+.typing-dots span {
+  width: 5px; height: 5px;
+  background: var(--text3);
+  border-radius: 50%;
+  animation: typing-bounce 1.2s infinite;
+}
+
+.typing-dots span:nth-child(2) { animation-delay: 0.15s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes typing-bounce {
+  0%,60%,100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+
+.quick-prompts {
+  padding: 10px 14px;
   border-top: 1px solid var(--border);
-  display: flex;
-  gap: 8px;
-  align-items: flex-end;
+  display: flex; gap: 6px; flex-wrap: wrap;
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.qp-btn {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border2);
+  background: var(--surface2);
+  color: var(--text3);
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.qp-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.ai-input-row {
+  padding: 10px 14px;
+  border-top: 1px solid var(--border);
+  display: flex; gap: 8px; align-items: flex-end;
+  background: var(--surface);
+  flex-shrink: 0;
 }
 
 .ai-input {
   flex: 1;
   background: var(--surface2);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 10px 12px;
+  border-radius: var(--radius);
+  padding: 9px 12px;
   color: var(--text);
-  font-family: 'Sora', sans-serif;
-  font-size: 13px;
-  outline: none;
-  resize: none;
-  line-height: 1.5;
-  min-height: 40px;
-  max-height: 100px;
+  font-family: var(--sans);
+  font-size: 13px; outline: none;
+  resize: none; line-height: 1.5;
+  min-height: 38px; max-height: 90px;
   transition: border 0.15s;
 }
 
-.ai-input:focus { border-color: var(--accent); }
-.ai-input::placeholder { color: var(--muted); }
+.ai-input:focus { border-color: rgba(240,192,96,0.3); }
+.ai-input::placeholder { color: var(--text3); }
 
 .send-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+  width: 36px; height: 36px;
+  border-radius: var(--radius);
   background: var(--accent);
-  border: none;
-  color: white;
-  font-size: 16px;
+  border: none; color: #000;
+  font-size: 15px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.15s;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
   flex-shrink: 0;
 }
 
-.send-btn:hover { background: #5244d0; }
+.send-btn:hover { background: var(--accent2); }
+.send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-.typing-indicator {
-  display: none;
-  align-items: center;
-  gap: 4px;
-  padding: 10px 14px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  width: fit-content;
-}
-
-.typing-indicator span {
-  width: 6px;
-  height: 6px;
-  background: var(--muted);
-  border-radius: 50%;
-  animation: bounce 1.2s infinite;
-}
-
-.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes bounce {
-  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-  30% { transform: translateY(-5px); opacity: 1; }
-}
-
-/* Concept grid */
-.concept-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin: 20px 0;
-}
-
-.concept-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 16px;
-}
-
-.cc-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  margin-bottom: 8px;
-}
-
-.cc-value {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  color: var(--accent);
-}
-
-.cc-desc {
-  font-size: 12px;
-  color: var(--muted);
-  margin-top: 6px;
-  line-height: 1.5;
-}
-
-/* Section title */
-.section-title {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  font-weight: 600;
-  margin: 28px 0 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.section-title::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-/* Done button */
-.done-btn {
-  padding: 8px 16px;
-  border-radius: 8px;
-  background: rgba(14, 158, 110, 0.08);
-  border: 1px solid rgba(14, 158, 110, 0.25);
-  color: var(--green);
-  font-family: 'Sora', sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.done-btn:hover { background: rgba(14, 158, 110, 0.15); }
-
-/* Responsive */
-@media (max-width: 1100px) {
-  .editor-panel { width: 340px; }
-  .lessons-panel { width: 280px; }
-}
-
-@media (max-width: 800px) {
-  .sidebar { display: none; }
-  .lessons-panel { width: 100%; position: absolute; z-index: 5; transform: translateX(-100%); transition: transform 0.3s; }
-  .lessons-panel.open { transform: none; }
-  .editor-panel { display: none; }
-}
-
-/* Quiz */
+/* QUIZ */
 .quiz-block {
-  border: 1px solid rgba(98, 84, 232, 0.25);
-  border-radius: 10px;
-  padding: 18px;
-  margin: 20px 0;
-  background: rgba(98, 84, 232, 0.04);
+  border: 1px solid rgba(240,192,96,0.2);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin: 24px 0;
+  background: rgba(240,192,96,0.04);
+}
+
+.quiz-label {
+  font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.09em;
+  color: var(--accent2); margin-bottom: 10px;
 }
 
 .quiz-q {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 12px;
+  font-size: 14px; font-weight: 500;
+  margin-bottom: 14px;
   color: var(--text);
+  line-height: 1.5;
 }
 
 .quiz-opt {
-  padding: 9px 14px;
-  border-radius: 7px;
-  border: 1px solid var(--border);
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border2);
   background: var(--surface2);
   margin-bottom: 8px;
   cursor: pointer;
   font-size: 13px;
-  color: var(--text);
+  color: var(--text2);
   transition: all 0.15s;
-  display: block;
-  width: 100%;
+  display: block; width: 100%;
   text-align: left;
-  font-family: 'Sora', sans-serif;
+  font-family: var(--sans);
 }
 
-.quiz-opt:hover  { border-color: var(--accent); color: var(--accent); }
-.quiz-opt.correct { border-color: var(--green); background: rgba(14, 158, 110, 0.08); color: var(--green); }
-.quiz-opt.wrong   { border-color: var(--red);   background: rgba(217, 79, 79, 0.08);  color: var(--red); }
+.quiz-opt:hover { border-color: rgba(240,192,96,0.3); color: var(--accent); }
+.quiz-opt.correct { border-color: var(--green); background: rgba(93,186,128,0.1); color: var(--green); }
+.quiz-opt.wrong { border-color: var(--red); background: rgba(224,96,96,0.1); color: var(--red); }
+.quiz-opt:disabled { cursor: default; }
 
 .quiz-feedback {
-  margin-top: 10px;
-  font-size: 13px;
+  margin-top: 10px; font-size: 13px;
   display: none;
+  padding: 8px 12px;
+  border-radius: var(--radius);
 }
+
+.quiz-feedback.show { display: block; }
+.quiz-feedback.ok { background: rgba(93,186,128,0.1); color: var(--green); }
+.quiz-feedback.ko { background: rgba(224,96,96,0.1); color: var(--red); }
+
+/* Congrats */
+.congrats-card {
+  background: linear-gradient(135deg, rgba(240,192,96,0.08), rgba(93,186,128,0.08));
+  border: 1px solid rgba(240,192,96,0.2);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.congrats-icon { font-size: 48px; margin-bottom: 14px; }
+.congrats-title {
+  font-family: var(--serif);
+  font-size: 22px; font-weight: 600;
+  color: var(--text); margin-bottom: 8px;
+}
+
+.congrats-subtitle { font-size: 14px; color: var(--text2); line-height: 1.7; }
+
+/* Mobile hide */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .editor-panel { width: 340px; }
+}
+
+@media (max-width: 650px) {
+  .editor-panel { display: none; }
+  .content-scroll { padding: 24px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">
+    <div class="logo-mark">JS</div>
+    <div class="logo-text">Learn <span>JS</span></div>
+  </div>
+  <div class="header-mid">
+    <div class="progress-wrap">
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+      <div class="progress-label"><span id="progress-text">0 / 50</span> leçons</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="streak-badge">🔥 <span id="streak-num">0</span> série</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-top">
+      <div class="search-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="search-input" type="text" placeholder="Chercher une leçon…" oninput="filterLessons(this.value)">
+      </div>
+    </div>
+    <div class="lesson-list-wrap" id="lesson-list"></div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content-area">
+    <div class="content-scroll" id="content-scroll">
+      <div id="lesson-panel"></div>
+    </div>
+  </div>
+
+  <!-- EDITOR -->
+  <div class="editor-panel">
+    <div class="editor-tabs-bar">
+      <button class="etab active" onclick="switchTab('playground', this)">Playground</button>
+      <button class="etab" onclick="switchTab('output', this)">Résultat</button>
+      <button class="etab" onclick="switchTab('ai', this)">✦ Assistant IA</button>
+      <button class="run-btn" onclick="runCode()">
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+        Exécuter
+      </button>
+    </div>
+
+    <div class="editor-body">
+      <!-- Playground tab -->
+      <div class="tab-pane active" id="tab-playground">
+        <div class="editor-container">
+          <div class="line-numbers" id="line-numbers">1</div>
+          <textarea id="code-editor" spellcheck="false" placeholder="Écrivez votre code JavaScript ici…" oninput="updateLineNumbers(); autoRun()"></textarea>
+        </div>
+      </div>
+
+      <!-- Output tab -->
+      <div class="tab-pane" id="tab-output">
+        <div class="output-wrap">
+          <div class="output-header">
+            <div class="output-dot"></div>
+            Aperçu visuel
+          </div>
+          <iframe class="output-frame" id="result" sandbox="allow-scripts allow-same-origin"></iframe>
+          <div class="console-log-box" id="console-box">
+            <div class="console-empty">Console vide — exécutez du code pour voir les logs</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI tab -->
+      <div class="tab-pane" id="tab-ai">
+        <div class="ai-pane active">
+          <div class="ai-context-bar">
+            Contexte : <span id="ai-lesson-ctx">Leçon 1</span>
+          </div>
+          <div class="ai-messages" id="ai-messages">
+            <div class="msg ai">Bonjour ! Je suis votre assistant JavaScript. Posez-moi n'importe quelle question sur la leçon en cours, votre code, ou JavaScript en général. Je suis là pour vous aider à comprendre ! 🚀</div>
+          </div>
+          <div class="typing-wrap" id="typing-wrap">
+            <div class="typing-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="quick-prompts">
+            <button class="qp-btn" onclick="quickPrompt('Explique-moi ce concept avec un exemple simple')">Exemple simple</button>
+            <button class="qp-btn" onclick="quickPrompt('Quelles sont les erreurs courantes à éviter ?')">Erreurs courantes</button>
+            <button class="qp-btn" onclick="quickPrompt('Pourquoi est-ce important en pratique ?')">Usage pratique</button>
+            <button class="qp-btn" onclick="quickPrompt('Crée un mini-exercice sur ce sujet')">Mini-exercice</button>
+          </div>
+          <div class="ai-input-row">
+            <textarea class="ai-input" id="ai-input" placeholder="Posez votre question…" rows="1"
+              onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAI()}"
+              oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+            <button class="send-btn" id="send-btn" onclick="sendAI()">↑</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
 
 <script>
-
-const lessons = [
+const LESSONS = [
   {
+    cat: "Les bases",
     title: "Introduction à JavaScript",
-    desc: `
-      <p>JavaScript est le <strong>langage de programmation du web</strong>. Il permet d'ajouter de l'interactivité à vos pages HTML : animations, boutons, formulaires dynamiques, jeux, et bien plus encore.</p>
-      <p>Il s'exécute directement dans le navigateur, sans installation. C'est pourquoi c'est l'un des langages les plus populaires au monde.</p>
-      <p><strong>console.log()</strong> est la première instruction à connaître : elle affiche un message dans la console du navigateur (ouvrez les DevTools avec F12 pour la voir).</p>
-      <div class="tip">💡 JavaScript est différent de Java. Ce sont deux langages distincts malgré leur nom similaire.</div>
-    `,
-    code: `// Afficher un message dans la console
-console.log("Bonjour le monde !")
-
-// Vous pouvez afficher des nombres aussi
-console.log(42)`,
-    starter: `console.log("Bonjour JavaScript")\nconsole.log("Mon premier programme")`
+    desc: `<p class="prose">JavaScript est le <strong>langage de programmation du web</strong>. Il permet d'ajouter de l'interactivité à vos pages HTML : animations, boutons, formulaires dynamiques, jeux, et bien plus encore.</p>
+<p class="prose">Il s'exécute directement dans le navigateur, sans installation. C'est pourquoi c'est l'un des langages les plus populaires au monde.</p>
+<div class="callout tip"><span class="callout-icon">💡</span> <div>JavaScript est différent de Java. Ce sont deux langages distincts malgré leur nom similaire.</div></div>`,
+    code: `// Afficher un message dans la console\nconsole.log("Bonjour le monde !")\n\n// Vous pouvez afficher des nombres\nconsole.log(42)\nconsole.log(3.14)`,
+    starter: `console.log("Bonjour JavaScript")\nconsole.log("Mon premier programme")\nconsole.log(2025)`,
+    quiz: { q: "Quelle instruction affiche un message dans la console ?", opts: ["print()", "console.log()", "alert()", "log()"], answer: 1 }
   },
   {
+    cat: "Les bases",
     title: "Variables avec let",
-    desc: `
-      <p>Une <strong>variable</strong> est une boîte qui stocke une valeur. Le mot-clé <strong>let</strong> permet de créer une variable dont la valeur peut changer au cours du programme.</p>
-      <p>On utilise le symbole <code>=</code> pour <strong>assigner</strong> une valeur. Ce n'est pas une égalité mathématique, c'est une affectation : « mets cette valeur dans cette boîte ».</p>
-      <div class="tip">💡 Vous pouvez changer la valeur d'une variable <code>let</code> à n'importe quel moment.</div>
-    `,
-    code: `let nom = "Ali"
-console.log(nom) // Affiche : Ali
-
-// Modifier la variable
-nom = "Fatou"
-console.log(nom) // Affiche : Fatou`,
-    starter: `let prenom = "Votre prénom"\nlet ville = "Dakar"\nconsole.log(prenom)\nconsole.log(ville)`
+    desc: `<p class="prose">Une <strong>variable</strong> est une boîte qui stocke une valeur. Le mot-clé <strong>let</strong> permet de créer une variable dont la valeur peut changer au cours du programme.</p>
+<p class="prose">On utilise le symbole <code>=</code> pour <strong>assigner</strong> une valeur. Ce n'est pas une égalité mathématique — c'est une affectation : "mets cette valeur dans cette boîte".</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Vous pouvez changer la valeur d'une variable <code>let</code> à n'importe quel moment.</div></div>`,
+    code: `let nom = "Aminata"\nconsole.log(nom) // Aminata\n\n// Modifier la variable\nnom = "Fatou"\nconsole.log(nom) // Fatou`,
+    starter: `let prenom = "Votre prénom"\nlet ville = "Dakar"\nconsole.log(prenom)\nconsole.log(ville)`,
+    quiz: { q: "Quel mot-clé crée une variable modifiable ?", opts: ["var", "const", "let", "def"], answer: 2 }
   },
   {
+    cat: "Les bases",
     title: "Constantes avec const",
-    desc: `
-      <p><strong>const</strong> crée une variable dont la valeur <strong>ne peut pas être changée</strong> après sa création. On l'utilise pour les valeurs fixes comme l'âge de majorité, un taux de TVA, une couleur de thème.</p>
-      <p>Si vous essayez de modifier une <code>const</code>, JavaScript affichera une erreur.</p>
-      <div class="warning">⚠️ const ne peut pas être réassignée. Utilisez let si vous devez modifier la valeur plus tard.</div>
-      <div class="tip">💡 Bonne pratique : utilisez const par défaut, et let seulement si vous avez besoin de modifier la valeur.</div>
-    `,
-    code: `const age = 20
-console.log(age) // 20
-
-// Ceci provoquerait une erreur :
-// age = 21  → TypeError !
-
-const PI = 3.14159
-console.log(PI)`,
-    starter: `const pays = "Sénégal"\nconst annee = 2025\nconsole.log(pays)\nconsole.log(annee)`
+    desc: `<p class="prose"><strong>const</strong> crée une variable dont la valeur <strong>ne peut pas être changée</strong> après sa création. On l'utilise pour les valeurs fixes.</p>
+<div class="callout warn"><span class="callout-icon">⚠️</span><div><code>const</code> ne peut pas être réassignée. Utilisez <code>let</code> si vous devez modifier la valeur plus tard.</div></div>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Bonne pratique : utilisez <code>const</code> par défaut, et <code>let</code> seulement si vous avez besoin de modifier la valeur.</div></div>`,
+    code: `const age = 20\nconsole.log(age) // 20\n\n// age = 21 ← TypeError !\n\nconst PI = 3.14159\nconsole.log("PI =", PI)`,
+    starter: `const pays = "Sénégal"\nconst annee = 2025\nconsole.log(pays)\nconsole.log(annee)`,
+    quiz: { q: "Que se passe-t-il si on tente de réassigner une const ?", opts: ["La valeur change", "Rien", "Une TypeError est levée", "Un avertissement"], answer: 2 }
   },
   {
-    title: "Alert — Boîte de dialogue",
-    desc: `
-      <p><strong>alert()</strong> affiche une boîte de dialogue dans le navigateur avec un message. L'utilisateur doit cliquer sur OK pour continuer.</p>
-      <p>C'est utile pour tester rapidement, mais à éviter dans les vraies applications car c'est intrusif et bloque l'exécution du code.</p>
-      <div class="tip">💡 Dans la sandbox de ce cours, alert() s'affiche dans la zone de résultat. Dans un vrai navigateur, c'est une popup qui bloque tout.</div>
-    `,
-    code: `alert("Bienvenue sur mon site !")
-
-// Vous pouvez alerter avec des variables
-let nom = "Ali"
-alert("Bonjour " + nom)`,
-    starter: `alert("Bonjour !")`
-  },
-  {
-    title: "console.log en détail",
-    desc: `
-      <p><strong>console.log()</strong> est l'outil numéro 1 du développeur pour déboguer son code. Il affiche n'importe quelle valeur dans la console.</p>
-      <p>Vous pouvez passer plusieurs arguments séparés par des virgules, et JavaScript les affichera tous sur la même ligne.</p>
-      <div class="tip">💡 Pour voir la console : appuyez sur F12 dans Chrome/Firefox → onglet "Console".</div>
-    `,
-    code: `console.log("Un seul message")
-console.log("Plusieurs", "valeurs", "séparées")
-console.log("Résultat :", 5 + 3)
-
-let x = 10
-console.log("La valeur de x est :", x)`,
-    starter: `let a = 5\nlet b = 3\nconsole.log("a =", a)\nconsole.log("b =", b)\nconsole.log("Somme =", a + b)`
-  },
-  {
+    cat: "Les bases",
     title: "Les Nombres",
-    desc: `
-      <p>JavaScript gère deux types de nombres : les <strong>entiers</strong> (1, 42, -5) et les <strong>décimaux</strong> (3.14, -0.5). Il n'y a pas de distinction de type entre eux, ils sont tous de type <code>number</code>.</p>
-      <p>Les opérations de base sont disponibles : <strong>+</strong> (addition), <strong>-</strong> (soustraction), <strong>*</strong> (multiplication), <strong>/</strong> (division), <strong>%</strong> (modulo = reste de la division).</p>
-      <div class="tip">💡 Le modulo <code>%</code> est très utile : <code>10 % 3</code> donne <code>1</code> car 10 = 3×3 + 1.</div>
-    `,
-    code: `let entier = 42
-let decimal = 3.14
-
-console.log(entier + decimal)  // 45.14
-console.log(10 * 5)            // 50
-console.log(10 / 3)            // 3.333...
-console.log(10 % 3)            // 1 (reste)`,
-    starter: `let prix = 1500\nlet quantite = 3\nlet total = prix * quantite\nconsole.log("Total :", total, "FCFA")`
+    desc: `<p class="prose">JavaScript gère deux types de nombres : les <strong>entiers</strong> (1, 42, -5) et les <strong>décimaux</strong> (3.14, -0.5). Il n'y a pas de distinction de type entre eux.</p>
+<p class="prose">Les opérations de base : <strong>+</strong> addition, <strong>-</strong> soustraction, <strong>*</strong> multiplication, <strong>/</strong> division, <strong>%</strong> modulo (reste).</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Le modulo <code>%</code> est très utile : <code>10 % 3</code> donne <code>1</code> car 10 = 3×3 + 1.</div></div>`,
+    code: `let entier = 42\nlet decimal = 3.14\n\nconsole.log(entier + decimal)  // 45.14\nconsole.log(10 * 5)            // 50\nconsole.log(10 / 3)            // 3.333...\nconsole.log(10 % 3)            // 1 (reste)`,
+    starter: `let prix = 1500\nlet quantite = 3\nlet total = prix * quantite\nconsole.log("Total :", total, "FCFA")`,
+    quiz: { q: "Que retourne 17 % 5 ?", opts: ["3", "2", "12", "5"], answer: 1 }
   },
   {
+    cat: "Les bases",
     title: "Les Chaînes de caractères",
-    desc: `
-      <p>Une <strong>chaîne de caractères</strong> (string) est un texte entouré de guillemets simples <code>'...'</code>, doubles <code>"..."</code> ou backticks <code>\`...\`</code>.</p>
-      <p>L'opérateur <strong>+</strong> permet de <strong>concatener</strong> (coller) des chaînes ensemble. La propriété <code>.length</code> donne la longueur du texte.</p>
-      <div class="tip">💡 <code>"5" + 3</code> donne <code>"53"</code> (concatenation) et non <code>8</code> ! Faites attention aux types.</div>
-    `,
-    code: `let prenom = "Aminata"
-let nom = "Diallo"
-let nomComplet = prenom + " " + nom
-console.log(nomComplet)     // Aminata Diallo
-
-console.log(nomComplet.length)  // 14 (nb de caractères)
-console.log(prenom.toUpperCase()) // AMINATA`,
-    starter: `let salutation = "Bonjour"\nlet prenom = "Moussa"\nconsole.log(salutation + " " + prenom + " !")`
+    desc: `<p class="prose">Une <strong>chaîne de caractères</strong> est un texte entouré de guillemets simples <code>'...'</code>, doubles <code>"..."</code> ou backticks <code>\`...\`</code>.</p>
+<p class="prose">L'opérateur <strong>+</strong> permet de <strong>concaténer</strong> (coller) des chaînes. La propriété <code>.length</code> donne la longueur.</p>
+<div class="callout warn"><span class="callout-icon">⚠️</span><div><code>"5" + 3</code> donne <code>"53"</code> (concaténation) et non <code>8</code> ! Faites attention aux types.</div></div>`,
+    code: `let prenom = "Aminata"\nlet nom = "Diallo"\nlet nomComplet = prenom + " " + nom\nconsole.log(nomComplet)           // Aminata Diallo\nconsole.log(nomComplet.length)    // 14\nconsole.log(prenom.toUpperCase()) // AMINATA`,
+    starter: `let salutation = "Bonjour"\nlet prenom = "Moussa"\nconsole.log(salutation + " " + prenom + " !")`,
+    quiz: { q: "Que retourne \"Hello\".length ?", opts: ["4", "5", "6", "\"Hello\""], answer: 1 }
   },
   {
+    cat: "Les bases",
+    title: "Template Strings",
+    desc: `<p class="prose">Les <strong>template strings</strong> utilisent les backticks <code>\`\`</code> et permettent d'insérer des variables avec <code>\${variable}</code>. Fini la concaténation avec <code>+</code> !</p>
+<p class="prose">Ils supportent aussi les sauts de ligne directs et peuvent contenir n'importe quelle expression JS dans les <code>\${}</code>.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Dans <code>\${}</code> vous pouvez mettre n'importe quelle expression : <code>\${age >= 18 ? "majeur" : "mineur"}</code>.</div></div>`,
+    code: `let prenom = "Moussa"\nlet age = 25\nlet ville = "Dakar"\n\n// Ancienne méthode\nconsole.log("Bonjour " + prenom + ", " + age + " ans")\n\n// Template string (bien mieux !)\nconsole.log(\`Bonjour \${prenom}, \${age} ans, de \${ville}\`)\nconsole.log(\`Dans 10 ans : \${age + 10} ans\`)`,
+    starter: `let nom = "Fatou"\nlet note = 17\nlet mention = note >= 16 ? "Très Bien" : "Bien"\nconsole.log(\`Étudiant(e) : \${nom}\`)\nconsole.log(\`Note : \${note}/20 — Mention : \${mention}\`)`,
+    quiz: { q: "Quelle syntaxe utilise les template strings ?", opts: ["${}", "#{}", "{{  }}", "@{}"], answer: 0 }
+  },
+  {
+    cat: "Les bases",
     title: "Opérations mathématiques",
-    desc: `
-      <p>Au-delà des 4 opérations, JavaScript offre l'objet <strong>Math</strong> pour des calculs avancés. Voici les plus utiles :</p>
-      <p><strong>Math.round()</strong> arrondit, <strong>Math.floor()</strong> arrondit vers le bas, <strong>Math.ceil()</strong> vers le haut, <strong>Math.abs()</strong> donne la valeur absolue, <strong>Math.pow()</strong> calcule une puissance.</p>
-      <div class="tip">💡 <code>**</code> est un raccourci pour les puissances : <code>2 ** 10</code> = 1024.</div>
-    `,
-    code: `console.log(5 + 3)        // 8
-console.log(10 - 4)       // 6
-console.log(3 * 7)        // 21
-console.log(15 / 4)       // 3.75
-console.log(Math.round(3.7)) // 4
-console.log(2 ** 8)       // 256`,
-    starter: `let base = 5\nlet hauteur = 12\nlet aire = (base * hauteur) / 2\nconsole.log("Aire du triangle :", aire)`
+    desc: `<p class="prose">Au-delà des 4 opérations, JavaScript offre l'objet <strong>Math</strong> pour des calculs avancés. Voici les plus utiles.</p>
+<div class="concept-grid">
+  <div class="concept-card"><div class="cc-label">Arrondir</div><div class="cc-value">Math.round()</div><div class="cc-desc">3.7 → 4, 3.2 → 3</div></div>
+  <div class="concept-card"><div class="cc-label">Vers le bas</div><div class="cc-value">Math.floor()</div><div class="cc-desc">3.9 → 3 toujours</div></div>
+  <div class="concept-card"><div class="cc-label">Vers le haut</div><div class="cc-value">Math.ceil()</div><div class="cc-desc">3.1 → 4 toujours</div></div>
+  <div class="concept-card"><div class="cc-label">Puissance</div><div class="cc-value">2 ** 10</div><div class="cc-desc">= 1024</div></div>
+</div>`,
+    code: `console.log(Math.round(3.7)) // 4\nconsole.log(Math.floor(3.9)) // 3\nconsole.log(Math.ceil(3.1))  // 4\nconsole.log(Math.abs(-15))   // 15\nconsole.log(2 ** 8)          // 256\nconsole.log(Math.sqrt(16))   // 4`,
+    starter: `let base = 5\nlet hauteur = 12\nlet aire = (base * hauteur) / 2\nconsole.log("Aire du triangle :", aire)`,
+    quiz: { q: "Que retourne Math.floor(4.99) ?", opts: ["5", "4", "4.99", "Erreur"], answer: 1 }
   },
   {
+    cat: "Les bases",
+    title: "Math.random()",
+    desc: `<p class="prose"><strong>Math.random()</strong> génère un nombre décimal aléatoire entre 0 (inclus) et 1 (exclus). Pour obtenir un entier entre 0 et N : <code>Math.floor(Math.random() * N)</code>.</p>
+<p class="prose">Pour un entier entre min et max : <code>Math.floor(Math.random() * (max - min + 1)) + min</code>.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Math.random() est la base des jeux, des couleurs aléatoires, des sélections au hasard dans une liste.</div></div>`,
+    code: `// Nombre entre 0 et 1\nconsole.log(Math.random())\n\n// Entier entre 1 et 6 (dé)\nlet de = Math.floor(Math.random() * 6) + 1\nconsole.log("Dé :", de)\n\n// Entier entre 10 et 20\nlet n = Math.floor(Math.random() * 11) + 10\nconsole.log("Entre 10 et 20 :", n)`,
+    starter: `let btn = document.querySelector("button")\nbtn.innerHTML = "🎲 Lancer le dé"\nbtn.addEventListener("click", function() {\n  let de = Math.floor(Math.random() * 6) + 1\n  document.querySelector("h1").innerHTML = "Dé : " + de\n})`,
+    quiz: { q: "Math.random() peut-il retourner exactement 1 ?", opts: ["Oui toujours", "Non, jamais", "Parfois", "Seulement en mode strict"], answer: 1 }
+  },
+  {
+    cat: "Logique",
     title: "Condition if",
-    desc: `
-      <p>La structure <strong>if</strong> permet d'exécuter du code uniquement si une condition est vraie. La condition est entre parenthèses, le code à exécuter entre accolades.</p>
-      <p>Les opérateurs de comparaison : <strong>></strong> (supérieur), <strong><</strong> (inférieur), <strong>>=</strong> (supérieur ou égal), <strong><=</strong> (inférieur ou égal), <strong>===</strong> (strictement égal), <strong>!==</strong> (différent).</p>
-      <div class="tip">💡 Utilisez <code>===</code> et non <code>==</code>. Le triple égal vérifie aussi le type : <code>"5" == 5</code> est vrai, mais <code>"5" === 5</code> est faux.</div>
-    `,
-    code: `let age = 20
-
-if (age >= 18) {
-  console.log("Vous êtes majeur")
-}
-
-if (age >= 65) {
-  console.log("Vous êtes senior")
-}`,
-    starter: `let note = 14\nif (note >= 10) {\n  console.log("Admis !")\n}\nif (note >= 16) {\n  console.log("Félicitations !")\n}`
+    desc: `<p class="prose">La structure <strong>if</strong> exécute du code uniquement si une condition est vraie. La condition est entre parenthèses, le code entre accolades.</p>
+<p class="prose">Les opérateurs de comparaison : <strong>></strong>, <strong><</strong>, <strong>>=</strong>, <strong><=</strong>, <strong>===</strong> (strictement égal), <strong>!==</strong> (différent).</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Utilisez <code>===</code> et non <code>==</code>. Le triple égal vérifie aussi le type : <code>"5" === 5</code> est faux.</div></div>`,
+    code: `let age = 20\n\nif (age >= 18) {\n  console.log("Vous êtes majeur")\n}\n\nif (age >= 65) {\n  console.log("Vous êtes senior")\n} else {\n  console.log("Pas encore senior")\n}`,
+    starter: `let note = 14\nif (note >= 10) {\n  console.log("Admis !")\n}\nif (note >= 16) {\n  console.log("Félicitations !")\n}`,
+    quiz: { q: "Quel opérateur vérifie l'égalité stricte (type + valeur) ?", opts: ["==", "=", "===", "!="], answer: 2 }
   },
   {
-    title: "Condition if / else",
-    desc: `
-      <p><strong>else</strong> s'exécute quand la condition du <code>if</code> est <strong>fausse</strong>. On peut enchaîner avec <strong>else if</strong> pour gérer plusieurs cas.</p>
-      <p>L'ordre des conditions est important : JavaScript s'arrête dès qu'il en trouve une vraie.</p>
-      <div class="tip">💡 Les opérateurs logiques : <code>&&</code> (ET), <code>||</code> (OU), <code>!</code> (NON). Exemple : <code>age > 12 && age < 18</code>.</div>
-    `,
-    code: `let note = 14
-
-if (note >= 16) {
-  console.log("Très bien")
-} else if (note >= 10) {
-  console.log("Passable")
-} else {
-  console.log("Insuffisant")
-}`,
-    starter: `let heure = 14\nif (heure < 12) {\n  console.log("Bonjour !")\n} else if (heure < 18) {\n  console.log("Bon après-midi !")\n} else {\n  console.log("Bonsoir !")\n}`
+    cat: "Logique",
+    title: "if / else if / else",
+    desc: `<p class="prose"><strong>else</strong> s'exécute quand la condition du <code>if</code> est <strong>fausse</strong>. On peut enchaîner avec <strong>else if</strong> pour gérer plusieurs cas.</p>
+<p class="prose">L'ordre des conditions est important : JavaScript s'arrête dès qu'il en trouve une vraie.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Les opérateurs logiques : <code>&&</code> (ET), <code>||</code> (OU), <code>!</code> (NON). Exemple : <code>age > 12 && age &lt; 18</code>.</div></div>`,
+    code: `let note = 14\n\nif (note >= 16) {\n  console.log("Très bien")\n} else if (note >= 12) {\n  console.log("Bien")\n} else if (note >= 10) {\n  console.log("Passable")\n} else {\n  console.log("Insuffisant")\n}`,
+    starter: `let heure = 14\nif (heure < 12) {\n  console.log("Bonjour !")\n} else if (heure < 18) {\n  console.log("Bon après-midi !")\n} else {\n  console.log("Bonsoir !")\n}`,
+    quiz: { q: "Quelle partie s'exécute si AUCUNE condition n'est vraie ?", opts: ["if", "else if", "else", "Rien"], answer: 2 }
   },
   {
-    title: "Les Fonctions",
-    desc: `
-      <p>Une <strong>fonction</strong> est un bloc de code réutilisable. On la définit une fois avec le mot-clé <strong>function</strong>, puis on peut l'appeler autant de fois qu'on veut.</p>
-      <p>Cela évite de répéter du code (principe <strong>DRY</strong> : Don't Repeat Yourself) et rend le code plus lisible et maintenable.</p>
-      <div class="tip">💡 Nommez vos fonctions avec un verbe : <code>calculerTotal()</code>, <code>afficherMessage()</code>, <code>validerFormulaire()</code>.</div>
-    `,
-    code: `function direBonjour() {
-  console.log("Bonjour tout le monde !")
-}
-
-// Appeler la fonction (3 fois)
-direBonjour()
-direBonjour()
-direBonjour()`,
-    starter: `function afficherBienvenue() {\n  console.log("Bienvenue !")\n  console.log("Bonne chance dans l'apprentissage.")\n}\n\nafficherBienvenue()`
+    cat: "Logique",
+    title: "Opérateur ternaire",
+    desc: `<p class="prose">L'opérateur <strong>ternaire</strong> est un raccourci pour if/else en une ligne : <code>condition ? valeurSiVrai : valeurSiFaux</code>.</p>
+<p class="prose">C'est très lisible pour des conditions simples, notamment dans les template strings.</p>
+<div class="callout warn"><span class="callout-icon">⚠️</span><div>N'imbriquez pas trop de ternaires — le code devient vite illisible. Préférez if/else si la logique est complexe.</div></div>`,
+    code: `let age = 20\nlet statut = age >= 18 ? "majeur" : "mineur"\nconsole.log(statut) // majeur\n\nlet note = 14\nlet mention = note >= 16 ? "TB" : note >= 12 ? "Bien" : "Passable"\nconsole.log(\`Mention : \${mention}\`)`,
+    starter: `let heure = new Date().getHours()\nlet salut = heure < 12 ? "Bonjour" : heure < 18 ? "Bon après-midi" : "Bonsoir"\nconsole.log(salut + " !")\ndocument.querySelector("h1").innerHTML = salut`,
+    quiz: { q: "Que retourne 5 > 3 ? 'oui' : 'non' ?", opts: ["'oui'", "'non'", "true", "Erreur"], answer: 0 }
   },
   {
-    title: "Paramètres de fonctions",
-    desc: `
-      <p>Les <strong>paramètres</strong> sont des variables passées à une fonction pour la rendre dynamique. On les déclare dans les parenthèses lors de la définition.</p>
-      <p>Quand on appelle la fonction, on passe des <strong>arguments</strong> (les valeurs réelles). On peut avoir plusieurs paramètres séparés par des virgules.</p>
-      <div class="tip">💡 Vous pouvez définir des valeurs par défaut : <code>function salut(nom = "ami")</code> — si aucun argument n'est passé, nom vaut "ami".</div>
-    `,
-    code: `function saluer(prenom, ville) {
-  console.log("Bonjour " + prenom + " de " + ville + " !")
-}
-
-saluer("Aminata", "Dakar")
-saluer("Moussa", "Thiès")
-saluer("Fatou", "Saint-Louis")`,
-    starter: `function calculerSurface(longueur, largeur) {\n  let surface = longueur * largeur\n  console.log("Surface :", surface, "m²")\n}\n\ncalculerSurface(5, 3)\ncalculerSurface(10, 7)`
+    cat: "Logique",
+    title: "switch",
+    desc: `<p class="prose"><strong>switch</strong> est une alternative à plusieurs if/else quand on compare une variable à des valeurs précises. Chaque cas (<strong>case</strong>) se termine par <strong>break</strong>.</p>
+<p class="prose"><strong>default</strong> est le cas "fourre-tout", exécuté si aucun case ne correspond.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>switch utilise la comparaison stricte (===). Il est surtout utile pour les menus, la gestion d'états, les jours de la semaine.</div></div>`,
+    code: `let jour = new Date().getDay()\n\nswitch (jour) {\n  case 1: console.log("Lundi"); break\n  case 2: console.log("Mardi"); break\n  case 3: console.log("Mercredi"); break\n  case 6:\n  case 0: console.log("Week-end !"); break\n  default: console.log("Jeudi ou Vendredi")\n}`,
+    starter: `let saison = "hivernage"\nlet conseil\nswitch (saison) {\n  case "harmattan": conseil = "Hydratez-vous !"; break\n  case "hivernage": conseil = "Prenez un parapluie !"; break\n  default: conseil = "Bonne journée !"\n}\nconsole.log(conseil)`,
+    quiz: { q: "Sans break, que se passe-t-il dans un switch ?", opts: ["Erreur", "L'exécution s'arrête", "Le code tombe dans le case suivant", "default est exécuté"], answer: 2 }
   },
   {
+    cat: "Fonctions",
+    title: "Fonctions de base",
+    desc: `<p class="prose">Une <strong>fonction</strong> est un bloc de code réutilisable. On la définit une fois avec le mot-clé <strong>function</strong>, puis on peut l'appeler autant de fois qu'on veut.</p>
+<p class="prose">Cela évite de répéter du code (principe <strong>DRY</strong> : Don't Repeat Yourself) et rend le code plus lisible.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Nommez vos fonctions avec un verbe : <code>calculerTotal()</code>, <code>afficherMessage()</code>, <code>validerFormulaire()</code>.</div></div>`,
+    code: `function direBonjour() {\n  console.log("Bonjour tout le monde !")\n}\n\n// Appeler la fonction\ndireBonjour()\ndireBonjour()\ndireBonjour()`,
+    starter: `function afficherBienvenue() {\n  console.log("Bienvenue !")\n  console.log("Bonne chance dans l'apprentissage.")\n}\n\nafficherBienvenue()`,
+    quiz: { q: "Pour appeler une fonction nommée calcul, on écrit :", opts: ["calcul", "calcul()", "function calcul()", "call calcul"], answer: 1 }
+  },
+  {
+    cat: "Fonctions",
+    title: "Paramètres et arguments",
+    desc: `<p class="prose">Les <strong>paramètres</strong> sont des variables passées à une fonction pour la rendre dynamique. On les déclare dans les parenthèses lors de la définition.</p>
+<p class="prose">Quand on appelle la fonction, on passe des <strong>arguments</strong> (les valeurs réelles). On peut avoir plusieurs paramètres séparés par des virgules.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Valeurs par défaut : <code>function salut(nom = "ami")</code> — si aucun argument n'est passé, nom vaut "ami".</div></div>`,
+    code: `function saluer(prenom, ville) {\n  console.log(\`Bonjour \${prenom} de \${ville} !\`)\n}\n\nsaluer("Aminata", "Dakar")\nsaluer("Moussa", "Thiès")\nsaluer("Fatou", "Saint-Louis")`,
+    starter: `function calculerSurface(longueur, largeur) {\n  let surface = longueur * largeur\n  console.log("Surface :", surface, "m²")\n}\n\ncalculerSurface(5, 3)\ncalculerSurface(10, 7)`,
+    quiz: { q: "Dans function f(x, y), x et y sont des :", opts: ["Arguments", "Paramètres", "Variables globales", "Constantes"], answer: 1 }
+  },
+  {
+    cat: "Fonctions",
     title: "Return — retourner une valeur",
-    desc: `
-      <p><strong>return</strong> permet à une fonction de <strong>renvoyer un résultat</strong> qu'on peut stocker dans une variable ou utiliser dans une expression. Sans return, la fonction renvoie <code>undefined</code>.</p>
-      <p>Le code après un <code>return</code> n'est jamais exécuté — return quitte immédiatement la fonction.</p>
-      <div class="tip">💡 Une fonction avec return est plus flexible qu'une fonction qui fait juste un console.log, car le résultat peut être réutilisé.</div>
-    `,
-    code: `function additionner(a, b) {
-  return a + b
-}
-
-let resultat = additionner(5, 3)
-console.log(resultat)  // 8
-
-// Utiliser directement dans une expression
-console.log(additionner(10, 20) * 2)  // 60`,
-    starter: `function multiplier(a, b) {\n  return a * b\n}\n\nlet produit = multiplier(6, 7)\nconsole.log("6 × 7 =", produit)`
+    desc: `<p class="prose"><strong>return</strong> permet à une fonction de <strong>renvoyer un résultat</strong> qu'on peut stocker dans une variable. Sans return, la fonction renvoie <code>undefined</code>.</p>
+<p class="prose">Le code après un <code>return</code> n'est jamais exécuté — return quitte immédiatement la fonction.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Une fonction avec return est plus flexible car le résultat peut être réutilisé dans d'autres calculs.</div></div>`,
+    code: `function additionner(a, b) {\n  return a + b\n}\n\nlet resultat = additionner(5, 3)\nconsole.log(resultat)  // 8\n\n// Utiliser dans une expression\nconsole.log(additionner(10, 20) * 2)  // 60`,
+    starter: `function multiplier(a, b) {\n  return a * b\n}\n\nlet produit = multiplier(6, 7)\nconsole.log("6 × 7 =", produit)`,
+    quiz: { q: "Que retourne une fonction sans instruction return ?", opts: ["0", "null", "undefined", "false"], answer: 2 }
   },
   {
+    cat: "Fonctions",
+    title: "Arrow Functions",
+    desc: `<p class="prose">Les <strong>fonctions fléchées</strong> sont une syntaxe plus concise. Au lieu de <code>function(x)</code>, on écrit <code>(x) =></code>.</p>
+<p class="prose">Si la fonction tient sur une ligne et retourne une valeur, on peut encore simplifier : <code>x => x * 2</code> est équivalent à <code>function(x) { return x * 2 }</code>.</p>
+<div class="callout info"><span class="callout-icon">ℹ️</span><div>Les arrow functions ne définissent pas leur propre <code>this</code> — différence importante avec les fonctions classiques.</div></div>`,
+    code: `// Fonction classique\nfunction double(n) { return n * 2 }\n\n// Fonction fléchée équivalente\nconst doubleArrow = (n) => n * 2\n\n// Raccourci (un seul paramètre)\nconst carre = n => n * n\n\nconsole.log(doubleArrow(7))  // 14\nconsole.log(carre(5))        // 25`,
+    starter: `const carre = n => n * n\nconst cube = n => n * n * n\nconsole.log("3² =", carre(3))\nconsole.log("2³ =", cube(2))\n\nconst estMajeur = age => age >= 18 ? "Majeur" : "Mineur"\nconsole.log(estMajeur(20))\nconsole.log(estMajeur(15))`,
+    quiz: { q: "Quelle version est une arrow function valide ?", opts: ["function => x * 2", "x => x * 2", "=> x * 2", "x -> x * 2"], answer: 1 }
+  },
+  {
+    cat: "Structures",
     title: "Les Tableaux (Arrays)",
-    desc: `
-      <p>Un <strong>tableau</strong> stocke plusieurs valeurs dans une seule variable. On y accède via un <strong>index</strong> qui commence à 0 (pas à 1 !).</p>
-      <p>Méthodes essentielles : <strong>.push()</strong> ajoute à la fin, <strong>.pop()</strong> supprime le dernier, <strong>.length</strong> donne la taille, <strong>.indexOf()</strong> trouve la position.</p>
-      <div class="tip">💡 Le premier élément est à l'index 0. Un tableau de 5 éléments a des index de 0 à 4.</div>
-    `,
-    code: `let fruits = ["Mangue", "Orange", "Papaye"]
-
-console.log(fruits[0])    // Mangue
-console.log(fruits[2])    // Papaye
-console.log(fruits.length) // 3
-
-fruits.push("Banane")
-console.log(fruits)       // 4 fruits maintenant`,
-    starter: `let notes = [12, 15, 8, 18, 10]\nconsole.log("Nombre de notes :", notes.length)\nconsole.log("Première note :", notes[0])\nconsole.log("Dernière note :", notes[notes.length - 1])`
+    desc: `<p class="prose">Un <strong>tableau</strong> stocke plusieurs valeurs dans une seule variable. On y accède via un <strong>index</strong> qui commence à 0 (pas à 1 !).</p>
+<p class="prose">Méthodes essentielles : <strong>.push()</strong> ajoute à la fin, <strong>.pop()</strong> supprime le dernier, <strong>.length</strong> donne la taille.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Le premier élément est à l'index 0. Un tableau de 5 éléments a des index de 0 à 4.</div></div>`,
+    code: `let fruits = ["Mangue", "Orange", "Papaye"]\n\nconsole.log(fruits[0])     // Mangue\nconsole.log(fruits[2])     // Papaye\nconsole.log(fruits.length) // 3\n\nfruits.push("Banane")\nconsole.log(fruits)        // 4 fruits`,
+    starter: `let notes = [12, 15, 8, 18, 10]\nconsole.log("Nombre de notes :", notes.length)\nconsole.log("Première note :", notes[0])\nconsole.log("Dernière note :", notes[notes.length - 1])`,
+    quiz: { q: "Quel index a le premier élément d'un tableau ?", opts: ["1", "0", "-1", "Dépend du navigateur"], answer: 1 }
   },
   {
+    cat: "Structures",
     title: "Les Objets",
-    desc: `
-      <p>Un <strong>objet</strong> regroupe des <strong>propriétés</strong> sous forme de paires clé:valeur. C'est parfait pour représenter une entité réelle (personne, produit, ville...).</p>
-      <p>On accède aux propriétés avec le <strong>point</strong> <code>objet.propriete</code> ou avec les <strong>crochets</strong> <code>objet["propriete"]</code>. On peut modifier une propriété ou en ajouter de nouvelles.</p>
-      <div class="tip">💡 Un objet peut contenir des tableaux, d'autres objets, des fonctions... On appelle une fonction dans un objet une "méthode".</div>
-    `,
-    code: `let etudiant = {
-  prenom: "Fatou",
-  age: 22,
-  ville: "Dakar",
-  note: 16
-}
-
-console.log(etudiant.prenom)  // Fatou
-console.log(etudiant.note)    // 16
-
-etudiant.age = 23  // Modifier
-etudiant.lycee = "CETI"  // Ajouter`,
-    starter: `let voiture = {\n  marque: "Renault",\n  modele: "Logan",\n  annee: 2020,\n  couleur: "blanc"\n}\nconsole.log(voiture.marque, voiture.modele)\nconsole.log("Année :", voiture.annee)`
+    desc: `<p class="prose">Un <strong>objet</strong> regroupe des <strong>propriétés</strong> sous forme de paires clé:valeur. C'est parfait pour représenter une entité réelle (personne, produit, ville...).</p>
+<p class="prose">On accède aux propriétés avec le <strong>point</strong> <code>objet.propriete</code> ou avec les <strong>crochets</strong> <code>objet["propriete"]</code>.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Un objet peut contenir des tableaux, d'autres objets, des fonctions... On appelle une fonction dans un objet une "méthode".</div></div>`,
+    code: `let etudiant = {\n  prenom: "Fatou",\n  age: 22,\n  ville: "Dakar",\n  note: 16\n}\n\nconsole.log(etudiant.prenom)  // Fatou\nconsole.log(etudiant.note)    // 16\n\netudiant.age = 23      // Modifier\netudiant.lycee = "CETI" // Ajouter`,
+    starter: `let voiture = {\n  marque: "Renault",\n  modele: "Logan",\n  annee: 2020,\n  couleur: "blanc"\n}\nconsole.log(voiture.marque, voiture.modele)\nconsole.log("Année :", voiture.annee)`,
+    quiz: { q: "Comment accéder à la propriété 'nom' d'un objet 'user' ?", opts: ["user->nom", "user[nom]", "user.nom", "get(user.nom)"], answer: 2 }
   },
   {
+    cat: "Structures",
+    title: "Destructuring",
+    desc: `<p class="prose">Le <strong>destructuring</strong> permet d'extraire des valeurs d'objets ou de tableaux en une seule ligne propre.</p>
+<p class="prose">Pour les objets : <code>const { nom, age } = user</code>. Pour les tableaux : <code>const [premier, second] = tableau</code>.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Le destructuring dans les paramètres de fonction est très courant : <code>function afficher({ nom, age })</code>.</div></div>`,
+    code: `let user = { prenom: "Fatou", age: 22, ville: "Thiès", note: 15 }\n\n// Sans destructuring\nlet nom1 = user.prenom\nlet age1 = user.age\n\n// Avec destructuring (bien mieux !)\nconst { prenom, age, ville } = user\nconsole.log(\`\${prenom}, \${age} ans, \${ville}\`)\n\n// Tableaux\nconst [or, argent, bronze] = ["Moussa", "Fatou", "Ali"]\nconsole.log("Champion :", or)`,
+    starter: `let produit = { nom: "Laptop", prix: 450000, stock: 12 }\nconst { nom, prix, stock } = produit\nconsole.log(\`\${nom} — \${prix} FCFA (stock: \${stock})\`)`,
+    quiz: { q: "Quelle syntaxe extrait 'nom' d'un objet user ?", opts: ["let nom = user.nom", "const { nom } = user", "extract(user, 'nom')", "user::nom"], answer: 1 }
+  },
+  {
+    cat: "Structures",
+    title: "Spread Operator",
+    desc: `<p class="prose">L'opérateur <strong>spread</strong> (<code>...</code>) "étale" les éléments d'un tableau ou les propriétés d'un objet. Il est très utile pour copier et fusionner.</p>
+<p class="prose">Pour copier un tableau : <code>[...original]</code>. Pour fusionner : <code>[...tab1, ...tab2]</code>. Pour les objets : <code>{ ...obj1, ...obj2 }</code>.</p>
+<div class="callout warn"><span class="callout-icon">⚠️</span><div>Sans spread, <code>let b = a</code> donne deux variables qui pointent vers le même tableau ! Spread crée une vraie copie.</div></div>`,
+    code: `let fruits = ["Mangue", "Orange"]\nlet legumes = ["Tomate", "Oignon"]\n\n// Fusionner\nlet aliments = [...fruits, ...legumes]\nconsole.log(aliments)\n\n// Copier sans lien\nlet copie = [...fruits]\ncopie.push("Banane")\nconsole.log(fruits)  // Inchangé !\nconsole.log(copie)   // Avec Banane`,
+    starter: `let user1 = { nom: "Moussa", role: "user" }\nlet extras = { age: 28, ville: "Dakar", premium: true }\n\nlet userFull = { ...user1, ...extras }\nconsole.log(userFull)`,
+    quiz: { q: "Comment fusionner deux tableaux a et b avec spread ?", opts: ["a + b", "[...a, ...b]", "merge(a, b)", "spread(a, b)"], answer: 1 }
+  },
+  {
+    cat: "Structures",
+    title: "JSON",
+    desc: `<p class="prose"><strong>JSON</strong> (JavaScript Object Notation) est un format texte pour stocker et échanger des données. C'est le format standard des APIs web.</p>
+<p class="prose"><strong>JSON.stringify()</strong> convertit un objet en texte JSON. <strong>JSON.parse()</strong> fait l'inverse.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>JSON ressemble aux objets JS mais les clés doivent être entre guillemets doubles et on ne peut pas mettre de fonctions dedans.</div></div>`,
+    code: `let user = {\n  nom: "Fatou",\n  age: 25,\n  villes: ["Dakar", "Thiès"]\n}\n\n// Objet → Texte\nlet json = JSON.stringify(user)\nconsole.log(json)\n\n// Texte → Objet\nlet retour = JSON.parse(json)\nconsole.log(retour.nom)  // Fatou`,
+    starter: `let data = { produit: "Téléphone", prix: 150000, dispo: true }\nlet json = JSON.stringify(data)\nconsole.log("JSON :", json)\nlet back = JSON.parse(json)\nconsole.log("Prix :", back.prix, "FCFA")`,
+    quiz: { q: "Quelle méthode convertit un objet JS en texte JSON ?", opts: ["JSON.parse()", "JSON.stringify()", "JSON.encode()", "JSON.convert()"], answer: 1 }
+  },
+  {
+    cat: "Boucles",
     title: "Boucle for",
-    desc: `
-      <p>La boucle <strong>for</strong> répète un bloc de code un nombre défini de fois. Elle a 3 parties : <strong>initialisation</strong> (let i=0), <strong>condition</strong> (i<5), et <strong>incrément</strong> (i++).</p>
-      <p><code>i++</code> est un raccourci pour <code>i = i + 1</code>. La boucle continue tant que la condition est vraie.</p>
-      <div class="tip">💡 Pour parcourir un tableau, utilisez <code>for(let i=0; i &lt; tableau.length; i++)</code> — ça s'adapte automatiquement à la taille.</div>
-    `,
-    code: `// Compter de 1 à 5
-for (let i = 1; i <= 5; i++) {
-  console.log("Tour numéro :", i)
-}
-
-// Parcourir un tableau
-let jours = ["Lundi", "Mardi", "Mercredi"]
-for (let i = 0; i < jours.length; i++) {
-  console.log(jours[i])
-}`,
-    starter: `let nombres = [3, 7, 2, 9, 1]\nlet somme = 0\nfor (let i = 0; i < nombres.length; i++) {\n  somme = somme + nombres[i]\n}\nconsole.log("Somme :", somme)`
+    desc: `<p class="prose">La boucle <strong>for</strong> répète un bloc de code un nombre défini de fois. Elle a 3 parties : <strong>initialisation</strong> (let i=0), <strong>condition</strong> (i<5), et <strong>incrément</strong> (i++).</p>
+<p class="prose"><code>i++</code> est un raccourci pour <code>i = i + 1</code>. La boucle continue tant que la condition est vraie.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Pour parcourir un tableau : <code>for(let i=0; i &lt; tableau.length; i++)</code> — ça s'adapte automatiquement à la taille.</div></div>`,
+    code: `// Compter de 1 à 5\nfor (let i = 1; i <= 5; i++) {\n  console.log("Tour numéro :", i)\n}\n\n// Parcourir un tableau\nlet jours = ["Lundi", "Mardi", "Mercredi"]\nfor (let i = 0; i < jours.length; i++) {\n  console.log(jours[i])\n}`,
+    starter: `let nombres = [3, 7, 2, 9, 1]\nlet somme = 0\nfor (let i = 0; i < nombres.length; i++) {\n  somme = somme + nombres[i]\n}\nconsole.log("Somme :", somme)`,
+    quiz: { q: "Combien de fois s'exécute for(let i=0; i<5; i++) ?", opts: ["4", "5", "6", "Infini"], answer: 1 }
   },
   {
+    cat: "Boucles",
     title: "Boucle while",
-    desc: `
-      <p><strong>while</strong> répète du code tant qu'une condition est vraie. On l'utilise quand on ne connaît pas à l'avance le nombre de répétitions.</p>
-      <p>Attention : si la condition ne devient jamais fausse, la boucle tourne à l'infini ! Assurez-vous de modifier la variable de condition à l'intérieur de la boucle.</p>
-      <div class="warning">⚠️ Une boucle infinie fait planter le navigateur. Vérifiez toujours que votre condition deviendra fausse un jour.</div>
-    `,
-    code: `let compteur = 0
-
-while (compteur < 5) {
-  console.log("Compteur :", compteur)
-  compteur++  // IMPORTANT : incrémenter !
-}
-
-console.log("Boucle terminée")`,
-    starter: `let n = 1\nlet resultat = 1\n// Calculer 5! (factorielle)\nwhile (n <= 5) {\n  resultat = resultat * n\n  n++\n}\nconsole.log("5! =", resultat)`
+    desc: `<p class="prose"><strong>while</strong> répète du code tant qu'une condition est vraie. On l'utilise quand on ne connaît pas à l'avance le nombre de répétitions.</p>
+<div class="callout warn"><span class="callout-icon">⚠️</span><div>Une boucle infinie fait planter le navigateur. Assurez-vous que la condition deviendra fausse à un moment !</div></div>`,
+    code: `let compteur = 0\n\nwhile (compteur < 5) {\n  console.log("Compteur :", compteur)\n  compteur++  // IMPORTANT : incrémenter !\n}\n\nconsole.log("Boucle terminée")`,
+    starter: `let n = 1\nlet resultat = 1\n// Calculer 5! (factorielle)\nwhile (n <= 5) {\n  resultat = resultat * n\n  n++\n}\nconsole.log("5! =", resultat)`,
+    quiz: { q: "Que doit-on faire pour éviter une boucle infinie ?", opts: ["Utiliser break", "Modifier la variable de condition", "Utiliser try/catch", "Rien"], answer: 1 }
   },
   {
+    cat: "Boucles",
+    title: "map() — Transformer",
+    desc: `<p class="prose"><strong>.map()</strong> crée un <strong>nouveau tableau</strong> en appliquant une fonction à chaque élément. Le tableau original n'est pas modifié.</p>
+<p class="prose">C'est l'une des méthodes de tableau les plus utilisées. Elle retourne toujours un tableau de la même taille que l'original.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>map + arrow function = combo puissant : <code>notes.map(n => n * 2)</code> double toutes les notes en une ligne !</div></div>`,
+    code: `let notes = [12, 8, 15, 6, 18]\n\n// Ajouter 2 points à chaque note\nlet notesBonus = notes.map(note => note + 2)\nconsole.log(notesBonus)  // [14, 10, 17, 8, 20]\n\n// Convertir en messages\nlet messages = notes.map(n => \`Note : \${n}/20\`)\nconsole.log(messages)`,
+    starter: `let prix = [5000, 12000, 8500, 3000]\nlet prixTTC = prix.map(p => p * 1.18)\nconsole.log("Prix HT :", prix)\nconsole.log("Prix TTC :", prixTTC.map(p => Math.round(p)))`,
+    quiz: { q: "map() modifie-t-il le tableau original ?", opts: ["Oui", "Non, il crée un nouveau tableau", "Parfois", "Seulement avec const"], answer: 1 }
+  },
+  {
+    cat: "Boucles",
+    title: "filter() — Filtrer",
+    desc: `<p class="prose"><strong>.filter()</strong> retourne un nouveau tableau contenant seulement les éléments pour lesquels la fonction retourne <strong>true</strong>.</p>
+<p class="prose">Contrairement à map(), filter() peut retourner un tableau plus petit que l'original.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Combinez filter() et map() : d'abord filtrez, puis transformez. Exemple : garder les notes >10, puis les convertir en mentions.</div></div>`,
+    code: `let notes = [12, 7, 15, 4, 18, 9, 11]\n\n// Garder les notes >= 10\nlet admis = notes.filter(note => note >= 10)\nconsole.log("Admis :", admis)  // [12, 15, 18, 11]\n\nlet pairs = [1,2,3,4,5,6].filter(n => n % 2 === 0)\nconsole.log("Pairs :", pairs)`,
+    starter: `let produits = [\n  { nom: "Téléphone", prix: 80000 },\n  { nom: "Casque", prix: 15000 },\n  { nom: "Câble", prix: 2000 }\n]\nlet abordables = produits.filter(p => p.prix < 20000)\nabordables.forEach(p => console.log(p.nom, ":", p.prix, "FCFA"))`,
+    quiz: { q: "filter() peut retourner un tableau :", opts: ["Toujours de même taille", "Plus grand", "Plus petit ou égal", "Vide uniquement"], answer: 2 }
+  },
+  {
+    cat: "Boucles",
+    title: "includes() & find()",
+    desc: `<p class="prose"><strong>.includes()</strong> vérifie si un tableau contient une valeur et retourne <code>true</code> ou <code>false</code>.</p>
+<p class="prose"><strong>.find()</strong> retourne le premier élément qui satisfait une condition. Si rien n'est trouvé, il retourne <code>undefined</code>.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Pour les chaînes, <code>"Dakar Sénégal".includes("Sénégal")</code> retourne <code>true</code>.</div></div>`,
+    code: `let fruits = ["Mangue", "Orange", "Banane"]\n\nconsole.log(fruits.includes("Mangue"))  // true\nconsole.log(fruits.includes("Pomme"))   // false\n\n// find() retourne l'élément\nlet produits = [{id:1,nom:"Casque"},{id:2,nom:"Souris"}]\nlet p = produits.find(p => p.id === 2)\nconsole.log(p.nom)  // Souris`,
+    starter: `let vipList = ["Aminata", "Moussa", "Fatou"]\nlet invite = "Moussa"\nif (vipList.includes(invite)) {\n  console.log(invite + " est sur la liste VIP ✅")\n} else {\n  console.log(invite + " n'est pas sur la liste ❌")\n}`,
+    quiz: { q: "Que retourne includes() si l'élément est absent ?", opts: ["null", "undefined", "false", "-1"], answer: 2 }
+  },
+  {
+    cat: "DOM",
     title: "querySelector",
-    desc: `
-      <p><strong>document.querySelector()</strong> sélectionne le <strong>premier élément HTML</strong> qui correspond au sélecteur CSS passé en argument. C'est la porte d'entrée vers la manipulation du DOM.</p>
-      <p>Vous pouvez utiliser n'importe quel sélecteur CSS : tag (<code>"h1"</code>), classe (<code>".monBouton"</code>), id (<code>"#titre"</code>), attribut...</p>
-      <div class="tip">💡 Pour sélectionner plusieurs éléments, utilisez <code>document.querySelectorAll()</code> qui retourne une liste.</div>
-    `,
-    code: `// Sélectionner par tag
-let titre = document.querySelector("h1")
-console.log(titre)
-
-// Sélectionner par classe
-let btn = document.querySelector(".bouton")
-
-// Sélectionner par id
-let hero = document.querySelector("#hero")`,
-    starter: `let h1 = document.querySelector("h1")\nconsole.log("Texte du h1 :", h1.textContent)\n\nlet p = document.querySelector("p")\nconsole.log("Texte du p :", p.textContent)`
+    desc: `<p class="prose"><strong>document.querySelector()</strong> sélectionne le <strong>premier élément HTML</strong> qui correspond au sélecteur CSS passé en argument. C'est la porte d'entrée vers la manipulation du DOM.</p>
+<p class="prose">Vous pouvez utiliser n'importe quel sélecteur CSS : tag (<code>"h1"</code>), classe (<code>".bouton"</code>), id (<code>"#titre"</code>).</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Pour sélectionner plusieurs éléments, utilisez <code>document.querySelectorAll()</code> qui retourne une NodeList.</div></div>`,
+    code: `// Sélectionner par tag\nlet titre = document.querySelector("h1")\nconsole.log(titre.textContent)\n\n// Sélectionner par classe\nlet btn = document.querySelector("button")\n\n// Sélectionner par id\nlet hero = document.querySelector("#hero")`,
+    starter: `let h1 = document.querySelector("h1")\nconsole.log("Texte :", h1.textContent)\n\nlet p = document.querySelector("p")\np.style.color = "blue"\np.style.fontWeight = "bold"`,
+    quiz: { q: "Quel sélecteur cible un élément avec l'id 'titre' ?", opts: [".titre", "#titre", "titre", "[titre]"], answer: 1 }
   },
   {
-    title: "innerHTML — Modifier le HTML",
-    desc: `
-      <p><strong>innerHTML</strong> permet de lire ou <strong>modifier le contenu HTML</strong> d'un élément. On peut y insérer du texte simple ou même du HTML complet (balises incluses).</p>
-      <p><strong>textContent</strong> est similaire mais n'interprète pas le HTML — il traite tout comme du texte brut, ce qui est plus sécurisé.</p>
-      <div class="warning">⚠️ N'injectez jamais du HTML provenant de l'utilisateur via innerHTML sans le nettoyer — risque de failles XSS !</div>
-    `,
-    code: `let titre = document.querySelector("h1")
-
-// Modifier le texte
-titre.innerHTML = "Nouveau titre !"
-
-// Injecter du HTML
-let para = document.querySelector("p")
-para.innerHTML = "Texte en <strong>gras</strong> !"`,
-    starter: `let h1 = document.querySelector("h1")\nh1.innerHTML = "🎉 Page Modifiée !"\n\nlet p = document.querySelector("p")\np.innerHTML = "Ce texte vient de <em>JavaScript</em>."`
+    cat: "DOM",
+    title: "innerHTML & textContent",
+    desc: `<p class="prose"><strong>innerHTML</strong> permet de lire ou <strong>modifier le contenu HTML</strong> d'un élément. On peut y insérer du HTML complet.</p>
+<p class="prose"><strong>textContent</strong> est similaire mais n'interprète pas le HTML — il traite tout comme du texte brut, ce qui est plus sécurisé.</p>
+<div class="callout warn"><span class="callout-icon">⚠️</span><div>N'injectez jamais du HTML provenant de l'utilisateur via innerHTML sans le nettoyer — risque de failles XSS !</div></div>`,
+    code: `let titre = document.querySelector("h1")\n\n// Modifier le texte\ntitre.innerHTML = "Nouveau titre !"\n\n// Injecter du HTML\nlet para = document.querySelector("p")\npara.innerHTML = "Texte en <strong>gras</strong> !"`,
+    starter: `let h1 = document.querySelector("h1")\nh1.innerHTML = "🎉 Page Modifiée !"\n\nlet p = document.querySelector("p")\np.innerHTML = "Ce texte vient de <em>JavaScript</em>."`,
+    quiz: { q: "Quelle propriété interprète les balises HTML ?", opts: ["textContent", "innerText", "innerHTML", "nodeValue"], answer: 2 }
   },
   {
-    title: "Modifier le style CSS",
-    desc: `
-      <p>La propriété <strong>.style</strong> d'un élément permet de modifier son CSS directement depuis JavaScript. Les noms CSS avec tiret s'écrivent en camelCase : <code>background-color</code> → <code>backgroundColor</code>.</p>
-      <p>Cette méthode modifie le style <strong>inline</strong>. Pour une meilleure organisation, préférez ajouter/retirer des classes CSS avec <code>classList</code>.</p>
-      <div class="tip">💡 <code>background-color</code> → <code>backgroundColor</code>, <code>font-size</code> → <code>fontSize</code>, <code>border-radius</code> → <code>borderRadius</code>.</div>
-    `,
-    code: `let titre = document.querySelector("h1")
-
-titre.style.color = "red"
-titre.style.fontSize = "48px"
-titre.style.backgroundColor = "#222"
-titre.style.padding = "10px"
-
-document.body.style.background = "black"`,
-    starter: `let titre = document.querySelector("h1")\ntitre.style.color = "#f0c040"\ntitre.style.fontFamily = "serif"\ntitre.style.fontSize = "42px"\ndocument.body.style.background = "#111"\ndocument.body.style.padding = "20px"`
+    cat: "DOM",
+    title: "Modifier le CSS",
+    desc: `<p class="prose">La propriété <strong>.style</strong> d'un élément permet de modifier son CSS depuis JavaScript. Les noms CSS avec tiret s'écrivent en camelCase : <code>background-color</code> → <code>backgroundColor</code>.</p>
+<div class="concept-grid">
+  <div class="concept-card"><div class="cc-label">CSS</div><div class="cc-value">background-color</div><div class="cc-desc">→ backgroundColor</div></div>
+  <div class="concept-card"><div class="cc-label">CSS</div><div class="cc-value">font-size</div><div class="cc-desc">→ fontSize</div></div>
+  <div class="concept-card"><div class="cc-label">CSS</div><div class="cc-value">border-radius</div><div class="cc-desc">→ borderRadius</div></div>
+  <div class="concept-card"><div class="cc-label">CSS</div><div class="cc-value">margin-top</div><div class="cc-desc">→ marginTop</div></div>
+</div>`,
+    code: `let titre = document.querySelector("h1")\n\ntitre.style.color = "crimson"\ntitre.style.fontSize = "48px"\ntitre.style.backgroundColor = "#222"\ntitre.style.padding = "10px"\ntitre.style.borderRadius = "8px"`,
+    starter: `let h1 = document.querySelector("h1")\nh1.style.color = "#f0c040"\nh1.style.fontSize = "42px"\ndocument.body.style.background = "#111"\ndocument.body.style.color = "white"\ndocument.body.style.padding = "20px"`,
+    quiz: { q: "Comment écrire background-color en JS ?", opts: ["background-color", "BackgroundColor", "backgroundColor", "bgColor"], answer: 2 }
   },
   {
-    title: "addEventListener — Écouter les événements",
-    desc: `
-      <p><strong>addEventListener</strong> permet de déclencher du code lorsqu'un événement survient sur un élément (clic, survol, touche clavier, etc.).</p>
-      <p>Syntaxe : <code>element.addEventListener("événement", fonction)</code>. Les événements courants : <code>"click"</code>, <code>"mouseover"</code>, <code>"keydown"</code>, <code>"submit"</code>, <code>"change"</code>.</p>
-      <div class="tip">💡 Préférez addEventListener à onclick car on peut ajouter plusieurs listeners sur le même élément sans écraser les précédents.</div>
-    `,
-    code: `let btn = document.querySelector("button")
-
-btn.addEventListener("click", function() {
-  alert("Bouton cliqué !")
-})
-
-// Survol de la souris
-btn.addEventListener("mouseover", function() {
-  btn.style.background = "gold"
-})`,
-    starter: `let btn = document.querySelector("button")\nlet compteur = 0\nbtn.addEventListener("click", function() {\n  compteur++\n  document.querySelector("h1").innerHTML = "Clics : " + compteur\n})`
+    cat: "DOM",
+    title: "createElement & appendChild",
+    desc: `<p class="prose"><strong>document.createElement()</strong> crée un nouvel élément HTML en mémoire. Il n'apparaît pas encore sur la page — il faut l'ajouter avec <strong>appendChild()</strong>.</p>
+<p class="prose">On peut configurer l'élément avant de l'ajouter : modifier son innerHTML, son style, ses classes...</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Créer des éléments dynamiquement est la base des applications modernes (Todo lists, feeds, grilles de produits...).</div></div>`,
+    code: `let div = document.createElement("div")\ndiv.innerHTML = "Je suis une nouvelle div !"\ndiv.style.background = "gold"\ndiv.style.padding = "10px"\ndiv.style.margin = "10px"\n\ndocument.body.appendChild(div)`,
+    starter: `for (let i = 1; i <= 3; i++) {\n  let para = document.createElement("p")\n  para.innerHTML = "Paragraphe numéro " + i\n  para.style.color = "darkblue"\n  document.body.appendChild(para)\n}`,
+    quiz: { q: "Que fait appendChild() ?", opts: ["Crée un élément", "L'ajoute comme dernier enfant", "L'ajoute au début", "Le supprime"], answer: 1 }
   },
   {
-    title: "Événement click",
-    desc: `
-      <p>L'événement <strong>click</strong> est le plus courant. Il se déclenche quand l'utilisateur clique sur un élément. La propriété <strong>onclick</strong> est une alternative plus courte à addEventListener.</p>
-      <p>La fonction reçoit un objet <strong>event</strong> qui contient des informations sur l'événement (position du clic, élément ciblé, etc.).</p>
-      <div class="tip">💡 <code>event.target</code> désigne l'élément sur lequel l'utilisateur a cliqué — utile pour les listes de boutons dynamiques.</div>
-    `,
-    code: `let btn = document.querySelector("button")
-
-// Méthode 1 : onclick
-btn.onclick = function() {
-  console.log("Clic détecté !")
-}
-
-// Méthode 2 : addEventListener
-btn.addEventListener("click", function(event) {
-  console.log("Clic sur :", event.target)
-})`,
-    starter: `let btn = document.querySelector("button")\nbtn.addEventListener("click", function() {\n  document.querySelector("h1").innerHTML = "Bouton cliqué !"\n  document.body.style.background = "#1a1a2e"\n  document.body.style.color = "white"\n})`
+    cat: "DOM",
+    title: "classList",
+    desc: `<p class="prose"><strong>classList</strong> offre des méthodes pour manipuler les classes CSS sans toucher aux autres.</p>
+<p class="prose"><strong>.add()</strong> ajoute, <strong>.remove()</strong> supprime, <strong>.toggle()</strong> bascule, <strong>.contains()</strong> vérifie.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Combiner JavaScript + CSS avec classList est la meilleure pratique : définissez les styles dans CSS, activez-les avec JS. Idéal pour le dark mode !</div></div>`,
+    code: `let el = document.querySelector("h1")\n\nel.classList.add("sombre")          // ajoute\nel.classList.remove("sombre")       // retire\nconsole.log(el.classList.contains("sombre")) // false\n\n// Toggle : ajoute si absent, retire si présent\nlet isDark = document.body.classList.toggle("dark")\nconsole.log("Dark mode :", isDark)`,
+    starter: `let btn = document.querySelector("button")\nbtn.innerHTML = "Mode Sombre"\nbtn.addEventListener("click", function() {\n  let sombre = document.body.classList.toggle("dark")\n  document.body.style.background = sombre ? "#111" : "white"\n  document.body.style.color = sombre ? "white" : "black"\n  btn.innerHTML = sombre ? "Mode Clair" : "Mode Sombre"\n})`,
+    quiz: { q: "classList.toggle() que fait-il si la classe est déjà présente ?", opts: ["Rien", "Lance une erreur", "La retire", "L'ajoute en double"], answer: 2 }
   },
   {
-    title: "Input value — Lire la saisie",
-    desc: `
-      <p>La propriété <strong>.value</strong> permet de lire ou de modifier la valeur d'un champ de saisie (<code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;select&gt;</code>).</p>
-      <p>On l'utilise souvent après un clic sur un bouton "Valider" pour récupérer ce que l'utilisateur a tapé.</p>
-      <div class="tip">💡 <code>input.value</code> est toujours une chaîne de caractères. Si vous attendez un nombre, utilisez <code>Number(input.value)</code> ou <code>parseInt(input.value)</code>.</div>
-    `,
-    code: `// Dans la sandbox, créez d'abord un input
-let input = document.createElement("input")
-input.placeholder = "Tapez votre nom"
-document.body.appendChild(input)
-
-let btn = document.querySelector("button")
-btn.addEventListener("click", function() {
-  let texte = input.value
-  alert("Vous avez tapé : " + texte)
-})`,
-    starter: `let input = document.createElement("input")\ninput.placeholder = "Votre nom"\ndocument.body.insertBefore(input, document.querySelector("button"))\n\nlet btn = document.querySelector("button")\nbtn.addEventListener("click", function() {\n  let nom = input.value\n  document.querySelector("h1").innerHTML = "Bonjour " + nom + " !"\n})`
+    cat: "Événements",
+    title: "addEventListener",
+    desc: `<p class="prose"><strong>addEventListener</strong> permet de déclencher du code lorsqu'un événement survient sur un élément (clic, survol, touche clavier, etc.).</p>
+<p class="prose">Syntaxe : <code>element.addEventListener("événement", fonction)</code>. Événements courants : <code>click</code>, <code>mouseover</code>, <code>keydown</code>, <code>submit</code>, <code>change</code>.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Préférez addEventListener à onclick car on peut ajouter plusieurs listeners sur le même élément sans écraser les précédents.</div></div>`,
+    code: `let btn = document.querySelector("button")\n\nbtn.addEventListener("click", function() {\n  console.log("Bouton cliqué !")\n})\n\n// Survol\nbtn.addEventListener("mouseover", function() {\n  btn.style.background = "gold"\n})\n\nbtn.addEventListener("mouseout", function() {\n  btn.style.background = ""\n})`,
+    starter: `let btn = document.querySelector("button")\nlet compteur = 0\nbtn.addEventListener("click", function() {\n  compteur++\n  document.querySelector("h1").innerHTML = "Clics : " + compteur\n})`,
+    quiz: { q: "Quel événement se déclenche au survol de la souris ?", opts: ["hover", "mouseover", "mouseenter", "onhover"], answer: 1 }
   },
   {
-    title: "createElement — Créer des éléments",
-    desc: `
-      <p><strong>document.createElement()</strong> crée un nouvel élément HTML en mémoire. Il n'apparaît pas encore sur la page — il faut l'ajouter avec <strong>appendChild()</strong> ou <strong>append()</strong>.</p>
-      <p>On peut configurer l'élément avant de l'ajouter : modifier son innerHTML, son style, ses classes, ses attributs...</p>
-      <div class="tip">💡 Créer des éléments dynamiquement est la base des applications modernes (Todo lists, feeds, grilles de produits...).</div>
-    `,
-    code: `// Créer un élément
-let div = document.createElement("div")
-div.innerHTML = "Je suis une nouvelle div !"
-div.style.background = "gold"
-div.style.padding = "10px"
-div.style.margin = "10px"
-
-// L'ajouter à la page
-document.body.appendChild(div)`,
-    starter: `for (let i = 1; i <= 3; i++) {\n  let para = document.createElement("p")\n  para.innerHTML = "Paragraphe numéro " + i\n  para.style.color = "darkblue"\n  document.body.appendChild(para)\n}`
+    cat: "Événements",
+    title: "Événement click & input",
+    desc: `<p class="prose">L'événement <strong>click</strong> est le plus courant. La fonction reçoit un objet <strong>event</strong> avec des infos sur l'événement.</p>
+<p class="prose">La propriété <strong>.value</strong> permet de lire la valeur d'un champ <code>&lt;input&gt;</code>. Elle est toujours une chaîne — convertissez avec <code>Number()</code> si nécessaire.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div><code>event.target</code> désigne l'élément sur lequel l'utilisateur a cliqué — utile pour les listes de boutons dynamiques.</div></div>`,
+    code: `let btn = document.querySelector("button")\n\nbtn.addEventListener("click", function(event) {\n  console.log("Clic sur :", event.target)\n  console.log("Position X :", event.clientX)\n})\n\n// Lire un input\nlet input = document.querySelector("input")\ninput?.addEventListener("input", e => {\n  console.log("Saisie :", e.target.value)\n})`,
+    starter: `let input = document.createElement("input")\ninput.placeholder = "Votre nom"\ndocument.body.insertBefore(input, document.querySelector("button"))\n\nlet btn = document.querySelector("button")\nbtn.addEventListener("click", function() {\n  let nom = input.value\n  document.querySelector("h1").innerHTML = "Bonjour " + nom + " !"\n})`,
+    quiz: { q: "input.value retourne toujours quel type ?", opts: ["number", "boolean", "string", "object"], answer: 2 }
   },
   {
-    title: "appendChild — Ajouter dans le DOM",
-    desc: `
-      <p><strong>appendChild()</strong> insère un élément comme <strong>dernier enfant</strong> d'un parent. Il existe aussi <strong>prepend()</strong> pour ajouter au début, et <strong>insertBefore()</strong> pour une position précise.</p>
-      <p><strong>append()</strong> est une version plus moderne qui accepte aussi du texte directement.</p>
-      <div class="tip">💡 Pour déplacer un élément qui existe déjà, appellezjuste appendChild — il sera automatiquement retiré de son emplacement actuel.</div>
-    `,
-    code: `let liste = document.createElement("ul")
-document.body.appendChild(liste)
-
-let fruits = ["Mangue", "Orange", "Banane"]
-fruits.forEach(function(fruit) {
-  let item = document.createElement("li")
-  item.innerHTML = fruit
-  liste.appendChild(item)
-})`,
-    starter: `let liste = document.createElement("ul")\ndocument.body.appendChild(liste)\n\nlet prenoms = ["Fatou", "Moussa", "Aminata"]\nprenoms.forEach(function(p) {\n  let li = document.createElement("li")\n  li.innerHTML = p\n  liste.appendChild(li)\n})`
+    cat: "Événements",
+    title: "Supprimer des éléments",
+    desc: `<p class="prose"><strong>.remove()</strong> supprime l'élément du DOM. L'ancienne méthode était <code>parentElement.removeChild(element)</code>.</p>
+<p class="prose">L'élément est retiré de la page mais reste en mémoire (dans la variable). Vous pouvez le réajouter plus tard si besoin.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Pour vider tous les enfants d'un élément : <code>element.innerHTML = ""</code>.</div></div>`,
+    code: `let para = document.querySelector("p")\nlet btn = document.querySelector("button")\n\nbtn.addEventListener("click", function() {\n  para.remove()\n  console.log("Paragraphe supprimé !")\n  btn.innerHTML = "Déjà supprimé"\n  btn.disabled = true\n})`,
+    starter: `let titre = document.querySelector("h1")\nlet btn = document.querySelector("button")\nlet clics = 0\nbtn.addEventListener("click", function() {\n  clics++\n  if (clics >= 3) {\n    titre.remove()\n    btn.innerHTML = "Titre supprimé !"\n  } else {\n    titre.innerHTML = "Encore " + (3-clics) + " clics..."\n  }\n})`,
+    quiz: { q: "Que fait element.remove() ?", opts: ["Cache l'élément", "Le supprime du DOM", "L'efface de la mémoire", "Le copie"], answer: 1 }
   },
   {
-    title: "remove() — Supprimer un élément",
-    desc: `
-      <p><strong>.remove()</strong> supprime l'élément du DOM. C'est la méthode moderne. L'ancienne méthode était <code>parentElement.removeChild(element)</code>.</p>
-      <p>L'élément est retiré de la page mais reste en mémoire (dans la variable). Vous pouvez le réajouter plus tard si besoin.</p>
-      <div class="tip">💡 Pour supprimer tous les enfants d'un élément rapidement : <code>element.innerHTML = ""</code>.</div>
-    `,
-    code: `let para = document.querySelector("p")
-let btn = document.querySelector("button")
-
-btn.addEventListener("click", function() {
-  para.remove()
-  console.log("Paragraphe supprimé !")
-})`,
-    starter: `let titre = document.querySelector("h1")\nlet btn = document.querySelector("button")\nlet clics = 0\nbtn.addEventListener("click", function() {\n  clics++\n  if (clics >= 3) {\n    titre.remove()\n    btn.innerHTML = "Titre supprimé !"\n  } else {\n    titre.innerHTML = "Encore " + (3-clics) + " clics..."\n  }\n})`
+    cat: "Temps",
+    title: "setTimeout",
+    desc: `<p class="prose"><strong>setTimeout(fonction, délai)</strong> exécute une fonction une seule fois après un délai en <strong>millisecondes</strong>. 1000 ms = 1 seconde.</p>
+<p class="prose">Il retourne un identifiant qu'on peut passer à <strong>clearTimeout(id)</strong> pour annuler avant exécution.</p>
+<div class="callout info"><span class="callout-icon">ℹ️</span><div>setTimeout avec un délai de 0 ms ne s'exécute pas immédiatement — il attend la fin du code en cours. Subtilité importante !</div></div>`,
+    code: `console.log("Début")\n\nsetTimeout(function() {\n  console.log("3 secondes plus tard !")\n  document.querySelector("h1").innerHTML = "⏱️ Temps écoulé !"\n}, 3000)\n\nconsole.log("Ce message apparaît avant !")`,
+    starter: `document.querySelector("h1").innerHTML = "Attendez 2 secondes..."\nsetTimeout(function() {\n  document.querySelector("h1").innerHTML = "✅ Message apparu !"\n  document.querySelector("h1").style.color = "green"\n}, 2000)`,
+    quiz: { q: "1 seconde = combien de millisecondes dans setTimeout ?", opts: ["100", "500", "1000", "10000"], answer: 2 }
   },
   {
-    title: "classList — Gérer les classes CSS",
-    desc: `
-      <p><strong>classList</strong> offre des méthodes pour manipuler les classes CSS d'un élément sans toucher à toutes les autres.</p>
-      <p><strong>.add()</strong> ajoute, <strong>.remove()</strong> supprime, <strong>.contains()</strong> vérifie la présence d'une classe. C'est meilleur que modifier <code>element.className</code> qui écrase tout.</p>
-      <div class="tip">💡 Combiner JavaScript + CSS avec classList est la meilleure pratique : définissez les styles dans CSS, activez-les avec JS.</div>
-    `,
-    code: `let div = document.querySelector("div") || document.body
-
-// Ajouter une classe
-div.classList.add("surligné")
-
-// Vérifier
-console.log(div.classList.contains("surligné")) // true
-
-// Retirer
-div.classList.remove("surligné")`,
-    starter: `let titre = document.querySelector("h1")\nlet btn = document.querySelector("button")\n\nbtn.addEventListener("click", function() {\n  titre.style.color = titre.style.color === "red" ? "black" : "red"\n  titre.style.fontSize = titre.style.color === "red" ? "40px" : "24px"\n})`
+    cat: "Temps",
+    title: "setInterval",
+    desc: `<p class="prose"><strong>setInterval(fonction, délai)</strong> répète l'exécution d'une fonction à intervalles réguliers. Pour l'arrêter, utilisez <strong>clearInterval(id)</strong>.</p>
+<p class="prose">Utile pour les horloges, les animations, les compteurs en temps réel.</p>
+<div class="callout warn"><span class="callout-icon">⚠️</span><div>N'oubliez pas clearInterval quand vous n'en avez plus besoin, sinon ça tourne indéfiniment en mémoire.</div></div>`,
+    code: `let compteur = 0\n\nlet intervalle = setInterval(function() {\n  compteur++\n  document.querySelector("h1").innerHTML = "Secondes : " + compteur\n  \n  if (compteur >= 10) {\n    clearInterval(intervalle)\n    console.log("Arrêté !")\n  }\n}, 1000)`,
+    starter: `// Horloge en temps réel\nlet interval = setInterval(function() {\n  let d = new Date()\n  let h = String(d.getHours()).padStart(2, "0")\n  let m = String(d.getMinutes()).padStart(2, "0")\n  let s = String(d.getSeconds()).padStart(2, "0")\n  document.querySelector("h1").innerHTML = h + ":" + m + ":" + s\n}, 1000)`,
+    quiz: { q: "Comment arrêter un setInterval ?", opts: ["stopInterval(id)", "clearInterval(id)", "cancelInterval(id)", "interval.stop()"], answer: 1 }
   },
   {
-    title: "classList.toggle — Basculer une classe",
-    desc: `
-      <p><strong>classList.toggle()</strong> est très pratique : si la classe est absente, il l'ajoute ; si elle est présente, il la retire. C'est parfait pour les menus, les modes sombre/clair, les accordéons.</p>
-      <p>Il retourne <code>true</code> si la classe a été ajoutée, <code>false</code> si elle a été retirée.</p>
-      <div class="tip">💡 C'est la base du "dark mode" : une classe "dark" sur le body, et une condition CSS qui change les couleurs selon cette classe.</div>
-    `,
-    code: `let btn = document.querySelector("button")
-
-btn.addEventListener("click", function() {
-  // Bascule la classe "sombre" sur le body
-  let isDark = document.body.classList.toggle("dark")
-  btn.innerHTML = isDark ? "Mode Clair" : "Mode Sombre"
-})`,
-    starter: `let btn = document.querySelector("button")\nbtn.innerHTML = "Mode Sombre"\nbtn.addEventListener("click", function() {\n  let sombre = document.body.classList.toggle("dark")\n  document.body.style.background = sombre ? "#111" : "white"\n  document.body.style.color = sombre ? "white" : "black"\n  btn.innerHTML = sombre ? "Mode Clair" : "Mode Sombre"\n})`
+    cat: "Temps",
+    title: "Date",
+    desc: `<p class="prose">L'objet <strong>Date</strong> donne accès à la date et l'heure actuelle. Méthodes principales : <strong>.getHours()</strong>, <strong>.getMinutes()</strong>, <strong>.getDate()</strong>, <strong>.getMonth()</strong> (0-11 !), <strong>.getFullYear()</strong>.</p>
+<div class="callout warn"><span class="callout-icon">⚠️</span><div><code>getMonth()</code> retourne 0 pour janvier et 11 pour décembre. Ajoutez +1 pour l'affichage !</div></div>`,
+    code: `let d = new Date()\n\nlet h = d.getHours()\nlet min = d.getMinutes()\nlet jour = d.getDate()\nlet mois = d.getMonth() + 1  // +1 !\nlet annee = d.getFullYear()\n\nconsole.log(\`\${jour}/\${mois}/\${annee} \${h}h\${min}\`)\nconsole.log(d.toLocaleDateString("fr-FR"))`,
+    starter: `let d = new Date()\nlet h = d.getHours()\nlet msg = h < 12 ? "Bonjour" : h < 18 ? "Bon après-midi" : "Bonsoir"\ndocument.querySelector("h1").innerHTML = msg + " ! Il est " + h + "h"\ndocument.querySelector("p").innerHTML = d.toLocaleDateString("fr-FR")`,
+    quiz: { q: "Que retourne getMonth() pour mars ?", opts: ["3", "2", "03", "mars"], answer: 1 }
   },
   {
-    title: "Math.random() — Nombres aléatoires",
-    desc: `
-      <p><strong>Math.random()</strong> génère un nombre décimal aléatoire entre 0 (inclus) et 1 (exclus). Pour obtenir un entier entre 0 et N : <code>Math.floor(Math.random() * N)</code>.</p>
-      <p>Pour un entier entre min et max : <code>Math.floor(Math.random() * (max - min + 1)) + min</code>.</p>
-      <div class="tip">💡 Math.random() est la base des jeux, des couleurs aléatoires, des sélections au hasard dans une liste.</div>
-    `,
-    code: `// Nombre entre 0 et 1
-console.log(Math.random())
-
-// Entier entre 1 et 6 (dé)
-let de = Math.floor(Math.random() * 6) + 1
-console.log("Dé :", de)
-
-// Couleur aléatoire
-let r = Math.floor(Math.random() * 256)
-let g = Math.floor(Math.random() * 256)
-let b = Math.floor(Math.random() * 256)
-document.body.style.background = \`rgb(\${r},\${g},\${b})\``,
-    starter: `let btn = document.querySelector("button")\nbtn.innerHTML = "Couleur aléatoire"\nbtn.addEventListener("click", function() {\n  let r = Math.floor(Math.random() * 256)\n  let g = Math.floor(Math.random() * 256)\n  let b = Math.floor(Math.random() * 256)\n  document.body.style.background = \`rgb(\${r},\${g},\${b})\`\n})`
+    cat: "Temps",
+    title: "localStorage",
+    desc: `<p class="prose"><strong>localStorage</strong> permet de sauvegarder des données dans le navigateur qui persistent après fermeture. <strong>.setItem()</strong> sauvegarde, <strong>.getItem()</strong> récupère.</p>
+<p class="prose">localStorage ne stocke que des chaînes. Pour des objets, utilisez <code>JSON.stringify()</code> avant et <code>JSON.parse()</code> après.</p>
+<div class="callout warn"><span class="callout-icon">⚠️</span><div>Limité à ~5MB par domaine. N'y stockez jamais de données sensibles (mots de passe, tokens...).</div></div>`,
+    code: `// Sauvegarder\nlocalStorage.setItem("prenom", "Moussa")\nlocalStorage.setItem("score", "1500")\n\n// Récupérer\nlet prenom = localStorage.getItem("prenom")\nconsole.log(prenom)  // Moussa\n\n// Objet\nlet user = { nom: "Diallo", age: 30 }\nlocalStorage.setItem("user", JSON.stringify(user))`,
+    starter: `let btn = document.querySelector("button")\nlet compteur = parseInt(localStorage.getItem("compteur")) || 0\ndocument.querySelector("h1").innerHTML = "Score : " + compteur\nbtn.innerHTML = "+1 Score"\nbtn.addEventListener("click", function() {\n  compteur++\n  localStorage.setItem("compteur", compteur)\n  document.querySelector("h1").innerHTML = "Score : " + compteur\n})`,
+    quiz: { q: "localStorage.getItem() retourne quel type ?", opts: ["number", "object", "string", "any"], answer: 2 }
   },
   {
-    title: "Date — Travailler avec les dates",
-    desc: `
-      <p>L'objet <strong>Date</strong> donne accès à la date et l'heure actuelle. Les méthodes principales : <strong>.getHours()</strong>, <strong>.getMinutes()</strong>, <strong>.getDate()</strong>, <strong>.getMonth()</strong> (0-11 !), <strong>.getFullYear()</strong>.</p>
-      <p>Attention : <code>getMonth()</code> retourne 0 pour janvier et 11 pour décembre. Ajoutez +1 pour l'affichage.</p>
-      <div class="tip">💡 Pour formater des dates proprement, regardez <code>toLocaleDateString("fr-FR")</code> qui gère automatiquement le format local.</div>
-    `,
-    code: `let maintenant = new Date()
-
-let heure = maintenant.getHours()
-let minutes = maintenant.getMinutes()
-let jour = maintenant.getDate()
-let mois = maintenant.getMonth() + 1  // +1 !
-let annee = maintenant.getFullYear()
-
-console.log(\`\${jour}/\${mois}/\${annee} \${heure}h\${minutes}\`)`,
-    starter: `let d = new Date()\nlet h = d.getHours()\nlet msg = h < 12 ? "Bonjour" : h < 18 ? "Bon après-midi" : "Bonsoir"\ndocument.querySelector("h1").innerHTML = msg + " ! Il est " + h + "h"\ndocument.querySelector("p").innerHTML = d.toLocaleDateString("fr-FR")`
+    cat: "Asynchrone",
+    title: "Fetch API",
+    desc: `<p class="prose"><strong>fetch()</strong> envoie une requête HTTP et récupère des données depuis une API. Il retourne une <strong>Promise</strong> car la requête prend du temps.</p>
+<p class="prose">On utilise <strong>.then()</strong> pour traiter la réponse. La réponse brute doit être convertie en JSON avec <code>.json()</code>.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>APIs publiques gratuites : JSONPlaceholder, Open-Meteo (météo), RestCountries (pays), PokeAPI (Pokémon)...</div></div>`,
+    code: `// API publique : fausses données\nfetch("https://jsonplaceholder.typicode.com/users/1")\n  .then(response => response.json())\n  .then(data => {\n    console.log("Nom :", data.name)\n    console.log("Email :", data.email)\n  })\n  .catch(erreur => {\n    console.log("Erreur :", erreur)\n  })`,
+    starter: `fetch("https://jsonplaceholder.typicode.com/posts/1")\n  .then(res => res.json())\n  .then(post => {\n    document.querySelector("h1").innerHTML = post.title\n    document.querySelector("p").innerHTML = post.body\n  })`,
+    quiz: { q: "Quelle méthode convertit la réponse fetch en objet JS ?", opts: [".text()", ".json()", ".parse()", ".convert()"], answer: 1 }
   },
   {
-    title: "setTimeout — Délai d'exécution",
-    desc: `
-      <p><strong>setTimeout(fonction, délai)</strong> exécute une fonction une seule fois après un délai en <strong>millisecondes</strong>. 1000 ms = 1 seconde.</p>
-      <p>Il retourne un identifiant qu'on peut passer à <strong>clearTimeout(id)</strong> pour annuler l'exécution avant qu'elle n'ait lieu.</p>
-      <div class="tip">💡 setTimeout avec un délai de 0 ms ne s'exécute pas immédiatement — il attend quand même la fin du code en cours. C'est une subtilité importante du moteur JS.</div>
-    `,
-    code: `console.log("Début")
-
-setTimeout(function() {
-  console.log("3 secondes plus tard !")
-  document.querySelector("h1").innerHTML = "Temps écoulé !"
-}, 3000)
-
-console.log("Ce message apparaît avant !")`,
-    starter: `document.querySelector("h1").innerHTML = "Attendez 2 secondes..."\nsetTimeout(function() {\n  document.querySelector("h1").innerHTML = "✅ Message apparu !"\n  document.querySelector("h1").style.color = "green"\n}, 2000)`
-  },
-  {
-    title: "setInterval — Répétition automatique",
-    desc: `
-      <p><strong>setInterval(fonction, délai)</strong> répète l'exécution d'une fonction à intervalles réguliers. Pour l'arrêter, utilisez <strong>clearInterval(id)</strong> avec l'identifiant retourné.</p>
-      <p>Utile pour les horloges, les animations, les compteurs en temps réel, les slides automatiques.</p>
-      <div class="warning">⚠️ N'oubliez pas de clearInterval quand vous n'en avez plus besoin, sinon ça tourne indéfiniment en mémoire.</div>
-    `,
-    code: `let compteur = 0
-
-let intervalle = setInterval(function() {
-  compteur++
-  document.querySelector("h1").innerHTML = "Secondes : " + compteur
-  
-  if (compteur >= 10) {
-    clearInterval(intervalle)
-    console.log("Arrêté !")
-  }
-}, 1000)`,
-    starter: `// Horloge en temps réel\nlet interval = setInterval(function() {\n  let d = new Date()\n  let h = String(d.getHours()).padStart(2, "0")\n  let m = String(d.getMinutes()).padStart(2, "0")\n  let s = String(d.getSeconds()).padStart(2, "0")\n  document.querySelector("h1").innerHTML = h + ":" + m + ":" + s\n}, 1000)`
-  },
-  {
-    title: "JSON — Format de données",
-    desc: `
-      <p><strong>JSON</strong> (JavaScript Object Notation) est un format texte pour stocker et échanger des données. C'est le format standard des APIs web.</p>
-      <p><strong>JSON.stringify()</strong> convertit un objet JavaScript en texte JSON. <strong>JSON.parse()</strong> fait l'inverse : transforme du texte JSON en objet JavaScript.</p>
-      <div class="tip">💡 JSON ressemble aux objets JS mais les clés doivent être entre guillemets doubles et on ne peut pas mettre de fonctions dedans.</div>
-    `,
-    code: `let utilisateur = {
-  nom: "Fatou",
-  age: 25,
-  villes: ["Dakar", "Thiès"]
-}
-
-// Convertir en texte
-let texteJSON = JSON.stringify(utilisateur)
-console.log(texteJSON)  // {"nom":"Fatou",...}
-
-// Reconvertir en objet
-let objet = JSON.parse(texteJSON)
-console.log(objet.nom)  // Fatou`,
-    starter: `let data = { produit: "Téléphone", prix: 150000, dispo: true }\nlet json = JSON.stringify(data)\nconsole.log("JSON :", json)\nconsole.log("Longueur :", json.length, "caractères")\nlet back = JSON.parse(json)\nconsole.log("Prix :", back.prix, "FCFA")`
-  },
-  {
-    title: "localStorage — Stockage local",
-    desc: `
-      <p><strong>localStorage</strong> permet de sauvegarder des données dans le navigateur qui persistent même après fermeture. <strong>.setItem(clé, valeur)</strong> sauvegarde, <strong>.getItem(clé)</strong> récupère, <strong>.removeItem(clé)</strong> supprime.</p>
-      <p>Important : localStorage ne stocke que des chaînes. Pour des objets, utilisez JSON.stringify() avant de sauvegarder et JSON.parse() après avoir récupéré.</p>
-      <div class="tip">💡 localStorage est limité à environ 5MB et est propre à chaque domaine. N'y stockez jamais de données sensibles (mots de passe, tokens...).</div>
-    `,
-    code: `// Sauvegarder
-localStorage.setItem("prenom", "Moussa")
-localStorage.setItem("score", "1500")
-
-// Récupérer
-let prenom = localStorage.getItem("prenom")
-console.log(prenom)  // Moussa
-
-// Objet en JSON
-let user = { nom: "Diallo", age: 30 }
-localStorage.setItem("user", JSON.stringify(user))`,
-    starter: `let btn = document.querySelector("button")\nlet compteur = parseInt(localStorage.getItem("compteur")) || 0\ndocument.querySelector("h1").innerHTML = "Score : " + compteur\nbtn.innerHTML = "+1 Score"\nbtn.addEventListener("click", function() {\n  compteur++\n  localStorage.setItem("compteur", compteur)\n  document.querySelector("h1").innerHTML = "Score : " + compteur\n})`
-  },
-  {
-    title: "switch — Sélection multiple",
-    desc: `
-      <p><strong>switch</strong> est une alternative à plusieurs if/else quand on compare une variable à des valeurs précises. Chaque cas (<strong>case</strong>) se termine par <strong>break</strong> pour éviter de tomber dans le cas suivant.</p>
-      <p><strong>default</strong> est le cas "fourre-tout", exécuté si aucun case ne correspond.</p>
-      <div class="tip">💡 switch utilise la comparaison stricte (===). Il est surtout utile pour les menus, les gestion d'états, les jours de la semaine, etc.</div>
-    `,
-    code: `let jour = new Date().getDay() // 0=Dim, 1=Lun...
-
-switch (jour) {
-  case 1: console.log("Lundi"); break
-  case 2: console.log("Mardi"); break
-  case 3: console.log("Mercredi"); break
-  case 6:
-  case 0: console.log("Week-end !"); break
-  default: console.log("Autre jour")
-}`,
-    starter: `let saison = "hivernage"\nlet conseil\nswitch (saison) {\n  case "harmattan": conseil = "Pensez à vous hydrater !"; break\n  case "hivernage": conseil = "Prenez un parapluie !"; break\n  case "fraîche": conseil = "Profitez du soleil !"; break\n  default: conseil = "Bonne journée !"\n}\nconsole.log(conseil)\ndocument.querySelector("p").innerHTML = conseil`
-  },
-  {
-    title: "Arrow Functions — Fonctions fléchées",
-    desc: `
-      <p>Les <strong>fonctions fléchées</strong> sont une syntaxe plus concise pour écrire des fonctions. Au lieu de <code>function(x)</code>, on écrit <code>(x) =></code>.</p>
-      <p>Si la fonction tient sur une ligne et retourne une valeur, on peut encore simplifier : <code>x => x * 2</code> est équivalent à <code>function(x) { return x * 2 }</code>.</p>
-      <div class="tip">💡 Les arrow functions ne définissent pas leur propre <code>this</code> — c'est une différence importante avec les fonctions classiques, surtout dans les classes.</div>
-    `,
-    code: `// Fonction classique
-function double(n) { return n * 2 }
-
-// Fonction fléchée
-const doubleArrow = (n) => n * 2
-
-// Avec plusieurs lignes
-const saluer = (prenom) => {
-  let msg = "Bonjour " + prenom + " !"
-  return msg
-}
-
-console.log(doubleArrow(7))   // 14
-console.log(saluer("Fatou"))  // Bonjour Fatou !`,
-    starter: `const carre = n => n * n\nconst cube = n => n * n * n\nconsole.log("3² =", carre(3))\nconsole.log("2³ =", cube(2))\n\nconst estMajeur = age => age >= 18 ? "Majeur" : "Mineur"\nconsole.log(estMajeur(20))\nconsole.log(estMajeur(15))`
-  },
-  {
-    title: "map() — Transformer un tableau",
-    desc: `
-      <p><strong>.map()</strong> crée un <strong>nouveau tableau</strong> en appliquant une fonction à chaque élément. Le tableau original n'est pas modifié.</p>
-      <p>C'est l'une des méthodes de tableau les plus utilisées. Elle retourne toujours un tableau de la même taille que l'original.</p>
-      <div class="tip">💡 map + arrow function = combo puissant : <code>notes.map(n => n * 2)</code> double toutes les notes en une ligne !</div>
-    `,
-    code: `let notes = [12, 8, 15, 6, 18]
-
-// Ajouter 2 points à chaque note
-let notesBonus = notes.map(note => note + 2)
-console.log(notesBonus)  // [14, 10, 17, 8, 20]
-
-// Convertir en messages
-let messages = notes.map(n => "Note : " + n + "/20")
-console.log(messages)`,
-    starter: `let prix = [5000, 12000, 8500, 3000]\nlet prixTTC = prix.map(p => p * 1.18)  // +18% TVA\nconsole.log("Prix HT :", prix)\nconsole.log("Prix TTC :", prixTTC)\nlet affichage = prixTTC.map(p => Math.round(p) + " FCFA")\nconsole.log(affichage)`
-  },
-  {
-    title: "filter() — Filtrer un tableau",
-    desc: `
-      <p><strong>.filter()</strong> retourne un nouveau tableau contenant seulement les éléments pour lesquels la fonction retourne <strong>true</strong>. Le tableau original reste intact.</p>
-      <p>Contrairement à map(), filter() peut retourner un tableau plus petit que l'original.</p>
-      <div class="tip">💡 Combinez filter() et map() : d'abord filtrez, puis transformez. Exemple : garder les notes >10, puis les convertir en mentions.</div>
-    `,
-    code: `let notes = [12, 7, 15, 4, 18, 9, 11]
-
-// Garder les notes >= 10
-let admis = notes.filter(note => note >= 10)
-console.log("Admis :", admis)  // [12, 15, 18, 11]
-
-// Garder les nombres pairs
-let nombres = [1,2,3,4,5,6,7,8]
-let pairs = nombres.filter(n => n % 2 === 0)
-console.log("Pairs :", pairs)`,
-    starter: `let produits = [\n  { nom: "Téléphone", prix: 80000 },\n  { nom: "Casque", prix: 15000 },\n  { nom: "Montre", prix: 45000 },\n  { nom: "Câble", prix: 2000 }\n]\nlet abordables = produits.filter(p => p.prix < 20000)\nconsole.log("Produits < 20 000 FCFA :")\nabordables.forEach(p => console.log(p.nom, ":", p.prix, "FCFA"))`
-  },
-  {
-    title: "includes() — Vérifier l'existence",
-    desc: `
-      <p><strong>.includes()</strong> vérifie si un tableau (ou une chaîne) contient une valeur et retourne <code>true</code> ou <code>false</code>. C'est plus lisible que de chercher avec indexOf.</p>
-      <p>Pour les chaînes, <code>"Dakar Sénégal".includes("Sénégal")</code> retourne <code>true</code>.</p>
-      <div class="tip">💡 <code>includes()</code> utilise la comparaison stricte. Pour des objets, utilisez <code>.find()</code> ou <code>.some()</code> à la place.</div>
-    `,
-    code: `let fruits = ["Mangue", "Orange", "Banane"]
-
-console.log(fruits.includes("Mangue"))  // true
-console.log(fruits.includes("Pomme"))   // false
-
-// Dans une condition
-if (fruits.includes("Orange")) {
-  console.log("On a des oranges !")
-}
-
-// Dans une chaîne
-let texte = "Bonjour depuis Dakar"
-console.log(texte.includes("Dakar"))  // true`,
-    starter: `let vipList = ["Aminata", "Moussa", "Fatou"]\nlet invite = "Moussa"\nif (vipList.includes(invite)) {\n  console.log(invite + " est sur la liste VIP ✅")\n} else {\n  console.log(invite + " n'est pas sur la liste ❌")\n}`
-  },
-  {
-    title: "Fetch API — Requêtes réseau",
-    desc: `
-      <p><strong>fetch()</strong> envoie une requête HTTP et récupère des données depuis une API sur internet. Il retourne une <strong>Promise</strong> (promesse) car la requête prend du temps.</p>
-      <p>On utilise <strong>.then()</strong> pour traiter la réponse quand elle arrive. La réponse brute doit être convertie en JSON avec <code>.json()</code>.</p>
-      <div class="tip">💡 Fetch est la base de toutes les applications web modernes qui récupèrent des données dynamiques (météo, actualités, produits, utilisateurs...).</div>
-    `,
-    code: `// Récupérer des données d'une API publique
-fetch("https://jsonplaceholder.typicode.com/users/1")
-  .then(response => response.json())
-  .then(data => {
-    console.log("Nom :", data.name)
-    console.log("Email :", data.email)
-  })
-  .catch(erreur => {
-    console.log("Erreur :", erreur)
-  })`,
-    starter: `fetch("https://jsonplaceholder.typicode.com/posts/1")\n  .then(res => res.json())\n  .then(post => {\n    document.querySelector("h1").innerHTML = post.title\n    document.querySelector("p").innerHTML = post.body\n  })`
-  },
-  {
+    cat: "Asynchrone",
     title: "Async / Await",
-    desc: `
-      <p><strong>async/await</strong> est une syntaxe plus lisible pour gérer les Promises. Une fonction déclarée <strong>async</strong> peut utiliser <strong>await</strong> pour "attendre" une Promise comme si c'était du code synchrone.</p>
-      <p>C'est exactement pareil que .then(), mais beaucoup plus lisible, surtout quand on enchaîne plusieurs requêtes.</p>
-      <div class="tip">💡 <code>await</code> ne fonctionne que dans une fonction déclarée <code>async</code>. C'est le standard moderne pour toutes les requêtes réseau.</div>
-    `,
-    code: `async function chargerUtilisateur(id) {
-  // await "attend" la fin de la requête
-  let reponse = await fetch(\`https://jsonplaceholder.typicode.com/users/\${id}\`)
-  let data = await reponse.json()
-  
-  console.log("Nom :", data.name)
-  console.log("Ville :", data.address.city)
-}
-
-chargerUtilisateur(2)`,
-    starter: `async function chargerPost() {\n  let res = await fetch("https://jsonplaceholder.typicode.com/posts/5")\n  let post = await res.json()\n  document.querySelector("h1").innerHTML = post.title\n  document.querySelector("p").innerHTML = post.body\n}\nchargerPost()`
+    desc: `<p class="prose"><strong>async/await</strong> est une syntaxe plus lisible pour gérer les Promises. Une fonction <strong>async</strong> peut utiliser <strong>await</strong> pour "attendre" une Promise.</p>
+<p class="prose">C'est exactement pareil que .then(), mais beaucoup plus lisible, surtout quand on enchaîne plusieurs requêtes.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div><code>await</code> ne fonctionne que dans une fonction déclarée <code>async</code>. C'est le standard moderne.</div></div>`,
+    code: `async function chargerUser(id) {\n  // await "attend" la réponse\n  let res = await fetch(\`https://jsonplaceholder.typicode.com/users/\${id}\`)\n  let data = await res.json()\n  \n  console.log("Nom :", data.name)\n  console.log("Ville :", data.address.city)\n}\n\nchargerUser(2)`,
+    starter: `async function chargerPost() {\n  let res = await fetch("https://jsonplaceholder.typicode.com/posts/5")\n  let post = await res.json()\n  document.querySelector("h1").innerHTML = post.title\n  document.querySelector("p").innerHTML = post.body\n}\nchargerPost()`,
+    quiz: { q: "await peut s'utiliser dans :", opts: ["N'importe quelle fonction", "Uniquement async function", "Seulement fetch()", "N'importe où"], answer: 1 }
   },
   {
-    title: "try/catch — Gestion des erreurs",
-    desc: `
-      <p><strong>try/catch</strong> permet d'intercepter les erreurs sans faire planter le programme. Le code dans <code>try</code> est testé, et si une erreur survient, elle est capturée dans <code>catch</code>.</p>
-      <p><strong>finally</strong> (optionnel) s'exécute toujours, erreur ou non. Pratique pour fermer des connexions, masquer un loader, etc.</p>
-      <div class="tip">💡 Avec async/await, combinez try/catch pour gérer les erreurs réseau : si le fetch échoue (pas de connexion, serveur down), le catch l'attrape.</div>
-    `,
-    code: `async function chargerDonnees() {
-  try {
-    let res = await fetch("https://jsonplaceholder.typicode.com/posts/1")
-    let data = await res.json()
-    console.log("Succès :", data.title)
-  } catch (erreur) {
-    console.log("Erreur capturée :", erreur.message)
-  } finally {
-    console.log("Requête terminée (succès ou échec)")
-  }
-}
-
-chargerDonnees()`,
-    starter: `try {\n  let resultat = JSON.parse("texte invalide {{{}")\n  console.log(resultat)\n} catch (erreur) {\n  console.log("Erreur JSON :", erreur.message)\n} finally {\n  console.log("Programme continue normalement")\n}`
+    cat: "Asynchrone",
+    title: "try / catch",
+    desc: `<p class="prose"><strong>try/catch</strong> permet d'intercepter les erreurs sans faire planter le programme. Le code dans <code>try</code> est testé, et si une erreur survient, elle est capturée dans <code>catch</code>.</p>
+<p class="prose"><strong>finally</strong> (optionnel) s'exécute toujours, erreur ou non. Pratique pour masquer un loader.</p>`,
+    code: `async function chargerDonnees() {\n  try {\n    let res = await fetch("https://jsonplaceholder.typicode.com/posts/1")\n    let data = await res.json()\n    console.log("Succès :", data.title)\n  } catch (err) {\n    console.log("Erreur :", err.message)\n  } finally {\n    console.log("Requête terminée")\n  }\n}\n\nchargerDonnees()`,
+    starter: `try {\n  let res = JSON.parse("texte invalide {{{}")\n  console.log(res)\n} catch (err) {\n  console.log("Erreur JSON :", err.message)\n} finally {\n  console.log("Programme continue normalement")\n}`,
+    quiz: { q: "finally s'exécute :", opts: ["Seulement si pas d'erreur", "Seulement si erreur", "Toujours", "Jamais"], answer: 2 }
   },
   {
-    title: "Template Strings — Interpolation",
-    desc: `
-      <p>Les <strong>template strings</strong> (littéraux de gabarit) utilisent les backticks <code>\`\`</code> et permettent d'insérer des variables directement dans le texte avec <code>\${variable}</code>. Fini la concatenation avec <code>+</code> !</p>
-      <p>Ils supportent aussi les sauts de ligne directs (sans <code>\\n</code>) et peuvent contenir n'importe quelle expression JS dans les <code>\${}</code>.</p>
-      <div class="tip">💡 Dans <code>\${}</code> vous pouvez mettre n'importe quelle expression : <code>\${age >= 18 ? "majeur" : "mineur"}</code>, <code>\${prix * 1.2}</code>, etc.</div>
-    `,
-    code: `let prenom = "Moussa"
-let age = 25
-let ville = "Dakar"
-
-// Ancienne méthode
-console.log("Bonjour " + prenom + ", " + age + " ans, de " + ville)
-
-// Template string (beaucoup plus lisible !)
-console.log(\`Bonjour \${prenom}, \${age} ans, de \${ville}\`)
-console.log(\`Dans 10 ans : \${age + 10} ans\`)`,
-    starter: `let nom = "Aminata"\nlet note = 17\nlet mention = note >= 16 ? "Très Bien" : note >= 14 ? "Bien" : "Passable"\nconsole.log(\`Étudiant(e) : \${nom}\`)\nconsole.log(\`Note : \${note}/20 — Mention : \${mention}\`)\ndocument.querySelector("h1").innerHTML = \`Résultats de \${nom}\`\ndocument.querySelector("p").innerHTML = \`\${note}/20 — \${mention}\``
-  },
-  {
-    title: "Destructuring — Extraction de valeurs",
-    desc: `
-      <p>Le <strong>destructuring</strong> permet d'extraire des valeurs d'objets ou de tableaux en une seule ligne, plutôt que d'écrire plusieurs assignments.</p>
-      <p>Pour les objets : <code>const { nom, age } = user</code>. Pour les tableaux : <code>const [premier, second] = tableau</code>. On peut aussi renommer : <code>const { nom: prenom } = user</code>.</p>
-      <div class="tip">💡 Le destructuring dans les paramètres de fonction est très courant : <code>function afficher({ nom, age })</code> — on passe un objet et on extrait directement ce dont on a besoin.</div>
-    `,
-    code: `let etudiant = { prenom: "Fatou", age: 22, ville: "Thiès", note: 15 }
-
-// Sans destructuring
-let nom1 = etudiant.prenom
-let age1 = etudiant.age
-
-// Avec destructuring (bien mieux !)
-const { prenom, age, ville, note } = etudiant
-console.log(\`\${prenom}, \${age} ans, \${ville}, note: \${note}\`)
-
-// Tableaux
-const [or, argent, bronze] = ["Moussa", "Fatou", "Ali"]
-console.log("Champion :", or)`,
-    starter: `let produit = { nom: "Laptop", prix: 450000, stock: 12, marque: "Dell" }\nconst { nom, prix, stock } = produit\nconsole.log(\`\${nom} — \${prix} FCFA (stock: \${stock})\`)\n\nconst [a, b, c] = [10, 20, 30]\nconsole.log("Somme :", a + b + c)`
-  },
-  {
-    title: "Spread Operator — Expansion",
-    desc: `
-      <p>L'opérateur <strong>spread</strong> (<code>...</code>) "étale" les éléments d'un tableau ou les propriétés d'un objet. Il est très utile pour copier, fusionner, ou passer des arguments.</p>
-      <p>Pour copier un tableau : <code>[...original]</code>. Pour fusionner : <code>[...tab1, ...tab2]</code>. Pour les objets : <code>{ ...obj1, ...obj2 }</code>.</p>
-      <div class="tip">💡 Sans spread, copier un tableau avec <code>let b = a</code> donne deux variables qui pointent vers le même tableau ! Spread crée une vraie copie indépendante.</div>
-    `,
-    code: `let fruits = ["Mangue", "Orange"]
-let legumes = ["Tomate", "Oignon"]
-
-// Fusionner
-let aliments = [...fruits, ...legumes]
-console.log(aliments)
-
-// Copier sans lien
-let copie = [...fruits]
-copie.push("Banane")
-console.log(fruits)  // Inchangé !
-console.log(copie)   // Avec Banane`,
-    starter: `let user1 = { nom: "Moussa", role: "utilisateur" }\nlet infosSup = { age: 28, ville: "Dakar", premium: true }\n\n// Fusionner les objets\nlet userComplet = { ...user1, ...infosSup }\nconsole.log(userComplet)\nconsole.log("Rôle :", userComplet.role)\nconsole.log("Ville :", userComplet.ville)`
-  },
-  {
-    title: "Modules ES6",
-    desc: `
-      <p>Les <strong>modules</strong> permettent de diviser le code en fichiers séparés. <strong>export</strong> expose des fonctions ou variables, <strong>import</strong> les récupère dans un autre fichier.</p>
-      <p>Il y a deux types : <strong>export default</strong> (un seul par fichier) et les <strong>named exports</strong> (autant qu'on veut). Pour utiliser les modules dans le navigateur, ajoutez <code>type="module"</code> à la balise script.</p>
-      <div class="tip">💡 Les modules sont la base de tout projet JavaScript moderne (React, Vue, Node.js). Ils évitent la pollution de l'espace global et rendent le code plus maintenable.</div>
-    `,
-    code: `// fichier: utils.js
-export function calculerTTC(prix) {
-  return prix * 1.18
-}
-export const TVA = 0.18
-
-// fichier: main.js
-// import { calculerTTC, TVA } from "./utils.js"
-
-// export default (pour la chose principale du fichier)
-// export default class User { ... }`,
-    starter: `// Dans ce playground (sans modules), simulation :
-const utils = {\n  double: n => n * 2,\n  carre: n => n * n,\n  bonjour: nom => \`Bonjour \${nom} !\`\n}\n\nconsole.log(utils.double(5))\nconsole.log(utils.carre(4))\nconsole.log(utils.bonjour("Aminata"))`
-  },
-  {
+    cat: "POO",
     title: "Classes",
-    desc: `
-      <p>Les <strong>classes</strong> sont des modèles pour créer des objets avec la même structure. C'est la programmation <strong>orientée objet</strong>. Une classe définit des propriétés et des méthodes communes.</p>
-      <p>On crée un objet (instance) avec le mot-clé <strong>new</strong>. Chaque instance est indépendante des autres.</p>
-      <div class="tip">💡 Les classes peuvent hériter d'autres classes avec <code>extends</code>. Une classe <code>Etudiant extends Personne</code> hérite de toutes les propriétés de Personne.</div>
-    `,
-    code: `class Animal {
-  parler() {
-    console.log("...")
-  }
-}
-
-class Chien extends Animal {
-  parler() {
-    console.log("Woof !")
-  }
-}
-
-class Chat extends Animal {
-  parler() {
-    console.log("Miaou !")
-  }
-}
-
-new Chien().parler()
-new Chat().parler()`,
-    starter: `class Voiture {\n  demarrer() { console.log(this.marque + " démarre !") }\n  klaxonner() { console.log(this.marque + " : Beep beep !") }\n}\n\nclass Renault extends Voiture {\n  constructor() { super(); this.marque = "Renault" }\n}\n\nlet r = new Renault()\nr.demarrer()\nr.klaxonner()`
+    desc: `<p class="prose">Les <strong>classes</strong> sont des modèles pour créer des objets avec la même structure. C'est la programmation <strong>orientée objet</strong>. Une classe définit des propriétés et méthodes communes.</p>
+<p class="prose">On crée une instance avec le mot-clé <strong>new</strong>. Chaque instance est indépendante.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Les classes peuvent hériter d'autres avec <code>extends</code>. <code>Etudiant extends Personne</code> hérite de toutes les propriétés de Personne.</div></div>`,
+    code: `class Animal {\n  parler() {\n    console.log("...")\n  }\n}\n\nclass Chien extends Animal {\n  parler() { console.log("Woof !") }\n}\n\nclass Chat extends Animal {\n  parler() { console.log("Miaou !") }\n}\n\nnew Chien().parler()\nnew Chat().parler()`,
+    starter: `class Forme {\n  constructor(couleur) {\n    this.couleur = couleur\n  }\n  info() {\n    console.log(\`Forme de couleur \${this.couleur}\`)\n  }\n}\n\nclass Cercle extends Forme {\n  constructor(couleur, rayon) {\n    super(couleur)\n    this.rayon = rayon\n  }\n  aire() {\n    return Math.PI * this.rayon ** 2\n  }\n}\n\nlet c = new Cercle("rouge", 5)\nc.info()\nconsole.log("Aire :", c.aire().toFixed(2))`,
+    quiz: { q: "Quel mot-clé crée une instance de classe ?", opts: ["create", "instance", "new", "make"], answer: 2 }
   },
   {
-    title: "Constructor — Initialisation",
-    desc: `
-      <p>Le <strong>constructor</strong> est une méthode spéciale qui s'exécute automatiquement lors de la création d'une instance avec <code>new</code>. Il initialise les propriétés de l'objet.</p>
-      <p>Le mot-clé <strong>this</strong> fait référence à l'instance en cours de création. <code>this.nom = nom</code> assigne la valeur passée en paramètre à la propriété <code>nom</code> de cet objet spécifique.</p>
-      <div class="tip">💡 Dans une classe enfant, si vous définissez un constructor, appelez <code>super()</code> en premier pour initialiser le parent.</div>
-    `,
-    code: `class Etudiant {
-  constructor(prenom, note) {
-    this.prenom = prenom
-    this.note = note
-    this.mention = note >= 16 ? "Très Bien" : "Passable"
-  }
-  
-  afficher() {
-    console.log(\`\${this.prenom} : \${this.note}/20 (\${this.mention})\`)
-  }
-}
-
-let e1 = new Etudiant("Fatou", 17)
-let e2 = new Etudiant("Moussa", 11)
-e1.afficher()
-e2.afficher()`,
-    starter: `class Produit {\n  constructor(nom, prix) {\n    this.nom = nom\n    this.prix = prix\n  }\n  afficher() {\n    console.log(\`\${this.nom} : \${this.prix} FCFA\`)\n  }\n}\n\nlet p1 = new Produit("Téléphone", 120000)\nlet p2 = new Produit("Casque", 18000)\np1.afficher()\np2.afficher()`
+    cat: "POO",
+    title: "Constructor & this",
+    desc: `<p class="prose">Le <strong>constructor</strong> s'exécute automatiquement lors de la création d'une instance avec <code>new</code>. Il initialise les propriétés.</p>
+<p class="prose">Le mot-clé <strong>this</strong> fait référence à l'instance en cours. <code>this.nom = nom</code> assigne la valeur passée en paramètre à l'objet créé.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Dans une classe enfant, si vous définissez un constructor, appelez <code>super()</code> en premier.</div></div>`,
+    code: `class Etudiant {\n  constructor(prenom, note) {\n    this.prenom = prenom\n    this.note = note\n    this.mention = note >= 16 ? "Très Bien" : "Passable"\n  }\n  \n  afficher() {\n    console.log(\`\${this.prenom} : \${this.note}/20 (\${this.mention})\`)\n  }\n}\n\nlet e1 = new Etudiant("Fatou", 17)\nlet e2 = new Etudiant("Moussa", 11)\ne1.afficher()\ne2.afficher()`,
+    starter: `class Produit {\n  constructor(nom, prix) {\n    this.nom = nom\n    this.prix = prix\n  }\n  afficher() {\n    console.log(\`\${this.nom} : \${this.prix} FCFA\`)\n  }\n}\n\nlet p1 = new Produit("Téléphone", 120000)\nlet p2 = new Produit("Casque", 18000)\np1.afficher()\np2.afficher()`,
+    quiz: { q: "À quoi réfère 'this' dans une méthode de classe ?", opts: ["La classe", "L'instance créée", "undefined", "window"], answer: 1 }
   },
   {
-    title: "APIs — Communiquer avec des services",
-    desc: `
-      <p>Une <strong>API</strong> (Application Programming Interface) est un service web qui expose des données ou fonctionnalités. On l'interroge via des URLs (<strong>endpoints</strong>) avec fetch().</p>
-      <p>La plupart des APIs retournent du JSON. Certaines nécessitent une <strong>clé API</strong> (API key) pour s'authentifier — elle s'envoie dans les headers de la requête.</p>
-      <div class="tip">💡 APIs publiques gratuites pour s'exercer : JSONPlaceholder (fausses données), Open-Meteo (météo), RestCountries (pays), PokeAPI (Pokémon)...</div>
-    `,
-    code: `// API publique : informations sur un pays
-async function infoPays(pays) {
-  let res = await fetch(\`https://restcountries.com/v3.1/name/\${pays}\`)
-  let data = await res.json()
-  let info = data[0]
-  console.log("Pays :", info.name.common)
-  console.log("Capitale :", info.capital[0])
-  console.log("Population :", info.population.toLocaleString())
-}
-
-infoPays("senegal")`,
-    starter: `async function infosPays() {\n  let res = await fetch("https://restcountries.com/v3.1/name/senegal")\n  let data = await res.json()\n  let pays = data[0]\n  document.querySelector("h1").innerHTML = pays.name.common\n  document.querySelector("p").innerHTML = \`Capitale : \${pays.capital[0]} | Pop : \${pays.population.toLocaleString()}\`\n}\ninfosPays()`
+    cat: "POO",
+    title: "Modules ES6",
+    desc: `<p class="prose">Les <strong>modules</strong> permettent de diviser le code en fichiers séparés. <strong>export</strong> expose des fonctions ou variables, <strong>import</strong> les récupère.</p>
+<p class="prose">Il y a deux types : <strong>export default</strong> (un seul par fichier) et les <strong>named exports</strong> (autant qu'on veut).</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>Les modules sont la base de tout projet JavaScript moderne (React, Vue, Node.js). Ils évitent la pollution de l'espace global.</div></div>`,
+    code: `// fichier: utils.js\nexport function calculerTTC(prix) {\n  return prix * 1.18\n}\nexport const TVA = 0.18\n\n// fichier: main.js\nimport { calculerTTC, TVA } from "./utils.js"\nconsole.log(calculerTTC(10000))  // 11800\n\n// export default\nexport default class User { ... }`,
+    starter: `// Simulation modules dans ce playground\nconst utils = {\n  double: n => n * 2,\n  carre: n => n * n,\n  bonjour: nom => \`Bonjour \${nom} !\`\n}\n\nconsole.log(utils.double(5))\nconsole.log(utils.carre(4))\nconsole.log(utils.bonjour("Aminata"))`,
+    quiz: { q: "Combien d'exports default peut avoir un fichier JS ?", opts: ["Autant que voulu", "2", "1", "0"], answer: 2 }
   },
   {
-    title: "🎓 Projet Final — Application complète",
-    desc: `
-      <p>Félicitations ! Vous avez parcouru les 50 leçons essentielles de JavaScript. Vous maîtrisez maintenant les <strong>fondamentaux</strong> : variables, fonctions, DOM, boucles, tableaux, objets, classes, et les API.</p>
-      <p>Le playground ci-contre contient un mini-projet de <strong>Todo List</strong> qui combine tout ce que vous avez appris : manipulation du DOM, événements, tableaux, localStorage, et template strings.</p>
-      <div class="tip">💡 Prochaines étapes : React.js (composants UI), Node.js (JavaScript côté serveur), et TypeScript (JavaScript avec types). Bonne continuation ! 🚀</div>
-    `,
-    code: `// Application Todo List complète
-let todos = JSON.parse(localStorage.getItem("todos")) || []
-
-function sauvegarder() {
-  localStorage.setItem("todos", JSON.stringify(todos))
-}
-
-function afficher() {
-  let liste = document.getElementById("liste")
-  if (!liste) return
-  liste.innerHTML = todos.map((todo, i) =>
-    \`<li style="margin:5px 0;display:flex;gap:8px;align-items:center">
-      <span style="\${todo.fait ? 'text-decoration:line-through;opacity:0.5' : ''}">\${todo.texte}</span>
-      <button onclick="toggleTodo(\${i})" style="padding:2px 8px;font-size:12px">\${todo.fait ? "↩" : "✓"}</button>
-      <button onclick="supprimerTodo(\${i})" style="padding:2px 8px;font-size:12px;background:#f87171">✕</button>
-    </li>\`
-  ).join("")
-}
-
-function ajouterTodo() {
-  let input = document.getElementById("inputTodo")
-  if (!input || !input.value.trim()) return
-  todos.push({ texte: input.value.trim(), fait: false })
-  input.value = ""
-  sauvegarder(); afficher()
-}
-
-function toggleTodo(i) { todos[i].fait = !todos[i].fait; sauvegarder(); afficher() }
-function supprimerTodo(i) { todos.splice(i, 1); sauvegarder(); afficher() }
-
-afficher()`,
-    starter: `// 🎓 Projet Final : Todo List\nlet todos = []\n\nfunction creerInterface() {\n  document.querySelector("h1").innerHTML = "📝 Ma Todo List"\n  let container = document.body\n  let form = document.createElement("div")\n  form.style.cssText = "display:flex;gap:8px;margin:10px 0"\n  form.innerHTML = \`<input id="inputTodo" placeholder="Nouvelle tâche..." style="flex:1;padding:8px;border:1px solid #ccc;border-radius:4px"><button onclick="ajouterTodo()" style="padding:8px 16px">Ajouter</button>\`\n  let liste = document.createElement("ul")\n  liste.id = "liste"\n  liste.style.listStyle = "none"\n  container.appendChild(form)\n  container.appendChild(liste)\n}\n\nfunction ajouterTodo() {\n  let input = document.getElementById("inputTodo")\n  if (!input.value.trim()) return\n  todos.push({ texte: input.value.trim(), fait: false })\n  input.value = ""\n  afficher()\n}\n\nfunction afficher() {\n  let liste = document.getElementById("liste")\n  liste.innerHTML = todos.map((t, i) =>\n    \`<li style="margin:5px 0;display:flex;gap:8px">\n      <span style="\${t.fait ? 'text-decoration:line-through;opacity:0.5' : ''}">\${t.texte}</span>\n      <button onclick="todos[\${i}].fait=!todos[\${i}].fait;afficher()" style="font-size:12px">\${t.fait ? "↩" : "✓"}</button>\n    </li>\`\n  ).join("")\n}\n\ncreerInterface()`
+    cat: "APIs",
+    title: "Consommer des APIs",
+    desc: `<p class="prose">Une <strong>API</strong> (Application Programming Interface) est un service web qui expose des données via des URLs (<strong>endpoints</strong>).</p>
+<p class="prose">La plupart des APIs retournent du JSON. Certaines nécessitent une <strong>clé API</strong> envoyée dans les headers.</p>
+<div class="callout tip"><span class="callout-icon">💡</span><div>APIs publiques gratuites : JSONPlaceholder, Open-Meteo, RestCountries, PokeAPI, OpenLibrary...</div></div>`,
+    code: `// API pays\nasync function infoPays(pays) {\n  let res = await fetch(\`https://restcountries.com/v3.1/name/\${pays}\`)\n  let data = await res.json()\n  let info = data[0]\n  console.log("Pays :", info.name.common)\n  console.log("Capitale :", info.capital[0])\n  console.log("Pop :", info.population.toLocaleString())\n}\n\ninfoPays("senegal")`,
+    starter: `async function infosPays() {\n  let res = await fetch("https://restcountries.com/v3.1/name/senegal")\n  let data = await res.json()\n  let pays = data[0]\n  document.querySelector("h1").innerHTML = pays.name.common\n  document.querySelector("p").innerHTML =\n    \`Capitale : \${pays.capital[0]} | Pop : \${pays.population.toLocaleString()}\`\n}\ninfosPays()`,
+    quiz: { q: "Dans quel format les APIs web retournent-elles généralement des données ?", opts: ["XML", "CSV", "JSON", "HTML"], answer: 2 }
+  },
+  {
+    cat: "APIs",
+    title: "🎓 Projet Final — Todo List",
+    desc: `<p class="prose">Félicitations ! Vous avez parcouru les 50 leçons essentielles de JavaScript. Vous maîtrisez maintenant les <strong>fondamentaux</strong> : variables, fonctions, DOM, boucles, tableaux, objets, classes, et les APIs.</p>
+<div class="callout tip"><span class="callout-icon">🚀</span><div>Prochaines étapes : <strong>React.js</strong> (composants UI), <strong>Node.js</strong> (JavaScript côté serveur), et <strong>TypeScript</strong> (JavaScript avec types). Bonne continuation !</div></div>
+<div class="congrats-card"><div class="congrats-icon">🏆</div><div class="congrats-title">Cours JavaScript complété !</div><div class="congrats-subtitle">Vous avez acquis toutes les bases pour construire des applications web interactives. Le playground contient un projet Todo List complet — essayez-le !</div></div>`,
+    code: `let todos = JSON.parse(localStorage.getItem("todos") || "[]")\n\nfunction sauvegarder() {\n  localStorage.setItem("todos", JSON.stringify(todos))\n}\n\nfunction afficher() {\n  document.getElementById("liste").innerHTML = todos.map((t, i) =>\n    \`<li style="display:flex;gap:8px;margin:6px 0;align-items:center">\n      <span style="\${t.fait ? 'text-decoration:line-through;opacity:0.5' : ''}">\${t.texte}</span>\n      <button onclick="toggle(\${i})">\${t.fait ? "↩" : "✓"}</button>\n      <button onclick="suppr(\${i})" style="background:#f87171">✕</button>\n    </li>\`\n  ).join("")\n}\n\nfunction toggle(i) { todos[i].fait = !todos[i].fait; sauvegarder(); afficher() }\nfunction suppr(i)  { todos.splice(i, 1); sauvegarder(); afficher() }\n\nafficher()`,
+    starter: `let todos = []\n\nfunction creer() {\n  document.querySelector("h1").innerHTML = "📝 Todo List"\n  let form = document.createElement("div")\n  form.style.cssText = "display:flex;gap:8px;margin:10px 0"\n  form.innerHTML = \`\n    <input id="inp" placeholder="Nouvelle tâche…" style="flex:1;padding:8px;border:1px solid #ccc;border-radius:4px">\n    <button onclick="ajouter()">Ajouter</button>\n  \`\n  let liste = document.createElement("ul")\n  liste.id = "liste"\n  liste.style.listStyle = "none"\n  document.body.append(form, liste)\n}\n\nfunction ajouter() {\n  let inp = document.getElementById("inp")\n  if (!inp.value.trim()) return\n  todos.push({ texte: inp.value.trim(), fait: false })\n  inp.value = ""\n  afficher()\n}\n\nfunction afficher() {\n  document.getElementById("liste").innerHTML = todos.map((t, i) =>\n    \`<li style="margin:5px 0;display:flex;gap:8px">\n      <span style="\${t.fait ? 'text-decoration:line-through;opacity:0.5' : ''}">\${t.texte}</span>\n      <button onclick="todos[\${i}].fait=!todos[\${i}].fait;afficher()">\${t.fait ? "↩" : "✓"}</button>\n    </li>\`\n  ).join("")\n}\n\ncreer()`,
+    quiz: null
   }
 ]
 
 const CATEGORIES = [
-  { label: "Les bases", range: [0, 7] },
-  { label: "Logique", range: [8, 11] },
-  { label: "Fonctions", range: [12, 14] },
-  { label: "Structures", range: [15, 17] },
-  { label: "DOM", range: [18, 21] },
-  { label: "Événements", range: [22, 25] },
-  { label: "Manipulation", range: [26, 29] },
-  { label: "Temps & Dates", range: [30, 33] },
-  { label: "Avancé", range: [34, 40] },
-  { label: "Asynchrone", range: [41, 43] },
-  { label: "Moderne ES6+", range: [44, 47] },
-  { label: "APIs & POO", range: [48, 49] }
+  "Les bases", "Logique", "Fonctions", "Structures",
+  "Boucles", "DOM", "Événements", "Temps",
+  "Asynchrone", "POO", "APIs"
 ]
 
 let currentLesson = 0
-let doneLessons = new Set(JSON.parse(localStorage.getItem("doneLessons") || "[]"))
+let doneLessons = new Set(JSON.parse(localStorage.getItem("jsDoneLessons") || "[]"))
+let autoRunTimer = null
+let consoleLogs = []
 
-function buildSidebar() {
-  const sb = document.getElementById("sidebar")
-  sb.innerHTML = ""
-  CATEGORIES.forEach(cat => {
-    let section = document.createElement("div")
-    section.className = "sidebar-section"
-    section.textContent = cat.label
-    sb.appendChild(section)
-    for (let i = cat.range[0]; i <= cat.range[1]; i++) {
-      let item = document.createElement("div")
-      item.className = "sidebar-item" + (i === currentLesson ? " active" : "") + (doneLessons.has(i) ? " done" : "")
-      item.dataset.idx = i
-      item.innerHTML = `<span class="num">${String(i+1).padStart(2,"0")}</span><span>${lessons[i].title.replace(/🎓 /,"")}</span>`
-      item.addEventListener("click", () => goTo(i))
-      sb.appendChild(item)
+// ---- Build sidebar ----
+function buildSidebar(filter = "") {
+  const list = document.getElementById("lesson-list")
+  list.innerHTML = ""
+  let lastCat = ""
+  LESSONS.forEach((l, i) => {
+    if (filter && !l.title.toLowerCase().includes(filter.toLowerCase())) return
+    if (l.cat !== lastCat) {
+      let lbl = document.createElement("div")
+      lbl.className = "chapter-label"
+      lbl.textContent = l.cat
+      list.appendChild(lbl)
+      lastCat = l.cat
     }
+    let item = document.createElement("div")
+    item.className = "lesson-item" +
+      (i === currentLesson ? " active" : "") +
+      (doneLessons.has(i) ? " done" : "")
+    item.innerHTML = `
+      <div class="lesson-num">${doneLessons.has(i) ? "✓" : String(i+1).padStart(2,"0")}</div>
+      <div class="lesson-title-text">${l.title.replace(/🎓 /, "")}</div>
+      ${doneLessons.has(i) ? '<div class="done-check">✓</div>' : ""}
+    `
+    item.onclick = () => goTo(i)
+    list.appendChild(item)
   })
 }
 
+function filterLessons(val) { buildSidebar(val) }
+
+// ---- Render lesson ----
 function renderLesson() {
-  const l = lessons[currentLesson]
+  const l = LESSONS[currentLesson]
   const panel = document.getElementById("lesson-panel")
+
+  let quizHtml = ""
+  if (l.quiz) {
+    quizHtml = `
+      <div class="section-title">Quiz rapide</div>
+      <div class="quiz-block" id="quiz">
+        <div class="quiz-label">✦ Question</div>
+        <div class="quiz-q">${l.quiz.q}</div>
+        ${l.quiz.opts.map((opt, i) => `
+          <button class="quiz-opt" onclick="answerQuiz(${i})">${opt}</button>
+        `).join("")}
+        <div class="quiz-feedback" id="quiz-fb"></div>
+      </div>
+    `
+  }
+
   panel.innerHTML = `
-    <div class="lesson-number">Leçon ${String(currentLesson+1).padStart(2,"0")} / 50</div>
-    <div class="lesson-title">${l.title}</div>
-    <div class="lesson-desc">${l.desc}</div>
+    <div class="lesson-eyebrow">
+      <div class="lesson-num-badge">Leçon ${String(currentLesson+1).padStart(2,"0")} / ${LESSONS.length}</div>
+      <div class="cat-tag">${l.cat}</div>
+    </div>
+    <div class="lesson-h1">${l.title}</div>
+    ${l.desc}
+    <div class="section-title">Exemple de code</div>
     <div class="code-block">
       <div class="code-header">
-        <span>Exemple</span>
-        <button class="try-btn" onclick="loadExample()">Essayer dans le playground →</button>
+        <div class="code-dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+        <span class="code-lang">JavaScript</span>
+        <button class="copy-btn" onclick="copyCode()">Copier</button>
+        <button class="try-btn" onclick="loadExample()">Essayer →</button>
       </div>
-      <pre>${highlight(l.code)}</pre>
+      <div class="code-body">${highlight(l.code)}</div>
     </div>
-    <div class="nav-buttons">
-      ${currentLesson > 0 ? `<button class="nav-btn prev" onclick="goTo(${currentLesson-1})">← Précédent</button>` : ""}
-      ${currentLesson < lessons.length-1 ? `<button class="nav-btn next" onclick="markAndNext()">Suivant →</button>` : `<button class="nav-btn next" onclick="markDone()">✅ Terminer</button>`}
+    ${quizHtml}
+    <div class="lesson-nav">
+      ${currentLesson > 0 ? `<button class="nav-prev" onclick="goTo(${currentLesson-1})">← Précédent</button>` : ""}
+      <button class="mark-done-btn" onclick="markDone()" id="mark-btn">${doneLessons.has(currentLesson) ? "✓ Complété" : "Marquer terminé"}</button>
+      ${currentLesson < LESSONS.length-1
+        ? `<button class="nav-next primary" onclick="markAndNext()">Suivant →</button>`
+        : `<button class="nav-next primary" onclick="markAndFinish()">✓ Terminer le cours !</button>`
+      }
     </div>
   `
-  panel.scrollTop = 0
-  document.getElementById("editor").value = lessons[currentLesson].starter
+
+  document.getElementById("content-scroll").scrollTop = 0
+  document.getElementById("ai-lesson-ctx").textContent = `Leçon ${currentLesson+1} — ${l.title}`
+
+  // Load starter in editor
+  document.getElementById("code-editor").value = l.starter
+  updateLineNumbers()
   runCode()
   updateProgress()
 }
@@ -1871,66 +1624,256 @@ function renderLesson() {
 function highlight(code) {
   return code
     .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
-    .replace(/\/\/.*/g, m => `<span class="cmt">${m}</span>`)
-    .replace(/\b(let|const|var|function|return|if|else|for|while|class|new|this|async|await|import|export|default|switch|case|break|try|catch|finally|extends|super|typeof|of|in)\b/g, '<span class="kw">$1</span>')
-    .replace(/\b(console|document|Math|Date|localStorage|JSON|fetch|alert|setTimeout|setInterval|clearInterval)\b/g, '<span class="fn">$1</span>')
-    .replace(/"([^"]*)"/g, '<span class="str">"$1"</span>')
-    .replace(/`([^`]*)`/g, (m, s) => `<span class="str">\`${s}\`</span>`)
-    .replace(/\b(\d+\.?\d*)\b/g, '<span class="num-lit">$1</span>')
+    .replace(/\/\/.*/g, m => `<span class="cm">${m}</span>`)
+    .replace(/(`[^`]*`)/g, m => `<span class="st">${m}</span>`)
+    .replace(/"([^"\\]*(\\.[^"\\]*)*)"/g, m => `<span class="st">${m}</span>`)
+    .replace(/'([^'\\]*(\\.[^'\\]*)*)'/g, m => `<span class="st">${m}</span>`)
+    .replace(/\b(let|const|var|function|return|if|else|for|while|class|new|this|async|await|import|export|default|switch|case|break|try|catch|finally|extends|super|typeof|of|in|null|undefined|true|false)\b/g, '<span class="kw">$1</span>')
+    .replace(/\b(console|document|Math|Date|localStorage|JSON|fetch|alert|setTimeout|setInterval|clearInterval|clearTimeout|window|Object|Array)\b/g, '<span class="fn">$1</span>')
+    .replace(/\b(\d+\.?\d*)\b/g, '<span class="nm">$1</span>')
 }
 
+// ---- Navigation ----
 function goTo(idx) {
   currentLesson = idx
-  buildSidebar()
+  buildSidebar(document.getElementById("search-input").value)
   renderLesson()
-}
-
-function markAndNext() {
-  doneLessons.add(currentLesson)
-  localStorage.setItem("doneLessons", JSON.stringify([...doneLessons]))
-  goTo(currentLesson + 1)
+  window.scrollTo(0, 0)
 }
 
 function markDone() {
   doneLessons.add(currentLesson)
-  localStorage.setItem("doneLessons", JSON.stringify([...doneLessons]))
-  buildSidebar()
+  localStorage.setItem("jsDoneLessons", JSON.stringify([...doneLessons]))
+  buildSidebar(document.getElementById("search-input").value)
   updateProgress()
-  document.getElementById("lesson-panel").querySelector(".nav-btn.next").innerHTML = "✅ Terminé !"
+  let btn = document.getElementById("mark-btn")
+  if (btn) btn.textContent = "✓ Complété"
 }
 
-function loadExample() {
-  document.getElementById("editor").value = lessons[currentLesson].code
-  runCode()
+function markAndNext() {
+  markDone()
+  goTo(currentLesson + 1)
+}
+
+function markAndFinish() {
+  markDone()
 }
 
 function updateProgress() {
-  const pct = (doneLessons.size / 50 * 100).toFixed(0)
+  const pct = (doneLessons.size / LESSONS.length * 100)
   document.getElementById("progress-fill").style.width = pct + "%"
-  document.getElementById("progress-text").textContent = `${doneLessons.size} / 50`
+  document.getElementById("progress-text").textContent = `${doneLessons.size} / ${LESSONS.length}`
+  document.getElementById("streak-num").textContent = doneLessons.size
+}
+
+// ---- Quiz ----
+function answerQuiz(idx) {
+  const l = LESSONS[currentLesson]
+  const opts = document.querySelectorAll(".quiz-opt")
+  const fb = document.getElementById("quiz-fb")
+  opts.forEach(o => o.disabled = true)
+  opts[l.quiz.answer].classList.add("correct")
+  if (idx !== l.quiz.answer) {
+    opts[idx].classList.add("wrong")
+    fb.textContent = "❌ Pas tout à fait. La bonne réponse est : " + l.quiz.opts[l.quiz.answer]
+    fb.className = "quiz-feedback show ko"
+  } else {
+    fb.textContent = "✅ Bravo ! C'est la bonne réponse."
+    fb.className = "quiz-feedback show ok"
+  }
+}
+
+// ---- Editor ----
+function updateLineNumbers() {
+  const ta = document.getElementById("code-editor")
+  const lines = ta.value.split("\n").length
+  document.getElementById("line-numbers").textContent =
+    Array.from({length: lines}, (_, i) => i+1).join("\n")
+}
+
+function autoRun() {
+  clearTimeout(autoRunTimer)
+  autoRunTimer = setTimeout(runCode, 1200)
 }
 
 function runCode() {
-  let js = document.getElementById('editor').value
-  let iframe = document.getElementById('result')
+  const js = document.getElementById("code-editor").value
+  consoleLogs = []
+
+  const iframe = document.getElementById("result")
+  const interceptConsole = `
+    window._logs = [];
+    const _old = { log: console.log, error: console.error, warn: console.warn, info: console.info };
+    ['log','error','warn','info'].forEach(m => {
+      console[m] = function(...args) {
+        window._logs.push({ type: m, text: args.map(a => {
+          if (typeof a === 'object') { try { return JSON.stringify(a, null, 2) } catch(e) { return String(a) } }
+          return String(a)
+        }).join(' ') });
+        _old[m](...args);
+        try { window.parent.postMessage({ type: 'console', level: m, text: window._logs[window._logs.length-1].text }, '*') } catch(e) {}
+      }
+    });
+    window.onerror = function(msg, src, line) {
+      window.parent.postMessage({ type: 'console', level: 'error', text: '❌ ' + msg + ' (ligne ' + line + ')' }, '*');
+    };
+  `
   iframe.srcdoc = `<!DOCTYPE html><html><head><style>
-body{font-family:Arial;padding:16px;font-size:14px;line-height:1.6}
-h1{font-size:20px;margin-bottom:8px}
-button{padding:8px 16px;cursor:pointer;border:none;background:#f0c040;border-radius:5px;font-weight:bold}
-input{padding:8px;border:1px solid #ddd;border-radius:4px;font-size:14px}
-ul{padding-left:20px}
+body{font-family:'DM Sans',sans-serif;padding:16px;font-size:14px;line-height:1.6;color:#1a1a2e}
+h1{font-size:20px;margin-bottom:8px;font-weight:600}
+button{padding:8px 16px;cursor:pointer;border:none;background:#f0c040;border-radius:6px;font-weight:600;font-size:13px}
+button:hover{background:#e8a830}
+input{padding:8px;border:1px solid #ddd;border-radius:4px;font-size:13px}
+ul{padding-left:20px}li{margin:4px 0}
 </style></head><body>
-<h1>Bienvenue</h1>
-<p>Apprenez JavaScript facilement.</p>
-<button>Bouton</button>
-<script>${js}<\/script>
-</body></html>`
+<h1>Bienvenue</h1><p>Apprenez JavaScript facilement.</p><button>Bouton</button>
+<script>${interceptConsole}${js}<\/script></body></html>`
+
+  // Clear console UI
+  document.getElementById("console-box").innerHTML = `<div class="console-empty">Console vide</div>`
 }
+
+// Listen for console messages from iframe
+window.addEventListener("message", function(e) {
+  if (e.data && e.data.type === "console") {
+    const box = document.getElementById("console-box")
+    if (box.querySelector(".console-empty")) box.innerHTML = ""
+    const line = document.createElement("div")
+    line.className = "console-line " + (e.data.level === "error" ? "error" : e.data.level === "warn" ? "warn" : "info" === e.data.level ? "info" : "")
+    const prefix = { log: "›", error: "✕", warn: "⚠", info: "ℹ" }[e.data.level] || "›"
+    line.textContent = prefix + " " + e.data.text
+    box.appendChild(line)
+    box.scrollTop = box.scrollHeight
+  }
+})
+
+function loadExample() {
+  document.getElementById("code-editor").value = LESSONS[currentLesson].code
+  updateLineNumbers()
+  runCode()
+  switchTabByName("playground")
+}
+
+function copyCode() {
+  navigator.clipboard?.writeText(LESSONS[currentLesson].code)
+  const btn = document.querySelector(".copy-btn")
+  if (btn) { btn.textContent = "Copié !"; setTimeout(() => btn.textContent = "Copier", 1500) }
+}
+
+// ---- Tabs ----
+function switchTab(name, el) {
+  document.querySelectorAll(".etab").forEach(t => t.classList.remove("active"))
+  document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"))
+  el.classList.add("active")
+  document.getElementById("tab-" + name).classList.add("active")
+}
+
+function switchTabByName(name) {
+  document.querySelectorAll(".etab").forEach((t, i) => {
+    const names = ["playground", "output", "ai"]
+    if (names[i] === name) t.classList.add("active")
+    else t.classList.remove("active")
+  })
+  document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"))
+  document.getElementById("tab-" + name).classList.add("active")
+}
+
+// ---- AI Assistant ----
+const API_URL = "https://api.anthropic.com/v1/messages"
+
+async function sendAI() {
+  const input = document.getElementById("ai-input")
+  const text = input.value.trim()
+  if (!text) return
+
+  const btn = document.getElementById("send-btn")
+  btn.disabled = true
+  input.value = ""
+  input.style.height = "38px"
+
+  appendMsg("user", text)
+  showTyping(true)
+
+  const currentCode = document.getElementById("code-editor").value
+  const lesson = LESSONS[currentLesson]
+
+  const systemPrompt = `Tu es un assistant pédagogique expert JavaScript. Tu aides un apprenant sur la leçon "${lesson.title}" (catégorie: ${lesson.cat}).
+  
+Code actuel de l'apprenant dans le playground :
+\`\`\`javascript
+${currentCode}
+\`\`\`
+
+Réponds en français de manière claire, concise et encourageante. Utilise des exemples concrets.
+Formate le code avec des backticks. Sois bienveillant et pédagogique.`
+
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages: [{ role: "user", content: text }]
+      })
+    })
+    const data = await res.json()
+    const reply = data.content?.[0]?.text || "Je n'ai pas pu répondre. Réessayez."
+    showTyping(false)
+    appendMsg("ai", formatAIReply(reply))
+  } catch (err) {
+    showTyping(false)
+    appendMsg("ai", "Erreur de connexion. Vérifiez votre connexion internet et réessayez.")
+  }
+
+  btn.disabled = false
+}
+
+function quickPrompt(text) {
+  document.getElementById("ai-input").value = text
+  sendAI()
+}
+
+function formatAIReply(text) {
+  return text
+    .replace(/```(?:javascript|js)?\n?([\s\S]*?)```/g, '<div style="background:var(--surface3);border-radius:6px;padding:10px 12px;margin:6px 0;font-family:var(--mono);font-size:12px;white-space:pre;overflow-x:auto;color:#c0beb6">$1</div>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\n\n/g, '<br><br>')
+    .replace(/\n/g, '<br>')
+}
+
+function appendMsg(role, html) {
+  const msgs = document.getElementById("ai-messages")
+  const div = document.createElement("div")
+  div.className = `msg ${role}`
+  div.innerHTML = html
+  msgs.appendChild(div)
+  msgs.scrollTop = msgs.scrollHeight
+}
+
+function showTyping(show) {
+  const tw = document.getElementById("typing-wrap")
+  tw.style.display = show ? "flex" : "none"
+  const msgs = document.getElementById("ai-messages")
+  if (show) msgs.appendChild(tw)
+  msgs.scrollTop = msgs.scrollHeight
+}
+
+// Tab key in editor
+document.getElementById("code-editor").addEventListener("keydown", function(e) {
+  if (e.key === "Tab") {
+    e.preventDefault()
+    const s = this.selectionStart
+    this.value = this.value.substring(0, s) + "  " + this.value.substring(this.selectionEnd)
+    this.selectionStart = this.selectionEnd = s + 2
+    updateLineNumbers()
+  }
+})
 
 // Init
 buildSidebar()
 renderLesson()
-
 </script>
 </body>
 </html>
