@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Mastery — 50 Leçons</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0a0e1a;
+  --surface: #0f1628;
+  --surface2: #151d35;
+  --border: rgba(99,137,255,0.15);
+  --accent: #4f7cff;
+  --accent2: #7ef2c0;
+  --accent3: #f5a623;
+  --text: #e2e8f7;
+  --muted: #7a8aaa;
+  --code-bg: #060b18;
+  --code-green: #4ade80;
+  --code-blue: #60a5fa;
+  --code-yellow: #fbbf24;
+  --code-purple: #c084fc;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* ─── NOISE TEXTURE OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: .4;
+}
+
+/* ─── HERO ─── */
+header {
+  position: relative;
+  padding: 100px 24px 80px;
+  text-align: center;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: -120px; left: 50%;
+  transform: translateX(-50%);
+  width: 900px; height: 600px;
+  background: radial-gradient(ellipse at center, rgba(79,124,255,.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+.badge {
+  display: inline-block;
+  background: rgba(79,124,255,.12);
+  border: 1px solid rgba(79,124,255,.3);
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 100px;
+  margin-bottom: 28px;
+  animation: fadeDown .6s ease both;
+}
+
+header h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  background: linear-gradient(135deg, #ffffff 0%, #c7d4ff 50%, var(--accent2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeDown .7s .1s ease both;
+}
+
+header h1 em {
+  font-style: italic;
+  font-family: 'DM Serif Display', serif;
+}
+
+.hero-sub {
+  max-width: 580px;
+  margin: 24px auto 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+  font-weight: 300;
+  animation: fadeDown .7s .2s ease both;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 52px;
+  animation: fadeDown .7s .3s ease both;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.4rem;
+  color: white;
+  display: block;
+}
+
+.stat-label {
+  font-size: .75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+
+/* ─── PROGRESS BAR ─── */
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  width: 0%;
+  z-index: 1000;
+  transition: width .1s linear;
+  box-shadow: 0 0 12px var(--accent);
+}
+
+/* ─── SIDEBAR NAV ─── */
+#sidebar {
+  position: fixed;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.15);
+  cursor: pointer;
+  transition: all .2s;
+  position: relative;
+}
+
+.nav-dot:hover, .nav-dot.active {
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  transform: scale(1.4);
+}
+
+.nav-dot::before {
+  content: attr(data-label);
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: .7rem;
+  padding: 3px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s;
+}
+
+.nav-dot:hover::before { opacity: 1; }
+
+/* ─── MAIN LAYOUT ─── */
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 60px 24px 120px;
+}
+
+/* ─── CHAPTER DIVIDERS ─── */
+.chapter-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 80px 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  opacity: .7;
+}
+
+.chapter-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ─── LESSON CARD ─── */
+.lesson {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 36px 40px;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .3s, transform .3s;
+  animation: fadeUp .5s ease both;
+}
+
+.lesson::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(79,124,255,.4), transparent);
+}
+
+.lesson:hover {
+  border-color: rgba(79,124,255,.4);
+  transform: translateY(-2px);
+}
+
+.lesson-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .68rem;
+  color: var(--accent);
+  letter-spacing: .12em;
+  margin-bottom: 12px;
+  opacity: .7;
+}
+
+.lesson h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.55rem;
+  font-weight: 400;
+  color: white;
+  margin-bottom: 18px;
+  line-height: 1.25;
+}
+
+.lesson p {
+  color: #a0aec8;
+  font-size: .965rem;
+  margin-bottom: 12px;
+}
+
+.lesson ul {
+  margin: 8px 0 12px 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.lesson ul li {
+  color: #a0aec8;
+  font-size: .965rem;
+  padding: 3px 0 3px 20px;
+  position: relative;
+}
+
+.lesson ul li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent2);
+  font-size: .8rem;
+}
+
+.lesson h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--accent2);
+  margin: 22px 0 6px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+/* ─── CODE BLOCKS ─── */
+pre {
+  background: var(--code-bg);
+  border: 1px solid rgba(99,137,255,.12);
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 20px;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .85rem;
+  line-height: 1.7;
+  position: relative;
+}
+
+pre::before {
+  content: 'SQL';
+  position: absolute;
+  top: 10px; right: 14px;
+  font-size: .6rem;
+  color: rgba(255,255,255,.2);
+  letter-spacing: .1em;
+}
+
+/* Syntax coloring via CSS */
+pre { color: #e2e8f7; }
+
+/* ─── CALLOUT BOXES ─── */
+.tip {
+  background: rgba(126,242,192,.06);
+  border-left: 3px solid var(--accent2);
+  border-radius: 0 10px 10px 0;
+  padding: 14px 20px;
+  margin: 16px 0;
+  font-size: .9rem;
+  color: #9fe8cb;
+}
+
+.warning {
+  background: rgba(245,166,35,.06);
+  border-left: 3px solid var(--accent3);
+  border-radius: 0 10px 10px 0;
+  padding: 14px 20px;
+  margin: 16px 0;
+  font-size: .9rem;
+  color: #f5c06a;
+}
+
+/* ─── OPERATOR TABLE ─── */
+.op-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: .9rem;
+}
+
+.op-table td {
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--border);
+  color: #a0aec8;
+}
+
+.op-table td:first-child {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--code-yellow);
+  width: 100px;
+}
+
+/* ─── FINAL CARD ─── */
+.lesson-final {
+  background: linear-gradient(135deg, rgba(79,124,255,.08), rgba(126,242,192,.06));
+  border-color: rgba(126,242,192,.25);
+}
+
+.congrats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.congrats-icon {
+  font-size: 2.5rem;
+}
+
+.congrats h2 {
+  margin-bottom: 4px !important;
+}
+
+.best-practices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.bp-item {
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.bp-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .7rem;
+  color: var(--accent);
+  background: rgba(79,124,255,.1);
+  border-radius: 6px;
+  padding: 3px 8px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.bp-text {
+  font-size: .88rem;
+  color: #8a9bc4;
+}
+
+.bp-text strong {
+  display: block;
+  color: var(--text);
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--muted);
+  font-size: .875rem;
+}
+
+footer strong {
+  color: white;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── SCROLL ANIMATIONS ─── */
+.lesson { opacity: 0; transform: translateY(24px); transition: opacity .5s ease, transform .5s ease, border-color .3s, box-shadow .3s; }
+.lesson.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 700px) {
+  .lesson { padding: 24px 22px; }
+  .hero-stats { gap: 24px; }
+  .best-practices { grid-template-columns: 1fr; }
+  #sidebar { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<nav id="sidebar"></nav>
+
+<header>
+  <div class="badge">// Formation complète</div>
+  <h1>Apprendre <em>SQL</em><br>de A à Z</h1>
+  <p class="hero-sub">50 leçons progressives pour maîtriser les bases de données relationnelles — du débutant au niveau intermédiaire.</p>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num">50</span><span class="stat-label">Leçons</span></div>
+    <div class="stat"><span class="stat-num">5</span><span class="stat-label">Chapitres</span></div>
+    <div class="stat"><span class="stat-num">∞</span><span class="stat-label">Possibilités</span></div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ══ CHAPITRE 1 ══ -->
+  <div class="chapter-label">Chapitre 1 — Fondamentaux</div>
+
+  <div class="lesson" data-lesson="1">
+    <div class="lesson-number">LEÇON 01</div>
+    <h2>Introduction à SQL</h2>
+    <p>SQL — <em>Structured Query Language</em> — est le langage universel de communication avec les bases de données relationnelles. Il permet de créer, modifier, supprimer et consulter des données.</p>
+    <p>On le retrouve partout : sites web, banques, réseaux sociaux, applications mobiles. Les systèmes majeurs incluent MySQL, PostgreSQL, MariaDB, SQL Server et Oracle.</p>
+    <pre>SELECT 'Bonjour SQL';</pre>
+  </div>
+
+  <div class="lesson" data-lesson="2">
+    <div class="lesson-number">LEÇON 02</div>
+    <h2>Comprendre une Base de Données</h2>
+    <p>Une base de données est un ensemble organisé d'informations stockées électroniquement. Pensez à une bibliothèque : les rayons sont les tables, les livres sont les lignes, les étiquettes sont les colonnes.</p>
+    <pre>Base de données
+ └── Table utilisateurs
+      ├── id
+      ├── nom
+      └── email</pre>
+  </div>
+
+  <div class="lesson" data-lesson="3">
+    <div class="lesson-number">LEÇON 03</div>
+    <h2>Les Tables</h2>
+    <p>Une table est l'élément central d'une base de données. Elle s'organise en <strong>lignes</strong> (enregistrements) et <strong>colonnes</strong> (caractéristiques).</p>
+    <pre>CREATE TABLE utilisateurs (
+  id    INT,
+  nom   VARCHAR(100),
+  email VARCHAR(150)
+);</pre>
+  </div>
+
+  <div class="lesson" data-lesson="4">
+    <div class="lesson-number">LEÇON 04</div>
+    <h2>Colonnes et Types de Données</h2>
+    <p>Chaque colonne accepte un type de données précis. Voici les plus courants :</p>
+    <table class="op-table">
+      <tr><td>INT</td><td>Nombre entier (42, -7, 1000)</td></tr>
+      <tr><td>VARCHAR</td><td>Texte de longueur variable</td></tr>
+      <tr><td>DATE</td><td>Date (2025-01-31)</td></tr>
+      <tr><td>FLOAT</td><td>Nombre décimal (3.14)</td></tr>
+      <tr><td>BOOLEAN</td><td>Vrai ou faux</td></tr>
+    </table>
+    <pre>CREATE TABLE produits (
+  id   INT,
+  nom  VARCHAR(100),
+  prix FLOAT
+);</pre>
+  </div>
+
+  <div class="lesson" data-lesson="5">
+    <div class="lesson-number">LEÇON 05</div>
+    <h2>Créer et Sélectionner une Base</h2>
+    <p>Avant de créer des tables, il faut créer un conteneur : la base de données. Puis la sélectionner pour y travailler.</p>
+    <pre>CREATE DATABASE ecole;
+
+USE ecole;</pre>
+  </div>
+
+  <!-- ══ CHAPITRE 2 ══ -->
+  <div class="chapter-label">Chapitre 2 — Lecture et Filtrage</div>
+
+  <div class="lesson" data-lesson="6">
+    <div class="lesson-number">LEÇON 06</div>
+    <h2>Insérer des Données</h2>
+    <p><code>INSERT INTO</code> ajoute de nouvelles lignes dans une table. Précisez les colonnes et leurs valeurs correspondantes.</p>
+    <pre>INSERT INTO utilisateurs (nom, email)
+VALUES ('Ali', 'ali@gmail.com');</pre>
+  </div>
+
+  <div class="lesson" data-lesson="7">
+    <div class="lesson-number">LEÇON 07</div>
+    <h2>Afficher les Données — SELECT</h2>
+    <p><code>SELECT</code> est la commande la plus utilisée en SQL. L'étoile <code>*</code> récupère toutes les colonnes.</p>
+    <pre>-- Toutes les colonnes
+SELECT * FROM utilisateurs;
+
+-- Colonnes spécifiques
+SELECT nom, email FROM utilisateurs;</pre>
+    <div class="tip">💡 En production, évitez <code>SELECT *</code> et listez uniquement les colonnes nécessaires pour de meilleures performances.</div>
+  </div>
+
+  <div class="lesson" data-lesson="8">
+    <div class="lesson-number">LEÇON 08</div>
+    <h2>Filtrer avec WHERE</h2>
+    <p><code>WHERE</code> filtre les résultats selon une condition. Seules les lignes correspondantes sont retournées.</p>
+    <pre>SELECT * FROM utilisateurs
+WHERE id = 1;</pre>
+  </div>
+
+  <div class="lesson" data-lesson="9">
+    <div class="lesson-number">LEÇON 09</div>
+    <h2>Trier avec ORDER BY</h2>
+    <p><code>ORDER BY</code> classe les résultats. <code>ASC</code> pour croissant, <code>DESC</code> pour décroissant.</p>
+    <pre>SELECT * FROM utilisateurs
+ORDER BY nom ASC;
+
+SELECT * FROM produits
+ORDER BY prix DESC;</pre>
+  </div>
+
+  <div class="lesson" data-lesson="10">
+    <div class="lesson-number">LEÇON 10</div>
+    <h2>DISTINCT — Supprimer les Doublons</h2>
+    <p><code>DISTINCT</code> élimine les valeurs répétées. Si trois clients habitent à Dakar, la ville n'apparaît qu'une fois.</p>
+    <pre>SELECT DISTINCT ville FROM clients;</pre>
+  </div>
+
+  <div class="lesson" data-lesson="11">
+    <div class="lesson-number">LEÇON 11</div>
+    <h2>Les Opérateurs de Comparaison</h2>
+    <p>Ces opérateurs s'utilisent dans les clauses <code>WHERE</code> pour affiner les conditions :</p>
+    <table class="op-table">
+      <tr><td>=</td><td>Égal à</td></tr>
+      <tr><td>!=</td><td>Différent de</td></tr>
+      <tr><td>&gt;</td><td>Supérieur à</td></tr>
+      <tr><td>&lt;</td><td>Inférieur à</td></tr>
+      <tr><td>&gt;=</td><td>Supérieur ou égal</td></tr>
+      <tr><td>&lt;=</td><td>Inférieur ou égal</td></tr>
+    </table>
+    <pre>SELECT * FROM produits
+WHERE prix > 1000;</pre>
+  </div>
+
+  <div class="lesson" data-lesson="12">
+    <div class="lesson-number">LEÇON 12</div>
+    <h2>AND, OR, NOT</h2>
+    <p>Ces opérateurs logiques combinent plusieurs conditions :</p>
+    <pre>-- AND : toutes les conditions doivent être vraies
+SELECT * FROM employes
+WHERE salaire > 200000
+  AND ville = 'Dakar';
+
+-- OR : au moins une condition vraie
+SELECT * FROM employes
+WHERE ville = 'Dakar'
+   OR ville = 'Thiès';
+
+-- NOT : exclure une valeur
+SELECT * FROM clients
+WHERE NOT ville = 'Dakar';</pre>
+  </div>
+
+  <div class="lesson" data-lesson="13">
+    <div class="lesson-number">LEÇON 13</div>
+    <h2>LIKE — Recherche Partielle</h2>
+    <p><code>LIKE</code> effectue des recherches dans les textes. Le symbole <code>%</code> représente n'importe quelle suite de caractères, <code>_</code> représente un seul caractère.</p>
+    <pre>-- Noms commençant par A
+SELECT * FROM clients WHERE nom LIKE 'A%';
+
+-- Noms finissant par a
+SELECT * FROM clients WHERE nom LIKE '%a';
+
+-- Contient "ali"
+SELECT * FROM clients WHERE nom LIKE '%ali%';</pre>
+  </div>
+
+  <div class="lesson" data-lesson="14">
+    <div class="lesson-number">LEÇON 14</div>
+    <h2>BETWEEN et IN</h2>
+    <p><code>BETWEEN</code> sélectionne une plage de valeurs. <code>IN</code> teste plusieurs valeurs en une seule condition.</p>
+    <pre>-- Plage de prix
+SELECT * FROM produits
+WHERE prix BETWEEN 1000 AND 5000;
+
+-- Plusieurs villes
+SELECT * FROM clients
+WHERE ville IN ('Dakar', 'Thiès', 'Saint-Louis');</pre>
+  </div>
+
+  <div class="lesson" data-lesson="15">
+    <div class="lesson-number">LEÇON 15</div>
+    <h2>LIMIT — Limiter les Résultats</h2>
+    <p>Indispensable sur les grandes tables pour ne récupérer qu'un sous-ensemble de lignes.</p>
+    <pre>-- 10 premiers résultats
+SELECT * FROM utilisateurs LIMIT 10;
+
+-- Pagination : ignorer 20 lignes, prendre les 10 suivantes
+SELECT * FROM utilisateurs LIMIT 10 OFFSET 20;</pre>
+  </div>
+
+  <!-- ══ CHAPITRE 3 ══ -->
+  <div class="chapter-label">Chapitre 3 — Modification et Agrégation</div>
+
+  <div class="lesson" data-lesson="16">
+    <div class="lesson-number">LEÇON 16</div>
+    <h2>Mettre à Jour — UPDATE</h2>
+    <p>Modifie les données existantes. Utilisez toujours <code>WHERE</code> pour cibler les lignes concernées.</p>
+    <pre>UPDATE utilisateurs
+SET email = 'nouveau@gmail.com'
+WHERE id = 1;</pre>
+    <div class="warning">⚠️ Un <code>UPDATE</code> sans <code>WHERE</code> modifie TOUTES les lignes de la table. Testez toujours votre <code>WHERE</code> avec un <code>SELECT</code> avant.</div>
+  </div>
+
+  <div class="lesson" data-lesson="17">
+    <div class="lesson-number">LEÇON 17</div>
+    <h2>Supprimer — DELETE</h2>
+    <p>Supprime définitivement des enregistrements. Cette opération est irréversible sans sauvegarde.</p>
+    <pre>DELETE FROM utilisateurs
+WHERE id = 1;</pre>
+    <div class="warning">⚠️ Comme pour UPDATE, un <code>DELETE</code> sans <code>WHERE</code> vide entièrement la table.</div>
+  </div>
+
+  <div class="lesson" data-lesson="18">
+    <div class="lesson-number">LEÇON 18</div>
+    <h2>Les Valeurs NULL</h2>
+    <p><code>NULL</code> représente l'absence d'information — ni zéro, ni chaîne vide. Utilisez <code>IS NULL</code> ou <code>IS NOT NULL</code> pour les détecter.</p>
+    <pre>-- Utilisateurs sans téléphone
+SELECT * FROM utilisateurs WHERE telephone IS NULL;
+
+-- Utilisateurs avec téléphone
+SELECT * FROM utilisateurs WHERE telephone IS NOT NULL;</pre>
+  </div>
+
+  <div class="lesson" data-lesson="19">
+    <div class="lesson-number">LEÇON 19</div>
+    <h2>Fonctions d'Agrégation</h2>
+    <p>Ces fonctions effectuent des calculs sur un ensemble de lignes et retournent une valeur unique :</p>
+    <pre>-- Nombre d'utilisateurs
+SELECT COUNT(*) FROM utilisateurs;
+
+-- Somme des ventes
+SELECT SUM(prix) FROM commandes;
+
+-- Prix moyen
+SELECT AVG(prix) FROM produits;
+
+-- Prix le plus bas / le plus haut
+SELECT MIN(prix), MAX(prix) FROM produits;</pre>
+  </div>
+
+  <div class="lesson" data-lesson="20">
+    <div class="lesson-number">LEÇON 20</div>
+    <h2>GROUP BY et HAVING</h2>
+    <p><code>GROUP BY</code> regroupe les lignes partageant une même valeur. <code>HAVING</code> filtre les groupes (comme <code>WHERE</code> mais pour les agrégats).</p>
+    <pre>-- Nombre de clients par ville
+SELECT ville, COUNT(*) AS total
+FROM clients
+GROUP BY ville;
+
+-- Villes avec plus de 5 clients
+SELECT ville, COUNT(*) AS total
+FROM clients
+GROUP BY ville
+HAVING COUNT(*) > 5;</pre>
+  </div>
+
+  <div class="lesson" data-lesson="21">
+    <div class="lesson-number">LEÇON 21</div>
+    <h2>Les Alias — AS</h2>
+    <p>Les alias donnent un nom lisible aux colonnes ou aux tables dans les résultats et les requêtes complexes.</p>
+    <pre>SELECT nom   AS Nom_Client,
+       email  AS Adresse_Email
+FROM utilisateurs;</pre>
+  </div>
+
+  <!-- ══ CHAPITRE 4 ══ -->
+  <div class="chapter-label">Chapitre 4 — Jointures et Requêtes Avancées</div>
+
+  <div class="lesson" data-lesson="22">
+    <div class="lesson-number">LEÇON 22</div>
+    <h2>Introduction aux Jointures</h2>
+    <p>Les bases de données relationnelles répartissent les données dans plusieurs tables. Les jointures permettent de les combiner en une seule requête en reliant les tables via des colonnes communes.</p>
+    <div class="tip">💡 Exemple classique : relier la table <code>clients</code> à la table <code>commandes</code> via <code>client_id</code>.</div>
+  </div>
+
+  <div class="lesson" data-lesson="23">
+    <div class="lesson-number">LEÇON 23</div>
+    <h2>INNER JOIN</h2>
+    <p>Retourne uniquement les lignes ayant une correspondance dans les deux tables. Les enregistrements sans correspondance sont exclus.</p>
+    <pre>SELECT clients.nom,
+       commandes.date_commande
+FROM clients
+INNER JOIN commandes
+  ON clients.id = commandes.client_id;</pre>
+  </div>
+
+  <div class="lesson" data-lesson="24">
+    <div class="lesson-number">LEÇON 24</div>
+    <h2>LEFT JOIN et RIGHT JOIN</h2>
+    <p><code>LEFT JOIN</code> retourne toutes les lignes de la table gauche, même sans correspondance à droite (valeur <code>NULL</code> dans ce cas). <code>RIGHT JOIN</code> fait l'inverse.</p>
+    <pre>-- Tous les clients, même sans commande
+SELECT clients.nom, commandes.id
+FROM clients
+LEFT JOIN commandes
+  ON clients.id = commandes.client_id;
+
+-- Toutes les commandes, même sans client lié
+SELECT clients.nom, commandes.id
+FROM clients
+RIGHT JOIN commandes
+  ON clients.id = commandes.client_id;</pre>
+  </div>
+
+  <div class="lesson" data-lesson="25">
+    <div class="lesson-number">LEÇON 25</div>
+    <h2>FULL JOIN et UNION</h2>
+    <p><code>FULL JOIN</code> combine les deux : toutes les lignes des deux tables. <code>UNION</code> fusionne les résultats de deux <code>SELECT</code> compatibles (doublons supprimés automatiquement).</p>
+    <pre>-- FULL JOIN
+SELECT * FROM clients
+FULL JOIN commandes
+  ON clients.id = commandes.client_id;
+
+-- UNION : liste unique de noms
+SELECT nom FROM clients
+UNION
+SELECT nom FROM fournisseurs;</pre>
+  </div>
+
+  <div class="lesson" data-lesson="26">
+    <div class="lesson-number">LEÇON 26</div>
+    <h2>Les Sous-Requêtes</h2>
+    <p>Une sous-requête est une requête imbriquée dans une autre. Elle permet des opérations en plusieurs étapes.</p>
+    <pre>-- Produits au-dessus du prix moyen
+SELECT * FROM produits
+WHERE prix > (
+  SELECT AVG(prix) FROM produits
+);
+
+-- Clients ayant passé une commande
+SELECT nom FROM clients
+WHERE EXISTS (
+  SELECT * FROM commandes
+  WHERE commandes.client_id = clients.id
+);</pre>
+  </div>
+
+  <div class="lesson" data-lesson="27">
+    <div class="lesson-number">LEÇON 27</div>
+    <h2>ANY et ALL</h2>
+    <p><code>ANY</code> compare à au moins une valeur de la sous-requête. <code>ALL</code> compare à toutes les valeurs.</p>
+    <pre>-- Plus cher qu'au moins un article en promo
+SELECT * FROM produits
+WHERE prix > ANY (SELECT prix FROM promotions);
+
+-- Plus cher que tous les articles en promo
+SELECT * FROM produits
+WHERE prix > ALL (SELECT prix FROM promotions);</pre>
+  </div>
+
+  <!-- ══ CHAPITRE 5 ══ -->
+  <div class="chapter-label">Chapitre 5 — Structure, Sécurité et Optimisation</div>
+
+  <div class="lesson" data-lesson="28">
+    <div class="lesson-number">LEÇON 28</div>
+    <h2>Les Index</h2>
+    <p>Les index accélèrent les recherches sur les grandes tables, comme un index de livre. Créez-en sur les colonnes fréquemment utilisées dans les <code>WHERE</code>.</p>
+    <pre>CREATE INDEX idx_nom
+ON utilisateurs(nom);
+
+-- Index sur plusieurs colonnes
+CREATE INDEX idx_ville_statut
+ON clients(ville, statut);</pre>
+    <div class="tip">💡 Les index accélèrent la lecture mais ralentissent légèrement l'écriture. Utilisez-les avec discernement.</div>
+  </div>
+
+  <div class="lesson" data-lesson="29">
+    <div class="lesson-number">LEÇON 29</div>
+    <h2>Clés Primaires et Étrangères</h2>
+    <p>La <strong>clé primaire</strong> identifie chaque ligne de façon unique. La <strong>clé étrangère</strong> crée un lien vers une autre table et garantit l'intégrité des données.</p>
+    <pre>CREATE TABLE clients (
+  id  INT PRIMARY KEY,
+  nom VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE commandes (
+  id        INT PRIMARY KEY,
+  client_id INT,
+  FOREIGN KEY (client_id)
+    REFERENCES clients(id)
+);</pre>
+  </div>
+
+  <div class="lesson" data-lesson="30">
+    <div class="lesson-number">LEÇON 30</div>
+    <h2>Contraintes NOT NULL et UNIQUE</h2>
+    <p><code>NOT NULL</code> rend un champ obligatoire. <code>UNIQUE</code> interdit les doublons dans une colonne.</p>
+    <pre>CREATE TABLE utilisateurs (
+  id    INT PRIMARY KEY,
+  nom   VARCHAR(100) NOT NULL,
+  email VARCHAR(200) UNIQUE
+);</pre>
+  </div>
+
+  <div class="lesson" data-lesson="31">
+    <div class="lesson-number">LEÇON 31</div>
+    <h2>Les Transactions — START, COMMIT, ROLLBACK</h2>
+    <p>Une transaction regroupe plusieurs opérations en une seule unité atomique. Si une opération échoue, tout peut être annulé.</p>
+    <pre>START TRANSACTION;
+
+UPDATE comptes SET solde = solde - 500 WHERE id = 1;
+UPDATE comptes SET solde = solde + 500 WHERE id = 2;
+
+-- Tout s'est bien passé
+COMMIT;
+
+-- En cas d'erreur : tout annuler
+ROLLBACK;</pre>
+    <div class="tip">💡 Les transactions sont indispensables dans les systèmes bancaires et les paiements en ligne.</div>
+  </div>
+
+  <div class="lesson" data-lesson="32">
+    <div class="lesson-number">LEÇON 32</div>
+    <h2>Les Vues — VIEW</h2>
+    <p>Une vue est une table virtuelle basée sur une requête SQL. Elle simplifie les requêtes complexes et peut restreindre l'accès à certaines colonnes sensibles.</p>
+    <pre>-- Créer une vue
+CREATE VIEW vue_clients AS
+SELECT nom, email FROM clients;
+
+-- Utiliser la vue comme une table
+SELECT * FROM vue_clients;</pre>
+  </div>
+
+  <!-- LEÇONS 33–49 simplifiées mais incluses -->
+  <div class="lesson" data-lesson="33">
+    <div class="lesson-number">LEÇON 33</div>
+    <h2>ALTER TABLE — Modifier une Table</h2>
+    <p>Permet d'ajouter, modifier ou supprimer des colonnes sur une table existante.</p>
+    <pre>-- Ajouter une colonne
+ALTER TABLE utilisateurs ADD telephone VARCHAR(20);
+
+-- Modifier un type
+ALTER TABLE utilisateurs MODIFY nom VARCHAR(200);
+
+-- Supprimer une colonne
+ALTER TABLE utilisateurs DROP COLUMN telephone;</pre>
+  </div>
+
+  <div class="lesson" data-lesson="34">
+    <div class="lesson-number">LEÇON 34</div>
+    <h2>DROP et TRUNCATE</h2>
+    <p><code>DROP TABLE</code> supprime la table entièrement. <code>TRUNCATE</code> vide son contenu mais conserve la structure.</p>
+    <pre>-- Vider le contenu (structure conservée)
+TRUNCATE TABLE logs;
+
+-- Supprimer la table définitivement
+DROP TABLE IF EXISTS ancienne_table;</pre>
+    <div class="warning">⚠️ Ces opérations sont irréversibles. Sauvegardez avant d'exécuter.</div>
+  </div>
+
+  <div class="lesson" data-lesson="35">
+    <div class="lesson-number">LEÇON 35</div>
+    <h2>AUTO_INCREMENT</h2>
+    <p>Génère automatiquement un identifiant unique pour chaque nouvelle ligne.</p>
+    <pre>CREATE TABLE articles (
+  id      INT AUTO_INCREMENT PRIMARY KEY,
+  titre   VARCHAR(200) NOT NULL,
+  contenu TEXT
+);</pre>
+  </div>
+
+  <div class="lesson" data-lesson="36">
+    <div class="lesson-number">LEÇON 36</div>
+    <h2>DEFAULT — Valeur par Défaut</h2>
+    <p>Définit une valeur automatique si aucune valeur n'est fournie lors de l'insertion.</p>
+    <pre>CREATE TABLE commandes (
+  id         INT AUTO_INCREMENT PRIMARY KEY,
+  statut     VARCHAR(50) DEFAULT 'en attente',
+  created_at DATETIME    DEFAULT NOW()
+);</pre>
+  </div>
+
+  <div class="lesson" data-lesson="37">
+    <div class="lesson-number">LEÇON 37</div>
+    <h2>Fonctions de Chaîne</h2>
+    <p>SQL propose de nombreuses fonctions pour manipuler le texte.</p>
+    <pre>SELECT UPPER(nom)           AS nom_majuscule,
+       LOWER(email)          AS email_minuscule,
+       LENGTH(nom)           AS longueur,
+       CONCAT(prenom, ' ', nom) AS nom_complet
+FROM utilisateurs;</pre>
+  </div>
+
+  <div class="lesson" data-lesson="38">
+    <div class="lesson-number">LEÇON 38</div>
+    <h2>Fonctions de Date</h2>
+    <p>Manipulez et formatez les dates directement en SQL.</p>
+    <pre>SELECT NOW()                        AS maintenant,
+       YEAR(date_naissance)          AS annee,
+       DATEDIFF(NOW(), created_at)   AS jours_anciennete
+FROM utilisateurs;</pre>
+  </div>
+
+  <div class="lesson" data-lesson="39">
+    <div class="lesson-number">LEÇON 39</div>
+    <h2>CASE WHEN — Conditions dans SELECT</h2>
+    <p>Permet d'ajouter une logique conditionnelle directement dans une requête.</p>
+    <pre>SELECT nom,
+  CASE
+    WHEN salaire > 500000 THEN 'Senior'
+    WHEN salaire > 200000 THEN 'Confirmé'
+    ELSE                       'Junior'
+  END AS niveau
+FROM employes;</pre>
+  </div>
+
+  <div class="lesson" data-lesson="40">
+    <div class="lesson-number">LEÇON 40</div>
+    <h2>COALESCE et IFNULL</h2>
+    <p>Retournent une valeur de remplacement si la valeur est <code>NULL</code>.</p>
+    <pre>-- COALESCE : retourne la première valeur non-NULL
+SELECT COALESCE(telephone, email, 'Non renseigné') AS contact
+FROM utilisateurs;
+
+-- IFNULL (MySQL)
+SELECT IFNULL(telephone, '—') AS tel FROM utilisateurs;</pre>
+  </div>
+
+  <div class="lesson" data-lesson="41">
+    <div class="lesson-number">LEÇON 41</div>
+    <h2>Les Procédures Stockées</h2>
+    <p>Un bloc de code SQL enregistré dans la base et réutilisable à la demande.</p>
+    <pre>DELIMITER //
+
+CREATE PROCEDURE AfficherClients()
+BEGIN
+  SELECT * FROM clients;
+END //
+
+DELIMITER ;
+
+CALL AfficherClients();</pre>
+  </div>
+
+  <div class="lesson" data-lesson="42">
+    <div class="lesson-number">LEÇON 42</div>
+    <h2>Les Déclencheurs — TRIGGER</h2>
+    <p>Un trigger exécute automatiquement du code SQL lors d'un événement (INSERT, UPDATE, DELETE).</p>
+    <pre>CREATE TRIGGER avant_suppression
+BEFORE DELETE ON clients
+FOR EACH ROW
+BEGIN
+  INSERT INTO archive_clients (nom, email)
+  VALUES (OLD.nom, OLD.email);
+END;</pre>
+  </div>
+
+  <div class="lesson" data-lesson="43">
+    <div class="lesson-number">LEÇON 43</div>
+    <h2>La Gestion des Utilisateurs</h2>
+    <p>Créez des comptes avec des droits limités pour sécuriser votre base de données.</p>
+    <pre>-- Créer un utilisateur
+CREATE USER 'ali'@'localhost'
+IDENTIFIED BY 'motdepasse_fort';
+
+-- Accorder des droits
+GRANT SELECT, INSERT ON ecole.*
+TO 'ali'@'localhost';
+
+-- Révoquer
+REVOKE INSERT ON ecole.*
+FROM 'ali'@'localhost';</pre>
+  </div>
+
+  <div class="lesson" data-lesson="44">
+    <div class="lesson-number">LEÇON 44</div>
+    <h2>Les Fonctions de Fenêtre — OVER</h2>
+    <p>Les fonctions fenêtre effectuent des calculs sur un groupe de lignes lié à la ligne courante, sans grouper les résultats.</p>
+    <pre>SELECT nom,
+       salaire,
+       RANK() OVER (ORDER BY salaire DESC) AS classement,
+       AVG(salaire) OVER ()                AS moy_globale
+FROM employes;</pre>
+  </div>
+
+  <div class="lesson" data-lesson="45">
+    <div class="lesson-number">LEÇON 45</div>
+    <h2>CTE — Common Table Expressions</h2>
+    <p>Les CTE (<code>WITH</code>) créent des résultats intermédiaires nommés, rendant les requêtes complexes bien plus lisibles.</p>
+    <pre>WITH clients_actifs AS (
+  SELECT * FROM clients
+  WHERE statut = 'actif'
+)
+SELECT ca.nom, COUNT(c.id) AS nb_commandes
+FROM clients_actifs ca
+LEFT JOIN commandes c ON ca.id = c.client_id
+GROUP BY ca.nom;</pre>
+  </div>
+
+  <div class="lesson" data-lesson="46">
+    <div class="lesson-number">LEÇON 46</div>
+    <h2>EXPLAIN — Analyser les Performances</h2>
+    <p>Affiche le plan d'exécution d'une requête pour identifier les goulets d'étranglement et optimiser.</p>
+    <pre>EXPLAIN SELECT * FROM utilisateurs
+WHERE email = 'ali@gmail.com';</pre>
+    <div class="tip">💡 Si la colonne <code>type</code> affiche <code>ALL</code>, une table entière est parcourue. Ajoutez un index !</div>
+  </div>
+
+  <div class="lesson" data-lesson="47">
+    <div class="lesson-number">LEÇON 47</div>
+    <h2>La Normalisation</h2>
+    <p>Organiser les données en plusieurs tables liées pour éviter la redondance et garantir la cohérence. Les formes normales (1NF, 2NF, 3NF) guident cette organisation.</p>
+    <pre>-- Au lieu de stocker la ville en texte dans chaque client :
+CREATE TABLE villes (
+  id  INT PRIMARY KEY,
+  nom VARCHAR(100)
+);
+
+ALTER TABLE clients ADD ville_id INT;
+ALTER TABLE clients ADD FOREIGN KEY (ville_id) REFERENCES villes(id);</pre>
+  </div>
+
+  <div class="lesson" data-lesson="48">
+    <div class="lesson-number">LEÇON 48</div>
+    <h2>La Sauvegarde et la Restauration</h2>
+    <p>Exportez et importez votre base de données pour la sauvegarder ou la migrer.</p>
+    <pre>-- Exporter (dans le terminal)
+mysqldump -u root -p ecole > sauvegarde.sql
+
+-- Restaurer
+mysql -u root -p ecole < sauvegarde.sql</pre>
+  </div>
+
+  <div class="lesson" data-lesson="49">
+    <div class="lesson-number">LEÇON 49</div>
+    <h2>Les Injections SQL — Se Protéger</h2>
+    <p>L'injection SQL est une attaque qui insère du code malveillant dans une requête. Ne jamais construire des requêtes par concaténation de chaînes.</p>
+    <pre>-- ❌ DANGEREUX
+"SELECT * FROM users WHERE nom = '" + input + "'"
+
+-- ✅ SÉCURISÉ — requêtes préparées (PDO, PHP)
+$stmt = $pdo->prepare(
+  "SELECT * FROM users WHERE nom = ?"
+);
+$stmt->execute([$input]);</pre>
+    <div class="warning">⚠️ Utilisez toujours des requêtes préparées ou des ORM dans vos applications.</div>
+  </div>
+
+  <!-- LEÇON 50 — Finale -->
+  <div class="lesson lesson-final" data-lesson="50">
+    <div class="congrats">
+      <span class="congrats-icon">🎓</span>
+      <div>
+        <div class="lesson-number">LEÇON 50</div>
+        <h2>Bonnes Pratiques et Récapitulatif</h2>
+      </div>
+    </div>
+    <p>Vous avez parcouru les 50 leçons SQL. Voici les pratiques professionnelles à adopter dès maintenant :</p>
+
+    <div class="best-practices">
+      <div class="bp-item">
+        <span class="bp-num">01</span>
+        <div class="bp-text"><strong>Clés primaires partout</strong>Chaque table doit avoir un identifiant unique.</div>
+      </div>
+      <div class="bp-item">
+        <span class="bp-num">02</span>
+        <div class="bp-text"><strong>Éviter SELECT *</strong>Sélectionnez uniquement les colonnes nécessaires.</div>
+      </div>
+      <div class="bp-item">
+        <span class="bp-num">03</span>
+        <div class="bp-text"><strong>Indexer intelligemment</strong>Indexez les colonnes de recherche et de jointure.</div>
+      </div>
+      <div class="bp-item">
+        <span class="bp-num">04</span>
+        <div class="bp-text"><strong>Nommage explicite</strong>Des noms clairs pour tables et colonnes.</div>
+      </div>
+      <div class="bp-item">
+        <span class="bp-num">05</span>
+        <div class="bp-text"><strong>Transactions critiques</strong>Garantissez la cohérence des opérations complexes.</div>
+      </div>
+      <div class="bp-item">
+        <span class="bp-num">06</span>
+        <div class="bp-text"><strong>Requêtes préparées</strong>Protégez-vous des injections SQL.</div>
+      </div>
+      <div class="bp-item">
+        <span class="bp-num">07</span>
+        <div class="bp-text"><strong>Sauvegardes régulières</strong>Protégez vos données contre la perte.</div>
+      </div>
+      <div class="bp-item">
+        <span class="bp-num">08</span>
+        <div class="bp-text"><strong>Tester avant production</strong>Un WHERE manquant peut tout effacer.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <strong>SQL Mastery — 50 Leçons</strong>
+  De la sélection de données à l'optimisation avancée · Bonne continuation 🚀
+</footer>
+
+<script>
+// Progress bar
+const bar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.body.scrollHeight - window.innerHeight;
+  bar.style.width = (scrolled / total * 100) + '%';
+});
+
+// Sidebar nav dots
+const lessons = document.querySelectorAll('.lesson');
+const sidebar = document.getElementById('sidebar');
+
+// Create dots for every 5th lesson
+const chapters = ['Fondamentaux','Lecture','Modification','Jointures','Avancé'];
+lessons.forEach((lesson, i) => {
+  if (i % 10 === 0) {
+    const dot = document.createElement('div');
+    dot.className = 'nav-dot';
+    dot.dataset.label = chapters[Math.floor(i/10)] || `Leçon ${i+1}`;
+    dot.addEventListener('click', () => lesson.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    sidebar.appendChild(dot);
+  }
+});
+
+// Intersection Observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+lessons.forEach(lesson => observer.observe(lesson));
+
+// Active dot tracking
+const dots = document.querySelectorAll('.nav-dot');
+const lessonObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const idx = Array.from(lessons).indexOf(entry.target);
+      const dotIdx = Math.floor(idx / 10);
+      dots.forEach(d => d.classList.remove('active'));
+      if (dots[dotIdx]) dots[dotIdx].classList.add('active');
+    }
+  });
+}, { threshold: 0.5 });
+
+lessons.forEach(lesson => lessonObserver.observe(lesson));
+</script>
+</body>
+</html>
