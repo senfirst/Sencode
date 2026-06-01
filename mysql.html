@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apprendre MySQL — 50 Leçons</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #faf8f3;
+  --white: #ffffff;
+  --mysql-blue: #00758f;
+  --mysql-dark: #004d61;
+  --mysql-light: #e0f5f9;
+  --mysql-accent: #ff7a00;
+  --mysql-accent2: #f7c948;
+  --mysql-green: #22c55e;
+  --text: #1a1a2e;
+  --text-muted: #6b7280;
+  --border: #e8e2d8;
+  --code-bg: #0f172a;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md: 0 6px 24px rgba(0,0,0,0.08);
+  --shadow-lg: 0 16px 48px rgba(0,117,143,0.12);
+  --radius: 16px;
+  --radius-sm: 8px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  line-height: 1.85;
+  font-size: 16px;
+}
+
+/* ── HEADER ── */
+header {
+  background: linear-gradient(135deg, var(--mysql-dark) 0%, var(--mysql-blue) 60%, #0097b2 100%);
+  color: white;
+  padding: 70px 40px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+header::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 60px;
+  background: var(--cream);
+  clip-path: ellipse(55% 100% at 50% 100%);
+}
+
+.header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 50px;
+  padding: 6px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  backdrop-filter: blur(8px);
+}
+
+header h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(38px, 6vw, 64px);
+  letter-spacing: -1px;
+  margin-bottom: 14px;
+  position: relative;
+}
+
+header h1 span { color: var(--mysql-accent2); }
+
+header p {
+  font-size: 18px;
+  opacity: 0.85;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+.header-stats {
+  display: inline-flex;
+  gap: 32px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 50px;
+  padding: 14px 32px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.stat { text-align: center; }
+.stat-num { display: block; font-size: 24px; font-weight: 800; }
+.stat-label { font-size: 12px; opacity: 0.75; text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* ── NAV / PROGRESS BAR ── */
+.progress-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 4px;
+  background: var(--border);
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--mysql-blue), var(--mysql-accent));
+  width: 0%;
+  transition: width 0.1s ease;
+}
+
+/* ── LAYOUT ── */
+.container {
+  width: 92%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 50px 0 80px;
+}
+
+/* ── CHAPTER HEADERS ── */
+.chapter {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 56px 0 24px;
+}
+
+.chapter-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.chapter-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mysql-blue);
+  background: var(--mysql-light);
+  padding: 6px 16px;
+  border-radius: 50px;
+  border: 1px solid rgba(0,117,143,0.2);
+  white-space: nowrap;
+}
+
+/* ── LESSON CARD ── */
+.lesson {
+  background: var(--white);
+  margin-bottom: 28px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  position: relative;
+}
+
+.lesson:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.lesson-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 28px 32px 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.lesson-num {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  background: var(--mysql-blue);
+  color: white;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.lesson-num.advanced { background: var(--mysql-accent); }
+.lesson-num.expert { background: #7c3aed; }
+
+.lesson-title-block { flex: 1; }
+
+.lesson h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.lesson-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tag-ddl { background: #dbeafe; color: #1d4ed8; }
+.tag-dml { background: #dcfce7; color: #15803d; }
+.tag-query { background: #fef3c7; color: #d97706; }
+.tag-avance { background: #f3e8ff; color: #7c3aed; }
+.tag-securite { background: #fee2e2; color: #dc2626; }
+.tag-perf { background: #e0f2fe; color: #0369a1; }
+.tag-pratique { background: #fce7f3; color: #9d174d; }
+.tag-concept { background: #f1f5f9; color: #475569; }
+
+.lesson-body {
+  padding: 24px 32px 28px;
+}
+
+.lesson-body p {
+  margin-bottom: 16px;
+  color: #374151;
+  font-size: 15.5px;
+}
+
+.lesson-body ul, .lesson-body ol {
+  margin: 12px 0 18px 20px;
+  color: #374151;
+}
+
+.lesson-body li {
+  margin-bottom: 6px;
+  font-size: 15.5px;
+}
+
+.lesson-body li::marker { color: var(--mysql-blue); }
+
+/* ── CALLOUTS ── */
+.callout {
+  display: flex;
+  gap: 14px;
+  padding: 16px 20px;
+  border-radius: var(--radius-sm);
+  margin: 16px 0;
+  font-size: 14.5px;
+  line-height: 1.7;
+}
+.callout-icon { font-size: 20px; flex-shrink: 0; line-height: 1.4; }
+
+.callout-info { background: var(--mysql-light); border-left: 3px solid var(--mysql-blue); }
+.callout-warn { background: #fff7ed; border-left: 3px solid var(--mysql-accent); }
+.callout-tip  { background: #f0fdf4; border-left: 3px solid var(--mysql-green); }
+.callout-danger { background: #fff1f2; border-left: 3px solid #f43f5e; }
+
+.callout p { margin: 0; color: inherit; font-size: inherit; }
+.callout strong { display: block; margin-bottom: 4px; }
+
+/* ── CODE BLOCKS ── */
+.code-block {
+  background: var(--code-bg);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin: 18px 0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.code-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  background: rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.code-label span {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.code-dots { display: flex; gap: 6px; }
+.code-dots i { width: 10px; height: 10px; border-radius: 50%; display: block; }
+.dot-r { background: #ff5f57; }
+.dot-y { background: #ffbd2e; }
+.dot-g { background: #28c840; }
+
+pre {
+  padding: 20px 22px;
+  overflow-x: auto;
+  margin: 0;
+}
+
+code {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  line-height: 1.9;
+  color: #e2e8f0;
+}
+
+/* SQL Syntax highlighting */
+.kw { color: #7dd3fc; font-weight: 500; } /* keywords */
+.fn { color: #a78bfa; } /* functions */
+.str { color: #86efac; } /* strings */
+.num { color: #fcd34d; } /* numbers */
+.cmt { color: #64748b; font-style: italic; } /* comments */
+.tbl { color: #f9a8d4; } /* table names */
+.col { color: #e2e8f0; } /* column names */
+.op  { color: #fbbf24; } /* operators */
+
+/* ── TABLE STYLING ── */
+.table-wrapper {
+  overflow-x: auto;
+  margin: 18px 0;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14.5px;
+}
+
+thead { background: var(--mysql-light); }
+
+th {
+  padding: 12px 18px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--mysql-dark);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+td {
+  padding: 11px 18px;
+  border-top: 1px solid var(--border);
+  color: #374151;
+}
+
+tr:hover td { background: #f9f7f3; }
+
+.result-tag {
+  display: inline-block;
+  background: var(--mysql-light);
+  color: var(--mysql-dark);
+  padding: 2px 10px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ── INLINE CODE ── */
+.ic {
+  font-family: 'DM Mono', monospace;
+  font-size: 13.5px;
+  background: var(--mysql-light);
+  color: var(--mysql-dark);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* ── COMPARISON GRID ── */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 16px 0;
+}
+
+@media (max-width: 600px) { .compare-grid { grid-template-columns: 1fr; } }
+
+.compare-card {
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  border: 1px solid;
+}
+.compare-card h4 { font-size: 13px; font-weight: 800; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+.compare-card ul { margin-left: 16px; }
+.compare-card li { font-size: 13.5px; margin-bottom: 4px; }
+
+.compare-bad  { background: #fff1f2; border-color: #fecdd3; }
+.compare-bad h4 { color: #e11d48; }
+.compare-good { background: #f0fdf4; border-color: #bbf7d0; }
+.compare-good h4 { color: #16a34a; }
+
+/* ── SYNTAX SUMMARY BOXES ── */
+.syntax-box {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 1px solid #bae6fd;
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin: 16px 0;
+}
+.syntax-box .syntax-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mysql-blue);
+  margin-bottom: 8px;
+}
+.syntax-box code {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  color: var(--mysql-dark);
+  background: none;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: linear-gradient(135deg, var(--mysql-dark), var(--mysql-blue));
+  color: white;
+  padding: 50px 40px;
+  text-align: center;
+}
+
+footer h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+footer p { opacity: 0.8; font-size: 15px; }
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  max-width: 800px;
+  margin: 30px auto 0;
+}
+
+.footer-item {
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 14px;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.footer-item strong { display: block; font-size: 20px; margin-bottom: 4px; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.lesson { animation: fadeUp 0.5s ease both; }
+.lesson:nth-child(1) { animation-delay: 0.05s; }
+.lesson:nth-child(2) { animation-delay: 0.1s; }
+.lesson:nth-child(3) { animation-delay: 0.15s; }
+.lesson:nth-child(n+4) { animation: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .lesson-header { padding: 20px; gap: 14px; }
+  .lesson-body { padding: 18px 20px 22px; }
+  .header-stats { flex-wrap: wrap; gap: 16px; padding: 14px 20px; }
+  header { padding: 50px 20px 50px; }
+  .lesson h2 { font-size: 18px; }
+  pre { font-size: 12.5px; }
+  .code-label { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-badge">📘 Formation Complète</div>
+  <h1>Apprendre <span>MySQL</span></h1>
+  <p>De débutant à expert — 50 leçons progressives et détaillées</p>
+  <div class="header-stats">
+    <div class="stat"><span class="stat-num">50</span><span class="stat-label">Leçons</span></div>
+    <div class="stat"><span class="stat-num">5</span><span class="stat-label">Chapitres</span></div>
+    <div class="stat"><span class="stat-num">100+</span><span class="stat-label">Exemples SQL</span></div>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- ══════════════════════════════════════════════════════
+     CHAPITRE 1 — FONDAMENTAUX
+══════════════════════════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-line"></div>
+  <div class="chapter-label">📌 Chapitre 1 — Les Fondamentaux</div>
+  <div class="chapter-line"></div>
+</div>
+
+<!-- LEÇON 1 -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">01</div>
+    <div class="lesson-title-block">
+      <h2>Introduction à MySQL</h2>
+      <div class="lesson-tags">
+        <span class="tag tag-concept">Concept</span>
+      </div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>MySQL est l'un des systèmes de gestion de bases de données relationnelles (<strong>SGBDR</strong>) les plus populaires au monde. Créé en 1995 et aujourd'hui maintenu par Oracle, il est utilisé par des millions d'applications — des blogs personnels aux grandes plateformes comme Facebook, Twitter ou Airbnb.</p>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <p><strong>Pourquoi une base de données ?</strong> Une base de données permet de stocker des informations de manière organisée, persistante et efficace. Contrairement à un simple fichier texte, elle permet de chercher, trier et relier des données en quelques millisecondes.</p>
+    </div>
+
+    <p>Exemples de données qu'on y stocke :</p>
+    <ul>
+      <li>Utilisateurs et leurs profils</li>
+      <li>Produits d'une boutique en ligne</li>
+      <li>Commandes et factures</li>
+      <li>Messages d'un chat ou d'un forum</li>
+      <li>Articles, images, vidéos d'un blog</li>
+    </ul>
+
+    <p>MySQL s'intègre avec presque tous les langages de programmation modernes :</p>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Langage</th><th>Framework populaire</th><th>Connecteur</th></tr></thead>
+        <tbody>
+          <tr><td>PHP</td><td>Laravel, Symfony</td><td>PDO, mysqli</td></tr>
+          <tr><td>Python</td><td>Django, Flask</td><td>mysql-connector, SQLAlchemy</td></tr>
+          <tr><td>JavaScript</td><td>Node.js, Express</td><td>mysql2, Sequelize</td></tr>
+          <tr><td>Java</td><td>Spring Boot</td><td>JDBC, Hibernate</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">✅</span>
+      <p>Les données stockées dans MySQL sont <strong>persistantes</strong> : même si le serveur redémarre ou que vous éteignez votre ordinateur, les données sont conservées sur disque.</p>
+    </div>
+  </div>
+</div>
+
+<!-- LEÇON 2 -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">02</div>
+    <div class="lesson-title-block">
+      <h2>Installation de MySQL</h2>
+      <div class="lesson-tags"><span class="tag tag-concept">Concept</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>Pour démarrer avec MySQL, la méthode la plus simple est d'installer une suite logicielle tout-en-un. Ces packs installent en une seule opération : Apache, PHP, MySQL et phpMyAdmin.</p>
+
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Suite</th><th>Systèmes</th><th>Idéal pour</th></tr></thead>
+        <tbody>
+          <tr><td><strong>XAMPP</strong></td><td>Windows, macOS, Linux</td><td>Tous niveaux</td></tr>
+          <tr><td><strong>WAMP</strong></td><td>Windows uniquement</td><td>Développeurs Windows</td></tr>
+          <tr><td><strong>MAMP</strong></td><td>macOS, Windows</td><td>Utilisateurs Mac</td></tr>
+          <tr><td><strong>Laragon</strong></td><td>Windows</td><td>Développeurs Laravel</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Une fois installée, la suite démarre automatiquement le serveur MySQL. Vous pouvez alors :</p>
+    <ul>
+      <li>Accéder à phpMyAdmin via le navigateur</li>
+      <li>Créer vos premières bases de données</li>
+      <li>Exécuter des requêtes SQL</li>
+    </ul>
+
+    <div class="callout callout-warn">
+      <span class="callout-icon">⚠️</span>
+      <p><strong>En production</strong>, on installe MySQL directement sur le serveur Linux avec <span class="ic">sudo apt install mysql-server</span>. Les suites comme XAMPP sont destinées uniquement au développement local.</p>
+    </div>
+  </div>
+</div>
+
+<!-- LEÇON 3 -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">03</div>
+    <div class="lesson-title-block">
+      <h2>Comprendre phpMyAdmin</h2>
+      <div class="lesson-tags"><span class="tag tag-concept">Concept</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>phpMyAdmin est une interface graphique web qui permet de gérer MySQL sans écrire toutes les commandes à la main. C'est l'outil idéal pour débuter et visualiser facilement vos données.</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>Adresse dans le navigateur</span></div>
+      <pre><code>http://localhost/phpmyadmin</code></pre>
+    </div>
+
+    <p>Depuis phpMyAdmin, vous pouvez faire tout ce que vous ferez plus tard en SQL :</p>
+    <ul>
+      <li>✏️ Créer et supprimer des bases de données</li>
+      <li>📋 Créer et modifier des tables</li>
+      <li>➕ Ajouter, modifier et supprimer des données</li>
+      <li>🔍 Exécuter des requêtes SQL directement</li>
+      <li>💾 Exporter / importer des bases (sauvegardes)</li>
+      <li>👤 Gérer les utilisateurs et leurs droits</li>
+    </ul>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">✅</span>
+      <p>L'onglet <strong>"SQL"</strong> de phpMyAdmin vous permet d'écrire et tester vos requêtes directement dans le navigateur — très pratique pour apprendre !</p>
+    </div>
+  </div>
+</div>
+
+<!-- LEÇON 4 -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">04</div>
+    <div class="lesson-title-block">
+      <h2>Créer une base de données</h2>
+      <div class="lesson-tags"><span class="tag tag-ddl">DDL</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>Une <strong>base de données</strong> est un conteneur logique qui regroupe plusieurs tables. Pensez-y comme un classeur : le classeur = la base de données, les onglets = les tables.</p>
+
+    <div class="syntax-box">
+      <div class="syntax-label">📐 Syntaxe</div>
+      <code>CREATE DATABASE nom_de_la_base;</code>
+    </div>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL</span></div>
+      <pre><code><span class="kw">CREATE DATABASE</span> boutique;
+
+<span class="cmt">-- Avec encodage recommandé (accents, emojis)</span>
+<span class="kw">CREATE DATABASE</span> boutique
+  <span class="kw">CHARACTER SET</span> utf8mb4
+  <span class="kw">COLLATE</span> utf8mb4_unicode_ci;</code></pre>
+    </div>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">✅</span>
+      <p><strong>Bonne pratique :</strong> toujours créer vos bases en <span class="ic">utf8mb4</span> pour supporter tous les caractères (accents, emojis, langues asiatiques).</p>
+    </div>
+
+    <p>Pour lister toutes les bases existantes :</p>
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL</span></div>
+      <pre><code><span class="kw">SHOW DATABASES</span>;</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- LEÇON 5 -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">05</div>
+    <div class="lesson-title-block">
+      <h2>Sélectionner une base de données</h2>
+      <div class="lesson-tags"><span class="tag tag-ddl">DDL</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>Après avoir créé une base, il faut indiquer à MySQL que vous souhaitez travailler dedans. C'est ce que fait la commande <span class="ic">USE</span>.</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL</span></div>
+      <pre><code><span class="kw">USE</span> boutique;</code></pre>
+    </div>
+
+    <div class="callout callout-warn">
+      <span class="callout-icon">⚠️</span>
+      <p>Si vous oubliez le <span class="ic">USE</span> avant vos commandes, MySQL ne saura pas sur quelle base travailler et retournera une erreur : <em>"No database selected"</em>.</p>
+    </div>
+
+    <p>Pour voir quelle base est actuellement sélectionnée :</p>
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL</span></div>
+      <pre><code><span class="kw">SELECT</span> <span class="fn">DATABASE</span>();</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- LEÇON 6 -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">06</div>
+    <div class="lesson-title-block">
+      <h2>Comprendre les Tables</h2>
+      <div class="lesson-tags"><span class="tag tag-concept">Concept</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>Une <strong>table</strong> est la structure fondamentale de stockage en SQL. Elle s'organise comme un tableau avec des <strong>colonnes</strong> (les attributs) et des <strong>lignes</strong> (les enregistrements).</p>
+
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>ID</th><th>Nom</th><th>Email</th><th>Pays</th></tr></thead>
+        <tbody>
+          <tr><td><span class="result-tag">1</span></td><td>Aliou Diallo</td><td>aliou@gmail.com</td><td>Sénégal</td></tr>
+          <tr><td><span class="result-tag">2</span></td><td>Fatoumata Bah</td><td>fato@outlook.com</td><td>Guinée</td></tr>
+          <tr><td><span class="result-tag">3</span></td><td>Moussa Koné</td><td>moussa@yahoo.fr</td><td>Mali</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Chaque ligne représente <strong>un utilisateur unique</strong>. Chaque colonne représente <strong>une propriété</strong> partagée par tous les utilisateurs.</p>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <p>Une base de données est constituée de plusieurs tables qui peuvent être <strong>reliées entre elles</strong> via des clés. C'est le principe fondateur des bases relationnelles (JOIN).</p>
+    </div>
+  </div>
+</div>
+
+<!-- LEÇON 7 -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">07</div>
+    <div class="lesson-title-block">
+      <h2>Créer une Table</h2>
+      <div class="lesson-tags"><span class="tag tag-ddl">DDL</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>La commande <span class="ic">CREATE TABLE</span> permet de définir la structure d'une table : ses colonnes et leur type de données.</p>
+
+    <div class="syntax-box">
+      <div class="syntax-label">📐 Syntaxe</div>
+      <code>CREATE TABLE nom_table (colonne1 TYPE, colonne2 TYPE, ...);</code>
+    </div>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL — Exemple complet</span></div>
+      <pre><code><span class="kw">CREATE TABLE</span> <span class="tbl">utilisateurs</span> (
+  <span class="col">id</span>    <span class="kw">INT</span>,
+  <span class="col">nom</span>   <span class="kw">VARCHAR</span>(<span class="num">100</span>),
+  <span class="col">email</span> <span class="kw">VARCHAR</span>(<span class="num">150</span>),
+  <span class="col">age</span>   <span class="kw">INT</span>
+);</code></pre>
+    </div>
+
+    <p>Pour voir les tables d'une base :</p>
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL</span></div>
+      <pre><code><span class="kw">SHOW TABLES</span>;
+
+<span class="cmt">-- Détail d'une table</span>
+<span class="kw">DESCRIBE</span> <span class="tbl">utilisateurs</span>;</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- LEÇON 8 -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">08</div>
+    <div class="lesson-title-block">
+      <h2>Les Types de Données</h2>
+      <div class="lesson-tags"><span class="tag tag-ddl">DDL</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>Chaque colonne doit avoir un <strong>type</strong> précis. Choisir le bon type est essentiel pour les performances et la cohérence des données.</p>
+
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Type</th><th>Usage</th><th>Exemple</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ic">INT</span></td><td>Nombre entier</td><td>âge, identifiant</td></tr>
+          <tr><td><span class="ic">DECIMAL(10,2)</span></td><td>Nombre décimal précis</td><td>prix (1999.99)</td></tr>
+          <tr><td><span class="ic">FLOAT</span></td><td>Nombre flottant</td><td>note, température</td></tr>
+          <tr><td><span class="ic">VARCHAR(n)</span></td><td>Texte court variable (max n)</td><td>nom, email</td></tr>
+          <tr><td><span class="ic">TEXT</span></td><td>Long texte</td><td>description, article</td></tr>
+          <tr><td><span class="ic">DATE</span></td><td>Date (AAAA-MM-JJ)</td><td>2026-05-31</td></tr>
+          <tr><td><span class="ic">DATETIME</span></td><td>Date + heure</td><td>2026-05-31 14:30:00</td></tr>
+          <tr><td><span class="ic">BOOLEAN</span></td><td>Vrai / Faux (0 ou 1)</td><td>actif, vérifié</td></tr>
+          <tr><td><span class="ic">ENUM</span></td><td>Liste de valeurs possibles</td><td>statut: 'actif','inactif'</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-warn">
+      <span class="callout-icon">⚠️</span>
+      <p>Pour les montants financiers, utilisez toujours <span class="ic">DECIMAL(10,2)</span> et non <span class="ic">FLOAT</span>. Le type FLOAT peut introduire des imprécisions dans les calculs.</p>
+    </div>
+  </div>
+</div>
+
+<!-- LEÇON 9 -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">09</div>
+    <div class="lesson-title-block">
+      <h2>Insérer des Données — INSERT INTO</h2>
+      <div class="lesson-tags"><span class="tag tag-dml">DML</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>La commande <span class="ic">INSERT INTO</span> permet d'ajouter de nouvelles lignes dans une table. C'est l'une des commandes les plus utilisées quotidiennement.</p>
+
+    <div class="syntax-box">
+      <div class="syntax-label">📐 Syntaxe</div>
+      <code>INSERT INTO table (col1, col2) VALUES (val1, val2);</code>
+    </div>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL — Insertion simple</span></div>
+      <pre><code><span class="kw">INSERT INTO</span> <span class="tbl">utilisateurs</span> (<span class="col">nom</span>, <span class="col">email</span>, <span class="col">age</span>)
+<span class="kw">VALUES</span> (<span class="str">'Aliou Diallo'</span>, <span class="str">'aliou@gmail.com'</span>, <span class="num">25</span>);</code></pre>
+    </div>
+
+    <p>Il est aussi possible d'insérer plusieurs lignes en une seule requête :</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL — Insertion multiple</span></div>
+      <pre><code><span class="kw">INSERT INTO</span> <span class="tbl">utilisateurs</span> (<span class="col">nom</span>, <span class="col">email</span>, <span class="col">age</span>)
+<span class="kw">VALUES</span>
+  (<span class="str">'Fatoumata Bah'</span>, <span class="str">'fato@gmail.com'</span>, <span class="num">30</span>),
+  (<span class="str">'Moussa Koné'</span>,   <span class="str">'moussa@gmail.com'</span>, <span class="num">28</span>),
+  (<span class="str">'Aminata Sow'</span>,   <span class="str">'ami@gmail.com'</span>, <span class="num">22</span>);</code></pre>
+    </div>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">✅</span>
+      <p>Insérer plusieurs lignes dans une seule requête est bien plus performant que de faire plusieurs <span class="ic">INSERT</span> séparés.</p>
+    </div>
+  </div>
+</div>
+
+<!-- LEÇON 10 -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">10</div>
+    <div class="lesson-title-block">
+      <h2>Lire les Données — SELECT</h2>
+      <div class="lesson-tags"><span class="tag tag-query">Requête</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p><span class="ic">SELECT</span> est la commande <strong>la plus utilisée en SQL</strong>. Elle permet de récupérer des données stockées dans une ou plusieurs tables.</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL</span></div>
+      <pre><code><span class="cmt">-- Toutes les colonnes de tous les utilisateurs</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">utilisateurs</span>;
+
+<span class="cmt">-- Uniquement le nom et l'email</span>
+<span class="kw">SELECT</span> <span class="col">nom</span>, <span class="col">email</span> <span class="kw">FROM</span> <span class="tbl">utilisateurs</span>;
+
+<span class="cmt">-- Renommer les colonnes dans le résultat</span>
+<span class="kw">SELECT</span> <span class="col">nom</span> <span class="kw">AS</span> <span class="str">'Prénom'</span>,
+       <span class="col">email</span> <span class="kw">AS</span> <span class="str">'Adresse Email'</span>
+<span class="kw">FROM</span> <span class="tbl">utilisateurs</span>;</code></pre>
+    </div>
+
+    <div class="compare-grid">
+      <div class="compare-card compare-bad">
+        <h4>❌ À éviter</h4>
+        <p style="font-size:13.5px">Utiliser <span class="ic">SELECT *</span> en production : retourne toutes les colonnes inutilement, surcharge le réseau et ralentit les pages.</p>
+      </div>
+      <div class="compare-card compare-good">
+        <h4>✅ Recommandé</h4>
+        <p style="font-size:13.5px">Nommer explicitement les colonnes dont vous avez besoin : plus rapide, plus lisible, plus sécurisé.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     CHAPITRE 2 — FILTRAGE & CONTRAINTES
+══════════════════════════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-line"></div>
+  <div class="chapter-label">🔍 Chapitre 2 — Filtrage & Contraintes</div>
+  <div class="chapter-line"></div>
+</div>
+
+<!-- LEÇON 11 -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">11</div>
+    <div class="lesson-title-block">
+      <h2>Filtrer avec WHERE</h2>
+      <div class="lesson-tags"><span class="tag tag-query">Requête</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>La clause <span class="ic">WHERE</span> est utilisée pour filtrer les données. Sans elle, MySQL retourne toutes les lignes. Avec elle, on cible exactement ce qu'on cherche.</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL</span></div>
+      <pre><code><span class="cmt">-- Utilisateur avec l'ID 1</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">utilisateurs</span> <span class="kw">WHERE</span> <span class="col">id</span> <span class="op">=</span> <span class="num">1</span>;
+
+<span class="cmt">-- Utilisateurs de plus de 18 ans</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">utilisateurs</span> <span class="kw">WHERE</span> <span class="col">age</span> <span class="op">></span> <span class="num">18</span>;
+
+<span class="cmt">-- Combinaison de conditions (ET)</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">utilisateurs</span>
+<span class="kw">WHERE</span> <span class="col">pays</span> <span class="op">=</span> <span class="str">'Sénégal'</span> <span class="kw">AND</span> <span class="col">age</span> <span class="op">></span> <span class="num">20</span>;
+
+<span class="cmt">-- Combinaison de conditions (OU)</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">utilisateurs</span>
+<span class="kw">WHERE</span> <span class="col">pays</span> <span class="op">=</span> <span class="str">'Mali'</span> <span class="kw">OR</span> <span class="col">pays</span> <span class="op">=</span> <span class="str">'Guinée'</span>;</code></pre>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Opérateur</th><th>Signification</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ic">=</span></td><td>Égal à</td></tr>
+          <tr><td><span class="ic">!=</span> ou <span class="ic">&lt;&gt;</span></td><td>Différent de</td></tr>
+          <tr><td><span class="ic">&gt;</span> / <span class="ic">&lt;</span></td><td>Supérieur / Inférieur à</td></tr>
+          <tr><td><span class="ic">&gt;=</span> / <span class="ic">&lt;=</span></td><td>Supérieur ou égal / Inférieur ou égal</td></tr>
+          <tr><td><span class="ic">IS NULL</span></td><td>Valeur vide (NULL)</td></tr>
+          <tr><td><span class="ic">IS NOT NULL</span></td><td>Valeur non vide</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- LEÇON 12 -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">12</div>
+    <div class="lesson-title-block">
+      <h2>Trier les résultats — ORDER BY</h2>
+      <div class="lesson-tags"><span class="tag tag-query">Requête</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>Par défaut, MySQL ne garantit aucun ordre particulier. <span class="ic">ORDER BY</span> permet de trier les résultats selon une ou plusieurs colonnes.</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL</span></div>
+      <pre><code><span class="cmt">-- Tri alphabétique A→Z</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">utilisateurs</span> <span class="kw">ORDER BY</span> <span class="col">nom</span> <span class="kw">ASC</span>;
+
+<span class="cmt">-- Tri du plus récent au plus ancien</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">commandes</span> <span class="kw">ORDER BY</span> <span class="col">date_commande</span> <span class="kw">DESC</span>;
+
+<span class="cmt">-- Tri sur plusieurs colonnes</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">produits</span>
+<span class="kw">ORDER BY</span> <span class="col">categorie</span> <span class="kw">ASC</span>, <span class="col">prix</span> <span class="kw">DESC</span>;</code></pre>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <p><strong>ASC</strong> = Ascendant (croissant, de A à Z, du plus petit au plus grand) — c'est la valeur par défaut.<br>
+      <strong>DESC</strong> = Descendant (décroissant, de Z à A, du plus grand au plus petit).</p>
+    </div>
+  </div>
+</div>
+
+<!-- LEÇON 13 -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">13</div>
+    <div class="lesson-title-block">
+      <h2>Limiter les résultats — LIMIT</h2>
+      <div class="lesson-tags"><span class="tag tag-query">Requête</span><span class="tag tag-perf">Performance</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p><span class="ic">LIMIT</span> est essentiel pour la pagination. Il permet de ne récupérer qu'un sous-ensemble des résultats, ce qui améliore considérablement les performances.</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL</span></div>
+      <pre><code><span class="cmt">-- 5 premiers utilisateurs</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">utilisateurs</span> <span class="kw">LIMIT</span> <span class="num">5</span>;
+
+<span class="cmt">-- Page 2 : sauter les 10 premiers, prendre les 10 suivants</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">utilisateurs</span> <span class="kw">LIMIT</span> <span class="num">10</span>, <span class="num">10</span>;
+
+<span class="cmt">-- Avec ORDER BY pour la pagination</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">articles</span>
+<span class="kw">ORDER BY</span> <span class="col">date_publication</span> <span class="kw">DESC</span>
+<span class="kw">LIMIT</span> <span class="num">0</span>, <span class="num">10</span>; <span class="cmt">-- Page 1</span></code></pre>
+    </div>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">✅</span>
+      <p>Formule de pagination : <span class="ic">LIMIT (page-1)*par_page, par_page</span>. Page 3 avec 10 éléments par page → <span class="ic">LIMIT 20, 10</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- LEÇON 14 -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">14</div>
+    <div class="lesson-title-block">
+      <h2>Modifier des données — UPDATE</h2>
+      <div class="lesson-tags"><span class="tag tag-dml">DML</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p><span class="ic">UPDATE</span> permet de modifier les valeurs d'une ou plusieurs lignes existantes.</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL</span></div>
+      <pre><code><span class="cmt">-- Modifier le nom de l'utilisateur ID 1</span>
+<span class="kw">UPDATE</span> <span class="tbl">utilisateurs</span>
+<span class="kw">SET</span> <span class="col">nom</span> <span class="op">=</span> <span class="str">'Mamadou Diallo'</span>
+<span class="kw">WHERE</span> <span class="col">id</span> <span class="op">=</span> <span class="num">1</span>;
+
+<span class="cmt">-- Modifier plusieurs colonnes à la fois</span>
+<span class="kw">UPDATE</span> <span class="tbl">utilisateurs</span>
+<span class="kw">SET</span> <span class="col">nom</span> <span class="op">=</span> <span class="str">'Mamadou'</span>, <span class="col">email</span> <span class="op">=</span> <span class="str">'mamadou@gmail.com'</span>
+<span class="kw">WHERE</span> <span class="col">id</span> <span class="op">=</span> <span class="num">1</span>;</code></pre>
+    </div>
+
+    <div class="callout callout-danger">
+      <span class="callout-icon">🚨</span>
+      <p><strong>DANGER : Ne jamais oublier WHERE !</strong> Sans WHERE, cette commande modifie <em>toutes</em> les lignes de la table :</p>
+      <pre style="background:#1e293b;padding:10px;border-radius:6px;margin-top:8px;"><code style="color:#f87171;font-size:13px;">UPDATE utilisateurs SET nom = 'Test'; -- ⛔ modifie TOUT le monde</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- LEÇON 15 -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">15</div>
+    <div class="lesson-title-block">
+      <h2>Supprimer des données — DELETE</h2>
+      <div class="lesson-tags"><span class="tag tag-dml">DML</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p><span class="ic">DELETE</span> permet de supprimer des lignes d'une table. Cette action est irréversible (sauf dans une transaction).</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL</span></div>
+      <pre><code><span class="cmt">-- Supprimer un utilisateur spécifique</span>
+<span class="kw">DELETE FROM</span> <span class="tbl">utilisateurs</span> <span class="kw">WHERE</span> <span class="col">id</span> <span class="op">=</span> <span class="num">5</span>;
+
+<span class="cmt">-- Supprimer tous les comptes inactifs</span>
+<span class="kw">DELETE FROM</span> <span class="tbl">utilisateurs</span> <span class="kw">WHERE</span> <span class="col">actif</span> <span class="op">=</span> <span class="num">0</span>;</code></pre>
+    </div>
+
+    <div class="callout callout-danger">
+      <span class="callout-icon">🚨</span>
+      <p><strong>Sans WHERE → vide totalement la table :</strong><br>
+      <span class="ic">DELETE FROM utilisateurs;</span> — supprime <em>tous</em> les utilisateurs définitivement.</p>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <p>Pour vider une table rapidement (sans logs), utilisez plutôt <span class="ic">TRUNCATE TABLE nom_table;</span> — c'est beaucoup plus rapide sur les grandes tables.</p>
+    </div>
+  </div>
+</div>
+
+<!-- LEÇONS 16-20 (CONTRAINTES) -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">16</div>
+    <div class="lesson-title-block">
+      <h2>Clés Primaires — PRIMARY KEY</h2>
+      <div class="lesson-tags"><span class="tag tag-ddl">DDL</span><span class="tag tag-concept">Concept</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>Une <strong>clé primaire</strong> est un identifiant unique pour chaque ligne. Elle garantit qu'aucun enregistrement ne sera dupliqué et permet de retrouver exactement un seul enregistrement.</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL</span></div>
+      <pre><code><span class="kw">CREATE TABLE</span> <span class="tbl">utilisateurs</span> (
+  <span class="col">id</span>  <span class="kw">INT PRIMARY KEY</span>,
+  <span class="col">nom</span> <span class="kw">VARCHAR</span>(<span class="num">100</span>)
+);
+
+<span class="cmt">-- Si vous essayez d'insérer deux fois le même ID :</span>
+<span class="kw">INSERT INTO</span> <span class="tbl">utilisateurs</span> <span class="kw">VALUES</span> (<span class="num">1</span>, <span class="str">'Ali'</span>);
+<span class="kw">INSERT INTO</span> <span class="tbl">utilisateurs</span> <span class="kw">VALUES</span> (<span class="num">1</span>, <span class="str">'Moussa'</span>); <span class="cmt">-- ❌ Erreur : doublon</span></code></pre>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <p>La clé primaire est <strong>obligatoirement unique</strong> et <strong>ne peut pas être NULL</strong>. C'est la colonne de référence utilisée dans les jointures entre tables.</p>
+    </div>
+  </div>
+</div>
+
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">17</div>
+    <div class="lesson-title-block">
+      <h2>AUTO_INCREMENT</h2>
+      <div class="lesson-tags"><span class="tag tag-ddl">DDL</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p><span class="ic">AUTO_INCREMENT</span> génère automatiquement des identifiants uniques qui s'incrémentent à chaque insertion. Vous n'avez plus à gérer manuellement les IDs.</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL</span></div>
+      <pre><code><span class="kw">CREATE TABLE</span> <span class="tbl">utilisateurs</span> (
+  <span class="col">id</span>  <span class="kw">INT AUTO_INCREMENT PRIMARY KEY</span>,
+  <span class="col">nom</span> <span class="kw">VARCHAR</span>(<span class="num">100</span>)
+);
+
+<span class="kw">INSERT INTO</span> <span class="tbl">utilisateurs</span> (<span class="col">nom</span>) <span class="kw">VALUES</span> (<span class="str">'Ali'</span>);    <span class="cmt">-- id = 1</span>
+<span class="kw">INSERT INTO</span> <span class="tbl">utilisateurs</span> (<span class="col">nom</span>) <span class="kw">VALUES</span> (<span class="str">'Fato'</span>);   <span class="cmt">-- id = 2</span>
+<span class="kw">INSERT INTO</span> <span class="tbl">utilisateurs</span> (<span class="col">nom</span>) <span class="kw">VALUES</span> (<span class="str">'Moussa'</span>); <span class="cmt">-- id = 3</span></code></pre>
+    </div>
+  </div>
+</div>
+
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">18</div>
+    <div class="lesson-title-block">
+      <h2>NOT NULL, UNIQUE et DEFAULT</h2>
+      <div class="lesson-tags"><span class="tag tag-ddl">DDL</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>Ces trois contraintes permettent de garantir la qualité et la cohérence des données insérées.</p>
+
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Contrainte</th><th>Rôle</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ic">NOT NULL</span></td><td>La colonne est obligatoire (ne peut pas être vide)</td></tr>
+          <tr><td><span class="ic">UNIQUE</span></td><td>La valeur doit être unique dans toute la colonne</td></tr>
+          <tr><td><span class="ic">DEFAULT</span></td><td>Valeur utilisée si aucune valeur n'est fournie</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL — Combinaison des contraintes</span></div>
+      <pre><code><span class="kw">CREATE TABLE</span> <span class="tbl">utilisateurs</span> (
+  <span class="col">id</span>    <span class="kw">INT AUTO_INCREMENT PRIMARY KEY</span>,
+  <span class="col">nom</span>   <span class="kw">VARCHAR</span>(<span class="num">100</span>) <span class="kw">NOT NULL</span>,
+  <span class="col">email</span> <span class="kw">VARCHAR</span>(<span class="num">150</span>) <span class="kw">NOT NULL UNIQUE</span>,
+  <span class="col">pays</span>  <span class="kw">VARCHAR</span>(<span class="num">50</span>)  <span class="kw">DEFAULT</span> <span class="str">'Sénégal'</span>,
+  <span class="col">actif</span> <span class="kw">BOOLEAN DEFAULT</span> <span class="num">1</span>
+);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     CHAPITRE 3 — JOINTURES & AGRÉGATION
+══════════════════════════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-line"></div>
+  <div class="chapter-label">🔗 Chapitre 3 — Jointures & Agrégation</div>
+  <div class="chapter-line"></div>
+</div>
+
+<!-- LEÇON 21-24 jointures -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">21</div>
+    <div class="lesson-title-block">
+      <h2>Introduction aux Jointures (JOIN)</h2>
+      <div class="lesson-tags"><span class="tag tag-concept">Concept</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>Dans une vraie base de données, les informations sont réparties dans <strong>plusieurs tables</strong> pour éviter la duplication. Les jointures permettent de les combiner dans une seule requête.</p>
+
+    <div class="compare-grid">
+      <div class="compare-card compare-bad">
+        <h4>❌ Sans jointures</h4>
+        <ul>
+          <li>Données dupliquées</li>
+          <li>Mises à jour difficiles</li>
+          <li>Incohérences possibles</li>
+        </ul>
+      </div>
+      <div class="compare-card compare-good">
+        <h4>✅ Avec jointures</h4>
+        <ul>
+          <li>Données organisées</li>
+          <li>Mises à jour simples</li>
+          <li>Cohérence garantie</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <p>Imaginez : la table <span class="ic">utilisateurs</span> contient les infos personnelles. La table <span class="ic">commandes</span> contient les achats. Le JOIN relie les deux via l'ID utilisateur.</p>
+    </div>
+  </div>
+</div>
+
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">22</div>
+    <div class="lesson-title-block">
+      <h2>INNER JOIN</h2>
+      <div class="lesson-tags"><span class="tag tag-query">Requête</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p><span class="ic">INNER JOIN</span> retourne uniquement les lignes ayant une correspondance dans <strong>les deux tables</strong>. Les utilisateurs sans commande et les commandes sans utilisateur sont exclus.</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL</span></div>
+      <pre><code><span class="kw">SELECT</span> <span class="tbl">u</span>.<span class="col">nom</span>, <span class="tbl">c</span>.<span class="col">produit</span>, <span class="tbl">c</span>.<span class="col">prix</span>
+<span class="kw">FROM</span> <span class="tbl">utilisateurs</span> <span class="kw">AS</span> <span class="tbl">u</span>
+<span class="kw">INNER JOIN</span> <span class="tbl">commandes</span> <span class="kw">AS</span> <span class="tbl">c</span>
+  <span class="kw">ON</span> <span class="tbl">u</span>.<span class="col">id</span> <span class="op">=</span> <span class="tbl">c</span>.<span class="col">utilisateur_id</span>;</code></pre>
+    </div>
+  </div>
+</div>
+
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">23</div>
+    <div class="lesson-title-block">
+      <h2>LEFT JOIN et RIGHT JOIN</h2>
+      <div class="lesson-tags"><span class="tag tag-query">Requête</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p><span class="ic">LEFT JOIN</span> retourne <strong>toutes les lignes de la table gauche</strong>, même si aucune correspondance n'existe à droite (les colonnes absentes valent NULL).</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL</span></div>
+      <pre><code><span class="cmt">-- Tous les utilisateurs, même ceux sans commande</span>
+<span class="kw">SELECT</span> <span class="tbl">u</span>.<span class="col">nom</span>, <span class="tbl">c</span>.<span class="col">produit</span>
+<span class="kw">FROM</span> <span class="tbl">utilisateurs</span> <span class="tbl">u</span>
+<span class="kw">LEFT JOIN</span> <span class="tbl">commandes</span> <span class="tbl">c</span>
+  <span class="kw">ON</span> <span class="tbl">u</span>.<span class="col">id</span> <span class="op">=</span> <span class="tbl">c</span>.<span class="col">utilisateur_id</span>;</code></pre>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Type</th><th>Lignes retournées</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ic">INNER JOIN</span></td><td>Uniquement les lignes communes aux deux tables</td></tr>
+          <tr><td><span class="ic">LEFT JOIN</span></td><td>Toutes les lignes de la table gauche + correspondances droite</td></tr>
+          <tr><td><span class="ic">RIGHT JOIN</span></td><td>Toutes les lignes de la table droite + correspondances gauche</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">25</div>
+    <div class="lesson-title-block">
+      <h2>GROUP BY et HAVING</h2>
+      <div class="lesson-tags"><span class="tag tag-query">Requête</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p><span class="ic">GROUP BY</span> regroupe les lignes ayant une même valeur et est souvent utilisé avec des fonctions d'agrégation (COUNT, SUM, AVG…).</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL</span></div>
+      <pre><code><span class="cmt">-- Nombre d'utilisateurs par pays</span>
+<span class="kw">SELECT</span> <span class="col">pays</span>, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> total
+<span class="kw">FROM</span> <span class="tbl">utilisateurs</span>
+<span class="kw">GROUP BY</span> <span class="col">pays</span>;
+
+<span class="cmt">-- HAVING : filtrer APRÈS le regroupement</span>
+<span class="kw">SELECT</span> <span class="col">pays</span>, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> total
+<span class="kw">FROM</span> <span class="tbl">utilisateurs</span>
+<span class="kw">GROUP BY</span> <span class="col">pays</span>
+<span class="kw">HAVING</span> total <span class="op">></span> <span class="num">10</span>
+<span class="kw">ORDER BY</span> total <span class="kw">DESC</span>;</code></pre>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <p><span class="ic">WHERE</span> filtre <strong>avant</strong> le regroupement (sur les lignes brutes). <span class="ic">HAVING</span> filtre <strong>après</strong> le regroupement (sur les agrégats).</p>
+    </div>
+  </div>
+</div>
+
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num">27</div>
+    <div class="lesson-title-block">
+      <h2>Fonctions d'agrégation : COUNT, SUM, AVG, MIN, MAX</h2>
+      <div class="lesson-tags"><span class="tag tag-query">Requête</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>Ces fonctions calculent des valeurs statistiques sur un ensemble de lignes.</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL — Les 5 fonctions essentielles</span></div>
+      <pre><code><span class="cmt">-- Nombre total d'utilisateurs</span>
+<span class="kw">SELECT</span> <span class="fn">COUNT</span>(*) <span class="kw">AS</span> total_utilisateurs <span class="kw">FROM</span> <span class="tbl">utilisateurs</span>;
+
+<span class="cmt">-- Total des ventes</span>
+<span class="kw">SELECT</span> <span class="fn">SUM</span>(<span class="col">prix</span>) <span class="kw">AS</span> chiffre_affaires <span class="kw">FROM</span> <span class="tbl">commandes</span>;
+
+<span class="cmt">-- Prix moyen</span>
+<span class="kw">SELECT</span> <span class="fn">AVG</span>(<span class="col">prix</span>) <span class="kw">AS</span> prix_moyen <span class="kw">FROM</span> <span class="tbl">produits</span>;
+
+<span class="cmt">-- Produit le moins cher et le plus cher</span>
+<span class="kw">SELECT</span> <span class="fn">MIN</span>(<span class="col">prix</span>) <span class="kw">AS</span> min_prix,
+       <span class="fn">MAX</span>(<span class="col">prix</span>) <span class="kw">AS</span> max_prix
+<span class="kw">FROM</span> <span class="tbl">produits</span>;</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     CHAPITRE 4 — REQUÊTES AVANCÉES
+══════════════════════════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-line"></div>
+  <div class="chapter-label">⚡ Chapitre 4 — Requêtes Avancées</div>
+  <div class="chapter-line"></div>
+</div>
+
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num advanced">31</div>
+    <div class="lesson-title-block">
+      <h2>LIKE, IN et BETWEEN</h2>
+      <div class="lesson-tags"><span class="tag tag-query">Requête</span><span class="tag tag-avance">Avancé</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>Ces opérateurs permettent d'écrire des conditions de filtrage plus expressives que les simples comparaisons.</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL — LIKE</span></div>
+      <pre><code><span class="cmt">-- Noms commençant par "Ali"</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">utilisateurs</span> <span class="kw">WHERE</span> <span class="col">nom</span> <span class="kw">LIKE</span> <span class="str">'Ali%'</span>;
+
+<span class="cmt">-- Noms se terminant par "ba"</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">utilisateurs</span> <span class="kw">WHERE</span> <span class="col">nom</span> <span class="kw">LIKE</span> <span class="str">'%ba'</span>;
+
+<span class="cmt">-- Noms contenant "ou"</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">utilisateurs</span> <span class="kw">WHERE</span> <span class="col">nom</span> <span class="kw">LIKE</span> <span class="str">'%ou%'</span>;</code></pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL — IN et BETWEEN</span></div>
+      <pre><code><span class="cmt">-- IN : liste de valeurs</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">utilisateurs</span>
+<span class="kw">WHERE</span> <span class="col">pays</span> <span class="kw">IN</span> (<span class="str">'Sénégal'</span>, <span class="str">'Mali'</span>, <span class="str">'Guinée'</span>);
+
+<span class="cmt">-- BETWEEN : plage de valeurs</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">utilisateurs</span>
+<span class="kw">WHERE</span> <span class="col">age</span> <span class="kw">BETWEEN</span> <span class="num">18</span> <span class="kw">AND</span> <span class="num">30</span>;
+
+<span class="cmt">-- BETWEEN avec des dates</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">commandes</span>
+<span class="kw">WHERE</span> <span class="col">date_commande</span> <span class="kw">BETWEEN</span> <span class="str">'2026-01-01'</span> <span class="kw">AND</span> <span class="str">'2026-12-31'</span>;</code></pre>
+    </div>
+  </div>
+</div>
+
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num advanced">35</div>
+    <div class="lesson-title-block">
+      <h2>Les Vues (VIEW)</h2>
+      <div class="lesson-tags"><span class="tag tag-avance">Avancé</span><span class="tag tag-ddl">DDL</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>Une <strong>vue</strong> est une table virtuelle créée à partir d'une requête SQL. Elle ne stocke pas les données mais les affiche dynamiquement à chaque appel.</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL</span></div>
+      <pre><code><span class="cmt">-- Créer une vue</span>
+<span class="kw">CREATE VIEW</span> <span class="tbl">vue_clients_actifs</span> <span class="kw">AS</span>
+<span class="kw">SELECT</span> <span class="col">id</span>, <span class="col">nom</span>, <span class="col">email</span>
+<span class="kw">FROM</span> <span class="tbl">utilisateurs</span>
+<span class="kw">WHERE</span> <span class="col">actif</span> <span class="op">=</span> <span class="num">1</span>;
+
+<span class="cmt">-- Utiliser la vue comme une table normale</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">vue_clients_actifs</span>;
+
+<span class="cmt">-- Supprimer une vue</span>
+<span class="kw">DROP VIEW</span> <span class="tbl">vue_clients_actifs</span>;</code></pre>
+    </div>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">✅</span>
+      <p>Les vues sont utiles pour <strong>simplifier des requêtes complexes</strong>, <strong>masquer des colonnes sensibles</strong> à certains utilisateurs, et <strong>réutiliser</strong> une logique de filtrage complexe.</p>
+    </div>
+  </div>
+</div>
+
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num advanced">36</div>
+    <div class="lesson-title-block">
+      <h2>Les Triggers</h2>
+      <div class="lesson-tags"><span class="tag tag-avance">Avancé</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>Un <strong>trigger</strong> est un bloc de code SQL qui s'exécute <strong>automatiquement</strong> lorsqu'un événement se produit sur une table (INSERT, UPDATE, DELETE).</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL — Trigger de journalisation</span></div>
+      <pre><code><span class="kw">DELIMITER</span> $$
+
+<span class="kw">CREATE TRIGGER</span> <span class="tbl">log_inscription</span>
+<span class="kw">AFTER INSERT ON</span> <span class="tbl">utilisateurs</span>
+<span class="kw">FOR EACH ROW</span>
+<span class="kw">BEGIN</span>
+  <span class="kw">INSERT INTO</span> <span class="tbl">journal</span> (<span class="col">action</span>, <span class="col">details</span>, <span class="col">date_action</span>)
+  <span class="kw">VALUES</span> (<span class="str">'Inscription'</span>, NEW.<span class="col">email</span>, <span class="fn">NOW</span>());
+<span class="kw">END</span>$$
+
+<span class="kw">DELIMITER</span> ;</code></pre>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <p>Dans un trigger, <span class="ic">NEW</span> représente la nouvelle ligne insérée/modifiée. <span class="ic">OLD</span> représente l'ancienne valeur avant modification ou suppression.</p>
+    </div>
+  </div>
+</div>
+
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num advanced">37</div>
+    <div class="lesson-title-block">
+      <h2>Procédures Stockées</h2>
+      <div class="lesson-tags"><span class="tag tag-avance">Avancé</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>Une <strong>procédure stockée</strong> est un programme SQL enregistré dans la base de données, réutilisable à tout moment. Elle peut accepter des paramètres.</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL</span></div>
+      <pre><code><span class="kw">DELIMITER</span> $$
+
+<span class="kw">CREATE PROCEDURE</span> <span class="fn">rechercherUtilisateur</span>(<span class="kw">IN</span> <span class="col">recherche</span> <span class="kw">VARCHAR</span>(<span class="num">100</span>))
+<span class="kw">BEGIN</span>
+  <span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="tbl">utilisateurs</span>
+  <span class="kw">WHERE</span> <span class="col">nom</span> <span class="kw">LIKE</span> <span class="fn">CONCAT</span>(<span class="str">'%'</span>, <span class="col">recherche</span>, <span class="str">'%'</span>);
+<span class="kw">END</span>$$
+
+<span class="kw">DELIMITER</span> ;
+
+<span class="cmt">-- Appel</span>
+<span class="kw">CALL</span> <span class="fn">rechercherUtilisateur</span>(<span class="str">'Ali'</span>);</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     CHAPITRE 5 — TRANSACTIONS, SÉCURITÉ & BONNES PRATIQUES
+══════════════════════════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-line"></div>
+  <div class="chapter-label">🔒 Chapitre 5 — Transactions, Sécurité & Production</div>
+  <div class="chapter-line"></div>
+</div>
+
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num expert">39</div>
+    <div class="lesson-title-block">
+      <h2>Transactions — START, COMMIT, ROLLBACK</h2>
+      <div class="lesson-tags"><span class="tag tag-avance">Avancé</span><span class="tag tag-securite">Sécurité</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>Une <strong>transaction</strong> est un groupe d'opérations qui doivent toutes réussir ou toutes échouer. Elle garantit l'intégrité des données dans les opérations critiques.</p>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <p><strong>Exemple réel :</strong> un virement bancaire = débiter le compte A ET créditer le compte B. Si l'une des deux opérations échoue, tout doit être annulé.</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL — Exemple de virement</span></div>
+      <pre><code><span class="kw">START TRANSACTION</span>;
+
+<span class="kw">UPDATE</span> <span class="tbl">comptes</span>
+<span class="kw">SET</span> <span class="col">solde</span> <span class="op">=</span> <span class="col">solde</span> <span class="op">-</span> <span class="num">5000</span>
+<span class="kw">WHERE</span> <span class="col">id</span> <span class="op">=</span> <span class="num">1</span>; <span class="cmt">-- Débit</span>
+
+<span class="kw">UPDATE</span> <span class="tbl">comptes</span>
+<span class="kw">SET</span> <span class="col">solde</span> <span class="op">=</span> <span class="col">solde</span> <span class="op">+</span> <span class="num">5000</span>
+<span class="kw">WHERE</span> <span class="col">id</span> <span class="op">=</span> <span class="num">2</span>; <span class="cmt">-- Crédit</span>
+
+<span class="cmt">-- Si tout s'est bien passé</span>
+<span class="kw">COMMIT</span>;
+
+<span class="cmt">-- Sinon, en cas d'erreur</span>
+<span class="cmt">-- ROLLBACK;</span></code></pre>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Commande</th><th>Effet</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ic">START TRANSACTION</span></td><td>Démarre une transaction</td></tr>
+          <tr><td><span class="ic">COMMIT</span></td><td>Valide et rend les changements permanents</td></tr>
+          <tr><td><span class="ic">ROLLBACK</span></td><td>Annule tous les changements depuis le START</td></tr>
+          <tr><td><span class="ic">SAVEPOINT nom</span></td><td>Point de sauvegarde intermédiaire</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num expert">42</div>
+    <div class="lesson-title-block">
+      <h2>Sécurité MySQL</h2>
+      <div class="lesson-tags"><span class="tag tag-securite">Sécurité</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>La sécurité d'une base de données est un élément fondamental. Une mauvaise configuration peut exposer des données sensibles ou permettre une destruction totale des données.</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL — Gestion des utilisateurs</span></div>
+      <pre><code><span class="cmt">-- Créer un utilisateur dédié (éviter root)</span>
+<span class="kw">CREATE USER</span> <span class="str">'app_user'</span>@<span class="str">'localhost'</span>
+  <span class="kw">IDENTIFIED BY</span> <span class="str">'MotDePasse$ecur1s!'</span>;
+
+<span class="cmt">-- Accorder uniquement les droits nécessaires</span>
+<span class="kw">GRANT SELECT</span>, <span class="kw">INSERT</span>, <span class="kw">UPDATE</span>
+  <span class="kw">ON</span> boutique.*
+  <span class="kw">TO</span> <span class="str">'app_user'</span>@<span class="str">'localhost'</span>;
+
+<span class="cmt">-- Appliquer les changements</span>
+<span class="kw">FLUSH PRIVILEGES</span>;
+
+<span class="cmt">-- Voir les droits d'un utilisateur</span>
+<span class="kw">SHOW GRANTS FOR</span> <span class="str">'app_user'</span>@<span class="str">'localhost'</span>;</code></pre>
+    </div>
+
+    <div class="callout callout-danger">
+      <span class="callout-icon">🚨</span>
+      <p><strong>Ne jamais :</strong> utiliser le compte <span class="ic">root</span> dans une application web, stocker les mots de passe en clair dans la base, exposer MySQL directement sur Internet sans pare-feu.</p>
+    </div>
+  </div>
+</div>
+
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num expert">45</div>
+    <div class="lesson-title-block">
+      <h2>Sauvegardes et Restauration</h2>
+      <div class="lesson-tags"><span class="tag tag-securite">Sécurité</span><span class="tag tag-pratique">Pratique</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>Une sauvegarde régulière est indispensable. Une panne serveur, une erreur humaine ou une attaque peuvent entraîner une perte totale et irréversible des données.</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>Terminal (Bash)</span></div>
+      <pre><code><span class="cmt"># Sauvegarder une base de données</span>
+mysqldump -u root -p boutique > sauvegarde_2026-05-31.sql
+
+<span class="cmt"># Sauvegarder toutes les bases</span>
+mysqldump -u root -p --all-databases > toutes_les_bases.sql
+
+<span class="cmt"># Restaurer une base de données</span>
+mysql -u root -p boutique < sauvegarde_2026-05-31.sql</code></pre>
+    </div>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">✅</span>
+      <p><strong>Bonne pratique :</strong> automatisez vos sauvegardes avec un cron job (tâche planifiée Linux) et stockez les fichiers dans un endroit séparé du serveur principal (cloud, disque externe).</p>
+    </div>
+  </div>
+</div>
+
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num expert">47</div>
+    <div class="lesson-title-block">
+      <h2>Optimisation des Performances</h2>
+      <div class="lesson-tags"><span class="tag tag-perf">Performance</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>Quand la base grossit (millions de lignes), les performances deviennent critiques. Un index bien placé peut transformer une requête de 10 secondes en 10 millisecondes.</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL — Indexation</span></div>
+      <pre><code><span class="cmt">-- Créer un index sur la colonne email</span>
+<span class="kw">CREATE INDEX</span> idx_email <span class="kw">ON</span> <span class="tbl">utilisateurs</span> (<span class="col">email</span>);
+
+<span class="cmt">-- Analyser une requête (voir si l'index est utilisé)</span>
+<span class="kw">EXPLAIN SELECT</span> * <span class="kw">FROM</span> <span class="tbl">utilisateurs</span>
+<span class="kw">WHERE</span> <span class="col">email</span> <span class="op">=</span> <span class="str">'aliou@gmail.com'</span>;</code></pre>
+    </div>
+
+    <div class="compare-grid">
+      <div class="compare-card compare-bad">
+        <h4>❌ Lent</h4>
+        <ul>
+          <li><span class="ic">SELECT *</span> sur grandes tables</li>
+          <li>Pas d'index sur colonnes filtrées</li>
+          <li>Sous-requêtes dans les boucles</li>
+          <li>LIKE <span class="ic">'%mot%'</span> (pas d'index)</li>
+        </ul>
+      </div>
+      <div class="compare-card compare-good">
+        <h4>✅ Rapide</h4>
+        <ul>
+          <li>Sélectionner uniquement les colonnes utiles</li>
+          <li>INDEX sur les colonnes WHERE et JOIN</li>
+          <li>LIMIT sur toutes les listes</li>
+          <li>LIKE <span class="ic">'mot%'</span> (index possible)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LEÇON 49 -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num expert">49</div>
+    <div class="lesson-title-block">
+      <h2>Projet Complet — Base de Données École</h2>
+      <div class="lesson-tags"><span class="tag tag-pratique">Pratique</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>Appliquons tout ce que nous avons appris en créant une base de données de gestion scolaire complète.</p>
+
+    <div class="code-block">
+      <div class="code-label"><div class="code-dots"><i class="dot-r"></i><i class="dot-y"></i><i class="dot-g"></i></div><span>SQL — Projet École</span></div>
+      <pre><code><span class="kw">CREATE DATABASE</span> ecole
+  <span class="kw">CHARACTER SET</span> utf8mb4
+  <span class="kw">COLLATE</span> utf8mb4_unicode_ci;
+
+<span class="kw">USE</span> ecole;
+
+<span class="kw">CREATE TABLE</span> <span class="tbl">etudiants</span> (
+  <span class="col">id</span>      <span class="kw">INT AUTO_INCREMENT PRIMARY KEY</span>,
+  <span class="col">nom</span>     <span class="kw">VARCHAR</span>(<span class="num">100</span>) <span class="kw">NOT NULL</span>,
+  <span class="col">prenom</span>  <span class="kw">VARCHAR</span>(<span class="num">100</span>) <span class="kw">NOT NULL</span>,
+  <span class="col">email</span>   <span class="kw">VARCHAR</span>(<span class="num">150</span>) <span class="kw">UNIQUE NOT NULL</span>,
+  <span class="col">date_naissance</span> <span class="kw">DATE</span>
+);
+
+<span class="kw">CREATE TABLE</span> <span class="tbl">cours</span> (
+  <span class="col">id</span>         <span class="kw">INT AUTO_INCREMENT PRIMARY KEY</span>,
+  <span class="col">titre</span>      <span class="kw">VARCHAR</span>(<span class="num">200</span>) <span class="kw">NOT NULL</span>,
+  <span class="col">credits</span>    <span class="kw">INT DEFAULT</span> <span class="num">3</span>,
+  <span class="col">professeur</span> <span class="kw">VARCHAR</span>(<span class="num">100</span>)
+);
+
+<span class="kw">CREATE TABLE</span> <span class="tbl">inscriptions</span> (
+  <span class="col">id</span>          <span class="kw">INT AUTO_INCREMENT PRIMARY KEY</span>,
+  <span class="col">etudiant_id</span> <span class="kw">INT NOT NULL</span>,
+  <span class="col">cours_id</span>    <span class="kw">INT NOT NULL</span>,
+  <span class="col">date_inscription</span> <span class="kw">DATETIME DEFAULT</span> <span class="fn">CURRENT_TIMESTAMP</span>,
+  <span class="col">note</span>        <span class="kw">DECIMAL</span>(<span class="num">4</span>,<span class="num">2</span>),
+  <span class="kw">FOREIGN KEY</span> (<span class="col">etudiant_id</span>) <span class="kw">REFERENCES</span> <span class="tbl">etudiants</span>(<span class="col">id</span>),
+  <span class="kw">FOREIGN KEY</span> (<span class="col">cours_id</span>)    <span class="kw">REFERENCES</span> <span class="tbl">cours</span>(<span class="col">id</span>)
+);
+
+<span class="cmt">-- Requête utile : étudiants inscrits avec leurs notes</span>
+<span class="kw">SELECT</span>
+  <span class="fn">CONCAT</span>(<span class="tbl">e</span>.<span class="col">prenom</span>, <span class="str">' '</span>, <span class="tbl">e</span>.<span class="col">nom</span>) <span class="kw">AS</span> etudiant,
+  <span class="tbl">c</span>.<span class="col">titre</span> <span class="kw">AS</span> cours,
+  <span class="tbl">i</span>.<span class="col">note</span>
+<span class="kw">FROM</span> <span class="tbl">inscriptions</span> <span class="tbl">i</span>
+<span class="kw">INNER JOIN</span> <span class="tbl">etudiants</span> <span class="tbl">e</span> <span class="kw">ON</span> <span class="tbl">i</span>.<span class="col">etudiant_id</span> <span class="op">=</span> <span class="tbl">e</span>.<span class="col">id</span>
+<span class="kw">INNER JOIN</span> <span class="tbl">cours</span> <span class="tbl">c</span>     <span class="kw">ON</span> <span class="tbl">i</span>.<span class="col">cours_id</span>    <span class="op">=</span> <span class="tbl">c</span>.<span class="col">id</span>
+<span class="kw">ORDER BY</span> etudiant, cours;</code></pre>
+    </div>
+  </div>
+</div>
+
+<!-- LEÇON 50 -->
+<div class="lesson">
+  <div class="lesson-header">
+    <div class="lesson-num expert">50</div>
+    <div class="lesson-title-block">
+      <h2>Les Bonnes Pratiques MySQL</h2>
+      <div class="lesson-tags"><span class="tag tag-pratique">Pratique</span></div>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <p>Pour devenir un excellent développeur ou administrateur MySQL, voici les règles d'or à respecter :</p>
+
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Règle</th><th>Pourquoi c'est important</th></tr></thead>
+        <tbody>
+          <tr><td>✏️ Noms de tables et colonnes explicites</td><td>Code plus lisible et maintenable</td></tr>
+          <tr><td>🔑 Toujours une clé primaire</td><td>Identification unique, performance</td></tr>
+          <tr><td>📇 Index sur les colonnes filtrées</td><td>Requêtes 100x plus rapides</td></tr>
+          <tr><td>💾 Sauvegardes régulières automatisées</td><td>Protection contre les pertes</td></tr>
+          <tr><td>🔒 Limiter les droits utilisateurs</td><td>Sécurité renforcée</td></tr>
+          <tr><td>📝 Documenter la base</td><td>Travail en équipe facilité</td></tr>
+          <tr><td>🚫 Pas de données dupliquées (normalisation)</td><td>Cohérence et économie d'espace</td></tr>
+          <tr><td>⚡ Utiliser les transactions</td><td>Intégrité des opérations critiques</td></tr>
+          <tr><td>🧪 Tester sur environnement de dev</td><td>Éviter les catastrophes en production</td></tr>
+          <tr><td>📊 Surveiller les performances</td><td>Détecter les requêtes lentes</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">🎉</span>
+      <p><strong>Félicitations !</strong> Vous avez terminé les 50 leçons MySQL. De la création d'une base de données aux transactions et à la sécurité, vous maîtrisez maintenant les fondations pour travailler sur des projets réels. La prochaine étape : pratiquer sur de vrais projets !</p>
+    </div>
+  </div>
+</div>
+
+</div><!-- end .container -->
+
+<footer>
+  <h3>Formation MySQL Complète</h3>
+  <p>50 leçons — Du débutant à l'expert</p>
+  <div class="footer-grid">
+    <div class="footer-item"><strong>10</strong>Fondamentaux</div>
+    <div class="footer-item"><strong>10</strong>Filtrage & Contraintes</div>
+    <div class="footer-item"><strong>10</strong>Jointures & Agrégation</div>
+    <div class="footer-item"><strong>10</strong>Requêtes Avancées</div>
+    <div class="footer-item"><strong>10</strong>Sécurité & Production</div>
+  </div>
+</footer>
+
+<script>
+// Progress bar
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  document.getElementById('progress').style.width = pct + '%';
+});
+</script>
+</body>
+</html>
