@@ -30,14 +30,9 @@
   --red:      #dc2626;
   --gold:     #b45309;
 
-  /* Code syntax */
-  --kw:  #7c3aed;
-  --ty:  #0369a1;
-  --st:  #15803d;
-  --cm:  #9ca3af;
-  --nm:  #b45309;
-  --fn:  #0c4a6e;
-  --inc: #c2410c;
+  --diff-easy:   #0ea47a;
+  --diff-medium: #d97706;
+  --diff-hard:   #dc2626;
 
   --code-bg:  #1e1d2a;
   --code-txt: #d4d0e8;
@@ -73,12 +68,7 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-}
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 
 .logo-icon {
   width: 34px; height: 34px;
@@ -91,18 +81,10 @@ body {
   box-shadow: 0 2px 8px rgba(44,95,230,0.35);
 }
 
-.logo-text {
-  font-size: 15px; font-weight: 800;
-  color: var(--ink);
-  letter-spacing: -0.3px;
-}
-
+.logo-text { font-size: 15px; font-weight: 800; color: var(--ink); letter-spacing: -0.3px; }
 .logo-text span { color: var(--accent); }
 
-.header-center {
-  flex: 1;
-  display: flex; align-items: center; justify-content: center;
-}
+.header-center { flex: 1; display: flex; align-items: center; justify-content: center; }
 
 .progress-wrap {
   display: flex; align-items: center; gap: 10px;
@@ -116,8 +98,7 @@ body {
 .progress-track {
   width: 140px; height: 5px;
   background: var(--surface3);
-  border-radius: 99px;
-  overflow: hidden;
+  border-radius: 99px; overflow: hidden;
 }
 
 .progress-fill {
@@ -127,20 +108,10 @@ body {
   transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
 }
 
-.progress-label {
-  font-size: 12px; font-weight: 600;
-  color: var(--ink3);
-}
+.progress-label { font-size: 12px; font-weight: 600; color: var(--ink3); }
+.progress-count { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: var(--accent); }
 
-.progress-count {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px; font-weight: 600;
-  color: var(--accent);
-}
-
-.header-right {
-  display: flex; align-items: center; gap: 8px;
-}
+.header-right { display: flex; align-items: center; gap: 8px; }
 
 .kbd {
   font-family: 'JetBrains Mono', monospace;
@@ -153,7 +124,7 @@ body {
   box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
-/* ── LAYOUT ───────────────────────────────── */
+/* ── LAYOUT ─────────────────────────────── */
 .workspace { display: flex; flex: 1; overflow: hidden; }
 
 /* ── SIDEBAR ─────────────────────────────── */
@@ -165,18 +136,14 @@ body {
   flex-shrink: 0;
 }
 
-.sidebar-top {
-  padding: 14px 14px 10px;
-  border-bottom: 1px solid var(--border);
-}
+.sidebar-top { padding: 14px 14px 10px; border-bottom: 1px solid var(--border); }
 
 .search-wrap { position: relative; }
 
 .search-icon {
   position: absolute; left: 10px; top: 50%;
   transform: translateY(-50%);
-  color: var(--ink4); font-size: 12px;
-  pointer-events: none;
+  color: var(--ink4); font-size: 12px; pointer-events: none;
 }
 
 .search-input {
@@ -187,9 +154,7 @@ body {
   padding: 8px 10px 8px 30px;
   color: var(--ink);
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 13px;
-  outline: none;
-  transition: border 0.15s;
+  font-size: 13px; outline: none; transition: border 0.15s;
 }
 
 .search-input:focus { border-color: var(--accent); background: white; }
@@ -209,19 +174,14 @@ body {
 .lesson-item {
   display: flex; align-items: center; gap: 10px;
   padding: 7px 10px;
-  border-radius: 8px;
-  cursor: pointer;
+  border-radius: 8px; cursor: pointer;
   transition: all 0.12s;
   border: 1.5px solid transparent;
   margin-bottom: 1px;
 }
 
 .lesson-item:hover { background: var(--bg2); }
-
-.lesson-item.active {
-  background: rgba(44,95,230,0.07);
-  border-color: rgba(44,95,230,0.2);
-}
+.lesson-item.active { background: rgba(44,95,230,0.07); border-color: rgba(44,95,230,0.2); }
 
 .lesson-num-badge {
   width: 24px; height: 24px;
@@ -231,34 +191,29 @@ body {
   font-size: 10px;
   font-family: 'JetBrains Mono', monospace;
   display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  color: var(--ink3);
-  transition: all 0.12s;
+  flex-shrink: 0; color: var(--ink3); transition: all 0.12s;
 }
 
 .lesson-item.active .lesson-num-badge {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: white;
-  box-shadow: 0 2px 8px rgba(44,95,230,0.3);
+  background: var(--accent); border-color: var(--accent);
+  color: white; box-shadow: 0 2px 8px rgba(44,95,230,0.3);
 }
 
 .lesson-item.done .lesson-num-badge {
-  background: rgba(14,164,122,0.1);
-  border-color: var(--green);
-  color: var(--green);
+  background: rgba(14,164,122,0.1); border-color: var(--green); color: var(--green);
 }
 
-.lesson-item-title {
-  font-size: 13px; color: var(--ink2);
-  line-height: 1.3; flex: 1;
-  transition: color 0.12s;
-}
-
+.lesson-item-title { font-size: 13px; color: var(--ink2); line-height: 1.3; flex: 1; transition: color 0.12s; }
 .lesson-item.active .lesson-item-title { color: var(--accent); font-weight: 600; }
-.lesson-item.done .lesson-item-title { color: var(--ink2); }
 
-/* ── MAIN ──────────────────────────────────── */
+.diff-dot {
+  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+}
+.diff-dot.easy   { background: var(--diff-easy); }
+.diff-dot.medium { background: var(--diff-medium); }
+.diff-dot.hard   { background: var(--diff-hard); }
+
+/* ── MAIN ─────────────────────────────────── */
 .main-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
 .lesson-view {
@@ -270,44 +225,65 @@ body {
 .lesson-view::-webkit-scrollbar { width: 4px; }
 .lesson-view::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
 
-/* Lesson elements */
+/* ── Lesson meta bar ── */
+.lesson-meta {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 10px; flex-wrap: wrap;
+}
+
 .lesson-badge {
   display: inline-flex; align-items: center; gap: 7px;
   font-size: 11px; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.1em;
   color: var(--accent);
   font-family: 'JetBrains Mono', monospace;
-  margin-bottom: 10px;
   background: rgba(44,95,230,0.08);
-  padding: 4px 10px;
-  border-radius: 20px;
+  padding: 4px 10px; border-radius: 20px;
   border: 1px solid rgba(44,95,230,0.15);
+}
+
+.diff-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 700;
+  padding: 4px 10px; border-radius: 20px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.diff-badge.easy   { color: var(--diff-easy);   background: rgba(14,164,122,0.1);  border: 1px solid rgba(14,164,122,0.25); }
+.diff-badge.medium { color: var(--diff-medium);  background: rgba(217,119,6,0.1);   border: 1px solid rgba(217,119,6,0.25); }
+.diff-badge.hard   { color: var(--diff-hard);    background: rgba(220,38,38,0.08);  border: 1px solid rgba(220,38,38,0.2); }
+
+.concept-tags {
+  display: flex; flex-wrap: wrap; gap: 5px;
+  margin-bottom: 14px;
+}
+
+.concept-tag {
+  font-size: 10px; font-weight: 600;
+  padding: 3px 9px; border-radius: 12px;
+  background: var(--surface2); border: 1px solid var(--border2);
+  color: var(--ink3); letter-spacing: 0.04em;
 }
 
 .lesson-title-main {
   font-family: 'Literata', serif;
-  font-size: 30px; font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 4px;
-  color: var(--ink);
-  letter-spacing: -0.5px;
+  font-size: 30px; font-weight: 700; line-height: 1.2;
+  margin-bottom: 4px; color: var(--ink); letter-spacing: -0.5px;
 }
 
 .lesson-title-main span { color: var(--accent3); }
 
 .lesson-subtitle {
   font-size: 14px; color: var(--ink3);
-  margin-bottom: 24px;
-  font-style: italic;
-  font-family: 'Literata', serif;
+  margin-bottom: 20px;
+  font-style: italic; font-family: 'Literata', serif;
 }
 
+/* Concept blocks */
 .concept-block {
   background: var(--surface);
   border: 1.5px solid var(--border);
   border-radius: var(--radius);
-  padding: 20px 22px;
-  margin: 14px 0;
+  padding: 20px 22px; margin: 14px 0;
   box-shadow: var(--shadow-sm);
   animation: fadeUp 0.35s ease both;
 }
@@ -327,38 +303,138 @@ body {
 
 .concept-block p {
   font-size: 14px; line-height: 1.8;
-  color: var(--ink2);
-  font-family: 'Literata', serif;
+  color: var(--ink2); font-family: 'Literata', serif;
 }
 
+.concept-block code {
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(44,95,230,0.07); padding: 1px 5px;
+  border-radius: 3px; font-size: 12px; color: var(--accent2);
+}
+
+/* ── Why block ── */
+.why-block {
+  background: rgba(44,95,230,0.04);
+  border: 1.5px solid rgba(44,95,230,0.18);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 16px 20px; margin: 14px 0;
+  animation: fadeUp 0.35s ease 0.03s both;
+}
+
+.why-block h3 {
+  font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--accent);
+  font-weight: 800; margin-bottom: 8px;
+}
+
+.why-block p {
+  font-size: 13.5px; line-height: 1.75;
+  color: var(--ink2); font-family: 'Literata', serif;
+}
+
+/* ── Pitfalls block ── */
+.pitfalls-block {
+  background: rgba(220,38,38,0.03);
+  border: 1.5px solid rgba(220,38,38,0.18);
+  border-left: 4px solid #dc2626;
+  border-radius: var(--radius);
+  padding: 16px 20px; margin: 14px 0;
+  animation: fadeUp 0.35s ease 0.09s both;
+}
+
+.pitfalls-block h3 {
+  font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.12em; color: #dc2626;
+  font-weight: 800; margin-bottom: 8px;
+}
+
+.pitfall-item {
+  display: flex; align-items: flex-start; gap: 9px;
+  padding: 5px 0; border-bottom: 1px solid rgba(220,38,38,0.1);
+}
+.pitfall-item:last-child { border-bottom: none; }
+.pitfall-item::before {
+  content: '⚠';
+  font-size: 12px; color: #dc2626;
+  margin-top: 1px; flex-shrink: 0;
+}
+.pitfall-item span {
+  font-size: 13px; color: var(--ink2); line-height: 1.6;
+}
+
+/* ── Complexity block ── */
+.complexity-block {
+  background: rgba(14,164,122,0.03);
+  border: 1.5px solid rgba(14,164,122,0.2);
+  border-radius: var(--radius);
+  padding: 16px 20px; margin: 14px 0;
+  animation: fadeUp 0.35s ease 0.12s both;
+}
+
+.complexity-block h3 {
+  font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--green);
+  font-weight: 800; margin-bottom: 10px;
+}
+
+.complexity-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 5px 0; border-bottom: 1px solid rgba(14,164,122,0.1);
+}
+.complexity-row:last-child { border-bottom: none; }
+
+.complexity-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700;
+  color: var(--green);
+  min-width: 90px;
+}
+
+.complexity-desc { font-size: 12.5px; color: var(--ink3); }
+
+/* ── Links block ── */
+.links-block {
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 18px; margin: 14px 0;
+  animation: fadeUp 0.35s ease 0.15s both;
+}
+
+.links-block h3 {
+  font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--ink4);
+  font-weight: 800; margin-bottom: 8px;
+}
+
+.links-row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.lesson-link {
+  font-size: 11px; padding: 4px 10px;
+  border-radius: 12px; cursor: pointer;
+  border: 1.5px solid var(--border2);
+  color: var(--ink3); background: var(--surface);
+  transition: all 0.12s; font-weight: 500;
+}
+
+.lesson-link:hover { border-color: var(--accent); color: var(--accent); background: rgba(44,95,230,0.05); }
+
+/* Key points */
 .key-point {
   display: flex; align-items: flex-start; gap: 10px;
-  padding: 7px 0;
-  border-bottom: 1px solid var(--border);
+  padding: 7px 0; border-bottom: 1px solid var(--border);
 }
-
 .key-point:last-child { border-bottom: none; }
-
-.key-point::before {
-  content: '▸';
-  color: var(--accent);
-  font-size: 11px;
-  margin-top: 3px;
-  flex-shrink: 0;
-}
-
-.key-point-text {
-  font-size: 13.5px; color: var(--ink2); line-height: 1.6;
-}
+.key-point::before { content: '▸'; color: var(--accent); font-size: 11px; margin-top: 3px; flex-shrink: 0; }
+.key-point-text { font-size: 13.5px; color: var(--ink2); line-height: 1.6; }
 
 /* Code block */
 .code-block {
   background: var(--code-bg);
   border: 1.5px solid #2e2c3e;
-  border-radius: var(--radius);
-  margin: 20px 0;
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
+  border-radius: var(--radius); margin: 20px 0;
+  overflow: hidden; box-shadow: var(--shadow-md);
   animation: fadeUp 0.35s ease 0.12s both;
 }
 
@@ -366,8 +442,7 @@ body {
   display: flex; align-items: center;
   padding: 10px 16px;
   background: rgba(255,255,255,0.03);
-  border-bottom: 1px solid #2e2c3e;
-  gap: 8px;
+  border-bottom: 1px solid #2e2c3e; gap: 8px;
 }
 
 .code-dots { display: flex; gap: 5px; }
@@ -376,32 +451,24 @@ body {
 .dot.yellow { background: #febc2e; }
 .dot.green  { background: #28c840; }
 
-.code-filename {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; color: #6b7280; flex: 1; margin-left: 4px;
-}
+.code-filename { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6b7280; flex: 1; margin-left: 4px; }
 
 .copy-btn {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  color: #9ca3af;
-  font-size: 11px; padding: 3px 10px;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  color: #9ca3af; font-size: 11px; padding: 3px 10px;
   border-radius: 5px; cursor: pointer;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  transition: all 0.15s;
+  font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.15s;
 }
-
 .copy-btn:hover { color: white; border-color: rgba(255,255,255,0.25); }
 
 .code-body {
   padding: 20px 24px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 13px; line-height: 1.75;
-  overflow-x: auto; white-space: pre;
-  color: var(--code-txt);
+  overflow-x: auto; white-space: pre; color: var(--code-txt);
 }
 
-/* Syntax (dark code blocks) */
+/* Syntax */
 .kw  { color: #c084fc; }
 .ty  { color: #7dd3fc; }
 .str { color: #86efac; }
@@ -418,26 +485,20 @@ body {
 }
 
 .btn-nav {
-  padding: 10px 20px;
-  border-radius: 8px;
+  padding: 10px 20px; border-radius: 8px;
   border: 1.5px solid var(--border2);
-  background: var(--surface);
-  color: var(--ink2);
+  background: var(--surface); color: var(--ink2);
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 13px; font-weight: 600;
-  cursor: pointer;
-  transition: all 0.12s;
-  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: all 0.12s; display: flex; align-items: center; gap: 6px;
   box-shadow: var(--shadow-sm);
 }
 
 .btn-nav:hover { border-color: var(--accent); color: var(--accent); background: rgba(44,95,230,0.04); }
 
 .btn-nav.primary {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: white;
-  margin-left: auto;
+  background: var(--accent); border-color: var(--accent);
+  color: white; margin-left: auto;
   box-shadow: 0 4px 14px rgba(44,95,230,0.3);
 }
 
@@ -447,11 +508,7 @@ body {
   transform: translateY(-1px);
 }
 
-.btn-nav.done-style {
-  border-color: var(--green);
-  color: var(--green);
-  background: rgba(14,164,122,0.06);
-}
+.btn-nav.done-style { border-color: var(--green); color: var(--green); background: rgba(14,164,122,0.06); }
 
 /* ── EDITOR PANEL ──────────────────────────── */
 .editor-panel {
@@ -463,42 +520,29 @@ body {
 }
 
 .editor-header {
-  height: 46px;
-  border-bottom: 1.5px solid var(--border);
+  height: 46px; border-bottom: 1.5px solid var(--border);
   display: flex; align-items: stretch;
-  gap: 2px; padding: 6px 10px;
-  background: var(--surface);
+  gap: 2px; padding: 6px 10px; background: var(--surface);
 }
 
 .etab {
-  padding: 0 14px;
-  font-size: 12px; font-weight: 600;
-  border-radius: 6px; cursor: pointer;
-  color: var(--ink3);
-  transition: all 0.12s;
-  border: none; background: transparent;
+  padding: 0 14px; font-size: 12px; font-weight: 600;
+  border-radius: 6px; cursor: pointer; color: var(--ink3);
+  transition: all 0.12s; border: none; background: transparent;
   font-family: 'Plus Jakarta Sans', sans-serif;
   display: flex; align-items: center; gap: 6px;
 }
 
 .etab.active { background: var(--surface2); color: var(--ink); }
-
-.etab .tab-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%; background: var(--accent);
-}
+.etab .tab-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
 
 .run-btn {
-  margin-left: auto;
-  padding: 5px 14px;
-  background: var(--accent3);
-  color: white;
+  margin-left: auto; padding: 5px 14px;
+  background: var(--accent3); color: white;
   border: none; border-radius: 7px;
-  font-size: 12px; font-weight: 700;
-  cursor: pointer;
+  font-size: 12px; font-weight: 700; cursor: pointer;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  display: flex; align-items: center; gap: 6px;
-  transition: all 0.15s;
+  display: flex; align-items: center; gap: 6px; transition: all 0.15s;
   box-shadow: 0 2px 8px rgba(14,164,122,0.3);
 }
 
@@ -512,21 +556,17 @@ body {
 .editor-area {
   flex: 1; display: flex; overflow: hidden;
   background: var(--code-bg);
-  border-bottom: 1px solid #2e2c3e;
-  position: relative;
+  border-bottom: 1px solid #2e2c3e; position: relative;
 }
 
 .line-numbers {
   padding: 16px 10px 16px 14px;
-  background: #17162200;
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px; line-height: 1.7;
-  color: #4b5563; text-align: right;
-  user-select: none;
+  color: #4b5563; text-align: right; user-select: none;
   border-right: 1px solid #2e2c3e;
   min-width: 44px; flex-shrink: 0;
   display: flex; flex-direction: column;
-  background: #1a192600;
 }
 
 .line-numbers span { display: block; height: 1.7em; }
@@ -534,80 +574,70 @@ body {
 textarea#editor {
   flex: 1; background: var(--code-bg);
   border: none; color: #d4d0e8;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace; font-size: 13px;
   padding: 16px 16px 16px 12px;
-  resize: none; outline: none;
-  line-height: 1.7; tab-size: 2;
+  resize: none; outline: none; line-height: 1.7; tab-size: 2;
   caret-color: var(--accent3);
 }
 
 .editor-footer {
-  padding: 8px 12px;
-  border-top: 1px solid var(--border);
-  display: flex; align-items: center; gap: 8px;
-  background: var(--surface2);
+  padding: 8px 12px; border-top: 1px solid var(--border);
+  display: flex; align-items: center; gap: 8px; background: var(--surface2);
 }
 
 .reset-btn {
-  background: transparent;
-  border: 1.5px solid var(--border2);
-  color: var(--ink3);
-  font-size: 15px;
-  width: 28px; height: 28px;
-  border-radius: 6px; cursor: pointer;
-  transition: all 0.12s;
+  background: transparent; border: 1.5px solid var(--border2);
+  color: var(--ink3); font-size: 15px; width: 28px; height: 28px;
+  border-radius: 6px; cursor: pointer; transition: all 0.12s;
   display: flex; align-items: center; justify-content: center;
 }
 
 .reset-btn:hover { border-color: var(--warn); color: var(--warn); }
+.editor-hint { font-size: 11px; color: var(--ink4); margin-left: auto; font-family: 'JetBrains Mono', monospace; }
 
-.editor-hint {
-  font-size: 11px; color: var(--ink4);
-  margin-left: auto;
-  font-family: 'JetBrains Mono', monospace;
+/* Exercise goal */
+.exercise-goal {
+  padding: 9px 14px;
+  background: rgba(14,164,122,0.05);
+  border-bottom: 1px solid rgba(14,164,122,0.15);
+  font-size: 11.5px; color: #0a7a5c;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  display: flex; align-items: flex-start; gap: 7px;
+  line-height: 1.5;
 }
+
+.exercise-goal strong { font-weight: 700; }
 
 /* Output */
 .output-panel {
-  height: 170px;
-  border-top: 1.5px solid var(--border);
+  height: 170px; border-top: 1.5px solid var(--border);
   display: flex; flex-direction: column;
 }
 
 .output-head {
-  padding: 8px 14px;
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; gap: 8px;
-  background: var(--surface2);
+  padding: 8px 14px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 8px; background: var(--surface2);
 }
 
 .output-head span {
   font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--ink3);
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink3);
 }
 
 .output-status {
-  margin-left: auto;
-  display: flex; align-items: center; gap: 6px;
-  font-size: 11px; color: var(--ink3);
-  font-family: 'JetBrains Mono', monospace;
+  margin-left: auto; display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--ink3); font-family: 'JetBrains Mono', monospace;
 }
 
 .status-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--ink4);
-  transition: background 0.3s;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--ink4); transition: background 0.3s;
 }
 
 #output {
-  flex: 1; overflow-y: auto;
-  padding: 12px 16px;
+  flex: 1; overflow-y: auto; padding: 12px 16px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12.5px; line-height: 1.7;
-  background: var(--code-bg);
+  font-size: 12.5px; line-height: 1.7; background: var(--code-bg);
 }
 
 #output::-webkit-scrollbar { width: 3px; }
@@ -622,21 +652,17 @@ textarea#editor {
 .ai-pane.active { display: flex; }
 
 .ai-messages {
-  flex: 1; overflow-y: auto;
-  padding: 14px;
+  flex: 1; overflow-y: auto; padding: 14px;
   display: flex; flex-direction: column; gap: 10px;
   background: var(--bg2);
 }
-
 .ai-messages::-webkit-scrollbar { width: 3px; }
 .ai-messages::-webkit-scrollbar-thumb { background: var(--border2); }
 
 .msg {
-  padding: 10px 14px;
-  border-radius: 10px;
+  padding: 10px 14px; border-radius: 10px;
   font-size: 13px; line-height: 1.65;
-  max-width: 92%;
-  animation: msgIn 0.2s ease;
+  max-width: 92%; animation: msgIn 0.2s ease;
 }
 
 @keyframes msgIn {
@@ -645,48 +671,33 @@ textarea#editor {
 }
 
 .msg.user {
-  background: rgba(44,95,230,0.1);
-  border: 1.5px solid rgba(44,95,230,0.2);
-  color: var(--accent2);
-  align-self: flex-end;
+  background: rgba(44,95,230,0.1); border: 1.5px solid rgba(44,95,230,0.2);
+  color: var(--accent2); align-self: flex-end;
 }
 
 .msg.ai {
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  color: var(--ink2);
-  align-self: flex-start;
-  box-shadow: var(--shadow-sm);
+  background: var(--surface); border: 1.5px solid var(--border);
+  color: var(--ink2); align-self: flex-start; box-shadow: var(--shadow-sm);
 }
 
 .msg.ai code {
   font-family: 'JetBrains Mono', monospace;
-  background: rgba(44,95,230,0.08);
-  padding: 1px 5px;
-  border-radius: 3px;
-  font-size: 12px;
-  color: var(--accent);
+  background: rgba(44,95,230,0.08); padding: 1px 5px;
+  border-radius: 3px; font-size: 12px; color: var(--accent);
 }
 
 .typing-indicator {
-  display: none; align-items: center; gap: 5px;
-  padding: 10px 14px;
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  width: fit-content; align-self: flex-start;
+  display: none; align-items: center; gap: 5px; padding: 10px 14px;
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: 10px; width: fit-content; align-self: flex-start;
   box-shadow: var(--shadow-sm);
 }
-
 .typing-indicator.show { display: flex; }
 
 .typing-indicator span {
-  width: 6px; height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-  animation: typing 1.2s infinite;
+  width: 6px; height: 6px; background: var(--accent);
+  border-radius: 50%; animation: typing 1.2s infinite;
 }
-
 .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
 .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
 
@@ -696,78 +707,56 @@ textarea#editor {
 }
 
 .ai-input-row {
-  padding: 12px;
-  border-top: 1.5px solid var(--border);
-  display: flex; gap: 8px; align-items: flex-end;
-  background: var(--surface);
+  padding: 12px; border-top: 1.5px solid var(--border);
+  display: flex; gap: 8px; align-items: flex-end; background: var(--surface);
 }
 
 .ai-input {
-  flex: 1;
-  background: var(--surface2);
-  border: 1.5px solid var(--border);
-  border-radius: 8px;
-  padding: 9px 12px;
-  color: var(--ink);
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 13px;
-  outline: none; resize: none;
-  line-height: 1.5; min-height: 38px; max-height: 90px;
-  transition: border 0.12s;
+  flex: 1; background: var(--surface2); border: 1.5px solid var(--border);
+  border-radius: 8px; padding: 9px 12px; color: var(--ink);
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px;
+  outline: none; resize: none; line-height: 1.5;
+  min-height: 38px; max-height: 90px; transition: border 0.12s;
 }
 
 .ai-input:focus { border-color: var(--accent); background: white; }
 .ai-input::placeholder { color: var(--ink4); }
 
 .send-btn {
-  width: 36px; height: 36px;
-  border-radius: 8px;
-  background: var(--accent);
-  border: none; color: white;
-  font-size: 16px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 8px;
+  background: var(--accent); border: none; color: white;
+  font-size: 16px; cursor: pointer; display: flex;
+  align-items: center; justify-content: center;
   transition: all 0.15s; flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(44,95,230,0.3);
 }
 
-.send-btn:hover { background: var(--accent2); box-shadow: 0 2px 14px rgba(44,95,230,0.45); transform: scale(1.05); }
+.send-btn:hover { background: var(--accent2); transform: scale(1.05); }
 
 .ai-suggestions {
   display: flex; flex-wrap: wrap; gap: 6px;
-  padding: 10px 12px;
-  border-top: 1px solid var(--border);
-  background: var(--surface2);
+  padding: 10px 12px; border-top: 1px solid var(--border); background: var(--surface2);
 }
 
 .ai-chip {
-  font-size: 11px; padding: 4px 10px;
-  border-radius: 20px;
-  border: 1.5px solid var(--border2);
-  color: var(--ink3); cursor: pointer;
-  transition: all 0.12s;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 500;
-  background: var(--surface);
+  font-size: 11px; padding: 4px 10px; border-radius: 20px;
+  border: 1.5px solid var(--border2); color: var(--ink3); cursor: pointer;
+  transition: all 0.12s; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 500; background: var(--surface);
 }
-
 .ai-chip:hover { border-color: var(--accent); color: var(--accent); background: rgba(44,95,230,0.05); }
 
 /* ── MODAL ─────────────────────────────────── */
 .modal-overlay {
   display: none; position: fixed; inset: 0;
-  background: rgba(26,25,22,0.5);
-  backdrop-filter: blur(6px);
-  z-index: 100;
-  align-items: center; justify-content: center;
+  background: rgba(26,25,22,0.5); backdrop-filter: blur(6px);
+  z-index: 100; align-items: center; justify-content: center;
 }
-
 .modal-overlay.show { display: flex; }
 
 .modal {
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: 16px;
-  padding: 44px 52px;
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: 16px; padding: 44px 52px;
   text-align: center; max-width: 420px;
   box-shadow: var(--shadow-lg);
   animation: modalIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
@@ -781,8 +770,7 @@ textarea#editor {
 .modal-emoji { font-size: 52px; margin-bottom: 16px; }
 
 .modal h2 {
-  font-family: 'Literata', serif;
-  font-size: 24px; font-weight: 700;
+  font-family: 'Literata', serif; font-size: 24px; font-weight: 700;
   margin-bottom: 10px; color: var(--ink);
 }
 
@@ -793,19 +781,14 @@ textarea#editor {
 }
 
 .modal-btn {
-  padding: 11px 30px;
-  background: var(--accent);
-  border: none; border-radius: 8px;
-  color: white; font-size: 14px; font-weight: 700;
-  cursor: pointer;
+  padding: 11px 30px; background: var(--accent);
+  border: none; border-radius: 8px; color: white;
+  font-size: 14px; font-weight: 700; cursor: pointer;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  box-shadow: 0 4px 16px rgba(44,95,230,0.3);
-  transition: all 0.15s;
+  box-shadow: 0 4px 16px rgba(44,95,230,0.3); transition: all 0.15s;
 }
+.modal-btn:hover { background: var(--accent2); }
 
-.modal-btn:hover { background: var(--accent2); box-shadow: 0 4px 24px rgba(44,95,230,0.45); }
-
-/* Scrollbar global */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
@@ -871,6 +854,7 @@ textarea#editor {
 
       <!-- CODE EDITOR PANE -->
       <div class="tab-pane active" id="pane-editor">
+        <div id="exerciseGoal" class="exercise-goal" style="display:none"></div>
         <div class="editor-area">
           <div class="line-numbers" id="lineNumbers"></div>
           <textarea id="editor" spellcheck="false" autocorrect="off" autocapitalize="off"
@@ -942,14 +926,24 @@ textarea#editor {
 const lessons = [
   {
     num:1, title:"Introduction à C++", chapter:"Les Bases",
-    desc:"C++ est un langage compilé, typé statiquement et multi-paradigme créé par Bjarne Stroustrup en 1983. Il est utilisé pour les systèmes d'exploitation, moteurs de jeu, logiciels haute performance et embarqués.",
-    points:["Langage compilé → performances maximales","Orienté objet + procédural + générique","Bas niveau avec abstractions haut niveau"],
+    difficulty:"easy", tags:["histoire","paradigmes","compilation"],
+    desc:"C++ est un langage compilé, typé statiquement et multi-paradigme créé par <strong>Bjarne Stroustrup</strong> en 1983 chez Bell Labs comme extension de C. Il est utilisé dans les systèmes d'exploitation, moteurs de jeu, logiciels embarqués et toute application haute performance.",
+    why:"C++ est l'un des langages les plus demandés dans l'industrie. Il permet d'écrire du code aussi expressif que Python tout en étant aussi rapide que le code machine. Les moteurs de jeu (Unreal Engine), les bases de données (MySQL), les navigateurs (Chrome) et même une partie du noyau Linux sont écrits en C++.",
+    points:["Langage compilé → le code source est traduit en code machine natif (pas d'interpréteur)","Multi-paradigme : procédural, orienté objet ET générique dans le même programme","Compatibilité descendante avec C — tout code C valide est (presque) du C++ valide","Permet le contrôle direct de la mémoire (malloc/free, new/delete)"],
+    pitfalls:["Ne pas confondre C et C++ : ils partagent une syntaxe de base mais sont des langages différents","C++ est verbeux comparé à Python — la concision n'est pas son objectif premier","La compilation peut prendre du temps sur de gros projets"],
+    links:[],
     code:`// Fichier d'en-tête standard d'entrée/sortie
 #include <iostream>
 using namespace std;
 
 // C++ est compilé en code machine natif
-// g++ programme.cpp -o programme`,
+// Étapes : source.cpp → compilateur → binaire exécutable
+// g++ source.cpp -o programme   ← ligne de compilation
+
+// Paradigmes supportés :
+// 1. Procédural  : void ma_fonction() { ... }
+// 2. Objet       : class MaClasse { ... };
+// 3. Générique   : template<class T> T maxi(T a, T b);`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -957,19 +951,32 @@ int main(){
     // Votre premier programme C++
     cout << "Bonjour C++ !" << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Compiler et exécuter votre premier programme. Modifiez le message affiché."
   },
   {
     num:2, title:"Premier Programme", chapter:null,
-    desc:"Le programme 'Hello World' est la tradition de tout langage. En C++, il nécessite l'inclusion de la bibliothèque iostream pour les entrées/sorties.",
-    points:["#include pour importer des bibliothèques","main() est le point d'entrée","cout pour afficher, endl pour aller à la ligne"],
+    difficulty:"easy", tags:["iostream","main","cout"],
+    desc:"Le programme « Hello World » est la tradition d'entrée de tout langage. En C++, il nécessite l'inclusion de la bibliothèque <code>&lt;iostream&gt;</code> pour accéder aux flux d'entrée/sortie standard.",
+    why:"Comprendre la structure minimale d'un programme C++ est indispensable. Chaque élément — l'include, le namespace, main(), cout, return — a un rôle précis que vous retrouverez dans chaque programme C++ que vous écrirez.",
+    points:["<code>#include &lt;iostream&gt;</code> importe les objets cin/cout/cerr","<code>using namespace std;</code> évite d'écrire <code>std::cout</code> à chaque fois","<code>main()</code> est le point d'entrée appelé par le système d'exploitation","<code>cout &lt;&lt; ... &lt;&lt; endl;</code> affiche du texte et va à la ligne","<code>return 0;</code> signale au système que le programme a réussi (0 = succès)"],
+    pitfalls:["Oublier <code>return 0;</code> (techniquement optionnel en C++11 mais bonne pratique)","Confondre <code>cout</code> (sortie) et <code>cin</code> (entrée)","<code>endl</code> vide le buffer en plus d'aller à la ligne — <code>'\\n'</code> est plus rapide"],
+    links:[{num:4, title:"cout"}],
     code:`#include <iostream>
 using namespace std;
 
 int main(){
     cout << "Hello, World!" << endl;
-    return 0;  // 0 = succès
-}`,
+    return 0;  // 0 = succès, autre = erreur
+}
+
+// Décomposition :
+// #include <iostream>  ← inclut la bibliothèque d'entrée/sortie
+// using namespace std; ← utilise le namespace standard
+// int main()           ← fonction principale, retourne un int
+// cout << "..."        ← envoie du texte vers la sortie standard
+// << endl              ← ajoute un retour à la ligne + vide le buffer
+// return 0;            ← code de sortie du programme`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -977,22 +984,33 @@ int main(){
     cout << "Hello, World!" << endl;
     cout << "Mon premier programme C++" << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Affichez deux lignes de votre choix. Essayez aussi '\\n' à la place de endl."
   },
   {
     num:3, title:"La fonction main()", chapter:null,
-    desc:"main() est le point d'entrée obligatoire de tout programme C++. Le système d'exploitation appelle cette fonction au démarrage.",
-    points:["Toujours retourner int","return 0 signifie succès","Peut recevoir argc et argv (arguments)"],
-    code:`// Version simple
+    difficulty:"easy", tags:["main","point d'entrée","arguments"],
+    desc:"<code>main()</code> est le point d'entrée obligatoire de tout programme C++. Le système d'exploitation appelle cette fonction lors du démarrage du programme. Elle retourne un entier (<code>int</code>) qui indique le statut de sortie.",
+    why:"Comprendre main() est crucial car c'est là que tout commence. La version avec arguments (<code>argc</code>, <code>argv</code>) est utilisée dans presque tous les outils en ligne de commande professionnels pour recevoir des paramètres.",
+    points:["Retourne toujours <code>int</code> — 0 signifie succès, tout autre valeur signifie une erreur","<code>argc</code> (argument count) = nombre d'arguments (au minimum 1 : le nom du programme)","<code>argv</code> (argument values) = tableau de chaînes de caractères","<code>argv[0]</code> est toujours le chemin vers l'exécutable lui-même"],
+    pitfalls:["Ne jamais déclarer main() avec un type de retour <code>void</code> (interdit en C++)","<code>argv</code> est un tableau de C-strings, pas de std::string — conversion nécessaire"],
+    links:[{num:1, title:"Introduction C++"}, {num:4, title:"cout"}],
+    code:`// Version simple — la plus courante
 int main(){
     return 0;
 }
 
-// Version avec arguments
+// Version avec arguments de la ligne de commande
 int main(int argc, char* argv[]){
-    // argc = nombre d'arguments
-    // argv = tableau des arguments
-    return 0;
+    // argc : nombre d'arguments (inclut le nom du programme)
+    // argv : tableau de char* (C-strings)
+    // Exemple : ./prog hello 42  → argc=3, argv[1]="hello", argv[2]="42"
+
+    for(int i = 0; i < argc; i++){
+        cout << "arg[" << i << "] = " << argv[i] << endl;
+    }
+    return 0;  // EXIT_SUCCESS
+    // return 1;  // EXIT_FAILURE
 }`,
     starter:`#include <iostream>
 using namespace std;
@@ -1000,20 +1018,40 @@ using namespace std;
 int main(){
     cout << "Programme démarré" << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Affichez un message de démarrage et un message de fin avant return 0."
   },
   {
     num:4, title:"cout — Affichage", chapter:null,
-    desc:"cout (character output) est l'objet de sortie standard. Il utilise l'opérateur << pour envoyer des données vers la console.",
-    points:["<< est l'opérateur d'insertion","endl ou '\\n' pour nouvelle ligne","Chaîner plusieurs << sur une ligne"],
+    difficulty:"easy", tags:["cout","endl","opérateur <<"],
+    desc:"<code>cout</code> (character output) est l'objet de sortie standard défini dans <code>&lt;iostream&gt;</code>. Il représente le flux de sortie standard (terminal). Il utilise l'opérateur de flux <code>&lt;&lt;</code> pour envoyer des données vers la console.",
+    why:"cout est votre principal outil de débogage et d'affichage. Savoir l'utiliser efficacement — formater des nombres, chaîner des sorties, contrôler les sauts de ligne — vous sera utile dans 100% de vos programmes.",
+    points:["<code>&lt;&lt;</code> est l'opérateur d'insertion de flux","Chaînage possible : <code>cout &lt;&lt; a &lt;&lt; b &lt;&lt; c;</code>","<code>endl</code> = saut de ligne + vidage du buffer (flush)","<code>'\\n'</code> = saut de ligne uniquement (plus rapide)","<code>cerr</code> = sortie d'erreur standard (non bufferisée)"],
+    pitfalls:["Abuser de <code>endl</code> dans une boucle est lent — préférez <code>'\\n'</code>","Ne pas confondre <code>&lt;&lt;</code> (insertion) et <code>&gt;&gt;</code> (extraction pour cin)"],
+    links:[{num:5, title:"cin"}],
     code:`#include <iostream>
+#include <iomanip>  // pour setprecision, setw
 using namespace std;
 
 int main(){
+    // Affichage basique
     cout << "Texte simple" << endl;
     cout << "Valeur: " << 42 << endl;
+
+    // Chaîner plusieurs valeurs
     cout << "A" << " " << "B" << " " << "C" << endl;
+
+    // Séquences d'échappement
     cout << "Ligne 1\nLigne 2\n";
+    cout << "Tabulation:\tici" << endl;
+    cout << "Guillemets: \"bonjour\"" << endl;
+
+    // Formatage numérique
+    cout << fixed << setprecision(2) << 3.14159 << endl;  // 3.14
+    cout << setw(10) << "droite" << endl;  // aligné à droite
+
+    // Affichage d'un booléen
+    cout << boolalpha << true << endl;  // "true" au lieu de 1
     return 0;
 }`,
     starter:`#include <iostream>
@@ -1024,46 +1062,74 @@ int main(){
     cout << "Votre nom : " << "Thierno" << endl;
     cout << "Votre âge : " << 25 << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Affichez votre nom, âge et ville sur 3 lignes séparées. Essayez '\\n' vs endl."
   },
   {
     num:5, title:"cin — Saisie", chapter:null,
-    desc:"cin (character input) récupère les données saisies par l'utilisateur. Il utilise >> pour extraire les données du flux d'entrée.",
-    points:[">> est l'opérateur d'extraction","Stopper sur espace par défaut","getline() pour lire une ligne entière"],
+    difficulty:"easy", tags:["cin","getline","saisie utilisateur"],
+    desc:"<code>cin</code> (character input) est l'objet d'entrée standard. Il lit les données depuis le clavier. L'opérateur <code>&gt;&gt;</code> extrait les données du flux d'entrée et les stocke dans une variable.",
+    why:"Tout programme interactif a besoin de lire des données utilisateur. cin est la façon standard de le faire. Comprendre ses limites (arrêt sur espace, gestion du buffer) vous évitera des bugs courants dans vos programmes.",
+    points:["<code>&gt;&gt;</code> est l'opérateur d'extraction de flux","<code>cin &gt;&gt; x</code> ignore les espaces de début et s'arrête au premier espace","<code>getline(cin, str)</code> lit une ligne entière (avec espaces)","Après <code>cin &gt;&gt;</code>, le buffer contient encore le <code>'\\n'</code> — pensez à le vider"],
+    pitfalls:["cin >> string ne lit qu'un mot (s'arrête sur espace) — utiliser getline() pour les phrases","Mélanger cin >> et getline() cause des problèmes de buffer — ajouter cin.ignore() entre les deux","Pas de vérification automatique du type — entrer du texte pour un int ne plantera pas proprement"],
+    links:[{num:4, title:"cout"}, {num:6, title:"Variables"}],
     code:`#include <iostream>
+#include <string>
 using namespace std;
 
 int main(){
     int age;
-    string nom;
+    string mot, phrase;
 
-    cout << "Votre nom : ";
-    cin >> nom;
+    // Lire un mot (s'arrête sur espace)
+    cout << "Mot : ";
+    cin >> mot;
 
-    cout << "Votre âge : ";
+    // Vider le buffer AVANT getline
+    cin.ignore();
+
+    // Lire une ligne entière (avec espaces)
+    cout << "Phrase : ";
+    getline(cin, phrase);
+
+    // Lire un entier
+    cout << "Âge : ";
     cin >> age;
 
-    cout << "Bonjour " << nom << ", " << age << " ans !" << endl;
+    // Vérifier la saisie
+    if(cin.fail()){
+        cout << "Erreur : entier attendu" << endl;
+        cin.clear();   // réinitialiser l'état
+    }
+
+    cout << mot << " | " << phrase << " | " << age << endl;
     return 0;
 }`,
     starter:`#include <iostream>
 using namespace std;
 
 int main(){
-    int age = 20;    // Simulation de cin
+    // Simulation (cin ne fonctionne pas dans cet environnement)
+    int age = 20;
     string nom = "Thierno";
 
     cout << "Bonjour " << nom << " !" << endl;
     cout << "Âge : " << age << " ans" << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Simulez la lecture de nom et âge et affichez un message de bienvenue formaté."
   },
   {
     num:6, title:"Variables", chapter:"Types & Variables",
-    desc:"Les variables sont des conteneurs nommés qui stockent des données en mémoire. En C++, chaque variable doit avoir un type déclaré explicitement.",
-    points:["Déclaration : type nom = valeur","Noms : lettres, chiffres, _ (pas d'espace)","Sensible à la casse : age ≠ Age"],
-    code:`int age = 25;
-float temperature = 36.6f;
+    difficulty:"easy", tags:["déclaration","initialisation","const","auto"],
+    desc:"Une variable est un emplacement mémoire nommé qui stocke une valeur d'un type donné. En C++, chaque variable doit avoir un type déclaré explicitement (typage statique). La valeur peut changer au cours du programme (sauf si <code>const</code>).",
+    why:"Les variables sont les briques fondamentales de tout programme. Comprendre les différentes façons de les déclarer, initialiser et utiliser en C++ est essentiel. La règle de déclarer les variables au plus près de leur utilisation et de les initialiser immédiatement évite une grande classe de bugs.",
+    points:["Déclaration : <code>type nom = valeur;</code> (initialisation dès la déclaration)","<code>const</code> : valeur immuable, vérifiée à la compilation","<code>auto</code> (C++11) : le compilateur déduit le type automatiquement","Nommage : commencez par une lettre ou _, sensible à la casse (<code>age</code> ≠ <code>Age</code>)","Plusieurs variables du même type : <code>int x=0, y=10, z=-5;</code>"],
+    pitfalls:["Variable non initialisée = valeur indéterminée (comportement indéfini !)","Choisir des noms trop courts (x, y) ou trop génériques (data, temp)","Ne pas confondre = (affectation) et == (comparaison)"],
+    links:[{num:7, title:"Types de Données"}],
+    code:`// Déclaration + initialisation (toujours préférer cette forme)
+int age = 25;
+float temperature = 36.6f;    // suffixe f pour float
 char initiale = 'T';
 string prenom = "Thierno";
 bool actif = true;
@@ -1071,8 +1137,14 @@ bool actif = true;
 // Plusieurs variables du même type
 int x = 0, y = 10, z = -5;
 
-// const : valeur immuable
-const float PI = 3.14159f;`,
+// const : valeur immuable (erreur à la compilation si modifiée)
+const float PI = 3.14159f;
+const int MAX_ETUDIANTS = 30;
+
+// auto : le compilateur déduit le type (C++11)
+auto nombre = 42;        // auto = int
+auto prix = 19.99;       // auto = double
+auto nom = "Fatou";      // auto = const char*`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -1086,22 +1158,37 @@ int main(){
     cout << "Note : " << note << "/20" << endl;
     cout << "Admis : " << admis << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Déclarez 4 variables de types différents (int, double, string, bool) et affichez-les."
   },
   {
     num:7, title:"Types de Données", chapter:null,
-    desc:"C++ possède des types primitifs pour représenter différentes sortes de données. Chaque type a une taille et une plage de valeurs définies.",
-    points:["int : entier (4 octets, ±2 milliards)","double : décimal précis (8 octets)","bool : true/false (1 octet)","char : caractère ASCII (1 octet)"],
-    code:`int i = 42;            // -2^31 à 2^31-1
+    difficulty:"easy", tags:["int","double","char","bool","sizeof"],
+    desc:"C++ possède des types primitifs (fondamentaux) pour représenter différentes sortes de données. Chaque type a une taille fixe en mémoire et une plage de valeurs définie. Choisir le bon type optimise la mémoire et évite les dépassements.",
+    why:"Choisir le bon type de donnée est crucial pour la performance et la correction. Utiliser un <code>int</code> là où un <code>double</code> est nécessaire tronque les décimales silencieusement. Comprendre sizeof() vous aide à optimiser vos structures de données.",
+    points:["<code>int</code> : 4 octets, de -2 147 483 648 à +2 147 483 647","<code>double</code> : 8 octets, ~15 chiffres significatifs (préféré à float)","<code>bool</code> : 1 octet, <code>true</code> (1) ou <code>false</code> (0)","<code>char</code> : 1 octet, un caractère ASCII (0-127)","<code>string</code> : classe STL, taille dynamique"],
+    pitfalls:["<code>float</code> a seulement ~7 chiffres significatifs — utiliser <code>double</code> par défaut","Division entière : <code>7/2 = 3</code> (pas 3.5) — cast nécessaire pour obtenir 3.5","Dépassement silencieux : <code>int</code> MAX + 1 = INT_MIN (comportement indéfini)"],
+    complexity:[{label:"sizeof(int)", desc:"4 octets"},{label:"sizeof(double)", desc:"8 octets"},{label:"sizeof(char)", desc:"1 octet"},{label:"sizeof(bool)", desc:"1 octet"}],
+    links:[{num:8, title:"int"},{num:9, title:"float/double"},{num:10, title:"char"},{num:11, title:"string"}],
+    code:`#include <climits>  // pour INT_MAX, INT_MIN
+#include <cfloat>   // pour DBL_MAX
+
+int i = 42;            // -2^31 à 2^31-1
 long long ll = 9e18;   // très grand entier
 float f = 3.14f;       // ~7 chiffres significatifs
-double d = 3.14159;    // ~15 chiffres significatifs
-char c = 'A';          // caractère ASCII
+double d = 3.14159265358979;  // ~15 chiffres
+char c = 'A';          // caractère ASCII = 65
 bool b = true;         // true ou false
 string s = "texte";    // chaîne de caractères
 
-// Vérifier la taille en mémoire
-cout << sizeof(int) << " octets" << endl;`,
+// Taille en mémoire
+cout << sizeof(int)    << " octets" << endl;  // 4
+cout << sizeof(double) << " octets" << endl;  // 8
+cout << sizeof(char)   << " octets" << endl;  // 1
+
+// Limites
+cout << INT_MAX << endl;  // 2147483647
+cout << INT_MIN << endl;  // -2147483648`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -1115,22 +1202,41 @@ int main(){
     cout << "double: " << decimal << endl;
     cout << "char: " << lettre << endl;
     cout << "bool: " << vrai << endl;
+    cout << "Taille int: " << sizeof(int) << " octets" << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Affichez la taille en octets de chaque type primitif avec sizeof()."
   },
   {
     num:8, title:"Entiers — int", chapter:null,
-    desc:"int est le type entier de base. C++ offre aussi short, long et long long pour différentes plages, et unsigned pour les valeurs positives uniquement.",
-    points:["int : 4 octets standard","unsigned int : 0 à 4 milliards","long long : grands nombres"],
+    difficulty:"easy", tags:["int","unsigned","long long","modulo","arithmétique"],
+    desc:"<code>int</code> est le type entier de base, généralement sur 4 octets. C++ offre plusieurs variantes selon la plage de valeurs nécessaire. L'arithmétique entière a des règles spécifiques : la division entière tronque, et le modulo donne le reste.",
+    why:"Les entiers sont omniprésents : indices, compteurs, identifiants, résultats d'opérations. Connaître les différents types entiers et l'arithmétique entière évite des bugs subtils comme les dépassements ou les divisions inattendues.",
+    points:["<code>short</code> : 2 octets (±32 767)","<code>int</code> : 4 octets (±2 147 483 647)","<code>long long</code> : 8 octets (±9,2 × 10¹⁸)","<code>unsigned</code> : double la plage positive (pas de négatifs)","Division entière : <code>10/3 = 3</code> (tronqué vers zéro)","Modulo : <code>10%3 = 1</code> (reste de la division euclidienne)"],
+    pitfalls:["<code>int</code> × <code>int</code> peut déborder silencieusement — utiliser <code>long long</code> pour les grands produits","Le modulo d'un négatif en C++ suit le signe du dividende : <code>-7%3 = -1</code>","Ne jamais comparer <code>signed</code> et <code>unsigned</code> sans cast explicite"],
+    complexity:[{label:"Accès", desc:"O(1)"},{label:"Arithmétique", desc:"O(1)"}],
+    links:[{num:7, title:"Types"},{num:12, title:"Opérateurs"}],
     code:`int a = 100;
 int b = -50;
-unsigned int u = 4000000000;
-short s = 32767;       // max short
-long long ll = 9223372036854775807LL;
+unsigned int u = 4000000000U;  // suffixe U
+short s = 32767;               // max short
+long long ll = 9223372036854775807LL;  // suffixe LL
 
 // Opérations entières
-int quotient = 10 / 3;  // = 3 (tronqué)
-int reste = 10 % 3;     // = 1 (modulo)`,
+int quotient = 10 / 3;  // = 3 (tronqué, pas 3.33...)
+int reste    = 10 % 3;  // = 1 (modulo = reste)
+int puissance = 1 << 8; // = 256 (décalage bit = 2^8)
+
+// Incréments / décréments
+int x = 5;
+x++;   // x = 6 (post-incrément)
+++x;   // x = 7 (pré-incrément, légèrement plus efficace)
+x--;   // x = 6
+x += 10;  // x = 16
+
+// Dépassement (overflow) — attention !
+int max = 2147483647;
+// max + 1 → comportement indéfini !`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -1143,21 +1249,36 @@ int main(){
     cout << a << " / " << b << " = " << a/b << endl;
     cout << a << " % " << b << " = " << a%b << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Calculez toutes les opérations arithmétiques entre deux nombres. Testez aussi le modulo pour savoir si un nombre est pair."
   },
   {
     num:9, title:"Décimaux — float/double", chapter:null,
-    desc:"Pour les nombres à virgule, C++ utilise float (4 octets) et double (8 octets). double est plus précis et est le type flottant par défaut.",
-    points:["float : suffixe f (3.14f)","double : précision double (défaut)","Éviter == avec les flottants"],
-    code:`float f = 3.14f;
+    difficulty:"easy", tags:["float","double","precision","iomanip"],
+    desc:"Pour les nombres à virgule, C++ utilise <code>float</code> (4 octets, ~7 chiffres) et <code>double</code> (8 octets, ~15 chiffres). <code>double</code> est le type flottant par défaut car plus précis. La représentation interne est en virgule flottante binaire (norme IEEE 754).",
+    why:"Les calculs financiers, scientifiques et géométriques nécessitent des décimaux. Comprendre la précision des flottants explique pourquoi <code>0.1 + 0.2 ≠ 0.3</code> en informatique — un piège classique qui surprend même les développeurs expérimentés.",
+    points:["Suffixe <code>f</code> pour les littéraux float : <code>3.14f</code>","Sans suffixe, une constante décimale est de type <code>double</code>","Ne jamais tester l'égalité exacte entre flottants avec <code>==</code>","<code>&lt;iomanip&gt;</code> : <code>fixed</code> + <code>setprecision(n)</code> pour formater l'affichage"],
+    pitfalls:["<code>0.1 + 0.2 == 0.3</code> est FAUX en IEEE 754 — comparer avec une tolérance (epsilon)","Comparer avec <code>fabs(a-b) &lt; 1e-9</code> plutôt que <code>a == b</code>","Mélanger float et double peut introduire des imprécisions silencieuses"],
+    links:[{num:7, title:"Types"},{num:39, title:"cmath"}],
+    code:`#include <iomanip>
+float f = 3.14f;
 double d = 3.14159265358979;
 
 double prix = 29.99;
-double tva = prix * 0.18;
+double tva = prix * 0.20;  // TVA 20%
 double total = prix + tva;
 
-#include <iomanip>
-cout << fixed << setprecision(2) << total;`,
+cout << fixed << setprecision(2) << total;  // 35.99
+
+// Piège célèbre !
+cout << (0.1 + 0.2 == 0.3) << endl;  // false !!!
+// Solution : comparer avec epsilon
+double eps = 1e-9;
+cout << (fabs(0.1 + 0.2 - 0.3) < eps) << endl;  // true
+
+// Conversion int → double (évite la division entière)
+int a = 7, b = 2;
+double ratio = (double)a / b;   // 3.5 et non 3`,
     starter:`#include <iostream>
 #include <iomanip>
 using namespace std;
@@ -1172,17 +1293,36 @@ int main(){
     cout << "TVA : " << tva << " €" << endl;
     cout << "Total : " << total << " €" << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Calculez et affichez le prix TTC d'un article avec 2 décimales. Puis testez 0.1+0.2==0.3."
   },
   {
     num:10, title:"Caractères — char", chapter:null,
-    desc:"char stocke un seul caractère ASCII. Les caractères sont entourés de guillemets simples. char est aussi un entier (valeur ASCII 0-127).",
-    points:["Guillemets simples : 'A'","'A' = 65 en ASCII","Séquences d'échappement : \\n \\t \\\\"],
+    difficulty:"easy", tags:["char","ASCII","escape sequences"],
+    desc:"<code>char</code> stocke un seul caractère sur 1 octet. En réalité, <code>char</code> est un entier signé (0-127 pour ASCII standard). Les caractères sont entourés de guillemets <em>simples</em>. On peut faire de l'arithmétique sur les chars car ce sont des entiers.",
+    why:"char est la brique de base des chaînes C. Comprendre qu'un caractère est un entier ASCII permet de faire des opérations puissantes : décaler une lettre, comparer des caractères, valider des saisies. C'est aussi la base pour comprendre l'encodage des chaînes.",
+    points:["Guillemets simples : <code>'A'</code> (pas doubles)","<code>'A'</code> = 65, <code>'a'</code> = 97, <code>'0'</code> = 48 en ASCII","Conversion : <code>(int)'A'</code> = 65, <code>(char)65</code> = 'A'","Majuscule ↔ minuscule : différence de 32 (<code>'a'-'A' = 32</code>)","Séquences d'échappement : <code>'\\n'</code>, <code>'\\t'</code>, <code>'\\\\'</code>, <code>'\\''</code>"],
+    pitfalls:["Ne pas confondre <code>'A'</code> (char, guillemets simples) et <code>\"A\"</code> (string, guillemets doubles)","<code>char c = 'A'; c++;  // c = 'B'</code> fonctionne mais peut surprendre"],
+    links:[{num:11, title:"string"},{num:7, title:"Types"}],
     code:`char c = 'A';
 
-// char est un entier
-cout << (int)'A' << endl;  // 65
-cout << (char)66 << endl;  // B
+// char est un entier !
+cout << (int)'A' << endl;   // 65
+cout << (int)'a' << endl;   // 97
+cout << (int)'0' << endl;   // 48
+cout << (char)66 << endl;   // B
+
+// Arithmétique sur char
+char lettre = 'A';
+lettre += 2;  // = 'C'
+
+// Majuscule → minuscule
+char maj = 'F';
+char min = maj + 32;   // 'f'
+// Ou plus proprement :
+#include <cctype>
+char m = tolower('F');   // 'f'
+char M = toupper('f');   // 'F'
 
 // Parcourir l'alphabet
 for(char x = 'A'; x <= 'Z'; x++){
@@ -1198,23 +1338,42 @@ int main(){
 
     grade = 'B';
     cout << "Nouveau grade : " << grade << endl;
+
+    // Bonus : afficher A à Z
+    for(char c = 'A'; c <= 'Z'; c++) cout << c;
+    cout << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Affichez la valeur ASCII de 'A', 'a', '0'. Puis parcourez et affichez l'alphabet complet."
   },
   {
     num:11, title:"string — Chaînes", chapter:null,
-    desc:"string est la classe C++ pour les chaînes de caractères. Elle offre de nombreuses méthodes pour manipuler le texte.",
-    points:["Guillemets doubles : \"texte\"","Concaténation avec +","Méthodes : length(), find(), substr()"],
+    difficulty:"easy", tags:["string","find","substr","length","concaténation"],
+    desc:"<code>string</code> est la classe C++ pour les chaînes de caractères. Elle gère automatiquement la mémoire (allocation/libération) et offre un riche ensemble de méthodes pour rechercher, extraire, modifier et comparer du texte.",
+    why:"string est l'une des classes les plus utilisées en C++. Maîtriser ses méthodes évite d'écrire du code répétitif. En pratique : validation de formulaires, parsing de fichiers, manipulation de chemins, traitement de texte — tout passe par string.",
+    points:["Guillemets doubles : <code>\"texte\"</code>","Concaténation avec <code>+</code> : <code>\"Bon\" + \"jour\"</code>","<code>length()</code> ou <code>size()</code> : nombre de caractères","<code>find()</code> retourne l'index ou <code>string::npos</code> si non trouvé","<code>substr(pos, len)</code> : extrait une sous-chaîne","<code>at(i)</code> vérifie les bornes (vs <code>s[i]</code> qui ne vérifie pas)"],
+    pitfalls:["<code>s.find(\"x\")</code> retourne <code>string::npos</code> (valeur très grande) si non trouvé — toujours vérifier","Comparer avec <code>==</code> fonctionne pour string (contrairement aux C-strings char*)","<code>stoi()</code>, <code>stof()</code> convertissent string → int/float"],
+    links:[{num:10, title:"char"},{num:41, title:"Méthodes string"}],
     code:`#include <string>
-string s = "Bonjour";
+string s = "Bonjour le monde";
 
-s.length();           // longueur
-s.at(0);              // 'B'
-s.substr(0, 3);       // "Bon"
-s.find("jour");       // index 3
-s.replace(0,7,"Hi");  // "Hi"
-s += " monde";        // concaténation
-s.empty();            // false`,
+s.length()                // 17
+s.at(0)                   // 'B' (avec vérification)
+s[7]                      // 'l' (sans vérification)
+s.substr(8, 2)            // "le" (pos=8, len=2)
+s.find("monde")           // 11 (index de début)
+s.find("xyz")             // string::npos (non trouvé)
+
+// Modifier
+s.replace(0, 7, "Salut"); // "Salut le monde"
+s += " !";                // "Salut le monde !"
+
+// Convertir
+int n = stoi("42");       // string → int
+string t = to_string(99); // int → string
+
+// Comparer (lexicographique)
+"abc" < "abd"             // true`,
     starter:`#include <iostream>
 #include <string>
 using namespace std;
@@ -1228,29 +1387,44 @@ int main(){
     cout << "Longueur : " << complet.length() << endl;
     cout << "Initiale : " << complet.at(0) << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Créez un nom complet en concaténant prénom et nom. Affichez longueur et initiale."
   },
   {
     num:12, title:"Opérateurs", chapter:"Opérateurs & Contrôle",
-    desc:"Les opérateurs permettent d'effectuer des calculs, des comparaisons et des opérations logiques sur les variables.",
-    points:["Arithmétiques : + - * / %","Comparaison : == != < > <= >=","Logiques : && || !"],
+    difficulty:"easy", tags:["arithmétique","comparaison","logique","priorité"],
+    desc:"Les opérateurs sont des symboles spéciaux qui effectuent des opérations sur des valeurs (opérandes). C++ possède de nombreux opérateurs : arithmétiques, de comparaison, logiques, bit à bit, d'affectation et d'incrémentation.",
+    why:"Comprendre les opérateurs et leur priorité est essentiel pour écrire des expressions correctes. Une erreur de priorité peut produire des résultats silencieusement faux. Les opérateurs composés (+=, -=, ...) rendent le code plus lisible et légèrement plus efficace.",
+    points:["Priorité : <code>*</code> <code>/</code> <code>%</code> avant <code>+</code> <code>-</code> (comme en maths)","<code>++i</code> (pré) retourne la nouvelle valeur, <code>i++</code> (post) retourne l'ancienne","Court-circuit : <code>&&</code> n'évalue pas le 2ème opérande si le 1er est faux","<code>||</code> n'évalue pas le 2ème opérande si le 1er est vrai"],
+    pitfalls:["<code>=</code> (affectation) ≠ <code>==</code> (comparaison) — erreur classique dans les if","<code>a &amp;&amp; b++</code> peut ne pas incrémenter b si a est faux (court-circuit)","Comparer des flottants avec <code>==</code> est dangereux (imprécision)"],
+    links:[{num:13, title:"if"},{num:8, title:"int"}],
     code:`int a = 10, b = 3;
 
 // Arithmétiques
 a + b   // 13
 a - b   // 7
 a * b   // 30
-a / b   // 3
-a % b   // 1
+a / b   // 3  (division entière !)
+a % b   // 1  (modulo)
+
+// Affectation composée (plus lisible)
+a += 5;   // a = a + 5
+a -= 2;   // a = a - 2
+a *= 3;   // a = a * 3
 
 // Comparaison (retourne bool)
 a == b  // false
 a != b  // true
 a > b   // true
+a <= b  // false
 
 // Logiques
-(a>5) && (b<5)  // true
-!(a == b)       // true`,
+(a>5) && (b<5)   // true (ET)
+(a>5) || (b>5)   // true (OU)
+!(a == b)        // true (NON)
+
+// Ternaire (if-else en une ligne)
+string res = (a > b) ? "a plus grand" : "b plus grand";`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -1264,21 +1438,43 @@ int main(){
     a++;
     cout << "a après ++ : " << a << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Testez tous les opérateurs de comparaison entre deux entiers et affichez les résultats."
   },
   {
     num:13, title:"Condition if", chapter:null,
-    desc:"L'instruction if exécute un bloc de code uniquement si une condition est vraie. C'est la base de la logique conditionnelle.",
-    points:["Condition entre parenthèses","Bloc entre accolades {}","Opérateur ternaire : cond ? a : b"],
+    difficulty:"easy", tags:["if","condition","ternaire","branchement"],
+    desc:"L'instruction <code>if</code> exécute un bloc de code <em>uniquement si</em> une condition est vraie (non nulle). C'est la base de la logique conditionnelle : prendre des décisions différentes selon l'état du programme.",
+    why:"Sans conditions, un programme fait toujours la même chose. Le if est le premier outil pour écrire des programmes qui s'adaptent aux données. 90% des algorithmes non-triviaux utilisent des structures conditionnelles.",
+    points:["Condition entre parenthèses : <code>if(condition)</code>","Bloc de code entre accolades <code>{}</code>","Toute valeur non nulle est vraie en C++","Opérateur ternaire : <code>cond ? valeur_si_vrai : valeur_si_faux</code>","Les accolades sont optionnelles pour 1 seule instruction — mais déconseillées"],
+    pitfalls:["<code>if(x = 5)</code> affecte 5 à x et est toujours vrai — erreur très courante","Ne pas oublier les accolades : un if sans accolades sur plusieurs lignes est trompeur","Tester un flottant avec == (préférer une tolérance)"],
+    links:[{num:14, title:"if/else"},{num:12, title:"Opérateurs"}],
     code:`int age = 20;
+int score = 75;
 
+// if simple
 if(age >= 18){
     cout << "Majeur" << endl;
 }
 
-// Opérateur ternaire
+// if avec une seule instruction (accolades optionnelles)
+if(score > 90) cout << "Excellent !";  // déconseillé
+
+// Opérateur ternaire (valeur, pas bloc)
 string statut = (age >= 18) ? "Majeur" : "Mineur";
-cout << statut << endl;`,
+cout << statut << endl;
+
+// if imbriqué
+if(score >= 0){
+    if(score <= 100){
+        cout << "Score valide : " << score << endl;
+    }
+}
+
+// Condition avec initialisation (C++17)
+if(int val = calculer(); val > 0){
+    cout << "Positif : " << val << endl;
+}`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -1295,26 +1491,38 @@ int main(){
         cout << "Échec" << endl;
     }
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Testez si un nombre est positif, négatif ou nul. Utilisez aussi l'opérateur ternaire."
   },
   {
     num:14, title:"if / else / else if", chapter:null,
-    desc:"else exécute un bloc alternatif quand la condition if est fausse. else if permet de tester plusieurs conditions en séquence.",
-    points:["if → sinon else","else if pour plusieurs cas","Chaîner autant d'else if que nécessaire"],
+    difficulty:"easy", tags:["else","else if","chaîne conditionnelle"],
+    desc:"<code>else</code> exécute un bloc alternatif quand la condition <code>if</code> est fausse. <code>else if</code> permet de chaîner plusieurs conditions en séquence, testées dans l'ordre. Seul le premier bloc vrai s'exécute.",
+    why:"La chaîne if/else if/else est l'outil standard pour les décisions à plusieurs cas : catégories de notes, tranches d'âge, niveaux de danger. Maîtriser cet enchaînement permet d'exprimer n'importe quelle logique de décision.",
+    points:["Un seul bloc s'exécute : dès qu'une condition est vraie, les autres sont ignorées","Mettre les cas les plus fréquents en premier pour optimiser","Le <code>else</code> final capture tous les cas non gérés","Ordre important : tester du plus restrictif au plus général"],
+    pitfalls:["Oublier qu'un seul bloc s'exécute — si les conditions se chevauchent, l'ordre compte","Ne pas couvrir tous les cas (oublier le else final)","Trop d'imbrication : préférer switch ou une map pour beaucoup de cas"],
+    links:[{num:13, title:"if"},{num:15, title:"switch"}],
     code:`int note = 75;
 
+// Chaîne if/else if/else
 if(note >= 90){
-    cout << "Très Bien" << endl;
+    cout << "Très Bien" << endl;      // 90-100
 }
 else if(note >= 75){
-    cout << "Bien" << endl;
+    cout << "Bien" << endl;           // 75-89
 }
 else if(note >= 60){
-    cout << "Passable" << endl;
+    cout << "Passable" << endl;       // 60-74
+}
+else if(note >= 0){
+    cout << "Insuffisant" << endl;    // 0-59
 }
 else{
-    cout << "Insuffisant" << endl;
-}`,
+    cout << "Note invalide" << endl;  // < 0
+}
+
+// Version compacte (peu lisible, déconseillée)
+string s = note>=90?"TB":note>=75?"B":note>=60?"P":"I";`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -1325,18 +1533,23 @@ int main(){
         cout << "Bonjour !" << endl;
     }
     else if(heure < 18){
-        cout << "Bonsoir !" << endl;
+        cout << "Bon après-midi !" << endl;
     }
     else{
-        cout << "Bonne nuit !" << endl;
+        cout << "Bonsoir !" << endl;
     }
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Classez une note en Très Bien / Bien / Passable / Insuffisant avec if/else if/else."
   },
   {
     num:15, title:"switch", chapter:null,
-    desc:"switch compare une variable à plusieurs valeurs possibles (cases). Plus lisible que de nombreux else if pour des valeurs discrètes.",
-    points:["break arrête le switch","default : cas non prévu","Fonctionne avec int et char"],
+    difficulty:"easy", tags:["switch","case","break","default"],
+    desc:"<code>switch</code> compare une variable à une liste de valeurs constantes (<code>case</code>). Plus lisible que de nombreux <code>else if</code> pour des valeurs discrètes. Attention : sans <code>break</code>, l'exécution « tombe » dans le case suivant (fallthrough).",
+    why:"switch génère un code machine plus efficace que des chaînes if/else if (table de branchement). Il améliore aussi la lisibilité pour des menus, des codes de statut, des jours de la semaine. Le fallthrough intentionnel est parfois utile pour regrouper des cas.",
+    points:["<code>break</code> arrête le switch (sinon fallthrough dans le case suivant)","<code>default</code> : cas non prévu, équivalent au else final","Fonctionne avec <code>int</code>, <code>char</code>, <code>enum</code> (pas float, pas string)","Les cases doivent être des constantes (pas de variables)"],
+    pitfalls:["Oublier <code>break</code> → exécution qui tombe dans le case suivant (bug subtil)","<code>switch</code> ne fonctionne pas avec <code>string</code> — utiliser if/else if dans ce cas","Ne pas mettre de code de déclaration directement dans un case (problème de portée)"],
+    links:[{num:14, title:"if/else"},{num:34, title:"enum"}],
     code:`int jour = 3;
 
 switch(jour){
@@ -1345,7 +1558,17 @@ switch(jour){
     case 3: cout << "Mercredi"; break;
     case 4: cout << "Jeudi";    break;
     case 5: cout << "Vendredi"; break;
-    default: cout << "Week-end"; break;
+    case 6:
+    case 7: cout << "Week-end"; break;  // fallthrough intentionnel
+    default: cout << "Invalide"; break;
+}
+
+// Avec char
+char note = 'B';
+switch(note){
+    case 'A': cout << "Excellent"; break;
+    case 'B': cout << "Très bien"; break;
+    default:  cout << "Autre";     break;
 }`,
     starter:`#include <iostream>
 using namespace std;
@@ -1362,26 +1585,45 @@ int main(){
     }
     cout << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Créez un menu de semaine avec switch sur un int. Regroupez samedi et dimanche."
   },
   {
     num:16, title:"Boucle for", chapter:"Boucles",
-    desc:"La boucle for répète un bloc un nombre connu de fois. Sa syntaxe regroupe initialisation, condition et incrément en une ligne.",
-    points:["for(init; condition; incrément)","i++ pour avancer","Boucle imbriquée possible"],
+    difficulty:"easy", tags:["for","itération","range-based for"],
+    desc:"La boucle <code>for</code> répète un bloc un nombre déterminé de fois. Sa syntaxe regroupe initialisation, condition et incrément en une seule ligne. Le <em>range-based for</em> (C++11) simplifie le parcours de collections.",
+    why:"La boucle for est l'outil le plus courant pour les répétitions. Tables de multiplication, calculs sur des tableaux, générations de séquences — tout passe par des boucles. Maîtriser les variantes (incrément, décrément, pas variable) donne une grande flexibilité.",
+    points:["<code>for(init; condition; incrément)</code> — les 3 parties sont optionnelles","<code>for(auto x : collection)</code> — parcours simplifié (range-based, C++11)","<code>break</code> quitte la boucle, <code>continue</code> passe à l'itération suivante","Boucles imbriquées : O(n²) — attention aux performances pour de grandes données"],
+    pitfalls:["Boucle infinie : oublier l'incrément ou mettre une condition toujours vraie","Off-by-one : <code>i &lt; n</code> vs <code>i &lt;= n</code> — vérifier la borne","Modifier la variable d'itération dans le corps est une mauvaise pratique"],
+    complexity:[{label:"for simple", desc:"O(n)"},{label:"for imbriqué", desc:"O(n²)"},{label:"for range-based", desc:"O(n)"}],
+    links:[{num:17, title:"while"},{num:19, title:"Tableaux"},{num:32, title:"vector"}],
     code:`// Compter de 0 à 9
 for(int i = 0; i < 10; i++){
     cout << i << " ";
 }
 
-// Décompter
+// Décompter de 5 à 1
 for(int i = 5; i > 0; i--){
-    cout << i << " ";
+    cout << i << "... ";
 }
 
 // Pas de 2
 for(int i = 0; i <= 10; i += 2){
     cout << i << " ";
-}`,
+}
+
+// Boucle imbriquée : table de multiplication
+for(int i = 1; i <= 3; i++){
+    for(int j = 1; j <= 3; j++){
+        cout << i*j << "\t";
+    }
+    cout << "\n";
+}
+
+// Range-based for (C++11) — le plus propre
+vector<int> v = {10, 20, 30};
+for(auto x : v) cout << x << " ";          // lecture
+for(auto& x : v) x *= 2;                   // modification`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -1393,26 +1635,38 @@ int main(){
         cout << n << " x " << i << " = " << n*i << endl;
     }
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Affichez la table de multiplication d'un nombre. Puis essayez une boucle avec pas de 3."
   },
   {
     num:17, title:"Boucle while", chapter:null,
-    desc:"while répète un bloc tant qu'une condition est vraie. Utilisez-la quand le nombre d'itérations n'est pas connu à l'avance.",
-    points:["Condition vérifiée AVANT chaque itération","Risque de boucle infinie si mal configurée","Bien pour les boucles événementielles"],
+    difficulty:"easy", tags:["while","condition","boucle infinie"],
+    desc:"<code>while</code> répète un bloc tant qu'une condition est vraie. La condition est vérifiée <em>avant</em> chaque itération. Si la condition est fausse dès le départ, le bloc ne s'exécute jamais.",
+    why:"Utilisez while quand le nombre d'itérations n'est pas connu à l'avance : attendre une saisie valide, lire un fichier jusqu'à EOF, parcourir une liste chaînée, attendre un événement réseau. C'est la boucle idéale pour les situations événementielles.",
+    points:["Condition vérifiée <em>avant</em> chaque itération","Peut s'exécuter 0 fois si la condition est fausse dès le départ","<code>while(true)</code> = boucle infinie (toujours prévoir un <code>break</code>)","Bien pour : valider des entrées, parcourir des structures dynamiques"],
+    pitfalls:["Boucle infinie si la variable de condition n'est pas modifiée dans le corps","Ne pas oublier d'initialiser la variable de condition AVANT le while","Préférer do...while si le corps doit s'exécuter au moins une fois"],
+    links:[{num:16, title:"for"},{num:18, title:"do...while"}],
     code:`int x = 0;
-
 while(x < 5){
     cout << x << " ";
-    x++;
+    x++;        // ← INDISPENSABLE pour ne pas boucler infiniment
 }
 // 0 1 2 3 4
 
-// Validation d'entrée
-int n;
-cin >> n;
-while(n <= 0){
-    cout << "Invalide ! Réessayez : ";
-    cin >> n;
+// Calcul d'une somme jusqu'à dépasser 100
+int somme = 0, i = 1;
+while(somme < 100){
+    somme += i;
+    i++;
+}
+cout << "Somme > 100 atteinte à i=" << i << endl;
+
+// while(true) avec break — boucle événementielle
+while(true){
+    int saisie = 7; // simulé
+    if(saisie == 0) break;
+    cout << "Valeur : " << saisie << endl;
+    break; // pour ne pas boucler dans la simulation
 }`,
     starter:`#include <iostream>
 using namespace std;
@@ -1428,23 +1682,36 @@ int main(){
 
     cout << "Somme 1..100 = " << somme << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Calculez la somme des entiers de 1 à 100 avec while. Résultat attendu : 5050."
   },
   {
     num:18, title:"Boucle do...while", chapter:null,
-    desc:"do...while exécute le bloc au moins une fois, puis vérifie la condition. Parfait pour les menus qui doivent s'afficher avant validation.",
-    points:["Corps exécuté AVANT la vérification","S'exécute au moins 1 fois","Semicolon après while(condition);"],
+    difficulty:"easy", tags:["do while","post-condition","menu"],
+    desc:"<code>do...while</code> exécute le bloc <em>au moins une fois</em>, puis vérifie la condition. Contrairement à <code>while</code>, la condition est évaluée <em>après</em> le corps de la boucle.",
+    why:"do...while est parfait pour les menus interactifs : on affiche le menu au moins une fois, puis on redemande si la saisie est invalide. C'est aussi utile pour les algorithmes qui doivent effectuer un calcul avant de décider de continuer.",
+    points:["Corps exécuté <em>au moins une fois</em> avant toute vérification","Syntaxe : <code>do { corps; } while(condition);</code>","Ne pas oublier le <code>;</code> après <code>while(condition)</code>","Utile pour : menus, validation de saisie, algorithmes à passe minimum"],
+    pitfalls:["Oublier le point-virgule après <code>while(condition);</code>","do...while est peu courant — préférez while + initialisation pour la lisibilité si possible"],
+    links:[{num:17, title:"while"}],
     code:`int choix;
-
 do{
+    // Ce bloc s'exécute au moins une fois
     cout << "1. Jouer" << endl;
-    cout << "2. Quitter" << endl;
-    cout << "Choix: ";
-    cin >> choix;
+    cout << "2. Scores" << endl;
+    cout << "3. Quitter" << endl;
+    cout << "Choix : ";
+    choix = 2; // simulé
 }
-while(choix != 2);
+while(choix != 3);
 
-cout << "Au revoir !" << endl;`,
+// Calcul itératif : factorielle avec do...while
+int n = 5, factorielle = 1;
+do{
+    factorielle *= n;
+    n--;
+}
+while(n > 0);
+cout << "5! = " << factorielle << endl;  // 120`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -1460,23 +1727,42 @@ int main(){
 
     cout << "5! = " << produit << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Calculez 5! (120) avec do...while. Puis essayez de calculer 6! (720)."
   },
   {
     num:19, title:"Tableaux", chapter:"Structures de Données",
-    desc:"Les tableaux stockent plusieurs valeurs du même type sous un seul nom, accessibles par un index (0 = premier élément).",
-    points:["Index commence à 0","Taille fixe à la déclaration","Accès : tableau[index]"],
-    code:`int notes[5] = {18, 15, 12, 17, 20};
+    difficulty:"medium", tags:["tableau","index","tableau 2D","array"],
+    desc:"Un tableau (<em>array</em>) stocke un nombre fixe de valeurs du même type en mémoire contiguë, accessibles par un index entier (0 = premier élément). La taille doit être connue à la compilation pour les tableaux statiques.",
+    why:"Les tableaux sont la structure de données la plus basique et la plus performante. Comprendre les tableaux est indispensable pour tout ce qui suit : tris, recherches, matrices, traitements de séquences. Les vecteurs STL les remplacent avantageusement dans le code moderne.",
+    points:["Index commence à 0 — dernier élément à l'index taille-1","Taille fixe à la déclaration (tableau statique)","Accès en O(1) : <code>tableau[i]</code>","Tableau 2D : <code>int grille[3][3];</code> — tableau de tableaux","Pour taille dynamique, utiliser <code>vector&lt;T&gt;</code> (leçon 32)"],
+    pitfalls:["Accès hors bornes (out of bounds) : comportement indéfini, pas d'exception automatique !","<code>int t[n]</code> avec n non constant est une extension (VLA) non standard — éviter","Un tableau passé à une fonction se comporte comme un pointeur — la taille est perdue"],
+    complexity:[{label:"Accès t[i]", desc:"O(1)"},{label:"Recherche linéaire", desc:"O(n)"},{label:"Tri", desc:"O(n log n)"}],
+    links:[{num:16, title:"for"},{num:32, title:"vector"}],
+    code:`// Déclaration et initialisation
+int notes[5] = {18, 15, 12, 17, 20};
 
-cout << notes[0] << endl;  // 18
-cout << notes[4] << endl;  // 20
+// Accès
+cout << notes[0] << endl;  // 18 (premier)
+cout << notes[4] << endl;  // 20 (dernier)
 
+// Parcours avec for
+int somme = 0;
 for(int i = 0; i < 5; i++){
-    cout << notes[i] << " ";
+    somme += notes[i];
 }
+double moyenne = (double)somme / 5;
 
-// Tableau 2D
-int grille[3][3] = {{1,2,3},{4,5,6},{7,8,9}};`,
+// Tableau 2D (matrice 3×3)
+int grille[3][3] = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+cout << grille[1][2] << endl;  // 6 (ligne 1, col 2)
+
+// Taille d'un tableau : astuce
+int taille = sizeof(notes) / sizeof(notes[0]);  // 5`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -1491,13 +1777,26 @@ int main(){
     double moyenne = (double)somme / 5;
     cout << "Moyenne : " << moyenne << "/20" << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Calculez la moyenne de 5 notes. Trouvez aussi le max et le min du tableau."
   },
   {
     num:20, title:"Fonctions", chapter:"Fonctions",
-    desc:"Les fonctions découpent le programme en blocs réutilisables. Elles ont un nom, des paramètres optionnels et un type de retour.",
-    points:["Déclaration avant utilisation (ou prototype)","void : ne retourne rien","Évite la répétition de code"],
-    code:`void saluer(){
+    difficulty:"easy", tags:["fonctions","void","déclaration","réutilisabilité"],
+    desc:"Une fonction est un bloc de code nommé et réutilisable. Elle peut recevoir des données (paramètres), effectuer un traitement et retourner un résultat. Les fonctions permettent de décomposer un programme complexe en morceaux gérables.",
+    why:"Les fonctions sont le principal outil de réutilisabilité et d'organisation du code. Un code sans fonctions est une suite de lignes répétitives difficile à maintenir. En pratique, chaque fonction doit faire UNE seule chose bien définie (principe de responsabilité unique).",
+    points:["Signature : <code>type_retour nom(paramètres)</code>","<code>void</code> = ne retourne rien","Prototype (déclaration avant) : permet d'utiliser la fonction avant sa définition","Évite la duplication (DRY : Don't Repeat Yourself)","La fonction <code>main()</code> appelle d'autres fonctions — pas l'inverse"],
+    pitfalls:["Fonctions trop longues : viser < 20 lignes par fonction","Oublier le prototype si la fonction est définie après son utilisation","Ne pas modifier de variables globales dans les fonctions (effets de bord)"],
+    links:[{num:21, title:"return"},{num:22, title:"Paramètres"}],
+    code:`// Prototype (déclaration anticipée)
+int additionner(int a, int b);
+
+// Définition
+int additionner(int a, int b){
+    return a + b;
+}
+
+void saluer(){
     cout << "Bonjour !" << endl;
 }
 
@@ -1505,9 +1804,13 @@ void saluerNom(string nom){
     cout << "Bonjour, " << nom << " !" << endl;
 }
 
-// Appels
+// Dans main()
 saluer();
-saluerNom("Thierno");`,
+saluerNom("Thierno");
+int resultat = additionner(5, 3);  // 8
+
+// Fonction utilitaire
+bool estPair(int n){ return n % 2 == 0; }`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -1525,24 +1828,40 @@ int main(){
     afficherInfo("Thierno", 22);
     afficherSeparateur();
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Créez 3 fonctions : afficher une ligne de séparation, afficher des infos, et calculer le carré d'un nombre."
   },
   {
     num:21, title:"return — Valeur de retour", chapter:null,
-    desc:"return arrête la fonction et renvoie une valeur. Le type de retour doit correspondre au type déclaré de la fonction.",
-    points:["Doit correspondre au type déclaré","Arrête immédiatement la fonction","Plusieurs return possibles (garde)"],
-    code:`int addition(int a, int b){
+    difficulty:"easy", tags:["return","type retour","fonctions"],
+    desc:"<code>return</code> termine l'exécution d'une fonction et renvoie une valeur à l'appelant. Le type de la valeur retournée doit correspondre au type de retour déclaré. Une fonction peut avoir plusieurs <code>return</code> (garde précoce).",
+    why:"Comprendre return permet d'écrire des fonctions qui produisent des résultats plutôt que de se contenter d'afficher. Les fonctions avec retour sont plus testables, plus réutilisables et permettent de composer des opérations.",
+    points:["Arrête immédiatement l'exécution de la fonction","Plusieurs <code>return</code> possibles : retour anticipé (guard clause)","<code>void</code> : <code>return;</code> sans valeur (optionnel à la fin)","Le type doit correspondre exactement (ou être convertible implicitement)"],
+    pitfalls:["Oublier de retourner dans tous les chemins d'exécution (warning du compilateur)","Retourner une référence ou un pointeur vers une variable locale — comportement indéfini !","Ignorer la valeur de retour d'une fonction critique (erreurs silencieuses)"],
+    links:[{num:20, title:"Fonctions"},{num:22, title:"Paramètres"}],
+    code:`// Retour simple
+int addition(int a, int b){
     return a + b;
 }
 
+// Retour booléen
 bool estPair(int n){
     return n % 2 == 0;
 }
 
-int resultat = addition(5, 3);
-cout << resultat << endl;  // 8
+// Multiple returns (guard clauses — style moderne)
+string appreciation(int note){
+    if(note < 0 || note > 20) return "Invalide";
+    if(note >= 16) return "Très bien";
+    if(note >= 12) return "Bien";
+    if(note >= 10) return "Passable";
+    return "Insuffisant";
+}
 
-bool pair = estPair(6);    // true`,
+// Appels
+int r = addition(5, 3);         // 8
+bool p = estPair(6);            // true
+string a = appreciation(14);   // "Bien"`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -1559,26 +1878,39 @@ int main(){
     cout << "Max(7,12) = " << max(7,12) << endl;
     cout << "Moy(12,15,18) = " << moyenne(12,15,18) << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Écrivez une fonction minimum(a,b) et une fonction estDivisible(n,d). Testez-les."
   },
   {
     num:22, title:"Paramètres & Arguments", chapter:null,
-    desc:"Les paramètres sont les variables d'entrée d'une fonction. Les arguments sont les valeurs concrètes passées lors de l'appel.",
-    points:["Par valeur : copie de la variable","Par référence & : modifie l'original","Valeurs par défaut possibles"],
-    code:`// Par valeur (copie)
-void doubler(int n){
-    n *= 2;  // n local, pas d'effet
-}
+    difficulty:"medium", tags:["passage par valeur","passage par référence","paramètres défaut"],
+    desc:"Les paramètres sont les variables d'entrée d'une fonction. C++ offre plusieurs modes de passage : par valeur (copie), par référence (alias), par pointeur, et avec des valeurs par défaut. Le choix impacte la performance et la sémantique.",
+    why:"Le passage par référence est une des fonctionnalités les plus importantes de C++. Il permet de modifier les arguments appelants et d'éviter des copies coûteuses de grands objets. Comprendre la différence valeur/référence évite une grande classe de bugs.",
+    points:["Par valeur : copie — la fonction ne modifie pas l'original","Par référence <code>&amp;</code> : alias — modifie l'original","<code>const&amp;</code> : lecture seule, évite la copie — idéal pour les grands objets","Valeurs par défaut : <code>void f(int n = 10)</code> — paramètre optionnel"],
+    pitfalls:["Retourner une référence à une variable locale — comportement indéfini (dangling reference)","Oublier le & pour un paramètre qu'on veut modifier","Valeurs par défaut seulement à la fin de la liste de paramètres"],
+    links:[{num:20, title:"Fonctions"},{num:23, title:"Références"}],
+    code:`// Par valeur (copie) — n local, original inchangé
+void doublerVal(int n){ n *= 2; }
 
-// Par référence
-void doublerRef(int &n){
-    n *= 2;  // modifie l'original
-}
+// Par référence — modifie l'original
+void doublerRef(int &n){ n *= 2; }
+
+// const référence — lecture seule, sans copie
+void afficher(const string &s){ cout << s; }
 
 // Valeur par défaut
-void saluer(string nom = "inconnu"){
-    cout << "Salut " << nom << endl;
-}`,
+void saluer(string nom = "inconnu", char ponct = '!'){
+    cout << "Salut " << nom << ponct << endl;
+}
+
+// Utilisation
+int x = 5;
+doublerVal(x);   // x reste 5
+doublerRef(x);   // x devient 10
+
+saluer("Thierno");     // "Salut Thierno!"
+saluer("Ali", '.');    // "Salut Ali."
+saluer();              // "Salut inconnu!"`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -1594,25 +1926,41 @@ int main(){
     echanger(x, y);
     cout << "Après : x=" << x << " y=" << y << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Écrivez une fonction echanger(a, b) par référence qui échange deux entiers. Vérifiez que x et y sont bien échangés."
   },
   {
     num:23, title:"Références", chapter:"Pointeurs & Mémoire",
-    desc:"Une référence est un alias (autre nom) pour une variable existante. Toute modification via la référence affecte la variable originale.",
-    points:["Syntaxe : type& nom = var","Doit être initialisée à la déclaration","Ne peut pas être reassignée à une autre var"],
+    difficulty:"medium", tags:["référence","alias","&","passage par référence"],
+    desc:"Une référence est un <em>alias</em> (autre nom) pour une variable existante. Elle partage le même emplacement mémoire. Toute modification via la référence affecte la variable originale. Les références sont plus sûres que les pointeurs car elles ne peuvent pas être nulles.",
+    why:"Les références sont fondamentales en C++ moderne. Elles permettent des modifications efficaces sans copie, des paramètres optionnels, et des fonctions chaînables. <code>const&</code> est le mode de passage préféré pour les objets non modifiables.",
+    points:["Syntaxe : <code>type&amp; nom = variable;</code>","Doit être initialisée à la déclaration (pas de référence nulle)","Ne peut pas être réassignée à une autre variable après initialisation","Différence avec pointeur : pas de <code>*</code> pour déréférencer, toujours valide"],
+    pitfalls:["Référence à un temporaire : <code>int& r = 5;</code> — interdit","Retourner une référence à une variable locale — dangling reference","Ne pas confondre <code>int &r = x;</code> (référence) et <code>int r = &x;</code> (adresse dans un int — erreur)"],
+    links:[{num:24, title:"Pointeurs"},{num:22, title:"Paramètres"}],
     code:`int age = 25;
-int &refAge = age;   // alias de age
+int &refAge = age;   // refAge est un alias de age
 
 refAge = 30;
-cout << age << endl;  // 30
+cout << age << endl;    // 30 — age a changé !
+cout << &age << " == " << &refAge << endl;  // même adresse
 
+// const référence — alias en lecture seule
+const int &cRefAge = age;
+// cRefAge = 40;  // ERREUR compilation !
+
+// Utilité principale : passage de paramètre
 void incrementer(int &val){
     val++;
 }
 
 int compteur = 0;
-incrementer(compteur);
-cout << compteur;  // 1`,
+incrementer(compteur);   // compteur = 1
+incrementer(compteur);   // compteur = 2
+
+// Bonne pratique : const& pour grands objets
+void afficher(const string &texte){
+    cout << texte << endl;  // pas de copie
+}`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -1628,22 +1976,40 @@ int main(){
     tripler(score);
     cout << "Après tripler : " << ref << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Créez une référence sur un int, modifiez via la référence, vérifiez que l'original change."
   },
   {
     num:24, title:"Pointeurs", chapter:null,
-    desc:"Un pointeur stocke l'adresse mémoire d'une autre variable. Puissants mais à utiliser avec précaution — base des structures dynamiques.",
-    points:["& : opérateur adresse","* : opérateur déréférencement","nullptr : pointeur nul sûr"],
+    difficulty:"hard", tags:["pointeur","adresse mémoire","déréférencement","nullptr"],
+    desc:"Un pointeur est une variable qui stocke l'<em>adresse mémoire</em> d'une autre variable. C'est l'un des concepts les plus puissants et les plus délicats de C++. Les pointeurs permettent la gestion directe de la mémoire, les structures dynamiques et les appels par adresse.",
+    why:"Les pointeurs expliquent comment C++ gère réellement la mémoire. Comprendre les pointeurs est indispensable pour travailler avec des structures dynamiques (listes chaînées, arbres), la POO avancée, et pour interagir avec des API système ou du code C.",
+    points:["<code>&amp;x</code> : adresse mémoire de x (opérateur « adresse de »)","<code>*p</code> : valeur pointée par p (opérateur de déréférencement)","<code>nullptr</code> : pointeur nul sûr (C++11) — remplace NULL","<code>p-&gt;membre</code> équivaut à <code>(*p).membre</code> pour les objets","Préférer les smart pointers (<code>unique_ptr</code>) en C++ moderne"],
+    pitfalls:["Déréférencer un pointeur nul → segmentation fault","Pointeur pendant (dangling) : pointe vers une mémoire libérée","Ne jamais oublier <code>delete</code> après <code>new</code> (ou utiliser smart pointers)","Arithmétique de pointeurs : <code>p++</code> avance de sizeof(type) octets"],
+    links:[{num:23, title:"Références"},{num:37, title:"new/delete"},{num:38, title:"Smart Pointers"}],
     code:`int age = 25;
-int *ptr = &age;   // ptr = adresse de age
+int *ptr = &age;   // ptr stocke l'adresse de age
 
-cout << age << endl;    // 25
-cout << &age << endl;   // 0x... adresse
-cout << *ptr << endl;   // 25 (déréférencement)
+cout << age  << endl;   // 25   — valeur directe
+cout << &age << endl;   // 0x7f... — adresse mémoire
+cout << ptr  << endl;   // 0x7f... — même adresse
+cout << *ptr << endl;   // 25   — déréférencement
 
 // Modifier via pointeur
 *ptr = 30;
-cout << age << endl;  // 30`,
+cout << age << endl;    // 30 — age a changé !
+
+// Pointeur nul (sécurité)
+int *p = nullptr;
+if(p != nullptr){      // toujours vérifier avant déréférencement
+    cout << *p;
+}
+
+// Pointeur sur objet
+struct Point { int x, y; };
+Point pt = {3, 4};
+Point *ppt = &pt;
+cout << ppt->x << endl;  // 3  (flèche = déréférencer + accès membre)`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -1658,29 +2024,44 @@ int main(){
     *p = 100;
     cout << "x après *p=100 : " << x << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Déclarez un pointeur sur un int. Modifiez la valeur via le pointeur. Vérifiez que la variable originale a changé."
   },
   {
     num:25, title:"Classes", chapter:"Programmation Orientée Objet",
-    desc:"Une classe est un plan (blueprint) pour créer des objets. Elle regroupe des données (attributs) et des comportements (méthodes).",
-    points:["class définit la structure","Membres public/private/protected","Instancier avec : NomClasse obj;"],
+    difficulty:"medium", tags:["class","attributs","méthodes","POO"],
+    desc:"Une classe est un <em>plan (blueprint)</em> pour créer des objets. Elle regroupe des données (attributs) et des comportements (méthodes) dans une même entité. La POO modélise le monde réel sous forme d'objets qui interagissent.",
+    why:"La POO est le paradigme dominant dans l'industrie logicielle. Les classes permettent de modéliser des entités complexes (Voiture, Compte bancaire, Utilisateur), d'encapsuler la logique et de structurer des projets de grande taille. C++ est l'un des langages POO les plus performants.",
+    points:["<code>class NomClasse { ... };</code> — ne pas oublier le <code>;</code> final","<code>public</code> : accessible partout","<code>private</code> : accessible seulement depuis la classe","<code>NomClasse obj;</code> — création d'une instance (objet)","Accès aux membres : <code>obj.membre</code>"],
+    pitfalls:["Oublier le <code>;</code> après l'accolade fermante de la classe","Par défaut, les membres d'une class sont <code>private</code> (différent de struct)","Confondre la classe (le moule) et l'objet (l'instance concrète)"],
+    links:[{num:26, title:"Objets"},{num:27, title:"Constructeurs"},{num:28, title:"Encapsulation"}],
     code:`class Voiture{
 public:
     string marque;
     int annee;
-    float vitesse;
+    float vitesse;  // km/h
 
-    void accelerer(float v){
-        vitesse += v;
+    void accelerer(float delta){
+        vitesse += delta;
+        if(vitesse > 200) vitesse = 200;  // vitesse max
     }
 
-    void afficher(){
-        cout << marque << " (" << annee << ")" << endl;
+    void freiner(float delta){
+        vitesse -= delta;
+        if(vitesse < 0) vitesse = 0;
+    }
+
+    void afficher() const {  // const = ne modifie pas l'objet
+        cout << marque << " (" << annee << ") - " << vitesse << " km/h" << endl;
     }
 };
 
+// Utilisation
 Voiture v;
 v.marque = "Toyota";
+v.annee = 2022;
+v.vitesse = 0;
+v.accelerer(50);
 v.afficher();`,
     starter:`#include <iostream>
 #include <string>
@@ -1706,26 +2087,45 @@ int main(){
     e.moyenne = 16.5;
     e.afficher();
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Créez une classe Etudiant avec nom, age, moyenne. Instanciez 2 objets et appelez afficher()."
   },
   {
     num:26, title:"Objets", chapter:null,
-    desc:"Un objet est une instance d'une classe. Chaque objet possède ses propres copies des attributs, indépendantes des autres objets.",
-    points:["Chaque objet = espace mémoire distinct","Accès aux membres avec .","Possible : tableaux d'objets"],
+    difficulty:"medium", tags:["objet","instance","mémoire","accès membre"],
+    desc:"Un objet est une <em>instance concrète</em> d'une classe. Chaque objet possède ses propres copies des attributs, indépendantes des autres objets de la même classe. La création d'un objet alloue de la mémoire pour tous ses attributs.",
+    why:"Comprendre que chaque objet est indépendant est fondamental. Deux objets Voiture ont chacun leur propre marque, leur propre vitesse — modifier l'un ne modifie pas l'autre. C'est ce qui permet de modéliser des systèmes complexes avec plusieurs entités.",
+    points:["Chaque objet = espace mémoire distinct pour ses attributs","Accès aux membres avec <code>.</code> (point) : <code>obj.attribut</code>","Plusieurs objets du même type peuvent coexister en mémoire","Les méthodes sont partagées entre tous les objets (code en un seul exemplaire)"],
+    pitfalls:["Confondre classe et objet (la classe est le plan, l'objet est la construction)","Copier un objet avec = copie ses valeurs (shallow copy) — peut poser problème si pointeurs"],
+    links:[{num:25, title:"Classes"},{num:27, title:"Constructeurs"}],
     code:`class Produit{
 public:
     string nom;
     double prix;
     int quantite;
 
-    double totalStock(){
+    double totalStock() const {
         return prix * quantite;
+    }
+
+    bool estDisponible() const {
+        return quantite > 0;
     }
 };
 
-Produit p;
-p.nom = "Livre"; p.prix = 12.50; p.quantite = 10;
-cout << p.totalStock() << " €" << endl;`,
+// Deux objets indépendants
+Produit p1, p2;
+p1.nom = "Livre";  p1.prix = 12.50;  p1.quantite = 10;
+p2.nom = "Stylo";  p2.prix = 1.50;   p2.quantite = 0;
+
+p1.quantite++;   // n'affecte pas p2
+
+cout << p1.totalStock() << " €" << endl;    // 150
+cout << p2.estDisponible() << endl;          // 0 (false)
+
+// Tableau d'objets
+Produit catalogue[2] = {p1, p2};
+for(int i=0; i<2; i++) cout << catalogue[i].nom << endl;`,
     starter:`#include <iostream>
 #include <string>
 using namespace std;
@@ -1736,9 +2136,7 @@ public:
     double prix;
     int quantite;
 
-    double totalStock(){
-        return prix * quantite;
-    }
+    double totalStock(){ return prix * quantite; }
 };
 
 int main(){
@@ -1749,31 +2147,42 @@ int main(){
     cout << p1.nom << " : " << p1.totalStock() << " €" << endl;
     cout << p2.nom << " : " << p2.totalStock() << " €" << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Créez 2 objets Produit, calculez leur valeur en stock et affichez le total combiné."
   },
   {
     num:27, title:"Constructeurs", chapter:null,
-    desc:"Le constructeur est une méthode spéciale appelée automatiquement à la création d'un objet. Il initialise les attributs.",
-    points:["Même nom que la classe","Pas de type de retour","Peut être surchargé (plusieurs versions)"],
+    difficulty:"medium", tags:["constructeur","initialisation","surcharge"],
+    desc:"Le constructeur est une méthode spéciale appelée <em>automatiquement</em> lors de la création d'un objet. Il initialise les attributs. Son nom est identique à celui de la classe, il n'a pas de type de retour, et peut être surchargé (plusieurs versions avec des paramètres différents).",
+    why:"Les constructeurs garantissent qu'un objet est toujours dans un état valide dès sa création. Sans constructeur, les attributs sont non initialisés (valeurs indéterminées). La liste d'initialisation (<code>: attr(val)</code>) est plus efficace que l'assignation dans le corps.",
+    points:["Même nom que la classe, pas de type de retour","Constructeur par défaut : sans paramètres (appelé si pas d'arguments)","Constructeur paramétré : initialise avec des valeurs","Liste d'initialisation : <code>: attr1(val1), attr2(val2)</code> — plus efficace","<code>~NomClasse()</code> = destructeur (appelé à la destruction de l'objet)"],
+    pitfalls:["Si vous définissez un constructeur paramétré, le constructeur par défaut implicite disparaît","Ne pas faire de travail lourd dans le constructeur (I/O, réseau) — utiliser une méthode init()","Ordre d'initialisation dans la liste = ordre de déclaration des attributs"],
+    links:[{num:25, title:"Classes"},{num:28, title:"Encapsulation"}],
     code:`class Cercle{
-public:
     double rayon;
     string couleur;
 
-    Cercle(){               // par défaut
-        rayon = 1.0;
-        couleur = "rouge";
+public:
+    // Constructeur par défaut
+    Cercle() : rayon(1.0), couleur("rouge") {
+        cout << "Cercle créé" << endl;
     }
 
-    Cercle(double r, string c){ // paramétré
-        rayon = r;
-        couleur = c;
+    // Constructeur paramétré
+    Cercle(double r, string c) : rayon(r), couleur(c) {}
+
+    // Destructeur
+    ~Cercle(){
+        cout << "Cercle détruit" << endl;
     }
 
-    double aire(){
-        return 3.14159 * rayon * rayon;
-    }
-};`,
+    double aire() const { return 3.14159 * rayon * rayon; }
+    void info() const { cout << couleur << " r=" << rayon << endl; }
+};
+
+Cercle c1;              // appelle le constructeur par défaut
+Cercle c2(5.0, "bleu"); // appelle le constructeur paramétré
+cout << c2.aire() << endl;`,
     starter:`#include <iostream>
 #include <string>
 using namespace std;
@@ -1783,10 +2192,7 @@ public:
     string nom;
     int age;
 
-    Personne(string n, int a){
-        nom = n;
-        age = a;
-    }
+    Personne(string n, int a) : nom(n), age(a) {}
 
     void presenter(){
         cout << "Je m'appelle " << nom;
@@ -1801,29 +2207,46 @@ int main(){
     p1.presenter();
     p2.presenter();
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Ajoutez un 2ème constructeur à Personne avec seulement le nom (âge par défaut à 0)."
   },
   {
     num:28, title:"Encapsulation", chapter:null,
-    desc:"L'encapsulation cache les données internes (private) et expose une interface publique (getters/setters). Elle protège l'intégrité des objets.",
-    points:["private : inaccessible de l'extérieur","public : accessible partout","Getters/Setters pour contrôler l'accès"],
+    difficulty:"medium", tags:["private","public","getter","setter","encapsulation"],
+    desc:"L'encapsulation cache l'implémentation interne (<code>private</code>) et n'expose qu'une interface publique contrôlée (<code>public</code>). Les getters et setters permettent un accès contrôlé et validé aux attributs privés.",
+    why:"L'encapsulation est le principe qui permet de changer l'implémentation interne sans casser le code qui utilise la classe. Un compte bancaire avec le solde en private ne peut jamais être mis à une valeur négative accidentellement — la classe le garantit.",
+    points:["<code>private</code> : inaccessible depuis l'extérieur de la classe","<code>public</code> : interface accessible à tous","Getter : méthode qui retourne la valeur d'un attribut privé","Setter : méthode qui valide et modifie un attribut privé","Invariants : propriétés garanties sur l'état de l'objet"],
+    pitfalls:["Mettre tous les attributs en public annule le bénéfice de l'encapsulation","Getters et setters triviaux sans validation ne servent pas à grand chose","Ne pas exposer de références ou pointeurs vers des membres privés"],
+    links:[{num:25, title:"Classes"},{num:27, title:"Constructeurs"},{num:29, title:"Héritage"}],
     code:`class CompteBancaire{
 private:
     double solde;
     string titulaire;
+    int nbTransactions;
 
 public:
-    CompteBancaire(string t, double s){
-        titulaire = t;
-        solde = (s >= 0) ? s : 0;
+    CompteBancaire(string t, double s)
+        : titulaire(t), solde(max(0.0, s)), nbTransactions(0) {}
+
+    // Setter avec validation
+    bool deposer(double montant){
+        if(montant <= 0) return false;
+        solde += montant;
+        nbTransactions++;
+        return true;
     }
 
-    void deposer(double montant){
-        if(montant > 0) solde += montant;
+    bool retirer(double montant){
+        if(montant <= 0 || montant > solde) return false;
+        solde -= montant;
+        nbTransactions++;
+        return true;
     }
 
-    double getSolde(){ return solde; }
-    string getTitulaire(){ return titulaire; }
+    // Getters (lecture seule)
+    double getSolde() const { return solde; }
+    string getTitulaire() const { return titulaire; }
+    int getNbTransactions() const { return nbTransactions; }
 };`,
     starter:`#include <iostream>
 using namespace std;
@@ -1831,7 +2254,6 @@ using namespace std;
 class Temperature{
 private:
     double celsius;
-
 public:
     Temperature(double c){ celsius = c; }
     void setCelsius(double c){ if(c > -273.15) celsius = c; }
@@ -1842,35 +2264,48 @@ public:
 
 int main(){
     Temperature t(25.0);
-    cout << t.getCelsius() << "°C" << endl;
-    cout << t.getFahrenheit() << "°F" << endl;
-    cout << t.getKelvin() << " K" << endl;
+    cout << t.getCelsius() << "°C = " << t.getFahrenheit() << "°F" << endl;
+    t.setCelsius(-300); // ignoré car < -273.15
+    cout << "Après tentative invalide : " << t.getCelsius() << "°C" << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Testez la validation : essayez de passer -300°C à setCelsius et vérifiez que la valeur n'a pas changé."
   },
   {
     num:29, title:"Héritage", chapter:null,
-    desc:"L'héritage permet à une classe (enfant) de récupérer les attributs et méthodes d'une autre classe (parent). Évite la duplication de code.",
-    points:["class Enfant : public Parent","Enfant hérite tout du parent","Enfant peut ajouter/surcharger des méthodes"],
+    difficulty:"hard", tags:["héritage","class enfant","base","dérivée","protected"],
+    desc:"L'héritage permet à une classe (<em>dérivée/enfant</em>) de récupérer tous les attributs et méthodes d'une autre classe (<em>de base/parent</em>). L'enfant peut ajouter de nouveaux membres et redéfinir des méthodes héritées.",
+    why:"L'héritage modélise les relations « est-un » : un Chien EST UN Animal, une Voiture EST UN Véhicule. Il évite la duplication de code et permet la polymorphisme (leçon suivante). C'est l'un des piliers de la POO.",
+    points:["<code>class Enfant : public Parent</code> — héritage public","L'enfant hérite de TOUS les membres publics et protégés","<code>protected</code> : accessible dans la classe ET les classes dérivées","L'enfant peut appeler le constructeur parent avec <code>Parent(args)</code>","Éviter l'héritage profond (>3 niveaux) — préférer la composition"],
+    pitfalls:["L'héritage multiple (plusieurs parents) est complexe et source d'ambiguïtés","Héritage privé vs public vs protégé ont des sémantiques très différentes","Un objet enfant peut être traité comme un parent — mais pas l'inverse (slicing)"],
+    links:[{num:25, title:"Classes"},{num:30, title:"Polymorphisme"}],
     code:`class Animal{
-public:
+protected:
     string nom;
-    void respirer(){
-        cout << nom << " respire" << endl;
-    }
+    int age;
+public:
+    Animal(string n, int a) : nom(n), age(a){}
+    void respirer(){ cout << nom << " respire" << endl; }
+    string getNom() const { return nom; }
 };
 
 class Chien : public Animal{
+    string race;
 public:
-    void aboyer(){
-        cout << nom << " : Wouf !" << endl;
+    Chien(string n, int a, string r)
+        : Animal(n, a), race(r){}  // appel du constructeur parent
+
+    void aboyer(){ cout << nom << " : Wouf !" << endl; }
+
+    void info(){
+        cout << nom << " (" << race << ", " << age << " ans)" << endl;
     }
 };
 
-Chien c;
-c.nom = "Rex";
-c.respirer();   // hérité
-c.aboyer();`,
+Chien c("Rex", 3, "Berger");
+c.respirer();  // méthode héritée
+c.aboyer();    // méthode propre
+c.info();`,
     starter:`#include <iostream>
 #include <string>
 using namespace std;
@@ -1879,19 +2314,13 @@ class Vehicule{
 public:
     string marque;
     int vitesseMax;
-
-    void info(){
-        cout << marque << " - max " << vitesseMax << " km/h" << endl;
-    }
+    void info(){ cout << marque << " - max " << vitesseMax << " km/h" << endl; }
 };
 
 class Voiture : public Vehicule{
 public:
     int portes;
-    void afficher(){
-        info();
-        cout << "Portes : " << portes << endl;
-    }
+    void afficher(){ info(); cout << "Portes : " << portes << endl; }
 };
 
 int main(){
@@ -1901,34 +2330,46 @@ int main(){
     v.portes = 4;
     v.afficher();
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Créez une classe Moto qui hérite de Vehicule. Ajoutez un attribut type (sport/touring) et une méthode afficher."
   },
   {
     num:30, title:"Polymorphisme", chapter:null,
-    desc:"Le polymorphisme permet d'appeler une méthode qui se comporte différemment selon le type réel de l'objet. Utilise virtual et override.",
-    points:["virtual : méthode redéfinissable","override : redéfinition explicite","Pointeur parent vers objet enfant"],
+    difficulty:"hard", tags:["virtual","override","polymorphisme","dispatch dynamique"],
+    desc:"Le polymorphisme permet à un pointeur ou une référence de type parent d'appeler la méthode de l'enfant réel. Le dispatch dynamique (via la <em>vtable</em>) sélectionne la bonne implémentation à l'exécution. Nécessite <code>virtual</code> dans la classe parent.",
+    why:"Le polymorphisme est le mécanisme qui permet d'écrire du code générique qui fonctionne avec n'importe quelle sous-classe — présente ou future. Un tableau de <code>Animal*</code> peut contenir des Chiens, des Chats, des Oiseaux, et appeler leur méthode crier() correctement.",
+    points:["<code>virtual</code> active le dispatch dynamique","<code>override</code> (C++11) : vérifie qu'on redéfinit bien une méthode virtuelle","<code>= 0</code> : méthode virtuelle pure → classe abstraite (ne peut pas être instanciée)","Classe abstraite : définit une interface sans implémentation","Destructeur virtual : obligatoire si héritage + new/delete"],
+    pitfalls:["Sans <code>virtual</code>, c'est le type déclaré (pas réel) qui détermine la méthode appelée (static dispatch)","Oublier <code>virtual ~Base()</code> cause des fuites mémoire à la destruction via pointeur parent","Surcoût : légère pénalité de performance à cause de la vtable"],
+    links:[{num:29, title:"Héritage"},{num:31, title:"Templates"}],
     code:`class Forme{
 public:
-    virtual double aire(){ return 0; }
+    virtual double aire() const = 0;    // méthode virtuelle pure
+    virtual string nom() const = 0;
+    virtual ~Forme(){}                  // destructeur virtual !
 };
 
 class Rectangle : public Forme{
     double l, h;
 public:
     Rectangle(double l, double h) : l(l), h(h){}
-    double aire() override { return l * h; }
+    double aire() const override { return l * h; }
+    string nom() const override { return "Rectangle"; }
 };
 
 class Cercle : public Forme{
     double r;
 public:
     Cercle(double r) : r(r){}
-    double aire() override { return 3.14159*r*r; }
+    double aire() const override { return 3.14159 * r * r; }
+    string nom() const override { return "Cercle"; }
 };
 
-Forme* f1 = new Rectangle(4, 5);
-Forme* f2 = new Cercle(3);
-cout << f1->aire();  // 20`,
+// Dispatch dynamique !
+vector<Forme*> formes = {new Rectangle(4,5), new Cercle(3)};
+for(auto f : formes){
+    cout << f->nom() << " : " << f->aire() << endl;
+    delete f;
+}`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -1936,9 +2377,8 @@ class Animal{
 public:
     string nom;
     Animal(string n) : nom(n){}
-    virtual void crier(){
-        cout << nom << " fait un son" << endl;
-    }
+    virtual void crier(){ cout << nom << " fait un son" << endl; }
+    virtual ~Animal(){}
 };
 
 class Chien : public Animal{
@@ -1955,30 +2395,45 @@ public:
 
 int main(){
     Animal* animaux[3] = {new Chien("Rex"), new Chat("Luna"), new Chien("Max")};
-    for(int i=0; i<3; i++) animaux[i]->crier();
+    for(int i=0; i<3; i++){ animaux[i]->crier(); delete animaux[i]; }
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Ajoutez un Oiseau qui crie 'Cui cui'. Créez un tableau de 4 Animal* et appelez crier() sur chacun."
   },
   {
     num:31, title:"Templates", chapter:"Généricité & STL",
-    desc:"Les templates permettent d'écrire du code générique qui fonctionne avec n'importe quel type. Évite de réécrire la même fonction pour int, double, etc.",
-    points:["template <class T>","T représente n'importe quel type","Résolu à la compilation"],
-    code:`template <class T>
+    difficulty:"hard", tags:["template","générique","T","compile time"],
+    desc:"Les templates permettent d'écrire du code générique qui fonctionne avec <em>n'importe quel type</em>. Le compilateur génère le code spécialisé pour chaque type utilisé (<em>instanciation</em>). C'est la base de la STL.",
+    why:"Sans templates, vous écririez une fonction max pour int, une pour double, une pour string... Les templates éliminent cette répétition. Toute la STL (vector, map, sort...) est construite sur les templates. C'est l'outil de généricité le plus puissant de C++.",
+    points:["<code>template &lt;typename T&gt;</code> (ou <code>class T</code>)","<code>T</code> est un paramètre de type résolu à la compilation","Instanciation implicite : le compilateur déduit T depuis les arguments","Instanciation explicite : <code>maxi&lt;double&gt;(a, b)</code>","Templates de classe : <code>template&lt;class T&gt; class Boite { T contenu; };</code>"],
+    pitfalls:["Les erreurs de templates sont souvent illisibles — commencer simple","Le code template doit être entièrement dans le .h (pas de .cpp séparé)","La spécialisation partielle est puissante mais complexe"],
+    links:[{num:32, title:"vector"},{num:43, title:"STL"}],
+    code:`template <typename T>
 T maximum(T a, T b){
     return (a > b) ? a : b;
 }
 
-cout << maximum(3, 7) << endl;       // 7
-cout << maximum(3.14, 2.71) << endl; // 3.14
-cout << maximum('a', 'z') << endl;   // z
+// Instanciation avec différents types
+cout << maximum(3, 7) << endl;           // 7      (T = int)
+cout << maximum(3.14, 2.71) << endl;    // 3.14   (T = double)
+cout << maximum('a', 'z') << endl;      // 'z'    (T = char)
 
-template <class T>
-class Boite{
-    T contenu;
+// Instanciation explicite
+cout << maximum<double>(3, 7.5) << endl;  // 7.5
+
+// Template de classe
+template <typename T>
+class Pile{
+    vector<T> data;
 public:
-    Boite(T c) : contenu(c){}
-    T getContenu(){ return contenu; }
-};`,
+    void push(T val){ data.push_back(val); }
+    T pop(){ T v = data.back(); data.pop_back(); return v; }
+    bool vide() const { return data.empty(); }
+};
+
+Pile<int> p;
+p.push(10); p.push(20);
+cout << p.pop() << endl;  // 20`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -1991,26 +2446,44 @@ int main(){
     cout << somme(1, 2, 3) << endl;
     cout << somme(1.5, 2.5, 3.0) << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Écrivez un template minimum(a,b,c) qui retourne le plus petit des 3 valeurs. Testez avec int et double."
   },
   {
     num:32, title:"vector — Tableau Dynamique", chapter:null,
-    desc:"vector<T> est un tableau redimensionnable de la STL. Il s'agrandit automatiquement et offre de nombreuses méthodes utiles.",
-    points:["Taille dynamique (push_back)","Accès par index comme un tableau","begin()/end() pour itérateurs"],
+    difficulty:"medium", tags:["vector","push_back","sort","range-based for"],
+    desc:"<code>vector&lt;T&gt;</code> est un tableau redimensionnable de la STL. Il gère automatiquement son espace mémoire. En pratique, il remplace presque toujours les tableaux C classiques dans le code C++ moderne.",
+    why:"vector est probablement la structure de données la plus utilisée en C++. Il combine les avantages du tableau (accès O(1) par index) avec une taille flexible. Comprendre ses performances (amortissement, capacité vs taille) aide à écrire du code efficace.",
+    points:["<code>push_back()</code> : ajouter à la fin (amorti O(1))","<code>pop_back()</code> : supprimer le dernier","<code>size()</code> : nombre d'éléments","<code>reserve(n)</code> : préallouer de la mémoire","<code>at(i)</code> : accès avec vérification des bornes"],
+    pitfalls:["Itérateur invalidé après push_back si réallocation — ne pas stocker d'itérateurs","<code>size()</code> retourne <code>size_t</code> (unsigned) — attention à <code>i &lt; v.size()-1</code> si vide","<code>v[i]</code> sans vérification vs <code>v.at(i)</code> avec exception"],
+    complexity:[{label:"push_back", desc:"O(1) amorti"},{label:"Accès [i]", desc:"O(1)"},{label:"Insertion milieu", desc:"O(n)"},{label:"sort()", desc:"O(n log n)"}],
+    links:[{num:19, title:"Tableaux"},{num:43, title:"STL"},{num:16, title:"for"}],
     code:`#include <vector>
+#include <algorithm>
+#include <numeric>
 
-vector<int> v;
-v.push_back(10);
-v.push_back(20);
-v.push_back(30);
+vector<int> v;                    // vide
+vector<int> v2 = {10, 20, 30};   // initialisé
+vector<int> v3(5, 0);            // 5 zéros
 
-cout << v.size() << endl;  // 3
-cout << v[0] << endl;      // 10
-v.pop_back();              // supprime le dernier
+v.push_back(10);  v.push_back(20);
+cout << v.size() << endl;    // 2
+cout << v[0] << endl;        // 10
+v.pop_back();                // supprime 20
 
-for(int x : v){
-    cout << x << " ";
-}`,
+// Trier
+sort(v2.begin(), v2.end());               // croissant
+sort(v2.rbegin(), v2.rend());             // décroissant
+
+// Chercher
+auto it = find(v2.begin(), v2.end(), 20);
+if(it != v2.end()) cout << "Trouvé" << endl;
+
+// Somme
+int somme = accumulate(v2.begin(), v2.end(), 0);
+
+// Range-based for
+for(const auto& x : v2) cout << x << " ";`,
     starter:`#include <iostream>
 #include <vector>
 #include <algorithm>
@@ -2026,38 +2499,48 @@ int main(){
     cout << "Min : " << notes.front() << endl;
     cout << "Max : " << notes.back() << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Créez un vector de 5 entiers, triez-le, puis calculez la moyenne. Affichez aussi min et max."
   },
   {
     num:33, title:"struct", chapter:null,
-    desc:"struct est similaire à class mais avec des membres public par défaut. Idéal pour regrouper des données sans comportements complexes.",
-    points:["Membres public par défaut","Peut contenir des méthodes","Souvent utilisée pour des données pures"],
+    difficulty:"easy", tags:["struct","données","POD","agrégat"],
+    desc:"<code>struct</code> est similaire à <code>class</code> avec une différence : ses membres sont <code>public</code> par défaut. Historiquement utilisée en C pour regrouper des données, en C++ elle peut aussi contenir des méthodes et des constructeurs.",
+    why:"struct est idéale pour les types de données simples (Point, Date, Couleur) sans logique complexe. En C++ moderne, la distinction class/struct est souvent une convention : struct pour les données pures (POD), class pour les entités avec comportement riche.",
+    points:["Membres <code>public</code> par défaut (vs <code>private</code> pour class)","Peut contenir des méthodes et des constructeurs","Initialization agrégée : <code>Point p = {3.0, 4.0};</code>","Bon pour les types de données simples sans invariants à protéger"],
+    pitfalls:["Ne pas mettre de logique complexe dans une struct — utiliser class","L'initialisation agrégée ne fonctionne pas si un constructeur est défini"],
+    links:[{num:25, title:"Classes"},{num:34, title:"enum"}],
     code:`struct Point{
-    double x;
-    double y;
+    double x, y;
 
-    double distance(Point autre){
-        double dx = x - autre.x;
-        double dy = y - autre.y;
+    double distanceTo(const Point& autre) const {
+        double dx = x - autre.x, dy = y - autre.y;
         return sqrt(dx*dx + dy*dy);
     }
 };
 
+struct Couleur{ uint8_t r, g, b; };  // RGB 0-255
+
+// Initialisation agrégée
 Point p1 = {0.0, 0.0};
 Point p2 = {3.0, 4.0};
-cout << p1.distance(p2) << endl;  // 5`,
+Couleur rouge = {255, 0, 0};
+
+cout << p1.distanceTo(p2) << endl;  // 5.0
+
+// Dans un vecteur
+vector<Point> points = {{0,0}, {1,1}, {2,2}};
+for(auto& p : points) cout << "(" << p.x << "," << p.y << ") ";`,
     starter:`#include <iostream>
 #include <string>
 using namespace std;
 
 struct Livre{
-    string titre;
-    string auteur;
-    int annee;
-    double prix;
+    string titre, auteur;
+    int annee; double prix;
 };
 
-void afficherLivre(Livre l){
+void afficherLivre(const Livre& l){
     cout << "\"" << l.titre << "\" par " << l.auteur;
     cout << " (" << l.annee << ") - " << l.prix << "€" << endl;
 }
@@ -2068,24 +2551,36 @@ int main(){
     afficherLivre(l1);
     afficherLivre(l2);
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Ajoutez un attribut 'genre' à Livre. Créez un tableau de 3 livres et affichez-les tous."
   },
   {
     num:34, title:"enum — Énumérations", chapter:null,
-    desc:"enum crée un type avec un ensemble fixe de constantes nommées. Améliore la lisibilité par rapport aux constantes entières.",
-    points:["Valeurs entières par défaut (0, 1, 2...)","enum class pour portée stricte (C++11)","Améliore la lisibilité"],
-    code:`enum class Saison{
-    PRINTEMPS,
-    ETE,
-    AUTOMNE,
-    HIVER
-};
+    difficulty:"easy", tags:["enum","enum class","constantes","lisibilité"],
+    desc:"<code>enum</code> crée un type avec un ensemble fixe de constantes nommées. <code>enum class</code> (C++11) améliore la sécurité en créant un type fortement typé avec sa propre portée.",
+    why:"Remplacer les constantes entières magiques (0, 1, 2...) par des enums améliore dramatiquement la lisibilité et la sécurité. Comparer une Direction avec une Couleur est une erreur compilateur avec enum class — pas avec des ints.",
+    points:["<code>enum class</code> (C++11) : fortement typé, pas de conversion implicite vers int","Les valeurs commencent à 0 par défaut, mais peuvent être assignées","<code>Direction::NORD</code> — accès via la portée de l'enum class","<code>static_cast&lt;int&gt;(Direction::NORD)</code> pour convertir si nécessaire"],
+    pitfalls:["enum ancien : les noms polluent le namespace englobant","enum class : pas de conversion implicite vers int (parfois gênant)","Oublier le nom de l'enum dans l'accès : <code>Direction::NORD</code>, pas juste <code>NORD</code>"],
+    links:[{num:15, title:"switch"},{num:7, title:"Types"}],
+    code:`// enum class (C++11, recommandé)
+enum class Saison{ PRINTEMPS=1, ETE, AUTOMNE, HIVER };
+enum class Direction{ NORD, SUD, EST, OUEST };
 
 Saison s = Saison::ETE;
 
-if(s == Saison::ETE){
-    cout << "Il fait chaud !" << endl;
-}`,
+// switch sur enum class
+switch(s){
+    case Saison::PRINTEMPS: cout << "Printemps"; break;
+    case Saison::ETE:       cout << "Été";       break;
+    case Saison::AUTOMNE:   cout << "Automne";   break;
+    case Saison::HIVER:     cout << "Hiver";     break;
+}
+
+// Valeur entière
+cout << static_cast<int>(Saison::ETE) << endl;  // 2
+
+// Sécurité : cette ligne serait une ERREUR
+// if(s == Direction::NORD)  // erreur de compilation !`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -2095,29 +2590,35 @@ void aller(Direction d){
     switch(d){
         case Direction::NORD: cout << "Aller au Nord" << endl; break;
         case Direction::SUD:  cout << "Aller au Sud"  << endl; break;
-        case Direction::EST:  cout << "Aller a l'Est" << endl; break;
-        case Direction::OUEST:cout << "Aller a l'Ouest"<<endl; break;
+        case Direction::EST:  cout << "Aller à l'Est" << endl; break;
+        case Direction::OUEST:cout << "Aller à l'Ouest"<<endl; break;
     }
 }
 
 int main(){
     aller(Direction::NORD);
     aller(Direction::EST);
-    aller(Direction::SUD);
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Créez un enum class Couleur (ROUGE, VERT, BLEU) et une fonction qui affiche le nom de la couleur."
   },
   {
     num:35, title:"Fichiers — fstream", chapter:"Avancé",
-    desc:"C++ peut lire et écrire des fichiers via fstream. ofstream écrit, ifstream lit, fstream fait les deux.",
-    points:["ofstream : écriture","ifstream : lecture","Toujours fermer avec .close()"],
+    difficulty:"medium", tags:["fstream","ofstream","ifstream","lecture fichier"],
+    desc:"<code>&lt;fstream&gt;</code> permet la lecture et l'écriture de fichiers. <code>ofstream</code> écrit (output), <code>ifstream</code> lit (input), <code>fstream</code> fait les deux. Les fichiers sont des flux, similaires à cin/cout.",
+    why:"Les fichiers permettent la persistance des données : sauvegarder des configurations, lire des données, générer des rapports. C'est la passerelle entre votre programme et le système de fichiers — indispensable pour toute application réelle.",
+    points:["Toujours vérifier l'ouverture avec <code>is_open()</code>","Toujours fermer avec <code>close()</code> (ou utiliser RAII)","<code>getline()</code> lit ligne par ligne","Modes : <code>ios::app</code> (ajout), <code>ios::trunc</code> (écrasement), <code>ios::binary</code>","<code>ios::eof()</code> ou boucle <code>while(getline(...))</code> pour lire jusqu'à la fin"],
+    pitfalls:["Oublier de fermer le fichier (les données peuvent ne pas être écrites — buffer non vidé)","Lire un fichier qui n'existe pas = flux invalide — toujours vérifier is_open()","Chemins relatifs vs absolus selon le répertoire de travail"],
+    links:[{num:36, title:"Exceptions"}],
     code:`#include <fstream>
 #include <string>
 
 // Écrire dans un fichier
 ofstream fichier("notes.txt");
 if(fichier.is_open()){
-    fichier << "Thierno: 18" << endl;
+    fichier << "Nom,Note" << endl;
+    fichier << "Thierno,18" << endl;
+    fichier << "Fatou,16" << endl;
     fichier.close();
 }
 
@@ -2125,9 +2626,14 @@ if(fichier.is_open()){
 ifstream lecture("notes.txt");
 string ligne;
 while(getline(lecture, ligne)){
-    cout << ligne << endl;
+    cout << "[LU] " << ligne << endl;
 }
-lecture.close();`,
+lecture.close();
+
+// Ajout (append)
+ofstream ajout("notes.txt", ios::app);
+ajout << "Ali,14" << endl;
+ajout.close();`,
     starter:`#include <iostream>
 #include <fstream>
 #include <string>
@@ -2147,36 +2653,48 @@ int main(){
     }
     r.close();
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Écrivez 3 lignes dans un fichier, puis relisez-les et affichez-les numérotées."
   },
   {
     num:36, title:"Exceptions", chapter:null,
-    desc:"Les exceptions gèrent les erreurs de façon élégante. try définit le bloc risqué, throw lève une erreur, catch la récupère.",
-    points:["try { code risqué }","throw : déclencher une exception","catch(...) pour tout attraper"],
+    difficulty:"medium", tags:["try","catch","throw","exception","gestion erreur"],
+    desc:"Les exceptions gèrent les erreurs de façon structurée. <code>try</code> délimite le code risqué, <code>throw</code> lève une exception, <code>catch</code> la récupère. Cette séparation maintient le code « normal » propre et concentre la gestion d'erreur.",
+    why:"Avant les exceptions, les erreurs étaient gérées par des codes de retour (return -1, etc.) faciles à ignorer. Les exceptions ne peuvent pas être ignorées silencieusement : si elles ne sont pas attrapées, le programme s'arrête avec un message clair.",
+    points:["Hiérarchie standard : <code>exception</code>, <code>runtime_error</code>, <code>logic_error</code>...", "<code>e.what()</code> retourne le message d'erreur","<code>catch(...)</code> attrape tout (dernier recours)","RAII : les destructeurs s'exécutent même si une exception est levée","Ne pas utiliser les exceptions pour le flux de contrôle normal"],
+    pitfalls:["Attraper par valeur copie l'exception — attraper par référence (<code>catch(exception& e)</code>)","Les exceptions ont un coût en performance — à réserver pour les erreurs réelles","Ne pas lever dans un destructeur (comportement indéfini si déjà en cours de déroulement)"],
+    links:[{num:37, title:"new/delete"},{num:35, title:"Fichiers"}],
     code:`#include <stdexcept>
 
 double diviser(double a, double b){
-    if(b == 0){
-        throw runtime_error("Division par zero !");
-    }
+    if(b == 0)
+        throw runtime_error("Division par zéro !");
     return a / b;
 }
 
-try{
-    cout << diviser(10, 2) << endl;
-    cout << diviser(10, 0) << endl;
+int accesTableau(int* arr, int taille, int i){
+    if(i < 0 || i >= taille)
+        throw out_of_range("Index hors bornes : " + to_string(i));
+    return arr[i];
 }
-catch(runtime_error& e){
-    cout << "Erreur : " << e.what() << endl;
+
+try{
+    cout << diviser(10, 2) << endl;   // OK: 5
+    cout << diviser(10, 0) << endl;   // lève exception
+}
+catch(const runtime_error& e){
+    cerr << "Erreur runtime : " << e.what() << endl;
+}
+catch(const exception& e){     // filet de sécurité
+    cerr << "Erreur : " << e.what() << endl;
 }`,
     starter:`#include <iostream>
 #include <stdexcept>
 using namespace std;
 
 int accesTableau(int arr[], int taille, int index){
-    if(index < 0 || index >= taille){
+    if(index < 0 || index >= taille)
         throw out_of_range("Index hors limite !");
-    }
     return arr[index];
 }
 
@@ -2191,26 +2709,39 @@ int main(){
         cout << "Erreur : " << e.what() << endl;
     }
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Appelez accesTableau avec l'index 2 (valide) puis 10 (invalide). Observez que l'exception est bien attrapée."
   },
   {
     num:37, title:"new — Allocation Dynamique", chapter:null,
-    desc:"new alloue de la mémoire sur le tas (heap) à l'exécution. Utilisez-le quand la taille n'est pas connue à la compilation.",
-    points:["Alloue sur le heap","Retourne un pointeur","Toujours libérer avec delete !"],
-    code:`int *p = new int;
-*p = 42;
-delete p;   // libérer !
-p = nullptr;
+    difficulty:"hard", tags:["new","heap","allocation","pointeur"],
+    desc:"<code>new</code> alloue de la mémoire sur le <em>tas (heap)</em> à l'exécution. Contrairement aux variables locales (stack), la mémoire heap persiste jusqu'à libération explicite. Utilisez-le quand la taille ou la durée de vie n'est pas connue à la compilation.",
+    why:"L'allocation dynamique permet de créer des structures de taille variable (listes, arbres) et des objets dont la durée de vie dépasse la portée d'une fonction. C'est le mécanisme derrière tous les conteneurs STL. En C++ moderne, préférez les smart pointers.",
+    points:["<code>new T</code> alloue et retourne un <code>T*</code>","<code>new T[n]</code> alloue un tableau de n éléments","Toujours libérer avec <code>delete</code> / <code>delete[]</code>","Mettez le pointeur à <code>nullptr</code> après delete","Stack (pile) : rapide, taille limitée (~1-8 MB) | Heap (tas) : plus lent, quasi-illimité"],
+    pitfalls:["Fuite mémoire : new sans delete correspondant","Double delete : comportement indéfini","delete sans [] pour tableau → comportement indéfini","Utiliser le pointeur après delete → dangling pointer"],
+    links:[{num:38, title:"delete/Smart Pointers"},{num:24, title:"Pointeurs"}],
+    code:`// Allouer un entier sur le heap
+int *p = new int(42);
+cout << *p << endl;   // 42
+delete p;             // libérer
+p = nullptr;          // sécurité
 
+// Allouer un tableau dynamique
 int n = 5;
 int *tab = new int[n];
-for(int i=0;i<n;i++) tab[i] = i*10;
-delete[] tab;  // delete[] pour tableaux
+for(int i = 0; i < n; i++) tab[i] = i * i;
+delete[] tab;    // IMPORTANT : delete[] pour tableaux
+tab = nullptr;
 
-class Point{ public: int x,y; };
-Point *pt = new Point();
-pt->x = 3;
-delete pt;`,
+// Allouer un objet
+class Point{ public: int x, y; Point(int x,int y):x(x),y(y){} };
+Point *pt = new Point(3, 4);
+cout << pt->x << " " << pt->y << endl;
+delete pt;
+
+// Stack vs Heap
+int local = 10;         // stack : automatique, rapide
+int *heap = new int(10); // heap : manuel, flexible`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -2218,34 +2749,50 @@ int main(){
     int taille = 5;
     int *tab = new int[taille];
 
-    for(int i = 0; i < taille; i++){
+    for(int i = 0; i < taille; i++)
         tab[i] = (i+1) * (i+1);
-    }
 
-    for(int i = 0; i < taille; i++){
+    for(int i = 0; i < taille; i++)
         cout << tab[i] << " ";
-    }
     cout << endl;
 
     delete[] tab;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Allouez dynamiquement un tableau de 5 int, remplissez-le avec des carrés (1,4,9,16,25), affichez-le, libérez-le."
   },
   {
-    num:38, title:"delete — Libération Mémoire", chapter:null,
-    desc:"delete libère la mémoire allouée par new. Oublier delete cause des fuites mémoire. Les smart pointers automatisent cela en C++11.",
-    points:["delete pour un objet","delete[] pour un tableau","Mettre le pointeur à nullptr après"],
-    code:`int *p = new int(100);
-delete p;
-p = nullptr;
+    num:38, title:"delete — Smart Pointers", chapter:null,
+    difficulty:"hard", tags:["delete","unique_ptr","shared_ptr","RAII","mémoire"],
+    desc:"<code>delete</code> libère la mémoire allouée par <code>new</code>. Oublier <code>delete</code> cause des <em>fuites mémoire</em>. Les <em>smart pointers</em> C++11 (<code>unique_ptr</code>, <code>shared_ptr</code>) automatisent ce processus via RAII.",
+    why:"Les fuites mémoire sont parmi les bugs les plus difficiles à détecter. Les smart pointers résolvent ce problème : la mémoire est libérée automatiquement quand le pointeur sort de portée. C++ moderne recommande strongly d'utiliser les smart pointers plutôt que new/delete manuels.",
+    points:["<code>unique_ptr</code> : propriété exclusive, libéré à la fin de portée","<code>shared_ptr</code> : propriété partagée (compteur de références)","<code>make_unique&lt;T&gt;(args)</code> : créer un unique_ptr (C++14)","<code>make_shared&lt;T&gt;(args)</code> : créer un shared_ptr","RAII : Resource Acquisition Is Initialization — ressource liée à durée de vie de l'objet"],
+    pitfalls:["Ne pas mélanger new/delete et smart pointers sur le même objet","<code>shared_ptr</code> cycles de références → fuites → utiliser <code>weak_ptr</code>","<code>unique_ptr</code> ne peut pas être copié (seulement déplacé avec <code>move()</code>)"],
+    links:[{num:37, title:"new"},{num:24, title:"Pointeurs"}],
+    code:`#include <memory>
 
-// Smart pointers C++11
-#include <memory>
-unique_ptr<int> sp = make_unique<int>(50);
-cout << *sp << endl;
-// Libéré automatiquement !
+// unique_ptr — propriété exclusive
+{
+    auto p = make_unique<int>(42);
+    cout << *p << endl;
+    // libéré automatiquement à la fin du bloc !
+}
 
-shared_ptr<int> sp2 = make_shared<int>(99);`,
+// shared_ptr — propriété partagée
+auto sp1 = make_shared<string>("Bonjour");
+auto sp2 = sp1;  // deux propriétaires
+cout << sp1.use_count() << endl;  // 2
+
+// Avec classe
+class Ressource{
+public:
+    Ressource(string n) : nom(n){ cout << "Crée: " << n << endl; }
+    ~Ressource(){ cout << "Détruit: " << nom << endl; }
+    string nom;
+};
+
+auto r = make_unique<Ressource>("Fichier");
+// "Détruit: Fichier" s'affiche automatiquement à la fin`,
     starter:`#include <iostream>
 #include <memory>
 using namespace std;
@@ -2253,94 +2800,144 @@ using namespace std;
 class Ressource{
 public:
     string nom;
-    Ressource(string n) : nom(n){
-        cout << "Creation : " << nom << endl;
-    }
-    ~Ressource(){
-        cout << "Destruction : " << nom << endl;
-    }
+    Ressource(string n) : nom(n){ cout << "Creation : " << nom << endl; }
+    ~Ressource(){ cout << "Destruction : " << nom << endl; }
 };
 
 int main(){
     unique_ptr<Ressource> r = make_unique<Ressource>("Fichier A");
     cout << "Utilisation de " << r->nom << endl;
-    return 0;
-}`
+    return 0;  // "Destruction : Fichier A" s'affiche ici
+}`,
+    exerciseGoal:"Objectif : Créez un unique_ptr sur Ressource, utilisez-le, puis observez le message de destruction automatique."
   },
   {
     num:39, title:"Bibliothèques Standard", chapter:null,
-    desc:"La bibliothèque standard C++ (STL) fournit des outils essentiels pour les mathématiques, le temps, les algorithmes, etc.",
-    points:["<cmath> : fonctions mathématiques","<algorithm> : sort, find, etc.","<chrono> : mesure du temps"],
+    difficulty:"medium", tags:["cmath","algorithm","chrono","numeric","STL"],
+    desc:"La bibliothèque standard C++ (STL + bibliothèques C) fournit des outils essentiels : mathématiques, algorithmes, mesure du temps, entrée/sortie formatée, génération de nombres aléatoires, et bien plus.",
+    why:"Ne pas réinventer la roue. Les algorithmes STL (sort, find, accumulate, transform...) sont optimisés et bien testés. Les utiliser à la place d'implémentations maison rend le code plus court, plus lisible et plus performant.",
+    points:["<code>&lt;cmath&gt;</code> : sqrt, pow, sin, cos, log, ceil, floor...","<code>&lt;algorithm&gt;</code> : sort, find, min_element, transform, reverse...","<code>&lt;numeric&gt;</code> : accumulate, iota, inner_product...","<code>&lt;random&gt;</code> : générateurs de nombres aléatoires modernes","<code>&lt;chrono&gt;</code> : mesure du temps précis"],
+    pitfalls:["Ne pas inclure les bons headers (<code>&lt;algorithm&gt;</code> pour sort, <code>&lt;numeric&gt;</code> pour accumulate)","M_PI n'est pas standard — utiliser <code>acos(-1.0)</code> ou définir soi-même"],
+    links:[{num:40, title:"cmath"},{num:43, title:"STL"}],
     code:`#include <cmath>
 #include <algorithm>
 #include <numeric>
+#include <random>
 
-sqrt(25.0)   // 5.0
-pow(2, 10)   // 1024
-abs(-7)      // 7
+// cmath
+sqrt(25.0)       // 5.0
+pow(2, 10)       // 1024
+abs(-7)          // 7
+ceil(3.2)        // 4.0
+floor(3.9)       // 3.0
+round(3.5)       // 4.0
 
+// algorithm
 vector<int> v = {5,2,8,1,9};
-sort(v.begin(), v.end());
-int s = accumulate(v.begin(), v.end(), 0);`,
+sort(v.begin(), v.end());           // tri croissant
+reverse(v.begin(), v.end());        // inversion
+auto it = min_element(v.begin(), v.end()); // pointeur sur min
+
+// numeric
+int somme = accumulate(v.begin(), v.end(), 0);  // somme
+
+// random (C++11, bien mieux que rand())
+mt19937 rng(42);  // générateur avec seed
+uniform_int_distribution<int> dist(1, 100);
+cout << dist(rng) << endl;  // entier aléatoire 1-100`,
     starter:`#include <iostream>
 #include <cmath>
 using namespace std;
 
 int main(){
     double x = 2.0;
+    const double PI = acos(-1.0);
 
     cout << "sqrt(2) = " << sqrt(x) << endl;
     cout << "2^10 = " << pow(x, 10) << endl;
-    cout << "sin(pi/2) = " << sin(M_PI/2) << endl;
+    cout << "sin(pi/2) = " << sin(PI/2) << endl;
 
     double a = 3, b = 4;
     cout << "Hypotenuse(3,4) = " << sqrt(a*a + b*b) << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Calculez l'aire et le périmètre d'un cercle de rayon 7 avec cmath. Affichez avec 2 décimales."
   },
   {
     num:40, title:"sqrt et cmath", chapter:null,
-    desc:"La bibliothèque <cmath> fournit toutes les fonctions mathématiques essentielles : trigonométrie, logarithmes, puissances, etc.",
-    points:["Inclure <cmath>","M_PI pour π","Fonctions: sin, cos, tan, log, exp"],
+    difficulty:"easy", tags:["sqrt","cmath","trigonométrie","logarithmes"],
+    desc:"La bibliothèque <code>&lt;cmath&gt;</code> fournit toutes les fonctions mathématiques : racines, puissances, trigonométrie, logarithmes, valeur absolue et arrondis. Toutes opèrent sur des <code>double</code> par défaut.",
+    why:"Dès qu'on sort de l'arithmétique de base, cmath est indispensable : calculs géométriques, simulations physiques, algorithmes numériques, statistiques. Connaître les fonctions disponibles évite de les réécrire.",
+    points:["<code>sqrt(x)</code> : racine carrée","<code>pow(base, exp)</code> : puissance","<code>sin/cos/tan(rad)</code> : angles en <em>radians</em>","<code>log(x)</code> : logarithme naturel, <code>log10(x)</code> : log base 10","<code>ceil()</code> : arrondi supérieur, <code>floor()</code> : inférieur, <code>round()</code> : au plus proche"],
+    pitfalls:["sin/cos prennent des radians, pas des degrés — conversion : deg × π/180","sqrt(-1) retourne NaN (Not a Number) — pas d'exception levée","pow(2, 10) retourne un double, pas un int"],
+    links:[{num:39, title:"Bibliothèques"},{num:9, title:"double"}],
     code:`#include <cmath>
+const double PI = acos(-1.0);  // π précis
 
-sqrt(9.0)         // 3.0
-pow(2.0, 8.0)     // 256.0
-log(M_E)          // 1.0
-log10(1000.0)     // 3.0
-sin(M_PI / 6)     // 0.5
-cos(0.0)          // 1.0
-fabs(-5.5)        // 5.5`,
+sqrt(9.0)              // 3.0
+pow(2.0, 8.0)          // 256.0
+log(exp(1.0))          // 1.0  (ln(e) = 1)
+log10(1000.0)          // 3.0  (log₁₀(10³) = 3)
+sin(PI / 6)            // 0.5  (sin 30°)
+cos(0.0)               // 1.0
+fabs(-5.5)             // 5.5  (valeur absolue float)
+
+// Conversion degrés → radians
+double degToRad(double deg){ return deg * PI / 180.0; }
+double sin45 = sin(degToRad(45));  // ≈ 0.707`,
     starter:`#include <iostream>
 #include <cmath>
 using namespace std;
 
 int main(){
     double rayon = 7.0;
+    const double PI = acos(-1.0);
 
-    double aire = M_PI * pow(rayon, 2);
-    double perimetre = 2 * M_PI * rayon;
+    double aire = PI * pow(rayon, 2);
+    double perimetre = 2 * PI * rayon;
 
     cout << "Cercle de rayon " << rayon << " cm" << endl;
     cout << "Aire : " << aire << " cm2" << endl;
     cout << "Perimetre : " << perimetre << " cm" << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Calculez la diagonale d'un rectangle 6×8 avec sqrt (réponse : 10). Puis affichez sin(30°) en convertissant les degrés."
   },
   {
     num:41, title:"Méthodes string", chapter:null,
-    desc:"La classe string offre de nombreuses méthodes pour manipuler le texte : recherche, extraction, remplacement, conversion.",
-    points:["length() / size() : longueur","find() : chercher une sous-chaîne","substr(pos, len) : extraire"],
+    difficulty:"medium", tags:["string","find","substr","replace","erase","transform"],
+    desc:"La classe <code>string</code> offre un riche ensemble de méthodes pour manipuler le texte : recherche, extraction, remplacement, suppression, conversion de casse, et bien plus. En complément, <code>&lt;cctype&gt;</code> et <code>&lt;algorithm&gt;</code> ajoutent des opérations utiles.",
+    why:"Le traitement de texte est omniprésent : validation de saisies, parsing de fichiers CSV, manipulation de chemins, formatage de sorties. Maîtriser les méthodes string vous rend très productif pour tout ce qui touche au texte.",
+    points:["<code>find(sub)</code> → index ou <code>string::npos</code>","<code>substr(pos, len)</code> → nouvelle string","<code>replace(pos, len, new)</code> → modifie sur place","<code>erase(pos, len)</code> → supprime","<code>insert(pos, str)</code> → insère","<code>empty()</code>, <code>clear()</code>, <code>compare()</code>"],
+    pitfalls:["<code>find()</code> retourne <code>string::npos</code> (valeur max de size_t) si non trouvé — ne pas comparer à -1","<code>substr()</code> retourne une copie, ne modifie pas l'originale","<code>string::npos == -1</code> est faux ! Comparer avec <code>!= string::npos</code>"],
+    links:[{num:11, title:"string"},{num:39, title:"Bibliothèques"}],
     code:`string s = "Bonjour le monde";
 
-s.length()               // 17
-s.at(0)                  // 'B'
-s[7]                     // 'l'
-s.substr(8, 2)           // "le"
-s.find("monde")          // 11
-s.find("xyz")            // string::npos
-s.replace(0,7,"Salut")  // "Salut le monde"
-s += " !";               // concaténation`,
+// Longueur
+s.length()                    // 17
+
+// Accès et extraction
+s.at(0)                       // 'B'
+s.substr(8, 2)                // "le" (pos=8, len=2)
+
+// Recherche
+s.find("monde")               // 11
+s.find("xyz")                 // string::npos
+s.rfind("o")                  // dernier 'o'
+
+// Modification
+s.replace(0, 7, "Salut");     // "Salut le monde"
+s.erase(5, 3);                // supprime " le" → "Salut monde"
+s.insert(5, " cher");         // insère → "Salut cher monde"
+
+// Conversion (nécessite <algorithm>)
+transform(s.begin(), s.end(), s.begin(), ::toupper);  // majuscules
+transform(s.begin(), s.end(), s.begin(), ::tolower);  // minuscules
+
+// Conversion types
+int n = stoi("42");
+double d = stod("3.14");
+string t = to_string(100);`,
     starter:`#include <iostream>
 #include <string>
 using namespace std;
@@ -2355,25 +2952,41 @@ int main(){
     cout << "[" << propre << "]" << endl;
     cout << "Longueur : " << propre.length() << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Vérifiez si la phrase contient le mot 'tout'. Remplacez 'monde' par 'C++'. Affichez la longueur finale."
   },
   {
     num:42, title:"namespace", chapter:null,
-    desc:"Les namespaces organisent le code en espaces de noms pour éviter les conflits de noms entre différentes bibliothèques.",
-    points:[":: opérateur de résolution de portée","using namespace pour simplifier","Namespaces imbriqués possibles"],
+    difficulty:"medium", tags:["namespace","portée","std","conflit de noms"],
+    desc:"Les namespaces organisent le code en espaces de noms pour éviter les <em>conflits de noms</em> entre différentes bibliothèques ou modules. <code>std::</code> est le namespace de la bibliothèque standard.",
+    why:"Dans les grands projets, deux bibliothèques peuvent définir une fonction avec le même nom. Les namespaces résolvent ce problème. Définissez vos propres namespaces pour structurer votre code en modules logiques.",
+    points:["<code>namespace NomEspace { ... }</code> crée un espace de noms","<code>NomEspace::symbole</code> accède à un symbole","<code>using namespace std;</code> importe tous les symboles de std","<code>using std::cout;</code> importe uniquement cout (meilleure pratique)","Namespaces imbriqués : <code>namespace A::B { ... }</code> (C++17)"],
+    pitfalls:["<code>using namespace std;</code> dans un .h pollue tout fichier qui l'inclut — à éviter","Éviter les namespaces anonymes dans les .h (ils sont dans chaque translation unit)","Les namespaces n'affectent pas la structure mémoire — purement lexicale"],
+    links:[{num:31, title:"Templates"},{num:43, title:"STL"}],
     code:`namespace Geometrie{
     const double PI = 3.14159;
-    double aireDisque(double r){
-        return PI * r * r;
-    }
+    double aireDisque(double r){ return PI * r * r; }
+    double perimetreDisque(double r){ return 2 * PI * r; }
 }
 
 namespace Physique{
-    const double PI = 3.14159265;  // pas de conflit
+    const double PI = 3.14159265;  // valeur différente, pas de conflit !
+    double energie(double m, double c){ return m * c * c; }
 }
 
-double a = Geometrie::aireDisque(5.0);
-cout << Geometrie::PI << endl;`,
+// Accès explicite
+cout << Geometrie::aireDisque(5.0) << endl;
+cout << Physique::energie(1.0, 3e8) << endl;
+
+// Alias de namespace
+namespace Geo = Geometrie;
+cout << Geo::PI << endl;
+
+// using local (dans une fonction)
+void maFonction(){
+    using namespace Geometrie;
+    cout << aireDisque(3.0) << endl;  // OK dans cette portée
+}`,
     starter:`#include <iostream>
 using namespace std;
 
@@ -2397,25 +3010,39 @@ int main(){
             cout << i << " ";
     cout << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Ajoutez une fonction fibonacci(n) dans MathUtils et affichez les 10 premiers nombres de Fibonacci."
   },
   {
     num:43, title:"STL — Standard Template Library", chapter:null,
-    desc:"La STL fournit des conteneurs (vector, map, set), des itérateurs et des algorithmes prêts à l'emploi, génériques et optimisés.",
-    points:["Conteneurs : vector, list, map, set","Algorithmes : sort, find, count, transform","Itérateurs pour parcourir les conteneurs"],
+    difficulty:"medium", tags:["STL","conteneurs","algorithmes","itérateurs"],
+    desc:"La STL est le cœur de la bibliothèque standard C++. Elle fournit des <em>conteneurs</em> (structures de données), des <em>algorithmes</em> (tri, recherche, transformation) et des <em>itérateurs</em> (abstraction d'accès séquentiel).",
+    why:"La STL est l'une des bibliothèques les plus élaborées et les plus performantes de l'histoire du génie logiciel. Savoir l'utiliser multiplie votre productivité : plus besoin d'implémenter tris, recherches, structures de données classiques.",
+    points:["Conteneurs : <code>vector</code>, <code>list</code>, <code>map</code>, <code>set</code>, <code>queue</code>, <code>stack</code>...", "Algorithmes : <code>sort</code>, <code>find</code>, <code>count</code>, <code>transform</code>, <code>remove_if</code>...","Itérateurs : <code>begin()</code>, <code>end()</code>, <code>rbegin()</code>","Foncteurs et lambdas pour personnaliser les algorithmes"],
+    complexity:[{label:"vector accès", desc:"O(1)"},{label:"map accès", desc:"O(log n)"},{label:"set cherche", desc:"O(log n)"},{label:"sort", desc:"O(n log n)"}],
+    links:[{num:32, title:"vector"},{num:44, title:"map"},{num:45, title:"list"}],
     code:`#include <vector>
 #include <map>
 #include <set>
 #include <algorithm>
+#include <numeric>
 
-vector<int> v = {3,1,4,1,5};
-set<int> s(v.begin(), v.end());  // {1,3,4,5}
+vector<int> v = {3,1,4,1,5,9,2,6};
+set<int> s(v.begin(), v.end());  // {1,2,3,4,5,6,9} — dédoublonnage
 
-map<string,int> scores;
-scores["Alice"] = 95;
-scores["Bob"] = 87;
+map<string, int> scores;
+scores["Alice"] = 95;  scores["Bob"] = 87;
 
-sort(v.begin(), v.end());`,
+// Algorithmes avec lambdas
+sort(v.begin(), v.end(), [](int a, int b){ return a > b; }); // décroissant
+
+int nbImpairs = count_if(v.begin(), v.end(), [](int x){ return x%2 != 0; });
+
+vector<int> doubles;
+transform(v.begin(), v.end(), back_inserter(doubles), [](int x){ return x*2; });
+
+// remove_if + erase (idiome erase-remove)
+v.erase(remove_if(v.begin(), v.end(), [](int x){ return x < 4; }), v.end());`,
     starter:`#include <iostream>
 #include <vector>
 #include <algorithm>
@@ -2429,33 +3056,46 @@ int main(){
     for(int x : v) cout << x << " ";
 
     sort(v.begin(), v.end());
-    cout << "\nTrie : ";
+    cout << "\nTrié : ";
     for(int x : v) cout << x << " ";
 
     cout << "\nSomme : " << accumulate(v.begin(), v.end(), 0);
     cout << "\nMin : " << *min_element(v.begin(), v.end());
     cout << "\nMax : " << *max_element(v.begin(), v.end()) << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : À partir du vecteur, comptez les éléments > 5. Puis doublez tous les éléments avec transform."
   },
   {
     num:44, title:"map — Dictionnaire", chapter:null,
-    desc:"map<K,V> est un dictionnaire trié : il associe des clés uniques à des valeurs. Les clés sont triées automatiquement.",
-    points:["Clés uniques et triées","Accès en O(log n)","unordered_map pour O(1) moyen"],
+    difficulty:"medium", tags:["map","clé-valeur","unordered_map","itération"],
+    desc:"<code>map&lt;K,V&gt;</code> est un dictionnaire associatif trié : il associe des clés uniques à des valeurs. Basé sur un arbre rouge-noir, toutes les opérations sont O(log n). <code>unordered_map</code> utilise une table de hachage pour O(1) moyen.",
+    why:"Les maps sont indispensables pour les associations clé-valeur : compte de fréquences, annuaires, configurations, caches. Choisir entre map (trié, O(log n)) et unordered_map (non trié, O(1)) dépend du besoin.",
+    points:["Clés uniques et triées (<code>map</code>) ou non triées (<code>unordered_map</code>)","<code>count(key) &gt; 0</code> ou <code>find(key) != end()</code> pour vérifier l'existence","Accès avec <code>[]</code> insère une valeur par défaut si la clé n'existe pas","Itération : <code>for(auto& [cle, val] : map)</code> (C++17 structured bindings)"],
+    pitfalls:["<code>map[key]</code> insère la clé avec valeur par défaut si absente — utiliser <code>find()</code> si on veut juste vérifier","<code>unordered_map</code> requiert un hash pour les clés custom","Itérer sur map pendant modification = comportement indéfini"],
+    complexity:[{label:"insert/find/erase", desc:"O(log n) map"},{label:"insert/find/erase", desc:"O(1) unordered_map"}],
+    links:[{num:43, title:"STL"},{num:45, title:"list"}],
     code:`#include <map>
-map<string, int> age;
+#include <unordered_map>
 
+map<string, int> age;
 age["Alice"] = 25;
 age["Bob"] = 30;
+age.insert({"Carla", 22});
 
-cout << age["Alice"] << endl;
+// Accès sécurisé
+auto it = age.find("Bob");
+if(it != age.end())
+    cout << it->second << endl;  // 30
 
-if(age.count("Bob") > 0)
-    cout << "Bob existe" << endl;
+// Compter la fréquence des mots
+map<string, int> freq;
+vector<string> mots = {"chat", "chien", "chat", "oiseau", "chat"};
+for(auto& m : mots) freq[m]++;
 
-for(auto& [nom, a] : age){
-    cout << nom << ": " << a << endl;
-}`,
+// Structured bindings (C++17)
+for(auto& [mot, count] : freq)
+    cout << mot << ": " << count << endl;`,
     starter:`#include <iostream>
 #include <map>
 #include <string>
@@ -2476,101 +3116,146 @@ int main(){
     }
     cout << "Moyenne : " << somme/notes.size() << "/20" << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Comptez la fréquence de chaque lettre dans le mot 'programmation' avec une map<char,int>."
   },
   {
     num:45, title:"list — Liste Chaînée", chapter:null,
-    desc:"list<T> implémente une liste doublement chaînée. Insertion/suppression en O(1) en n'importe quelle position, mais accès aléatoire lent.",
-    points:["Insertion/suppression O(1) avec itérateur","Pas d'accès par index (pas de [])","Idéale pour nombreuses insertions/suppressions"],
+    difficulty:"medium", tags:["list","doublement chaînée","insertion","suppression"],
+    desc:"<code>list&lt;T&gt;</code> implémente une liste doublement chaînée. Chaque élément contient un lien vers le précédent et le suivant. Insertions et suppressions sont O(1) avec un itérateur, mais l'accès aléatoire n'existe pas.",
+    why:"La liste chaînée est utile quand on fait beaucoup d'insertions/suppressions au milieu d'une collection. Elle modélise naturellement les files d'attente, les historiques, les planificateurs de tâches.",
+    points:["Insertion/suppression O(1) avec itérateur","Pas d'accès par index — parcours séquentiel uniquement","<code>push_front()</code> / <code>push_back()</code> : début/fin","<code>sort()</code>, <code>reverse()</code>, <code>merge()</code>, <code>unique()</code> : méthodes propres","Itérateurs non invalidés lors d'insertions (contrairement à vector)"],
+    pitfalls:["Pas de <code>list[i]</code> — utiliser begin() + advance() (lent !)","Cache miss : les éléments ne sont pas contigus en mémoire — vector souvent plus rapide malgré O(n) d'insertion"],
+    complexity:[{label:"push_front/back", desc:"O(1)"},{label:"Insertion milieu", desc:"O(1) avec itérateur"},{label:"Accès par index", desc:"O(n)"},{label:"Recherche", desc:"O(n)"}],
+    links:[{num:43, title:"STL"},{num:32, title:"vector"}],
     code:`#include <list>
 list<int> L = {10, 20, 30};
 
-L.push_front(5);
-L.push_back(40);
-L.pop_front();
-L.pop_back();
+L.push_front(5);    // {5, 10, 20, 30}
+L.push_back(40);    // {5, 10, 20, 30, 40}
+L.pop_front();      // {10, 20, 30, 40}
+L.pop_back();       // {10, 20, 30}
 
-for(int x : L) cout << x << " ";
+// Insertion au milieu avec itérateur
+auto it = L.begin();
+advance(it, 1);     // pointe sur 20
+L.insert(it, 15);   // {10, 15, 20, 30}
 
-L.sort();
-L.reverse();
-L.remove(20);`,
+// Méthodes utiles
+L.sort();           // tri in-place O(n log n)
+L.reverse();        // inversion
+L.remove(20);       // supprime toutes les occurrences de 20
+L.unique();         // supprime les doublons consécutifs`,
     starter:`#include <iostream>
 #include <list>
 using namespace std;
 
 int main(){
     list<string> file;
-
     file.push_back("Thierno");
     file.push_back("Fatou");
     file.push_back("Mamadou");
     file.push_back("Awa");
 
     cout << "File (" << file.size() << " personnes) :" << endl;
-
     while(!file.empty()){
         cout << "Service : " << file.front() << endl;
         file.pop_front();
     }
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Simulez une file d'attente de 5 personnes. Chaque 'service' retire la première. Affichez l'état de la file après chaque service."
   },
   {
     num:46, title:"Compilation", chapter:"Outils & Pratiques",
-    desc:"C++ est un langage compilé. Le code source doit être transformé en exécutable par un compilateur comme GCC (g++) ou Clang.",
-    points:["g++ source.cpp -o programme","-std=c++17 pour C++17","-Wall pour tous les warnings"],
-    code:`// Compiler :
+    difficulty:"medium", tags:["g++","compilation","flags","makefile"],
+    desc:"C++ est un langage compilé. Le code source (.cpp) est transformé en exécutable par le compilateur. GCC (<code>g++</code>) et Clang sont les compilateurs libres les plus répandus. La compilation se fait en plusieurs étapes : préprocesseur → compilation → assemblage → édition de liens.",
+    why:"Comprendre la compilation vous aide à interpréter les messages d'erreur, à optimiser vos binaires et à organiser votre projet en plusieurs fichiers. Les flags de compilation contrôlent avertissements, optimisations, et standards.",
+    points:["<code>g++ main.cpp -o programme</code> : commande de base","<code>-std=c++17</code> : activer C++17 (recommandé)","<code>-Wall -Wextra</code> : activer tous les avertissements","<code>-O2</code> : optimisation niveau 2 (production)","<code>-g</code> : informations de débogage (pour gdb)"],
+    pitfalls:["Compiler sans -Wall passe à côté de nombreux bugs potentiels","Oublier -std=c++17 sur de vieux compilateurs désactive les fonctionnalités modernes","Les erreurs de l'éditeur de liens (linker) sont différentes des erreurs de compilation"],
+    links:[{num:47, title:"Debug"},{num:1, title:"Introduction"}],
+    code:`// Compiler un fichier :
 // g++ main.cpp -o programme
 
-// Avec options :
-// g++ main.cpp -o prog -std=c++17 -Wall -O2
+// Avec options recommandées :
+// g++ main.cpp -o prog -std=c++17 -Wall -Wextra -O2
+
+// Mode débogage :
+// g++ main.cpp -o prog -std=c++17 -Wall -g
 
 // Plusieurs fichiers :
-// g++ main.cpp utils.cpp -o prog
+// g++ main.cpp utils.cpp math.cpp -o prog
 
-// Avec bibliothèques :
+// Avec bibliothèque math :
 // g++ main.cpp -o prog -lm
 
+// Étapes détaillées :
+// g++ -E main.cpp        → préprocesseur seulement
+// g++ -S main.cpp        → assembleur seulement
+// g++ -c main.cpp        → objet seulement (.o)
+// g++ main.o -o prog     → édition de liens
+
 // Exécuter :
-// ./programme  (Linux/Mac)`,
+// ./programme  (Linux/Mac)   ou   programme.exe (Windows)`,
     starter:`#include <iostream>
 using namespace std;
 
-// g++ -std=c++17 main.cpp -o app
-
 int main(){
-    cout << "Compile avec succes !" << endl;
-    cout << "Version C++ : " << __cplusplus << endl;
+    cout << "Compilé avec succès !" << endl;
+    cout << "Standard C++ : " << __cplusplus << endl;
+
+    // __cplusplus vaut :
+    // 199711L pour C++98
+    // 201103L pour C++11
+    // 201402L pour C++14
+    // 201703L pour C++17
+    // 202002L pour C++20
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Affichez la valeur de __cplusplus et déduisez quelle version de C++ est utilisée."
   },
   {
     num:47, title:"Debug & Débogage", chapter:null,
-    desc:"Le débogage est l'art de trouver et corriger les bugs. Techniques : cout stratégiques, assert(), débogueur (gdb).",
-    points:["cout pour tracer les valeurs","assert() pour vérifier les invariants","Compiler avec -g pour le débogueur"],
+    difficulty:"medium", tags:["debug","assert","cerr","gdb","tests unitaires"],
+    desc:"Le débogage est l'art de trouver et corriger les bugs. Techniques : <code>cout/cerr</code> stratégiques, <code>assert()</code> pour vérifier les invariants, débogueur interactif (<code>gdb</code>), et tests unitaires.",
+    why:"Même les meilleurs développeurs passent jusqu'à 50% de leur temps à déboguer. Maîtriser les techniques de débogage réduit drastiquement ce temps. Les assertions en particulier attrapent les bugs au plus tôt, là où ils se produisent.",
+    points:["<code>cerr</code> : sortie d'erreur non bufferisée (affichage immédiat)","<code>assert(condition)</code> : plante si la condition est fausse (debug mode)","<code>#define NDEBUG</code> désactive tous les assert (mode release)","Technique du print debugging : tracer les valeurs à des points clés","Tests unitaires : valider chaque fonction indépendamment"],
+    pitfalls:["Ne pas laisser du code de debug dans le code de production","assert() est désactivé avec NDEBUG — ne pas mettre d'effets de bord dans les assert","cerr << est non bufferisé — préférer à cout pour les messages d'erreur"],
+    links:[{num:36, title:"Exceptions"},{num:46, title:"Compilation"}],
     code:`#include <cassert>
+#include <iostream>
 
-int calcul(int n){
-    cout << "[DEBUG] n=" << n << endl;
-    int resultat = n * (n + 1) / 2;
-    return resultat;
+// Macro de debug conditionnelle
+#ifdef DEBUG
+  #define LOG(msg) cerr << "[DEBUG] " << msg << endl
+#else
+  #define LOG(msg)
+#endif
+
+int division(int a, int b){
+    assert(b != 0);  // plantage propre si b == 0
+    LOG("division(" << a << ", " << b << ")");
+    return a / b;
 }
 
-assert(calcul(5) == 15);
-assert(calcul(0) == 0);
+// Tests unitaires simples
+void runTests(){
+    assert(division(10, 2) == 5);
+    assert(division(9, 3)  == 3);
+    cerr << "✓ Tous les tests passent" << endl;
+}
 
-// Désactiver en production :
-// #define NDEBUG`,
+int main(){
+    runTests();
+    cerr << "[INFO] Programme démarré" << endl;
+    return 0;
+}`,
     starter:`#include <iostream>
 #include <cassert>
 using namespace std;
 
 int factorial(int n){
-    if(n < 0){
-        cerr << "ERREUR: entree negative !" << endl;
-        return -1;
-    }
+    if(n < 0){ cerr << "ERREUR: entrée négative !" << endl; return -1; }
     if(n == 0) return 1;
     return n * factorial(n-1);
 }
@@ -2583,94 +3268,112 @@ int main(){
     cout << "Tous les tests passent !" << endl;
     cout << "10! = " << factorial(10) << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Ajoutez un assert qui vérifie que factorial(6) == 720. Exécutez et vérifiez que tous les tests passent."
   },
   {
     num:48, title:"Threads", chapter:null,
-    desc:"Les threads permettent l'exécution parallèle de plusieurs tâches. C++11 introduit la bibliothèque <thread> standard.",
-    points:["#include <thread>","std::thread t(fonction)","t.join() attend la fin"],
+    difficulty:"hard", tags:["thread","mutex","parallélisme","concurrent"],
+    desc:"Les threads permettent l'exécution parallèle de plusieurs tâches. C++11 introduit <code>&lt;thread&gt;</code> pour la gestion portable des threads. La synchronisation via <code>mutex</code> évite les <em>conditions de course</em>.",
+    why:"Le parallélisme exploite les processeurs multi-cœurs modernes. Les applications serveur, les moteurs de jeu, les outils de traitement de données utilisent massivement les threads. Comprendre la synchronisation est critique pour éviter des bugs difficiles à reproduire.",
+    points:["<code>thread t(fonction, args...)</code> : créer un thread","<code>t.join()</code> : attendre la fin du thread","<code>t.detach()</code> : thread autonome (ne jamais join)","<code>mutex mtx; mtx.lock(); ... mtx.unlock();</code> : section critique","<code>lock_guard&lt;mutex&gt;</code> : verrou RAII (recommandé)"],
+    pitfalls:["Data race : deux threads modifient la même donnée sans protection → comportement indéfini","Deadlock : deux threads s'attendent mutuellement → programme bloqué","Ne jamais utiliser cerr/cout sans mutex dans un programme multi-thread"],
+    links:[{num:37, title:"new"},{num:38, title:"Smart Pointers"}],
     code:`#include <thread>
 #include <mutex>
+#include <atomic>
 
 mutex mtx;
+int compteur = 0;
 
-void tache(int id){
-    mtx.lock();
-    cout << "Thread " << id << " en cours" << endl;
-    mtx.unlock();
+void incrementer(int n){
+    for(int i = 0; i < n; i++){
+        lock_guard<mutex> lock(mtx);  // RAII : lock/unlock automatique
+        compteur++;
+    }
 }
 
-thread t1(tache, 1);
-thread t2(tache, 2);
+thread t1(incrementer, 1000);
+thread t2(incrementer, 1000);
 
 t1.join();
-t2.join();`,
+t2.join();
+cout << compteur << endl;  // 2000 (correct avec mutex)
+
+// Alternative : atomic (plus simple pour compteurs)
+atomic<int> compteurA{0};
+// compteurA++ est thread-safe sans mutex`,
     starter:`#include <iostream>
 #include <thread>
 using namespace std;
 
 void compte(string nom, int debut, int fin){
-    for(int i = debut; i <= fin; i++){
+    for(int i = debut; i <= fin; i++)
         cout << nom << ": " << i << endl;
-    }
 }
 
 int main(){
     thread t1(compte, "Thread-A", 1, 5);
     thread t2(compte, "Thread-B", 10, 15);
-
     t1.join();
     t2.join();
-
-    cout << "Tous les threads termines." << endl;
+    cout << "Tous les threads terminés." << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Observez que les sorties des deux threads s'entrelacent. Ajoutez un mutex pour les séparer proprement."
   },
   {
     num:49, title:"Projet : Gestion Étudiants", chapter:"Projets",
-    desc:"Mettons en pratique tout ce que vous avez appris pour créer un système de gestion d'étudiants complet avec classes, vecteurs et tri.",
-    points:["Classe Etudiant avec attributs","Vector pour stocker plusieurs étudiants","Trier et calculer des statistiques"],
-    code:`class Etudiant{
-    string nom;
-    vector<double> notes;
+    difficulty:"medium", tags:["projet","classes","vecteur","tri","lambda"],
+    desc:"Mettons en pratique les leçons précédentes pour créer un système de gestion d'étudiants : classes, vecteurs, tri par note, calcul de statistiques. Ce projet combine POO, STL et algorithmes.",
+    why:"Ce projet intègre les notions clés : struct/class, vector, sort avec lambda, accumulate, min/max_element. C'est le type d'exercice qu'on rencontre dans les entretiens techniques et les projets réels.",
+    points:["Utiliser <code>struct</code> pour les données, <code>vector</code> pour la collection","Trier avec <code>sort</code> + lambda comparateur","Calculer statistiques avec <code>accumulate</code>, <code>min_element</code>","Afficher avec des itérateurs ou range-based for"],
+    pitfalls:["Ne pas oublier <code>(double)</code> pour la division lors du calcul de moyenne","Comparer des doubles avec == peut poser problème"],
+    links:[{num:32, title:"vector"},{num:43, title:"STL"},{num:25, title:"Classes"}],
+    code:`class GestionEtudiants{
+    struct Etudiant{
+        string nom;
+        vector<double> notes;
+        double moyenne() const {
+            if(notes.empty()) return 0;
+            return accumulate(notes.begin(), notes.end(), 0.0) / notes.size();
+        }
+    };
+    vector<Etudiant> etudiants;
 
 public:
-    Etudiant(string n) : nom(n){}
-
-    void ajouterNote(double n){
-        if(n >= 0 && n <= 20)
-            notes.push_back(n);
+    void ajouter(string nom, vector<double> notes){
+        etudiants.push_back({nom, notes});
     }
 
-    double moyenne(){
-        if(notes.empty()) return 0;
-        double sum = 0;
-        for(double n : notes) sum += n;
-        return sum / notes.size();
+    void classement() const {
+        auto copy = etudiants;
+        sort(copy.begin(), copy.end(),
+            [](const Etudiant& a, const Etudiant& b){
+                return a.moyenne() > b.moyenne();
+            });
+        int rang = 1;
+        for(auto& e : copy)
+            cout << rang++ << ". " << e.nom << " - " << e.moyenne() << endl;
     }
 };`,
     starter:`#include <iostream>
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <numeric>
 using namespace std;
 
-struct Etudiant{
-    string nom;
-    double note;
-};
+struct Etudiant{ string nom; double note; };
 
 int main(){
     vector<Etudiant> classe = {
-        {"Thierno", 18.5},
-        {"Fatou", 16.0},
-        {"Mamadou", 14.5},
-        {"Awa", 19.0},
-        {"Ibrahima", 12.5}
+        {"Thierno", 18.5}, {"Fatou", 16.0},
+        {"Mamadou", 14.5}, {"Awa", 19.0}, {"Ibrahima", 12.5}
     };
 
     sort(classe.begin(), classe.end(),
-        [](Etudiant& a, Etudiant& b){ return a.note > b.note; });
+        [](const Etudiant& a, const Etudiant& b){ return a.note > b.note; });
 
     cout << "=== Classement ===" << endl;
     for(int i=0; i<(int)classe.size(); i++){
@@ -2678,37 +3381,43 @@ int main(){
              << " - " << classe[i].note << "/20" << endl;
     }
 
-    double somme = 0;
-    for(auto& e : classe) somme += e.note;
+    double somme = accumulate(classe.begin(), classe.end(), 0.0,
+        [](double acc, const Etudiant& e){ return acc + e.note; });
     cout << "\nMoyenne : " << somme/classe.size() << "/20" << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"Objectif : Trouvez le meilleur et le moins bon étudiant avec min/max_element. Affichez aussi combien ont la moyenne (≥10)."
   },
   {
     num:50, title:"Projet Final : Mini Application", chapter:null,
-    desc:"Félicitations ! Vous avez maîtrisé les 50 leçons C++. Voici un projet final qui combine tout : classes, STL, algorithmes et gestion mémoire.",
-    points:["Combinez toutes les notions apprises","Structurez votre code avec des classes","Testez et déboguez votre programme"],
+    difficulty:"hard", tags:["projet final","bibliothèque","classes","STL","lambda"],
+    desc:"Félicitations pour avoir atteint la leçon 50 ! Ce projet final combine toutes les notions : classes, STL (vector, map), algorithmes, lambdas, et gestion de données structurées. C'est un exemple de programme C++ complet et professionnel.",
+    why:"Ce projet démontre comment assembler tous les outils appris. Les développeurs C++ professionnels écrivent quotidiennement du code de ce niveau. Maîtriser ces patterns vous donne les bases pour contribuer à de vrais projets.",
+    points:["Classes avec encapsulation et méthodes","Conteneurs STL adaptés au besoin","Algorithmes STL (sort, find_if, transform)","Lambdas pour personnaliser les algorithmes","Organisation en modules logiques"],
+    pitfalls:["Un projet réel aurait le code réparti en .h/.cpp — ici tout est en un fichier","Toujours tester les cas limites : vecteur vide, clé inexistante dans map"],
+    links:[{num:49, title:"Projet Étudiants"},{num:43, title:"STL"},{num:30, title:"Polymorphisme"}],
     code:`// PROJET FINAL : Bibliothèque de Livres
-// Combine : classes, vector, map, sort, lambda
-
 class Bibliotheque{
-    map<int, Livre> livres;
-    int prochainId = 1;
+    struct Livre{
+        string titre, auteur, genre;
+        int annee; double note;
+    };
+    vector<Livre> livres;
 
 public:
-    void ajouter(Livre l){
-        livres[prochainId++] = l;
+    void ajouter(string t, string a, string g, int an, double n){
+        livres.push_back({t, a, g, an, n});
     }
 
-    void afficherParGenre(){
+    void topParGenre() const {
         map<string, vector<Livre>> parGenre;
-        for(auto& [id, l] : livres)
+        for(auto& l : livres)
             parGenre[l.genre].push_back(l);
 
         for(auto& [genre, lst] : parGenre){
-            cout << "[" << genre << "]" << endl;
-            for(auto& l : lst)
-                cout << "  " << l.titre << endl;
+            auto meilleur = max_element(lst.begin(), lst.end(),
+                [](const Livre& a, const Livre& b){ return a.note < b.note; });
+            cout << genre << " → " << meilleur->titre << endl;
         }
     }
 };`,
@@ -2720,10 +3429,8 @@ public:
 using namespace std;
 
 struct Livre{
-    string titre;
-    string auteur;
-    int annee;
-    double note;
+    string titre, auteur;
+    int annee; double note;
 };
 
 int main(){
@@ -2746,10 +3453,10 @@ int main(){
         cout << "|    Note : " << l.note << "/5" << endl;
     }
     cout << "+-----------------+" << endl;
-    cout << endl;
-    cout << "Felicitations ! 50 lecons C++ maitrisees !" << endl;
+    cout << "\nFelicitations ! 50 lecons C++ maitrisees !" << endl;
     return 0;
-}`
+}`,
+    exerciseGoal:"🏆 Défi final : Ajoutez un attribut 'genre' aux livres et affichez le meilleur livre par genre (SF, Fantasy, Dystopie)."
   }
 ];
 
@@ -2770,14 +3477,12 @@ const chapters = {
 
 let currentLesson = 0;
 let doneSet = new Set();
-try { doneSet = new Set(JSON.parse(localStorage.getItem('cpp_done_light') || '[]')); } catch(e){}
+try { doneSet = new Set(JSON.parse(localStorage.getItem('cpp_done_v2') || '[]')); } catch(e){}
+function saveDone(){ try { localStorage.setItem('cpp_done_v2', JSON.stringify([...doneSet])); } catch(e){} }
 
-function saveDone(){ try { localStorage.setItem('cpp_done_light', JSON.stringify([...doneSet])); } catch(e){} }
-
-/* ─── SYNTAX HIGHLIGHTING ────────────────────────────────────────── */
+/* ─── SYNTAX HIGHLIGHTING ────────────────────── */
 function highlight(code){
   const keywords = ['include','using','namespace','return','if','else','switch','case','default','break','continue','for','while','do','int','float','double','char','bool','string','void','class','struct','enum','public','private','protected','template','new','delete','nullptr','true','false','this','virtual','override','const','auto','static','try','catch','throw','typename','typedef','long','short','unsigned','signed'];
-  
   let h = code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const comments = [];
   h = h.replace(/(\/\/[^\n]*)/g, (m) => { comments.push(m); return `\x01C${comments.length-1}\x01`; });
@@ -2786,12 +3491,12 @@ function highlight(code){
   h = h.replace(/(#\w+)/g, '<span class="inc">$1</span>');
   h = h.replace(/\b(\d+\.?\d*(?:[eEfFuUlL]*)?)\b/g, '<span class="num">$1</span>');
   keywords.forEach(kw => { h = h.replace(new RegExp(`\\b(${kw})\\b`, 'g'), '<span class="kw">$1</span>'); });
-  h = h.replace(/\b([a-zA-Z_]\w*)\s*(?=\()/g, (m, fn) => keywords.includes(fn) ? m : `<span class="fn">${fn}</span>(`.slice(0,-1));
+  h = h.replace(/\b([a-zA-Z_]\w*)\s*(?=\()/g, (m, fn) => keywords.includes(fn) ? m : `<span class="fn">${fn}</span>(`);
   h = h.replace(/\x01C(\d+)\x01/g, (_, i) => `<span class="cmt">${comments[i]}</span>`);
   return h;
 }
 
-/* ─── SIDEBAR ────────────────────────────────────────────────────── */
+/* ─── SIDEBAR ─────────────────────────────────── */
 function buildSidebar(){
   const list = document.getElementById('sidebarList');
   list.innerHTML = '';
@@ -2802,12 +3507,13 @@ function buildSidebar(){
     list.appendChild(lbl);
     nums.forEach(n => {
       const l = lessons[n-1];
-      const item = document.createElement('div');
       const isActive = (n-1) === currentLesson;
       const isDone = doneSet.has(n-1);
+      const item = document.createElement('div');
       item.className = 'lesson-item' + (isActive ? ' active' : '') + (isDone ? ' done' : '');
       item.dataset.index = n-1;
-      item.innerHTML = `<span class="lesson-num-badge">${isDone ? '✓' : n}</span><span class="lesson-item-title">${l.title}</span>`;
+      const diffClass = l.difficulty || 'easy';
+      item.innerHTML = `<span class="lesson-num-badge">${isDone ? '✓' : n}</span><span class="lesson-item-title">${l.title}</span><span class="diff-dot ${diffClass}"></span>`;
       item.onclick = () => goTo(n-1);
       list.appendChild(item);
     });
@@ -2824,31 +3530,62 @@ function renderLesson(idx){
   const l = lessons[idx];
   const isDone = doneSet.has(idx);
   const view = document.getElementById('lessonView');
+
   const pts = l.points.map(p => `<div class="key-point"><span class="key-point-text">${p}</span></div>`).join('');
+  const tags = (l.tags||[]).map(t => `<span class="concept-tag">${t}</span>`).join('');
+  const diffLabel = {easy:'Débutant', medium:'Intermédiaire', hard:'Avancé'}[l.difficulty||'easy'];
+  const diffClass = l.difficulty || 'easy';
+
+  const pitfallsHtml = l.pitfalls ? `
+    <div class="pitfalls-block">
+      <h3>⚠ Pièges courants</h3>
+      ${l.pitfalls.map(p => `<div class="pitfall-item"><span>${p}</span></div>`).join('')}
+    </div>` : '';
+
+  const complexityHtml = l.complexity ? `
+    <div class="complexity-block">
+      <h3>⚡ Complexité</h3>
+      ${l.complexity.map(c => `<div class="complexity-row"><span class="complexity-label">${c.label}</span><span class="complexity-desc">${c.desc}</span></div>`).join('')}
+    </div>` : '';
+
+  const linksHtml = l.links && l.links.length ? `
+    <div class="links-block">
+      <h3>🔗 Leçons liées</h3>
+      <div class="links-row">${l.links.map(lk => `<button class="lesson-link" onclick="goTo(${lk.num-1})">↗ L${lk.num} · ${lk.title}</button>`).join('')}</div>
+    </div>` : '';
 
   view.innerHTML = `
     <div style="animation: fadeUp 0.3s ease both;">
-      <div class="lesson-badge">Leçon ${l.num} / 50</div>
+      <div class="lesson-meta">
+        <div class="lesson-badge">Leçon ${l.num} / 50</div>
+        <div class="diff-badge ${diffClass}">${diffLabel}</div>
+      </div>
+      <div class="concept-tags">${tags}</div>
       <div class="lesson-title-main">${l.title}</div>
     </div>
+    <div class="why-block">
+      <h3>🎯 Pourquoi c'est important</h3>
+      <p>${l.why || l.desc}</p>
+    </div>
     <div class="concept-block">
-      <h3>Concept</h3>
+      <h3>📖 Concept</h3>
       <p>${l.desc}</p>
     </div>
     <div class="concept-block">
-      <h3>Points Clés</h3>
+      <h3>✅ Points Clés</h3>
       ${pts}
     </div>
+    ${pitfallsHtml}
+    ${complexityHtml}
     <div class="code-block">
       <div class="code-header">
-        <div class="code-dots">
-          <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
-        </div>
+        <div class="code-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
         <span class="code-filename">exemple.cpp</span>
         <button class="copy-btn" onclick="copyCode(this, ${idx})">Copier</button>
       </div>
       <div class="code-body">${highlight(l.code)}</div>
     </div>
+    ${linksHtml}
     <div class="nav-buttons">
       ${idx > 0 ? `<button class="btn-nav" onclick="goTo(${idx-1})">← Précédente</button>` : '<div></div>'}
       <button class="btn-nav ${isDone ? 'done-style' : 'primary'}" onclick="markDone(${idx})">${isDone ? '✓ Terminée' : 'Marquer terminée'}</button>
@@ -2856,6 +3593,15 @@ function renderLesson(idx){
     </div>
   `;
   view.scrollTop = 0;
+
+  // Update exercise goal
+  const goalEl = document.getElementById('exerciseGoal');
+  if(l.exerciseGoal){
+    goalEl.style.display = 'flex';
+    goalEl.innerHTML = `<strong>🎯</strong>&nbsp;${l.exerciseGoal}`;
+  } else {
+    goalEl.style.display = 'none';
+  }
 }
 
 function goTo(idx){
@@ -2879,7 +3625,7 @@ function markDone(idx){
   renderLesson(idx);
   buildSidebar();
   const msg = document.getElementById('modalMsg');
-  if(idx < 49){ msg.textContent = `Leçon ${idx+1} terminée ! Passons à la leçon ${idx+2}.`; window._nextLesson = idx + 1; }
+  if(idx < 49){ msg.textContent = `Leçon ${idx+1} terminée ! Passons à la leçon ${idx+2}.`; window._nextLesson = idx+1; }
   else { msg.textContent = 'Incroyable ! Vous avez maîtrisé les 50 leçons C++. Vous êtes un développeur C++ confirmé !'; window._nextLesson = null; }
   document.getElementById('congratsModal').classList.add('show');
 }
@@ -2891,10 +3637,8 @@ function closeModal(){
 
 function copyCode(btn, idx){
   navigator.clipboard.writeText(lessons[idx].code).then(() => {
-    btn.textContent = 'Copié ✓';
-    btn.style.borderColor = '#86efac';
-    btn.style.color = '#86efac';
-    setTimeout(() => { btn.textContent = 'Copier'; btn.style.borderColor = ''; btn.style.color = ''; }, 1500);
+    btn.textContent = 'Copié ✓'; btn.style.borderColor = '#86efac'; btn.style.color = '#86efac';
+    setTimeout(() => { btn.textContent = 'Copier'; btn.style.borderColor=''; btn.style.color=''; }, 1500);
   });
 }
 
@@ -2902,12 +3646,12 @@ function updateLineNumbers(){
   const editor = document.getElementById('editor');
   const lines = editor.value.split('\n').length;
   const nums = document.getElementById('lineNumbers');
-  nums.innerHTML = Array.from({length: Math.max(lines, 1)}, (_,i) => `<span>${i+1}</span>`).join('');
+  nums.innerHTML = Array.from({length: Math.max(lines,1)}, (_,i) => `<span>${i+1}</span>`).join('');
 }
 
 function handleEditorKey(e){
-  if(e.key === 'Tab'){ e.preventDefault(); const ta = e.target, s = ta.selectionStart; ta.value = ta.value.substring(0,s) + '  ' + ta.value.substring(ta.selectionEnd); ta.selectionStart = ta.selectionEnd = s + 2; updateLineNumbers(); }
-  if(e.key === 'F5'){ e.preventDefault(); runCode(); }
+  if(e.key==='Tab'){ e.preventDefault(); const ta=e.target,s=ta.selectionStart; ta.value=ta.value.substring(0,s)+'  '+ta.value.substring(ta.selectionEnd); ta.selectionStart=ta.selectionEnd=s+2; updateLineNumbers(); }
+  if(e.key==='F5'){ e.preventDefault(); runCode(); }
 }
 
 function resetCode(){
@@ -2937,12 +3681,12 @@ function simulateCpp(code){
       else if(/^'.*'$/.test(part)) lineContent += part.slice(1,-1);
       else lineContent += part.replace(/\x00STR\d+\x00/g, '');
     });
-    lineContent.split('\n').forEach((l, i, arr) => { if(i < arr.length - 1 || l) results.push({text: l || ''}); });
+    lineContent.split('\n').forEach((l, i, arr) => { if(i < arr.length-1 || l) results.push({text: l || ''}); });
   }
   if(results.length === 0){
-    results.push({text: '(Pas de sortie cout détectée)', type:'info'});
-    results.push({text: 'Astuce : utilisez cout << "texte" << endl;', type:'info'});
-    results.push({text: 'Compilez avec g++ pour exécuter réellement.', type:'info'});
+    results.push({text:'(Pas de sortie cout détectée)', type:'info'});
+    results.push({text:'Astuce : utilisez cout << "texte" << endl;', type:'info'});
+    results.push({text:'Compilez avec g++ pour la vraie exécution.', type:'info'});
   }
   return results;
 }
@@ -2952,9 +3696,9 @@ function runCode(){
   setTimeout(() => {
     const lines = [
       {text:'▶ Simulation C++ (environnement éducatif)', type:'info'},
-      {text:'──────────────────────────────────────────', type:'info'},
+      {text:'─────────────────────────────────────────', type:'info'},
       ...simulateCpp(document.getElementById('editor').value),
-      {text:'──────────────────────────────────────────', type:'info'},
+      {text:'─────────────────────────────────────────', type:'info'},
       {text:'✓ OK — utilisez g++ pour la vraie exécution.', type:'info'}
     ];
     setOutput(lines);
@@ -2973,7 +3717,7 @@ function filterLessons(){
   const q = document.getElementById('searchInput').value.toLowerCase().trim();
   const items = document.querySelectorAll('.lesson-item');
   const chaps = document.querySelectorAll('.chapter-label');
-  if(!q){ items.forEach(i => i.style.display = ''); chaps.forEach(c => c.style.display = ''); return; }
+  if(!q){ items.forEach(i => i.style.display=''); chaps.forEach(c => c.style.display=''); return; }
   items.forEach(item => { item.style.display = item.textContent.toLowerCase().includes(q) ? '' : 'none'; });
   chaps.forEach(ch => {
     let el = ch.nextElementSibling, vis = false;
@@ -2982,13 +3726,13 @@ function filterLessons(){
   });
 }
 
-/* ─── AI ASSISTANT ────────────────────────────────────────────────── */
+/* ─── AI ASSISTANT ───────────────────────────── */
 const SYSTEM_PROMPT = `Tu es un assistant pédagogique C++ expert. Tu aides des étudiants à apprendre C++.
 Réponds toujours en français, de façon claire et concise.
 Utilise des exemples de code courts et précis.
 Encadre le code avec des backticks : \`int x = 5;\`
 Sois encourageant et pédagogique.
-Limite tes réponses à 200 mots maximum sauf si on te demande plus.`;
+Limite tes réponses à 250 mots maximum sauf si on te demande plus.`;
 
 let aiHistory = [];
 
@@ -3013,11 +3757,11 @@ async function sendAiMessage(){
   const typing = document.getElementById('typingIndicator');
   typing.classList.add('show');
   document.getElementById('aiMessages').appendChild(typing);
-  try {
+  try{
     const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: SYSTEM_PROMPT, messages: aiHistory })
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens:1000, system:SYSTEM_PROMPT, messages:aiHistory})
     });
     const data = await res.json();
     typing.classList.remove('show');
@@ -3027,14 +3771,14 @@ async function sendAiMessage(){
     addAiMessage(reply, 'ai');
   } catch(err){
     typing.classList.remove('show');
-    addAiMessage("Erreur de connexion. Vérifiez votre connexion internet.", 'ai');
+    addAiMessage("Erreur de connexion.", 'ai');
   }
 }
 
 function handleAiKey(e){
-  if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); sendAiMessage(); }
-  e.target.style.height = 'auto';
-  e.target.style.height = Math.min(e.target.scrollHeight, 90) + 'px';
+  if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendAiMessage(); }
+  e.target.style.height='auto';
+  e.target.style.height = Math.min(e.target.scrollHeight, 90)+'px';
 }
 
 function askChip(btn){
@@ -3050,9 +3794,9 @@ function askChip(btn){
 }
 
 document.addEventListener('keydown', e => {
-  if(e.key === 'F5'){ e.preventDefault(); runCode(); }
-  if((e.ctrlKey || e.metaKey) && e.key === 'ArrowRight' && currentLesson < 49){ e.preventDefault(); goTo(currentLesson + 1); }
-  if((e.ctrlKey || e.metaKey) && e.key === 'ArrowLeft' && currentLesson > 0){ e.preventDefault(); goTo(currentLesson - 1); }
+  if(e.key==='F5'){ e.preventDefault(); runCode(); }
+  if((e.ctrlKey||e.metaKey)&&e.key==='ArrowRight'&&currentLesson<49){ e.preventDefault(); goTo(currentLesson+1); }
+  if((e.ctrlKey||e.metaKey)&&e.key==='ArrowLeft'&&currentLesson>0){ e.preventDefault(); goTo(currentLesson-1); }
 });
 
 buildSidebar();
