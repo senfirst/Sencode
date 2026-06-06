@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Apprendre XML - 50 Leçons</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-
 <style>
-
 :root {
   --bg: #ffffff;
   --surface: #f8fafc;
@@ -23,13 +21,18 @@
   --tag-color: #0369a1;
   --string-color: #0891b2;
   --attr-color: #7c3aed;
+  --tip-bg: #f0fdf4;
+  --tip-border: #86efac;
+  --tip-text: #166534;
+  --warn-bg: #fff7ed;
+  --warn-border: #fdba74;
+  --warn-text: #9a3412;
+  --note-bg: #eff6ff;
+  --note-border: #93c5fd;
+  --note-text: #1e40af;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   background: var(--bg);
@@ -37,7 +40,6 @@ body {
   color: var(--text-primary);
 }
 
-/* HEADER */
 .header {
   background: var(--bg);
   border-bottom: 2px solid var(--border);
@@ -51,196 +53,138 @@ body {
   z-index: 100;
 }
 
-.header-logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+.header-logo { display: flex; align-items: center; gap: 12px; }
 
 .logo-icon {
-  width: 36px;
-  height: 36px;
+  width: 36px; height: 36px;
   background: var(--accent);
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   color: white;
   font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: -0.5px;
+  font-size: 11px; font-weight: 700; letter-spacing: -0.5px;
 }
 
-.header-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--text-primary);
-  letter-spacing: -0.3px;
-}
-
-.header-subtitle {
-  font-size: 13px;
-  color: var(--text-muted);
-  font-weight: 400;
-}
-
+.header-title { font-size: 18px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.3px; }
+.header-subtitle { font-size: 13px; color: var(--text-muted); font-weight: 400; }
 .header-badge {
-  background: var(--accent-light);
-  color: var(--accent-dark);
-  font-size: 12px;
-  font-weight: 600;
-  padding: 5px 12px;
-  border-radius: 20px;
-  letter-spacing: 0.3px;
+  background: var(--accent-light); color: var(--accent-dark);
+  font-size: 12px; font-weight: 600; padding: 5px 12px;
+  border-radius: 20px; letter-spacing: 0.3px;
 }
 
-/* LAYOUT */
-.container {
-  display: flex;
-  height: calc(100vh - 68px);
-}
+.container { display: flex; height: calc(100vh - 68px); }
 
-/* LESSONS PANEL */
 .lessons {
-  width: 52%;
-  background: var(--bg);
-  overflow-y: auto;
-  padding: 28px 32px;
+  width: 52%; background: var(--bg);
+  overflow-y: auto; padding: 28px 32px;
   border-right: 1px solid var(--border);
 }
+.lessons::-webkit-scrollbar { width: 6px; }
+.lessons::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-.lessons::-webkit-scrollbar {
-  width: 6px;
-}
-.lessons::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 3px;
-}
-
-/* LESSON CARD */
 .lesson {
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 22px 24px;
-  margin-bottom: 16px;
+  padding: 24px 26px;
+  margin-bottom: 20px;
   transition: border-color 0.2s, box-shadow 0.2s;
-  position: relative;
-  overflow: hidden;
+  position: relative; overflow: hidden;
 }
 
 .lesson::before {
   content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--accent);
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; background: var(--accent);
   border-radius: 3px 0 0 3px;
-  opacity: 0;
-  transition: opacity 0.2s;
+  opacity: 0; transition: opacity 0.2s;
 }
 
 .lesson:hover {
   border-color: #bfdbfe;
   box-shadow: 0 4px 20px rgba(2, 132, 199, 0.08);
 }
-
-.lesson:hover::before {
-  opacity: 1;
-}
+.lesson:hover::before { opacity: 1; }
 
 .lesson-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
 }
 
 .lesson-num {
   font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--accent);
-  background: var(--accent-light);
-  padding: 3px 8px;
-  border-radius: 4px;
-  letter-spacing: 0.5px;
-  min-width: 48px;
-  text-align: center;
+  font-size: 10px; font-weight: 700;
+  color: var(--accent); background: var(--accent-light);
+  padding: 3px 8px; border-radius: 4px; letter-spacing: 0.5px;
+  min-width: 48px; text-align: center;
 }
 
-.lesson h2 {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text-primary);
-  letter-spacing: -0.2px;
-}
+.lesson h2 { font-size: 15px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.2px; }
 
 .lesson p {
-  font-size: 14px;
-  line-height: 1.75;
-  color: var(--text-secondary);
-  margin-bottom: 14px;
-  font-weight: 400;
+  font-size: 14px; line-height: 1.8;
+  color: var(--text-secondary); margin-bottom: 12px; font-weight: 400;
 }
 
-/* CODE BLOCK */
-pre {
-  background: var(--code-bg);
-  border: 1px solid var(--border);
-  padding: 14px 16px;
-  border-radius: 8px;
-  overflow: auto;
+.lesson p strong { color: var(--text-primary); font-weight: 600; }
+
+.lesson p code {
   font-family: 'Space Mono', monospace;
-  font-size: 12.5px;
-  line-height: 1.7;
-  color: var(--text-primary);
-}
-
-/* Simple XML syntax highlighting via CSS */
-pre {
-  color: #334155;
-}
-
-.try-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 12px;
-  padding: 6px 14px;
-  background: transparent;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  transition: all 0.15s;
-}
-
-.try-btn:hover {
-  background: var(--accent-light);
-  border-color: #bfdbfe;
+  font-size: 12px; background: var(--code-bg);
+  padding: 1px 5px; border-radius: 3px;
   color: var(--accent-dark);
 }
 
-.try-btn svg {
-  width: 12px;
-  height: 12px;
+/* Callout boxes */
+.tip, .warning, .note {
+  border-radius: 8px; padding: 12px 14px;
+  margin-bottom: 12px; font-size: 13px; line-height: 1.7;
+}
+.tip { background: var(--tip-bg); border-left: 3px solid var(--tip-border); color: var(--tip-text); }
+.warning { background: var(--warn-bg); border-left: 3px solid var(--warn-border); color: var(--warn-text); }
+.note { background: var(--note-bg); border-left: 3px solid var(--note-border); color: var(--note-text); }
+
+.tip strong, .warning strong, .note strong { display: block; margin-bottom: 3px; font-size: 11px; letter-spacing: 0.5px; text-transform: uppercase; }
+
+.lesson-divider {
+  border: none; border-top: 1px dashed var(--border);
+  margin: 14px 0;
 }
 
-/* EDITOR PANEL */
+pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  padding: 14px 16px; border-radius: 8px;
+  overflow: auto;
+  font-family: 'Space Mono', monospace;
+  font-size: 12.5px; line-height: 1.7; color: #334155;
+  margin-bottom: 10px;
+}
+
+pre + pre { margin-top: 8px; }
+
+.pre-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+  text-transform: uppercase; color: var(--text-muted);
+  margin-bottom: 4px; margin-top: 10px;
+}
+
+.try-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 12px; padding: 6px 14px;
+  background: transparent; border: 1px solid var(--border);
+  border-radius: 6px; font-size: 12px; font-weight: 500;
+  color: var(--text-secondary); cursor: pointer;
+  font-family: 'DM Sans', sans-serif; transition: all 0.15s;
+}
+.try-btn:hover { background: var(--accent-light); border-color: #bfdbfe; color: var(--accent-dark); }
+.try-btn svg { width: 12px; height: 12px; }
+
+/* EDITOR */
 .editor-section {
-  width: 48%;
-  background: var(--editor-bg);
-  display: flex;
-  flex-direction: column;
-  position: sticky;
-  top: 68px;
+  width: 48%; background: var(--editor-bg);
+  display: flex; flex-direction: column;
+  position: sticky; top: 68px;
   height: calc(100vh - 68px);
 }
 
@@ -249,164 +193,68 @@ pre {
   border-bottom: 1px solid rgba(255,255,255,0.07);
 }
 
-.editor-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 4px;
-}
+.editor-label { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
 
-.editor-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #22d3ee;
-}
+.editor-dot { width: 8px; height: 8px; border-radius: 50%; background: #22d3ee; }
 
-.editor-title {
-  color: #e2e8f0;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.2px;
-}
-
-.editor-hint {
-  font-size: 12px;
-  color: #64748b;
-  font-weight: 400;
-}
+.editor-title { color: #e2e8f0; font-size: 14px; font-weight: 600; letter-spacing: 0.2px; }
+.editor-hint { font-size: 12px; color: #64748b; font-weight: 400; }
 
 .editor-body {
   padding: 16px 24px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  gap: 12px;
-  overflow: hidden;
+  display: flex; flex-direction: column;
+  flex: 1; gap: 12px; overflow: hidden;
 }
 
 textarea {
-  width: 100%;
-  height: 220px;
+  width: 100%; height: 220px;
   background: #1e293b;
   border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 10px;
-  padding: 16px;
-  resize: none;
-  font-size: 13px;
-  font-family: 'Space Mono', monospace;
-  line-height: 1.7;
-  color: #e2e8f0;
-  outline: none;
+  border-radius: 10px; padding: 16px; resize: none;
+  font-size: 13px; font-family: 'Space Mono', monospace;
+  line-height: 1.7; color: #e2e8f0; outline: none;
   transition: border-color 0.2s;
 }
-
-textarea:focus {
-  border-color: rgba(34, 211, 238, 0.3);
-}
+textarea:focus { border-color: rgba(34, 211, 238, 0.3); }
 
 .run-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px;
-  background: var(--accent);
-  border: none;
-  color: white;
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  letter-spacing: 0.2px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px; background: var(--accent); border: none;
+  color: white; font-size: 14px; font-weight: 600;
+  border-radius: 8px; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; letter-spacing: 0.2px;
   transition: background 0.2s, transform 0.1s;
 }
+.run-btn:hover { background: var(--accent-dark); }
+.run-btn:active { transform: scale(0.98); }
+.run-btn svg { width: 15px; height: 15px; }
 
-.run-btn:hover {
-  background: var(--accent-dark);
-}
-
-.run-btn:active {
-  transform: scale(0.98);
-}
-
-.run-btn svg {
-  width: 15px;
-  height: 15px;
-}
-
-/* RESULT AREA */
 .result-label {
-  font-size: 11px;
-  font-weight: 600;
-  color: #64748b;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  font-size: 11px; font-weight: 600; color: #64748b;
+  letter-spacing: 1px; text-transform: uppercase;
 }
 
-iframe {
-  flex: 1;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: white;
-  border-radius: 10px;
-}
+iframe { flex: 1; border: 1px solid rgba(255,255,255,0.08); background: white; border-radius: 10px; }
 
-/* PROGRESS BAR */
 .progress-bar {
-  height: 2px;
-  background: var(--border);
-  position: fixed;
-  top: 68px;
-  left: 0;
-  width: 52%;
-  z-index: 99;
+  height: 2px; background: var(--border);
+  position: fixed; top: 68px; left: 0; width: 52%; z-index: 99;
 }
+.progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.1s; }
 
-.progress-fill {
-  height: 100%;
-  background: var(--accent);
-  width: 0%;
-  transition: width 0.1s;
-}
-
-/* RESPONSIVE */
 @media (max-width: 900px) {
-  .container {
-    flex-direction: column;
-    height: auto;
-  }
-
-  .lessons,
-  .editor-section {
-    width: 100%;
-  }
-
-  .editor-section {
-    position: static;
-    height: 520px;
-  }
-
-  .progress-bar {
-    width: 100%;
-  }
-
-  .header {
-    padding: 0 20px;
-  }
-
-  .lessons {
-    padding: 20px;
-  }
+  .container { flex-direction: column; height: auto; }
+  .lessons, .editor-section { width: 100%; }
+  .editor-section { position: static; height: 520px; }
+  .progress-bar { width: 100%; }
+  .header { padding: 0 20px; }
+  .lessons { padding: 20px; }
 }
-
 </style>
 </head>
 <body>
 
-<div class="progress-bar">
-  <div class="progress-fill" id="progressFill"></div>
-</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
 
 <header class="header">
   <div class="header-logo">
@@ -420,627 +268,1393 @@ iframe {
 </header>
 
 <div class="container">
+<div class="lessons" id="lessonsPanel">
 
-  <div class="lessons" id="lessonsPanel">
-
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">01</span>
-        <h2>Introduction à XML</h2>
-      </div>
-      <p>XML signifie <strong>Extensible Markup Language</strong>. Il sert à stocker et transporter des données de façon structurée et lisible.</p>
-      <pre>&lt;nom&gt;Ali&lt;/nom&gt;</pre>
-      <button class="try-btn" onclick="loadCode('&lt;nom&gt;Ali&lt;/nom&gt;')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5,3 19,12 5,21"/></svg>
-        Essayer
-      </button>
-    </div>
-
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">02</span>
-        <h2>Déclaration XML</h2>
-      </div>
-      <p>La déclaration en tête du fichier indique la version XML utilisée et l'encodage des caractères.</p>
-      <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;</pre>
-    </div>
-
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">03</span>
-        <h2>Balises XML</h2>
-      </div>
-      <p>Les balises encadrent les données. Une balise ouvrante et une balise fermante délimitent un élément.</p>
-      <pre>&lt;ville&gt;Dakar&lt;/ville&gt;</pre>
-    </div>
-
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">04</span>
-        <h2>Balise Racine</h2>
-      </div>
-      <p>Chaque document XML possède une seule balise racine qui englobe tous les autres éléments.</p>
-      <pre>&lt;users&gt;
-  &lt;user&gt;Ali&lt;/user&gt;
-&lt;/users&gt;</pre>
-    </div>
-
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">05</span>
-        <h2>Les Éléments</h2>
-      </div>
-      <p>Les éléments sont les blocs de base de XML. Ils stockent des informations entre leurs balises.</p>
-      <pre>&lt;age&gt;20&lt;/age&gt;</pre>
-    </div>
-
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">06</span>
-        <h2>Les Attributs</h2>
-      </div>
-      <p>Les attributs ajoutent des informations supplémentaires à un élément. Ils s'écrivent dans la balise ouvrante.</p>
-      <pre>&lt;user id="1" role="admin"&gt;&lt;/user&gt;</pre>
-    </div>
-
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">07</span>
-        <h2>Commentaires XML</h2>
-      </div>
-      <p>Les commentaires permettent d'annoter le code sans que ce texte soit traité par le parseur.</p>
-      <pre>&lt;!-- Ceci est un commentaire --&gt;</pre>
-    </div>
-
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">08</span>
-        <h2>Imbrication</h2>
-      </div>
-      <p>Les balises peuvent être imbriquées les unes dans les autres pour créer une hiérarchie.</p>
-      <pre>&lt;user&gt;
+<!-- ===== LEÇON 01 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">01</span><h2>Introduction à XML</h2></div>
+  <p>XML signifie <strong>eXtensible Markup Language</strong> (Langage de Balisage Extensible). Il a été créé en 1998 par le W3C (World Wide Web Consortium) comme standard universel pour représenter des données de façon structurée, lisible par l'humain <em>et</em> par les machines.</p>
+  <p>Contrairement au HTML qui se concentre sur l'<strong>affichage</strong> des données, XML se concentre sur leur <strong>signification</strong> et leur <strong>transport</strong>. XML ne fait rien tout seul : c'est un conteneur neutre qui permet à deux systèmes différents de s'échanger des informations sans se soucier du langage, du système d'exploitation ou de la plateforme utilisés.</p>
+  <p>XML est dit <strong>extensible</strong> parce que vous inventez vous-même vos propres balises selon vos besoins — il n'existe pas de liste figée de balises prédéfinies (sauf dans les sous-formats basés sur XML comme HTML, SVG, etc.).</p>
+  <div class="note"><strong>📘 Analogie</strong> XML ressemble à une étiquette sur un colis : elle décrit ce qu'il y a à l'intérieur, pas comment l'utiliser. C'est votre application qui décide quoi faire avec.</div>
+  <div class="pre-label">Exemple minimal</div>
+  <pre>&lt;nom&gt;Ali&lt;/nom&gt;</pre>
+  <div class="pre-label">Exemple avec plusieurs champs</div>
+  <pre>&lt;personne&gt;
   &lt;nom&gt;Ali&lt;/nom&gt;
   &lt;ville&gt;Dakar&lt;/ville&gt;
-&lt;/user&gt;</pre>
-    </div>
+  &lt;age&gt;28&lt;/age&gt;
+&lt;/personne&gt;</pre>
+  <button class="try-btn" onclick="loadCode('&lt;personne&gt;\n  &lt;nom&gt;Ali&lt;/nom&gt;\n  &lt;ville&gt;Dakar&lt;/ville&gt;\n  &lt;age&gt;28&lt;/age&gt;\n&lt;/personne&gt;')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5,3 19,12 5,21"/></svg>Essayer
+  </button>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">09</span>
-        <h2>XML Bien Formé</h2>
-      </div>
-      <p>Un XML bien formé respecte toutes les règles syntaxiques : balises fermées, imbrication correcte, etc.</p>
-      <pre>&lt;note&gt;Bonjour le monde&lt;/note&gt;</pre>
-    </div>
+<!-- ===== LEÇON 02 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">02</span><h2>Déclaration XML</h2></div>
+  <p>La <strong>déclaration XML</strong> est la toute première ligne d'un fichier XML bien formé. Elle commence par <code>&lt;?xml</code> et se termine par <code>?&gt;</code>. Cette ligne n'est pas un élément XML ordinaire — c'est une <em>instruction de traitement</em> destinée au parseur.</p>
+  <p>Elle contient généralement deux informations importantes :</p>
+  <p>— <strong>version</strong> : indique quelle version de la spécification XML est utilisée. Aujourd'hui on utilise presque toujours <code>"1.0"</code>. XML 1.1 existe mais est rarement utilisé.<br>
+  — <strong>encoding</strong> : indique l'encodage des caractères du fichier. <code>UTF-8</code> est le standard universel et est recommandé car il supporte tous les caractères du monde (accents, caractères arabes, chinois, emoji, etc.).</p>
+  <div class="tip"><strong>✅ Bonne pratique</strong> Incluez toujours la déclaration XML en tête de vos fichiers. Cela évite des problèmes d'encodage lorsque le fichier est lu sur des systèmes différents.</div>
+  <div class="warning"><strong>⚠️ Attention</strong> La déclaration doit être la <em>toute première</em> chose dans le fichier, même avant tout espace blanc. Aucune ligne ne doit la précéder.</div>
+  <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;message&gt;Bonjour le monde !&lt;/message&gt;</pre>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">10</span>
-        <h2>Sensibilité à la Casse</h2>
-      </div>
-      <p>XML est sensible à la casse. <code>&lt;Nom&gt;</code> et <code>&lt;nom&gt;</code> sont deux éléments différents.</p>
-      <pre>&lt;Nom&gt;Valeur A&lt;/Nom&gt;
-&lt;nom&gt;Valeur B&lt;/nom&gt;</pre>
-    </div>
+<!-- ===== LEÇON 03 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">03</span><h2>Balises XML</h2></div>
+  <p>Les <strong>balises</strong> (ou <em>tags</em>) sont les marqueurs fondamentaux de XML. Elles délimitent les données et leur donnent un nom, donc une signification. Une balise s'écrit entre chevrons <code>&lt;</code> et <code>&gt;</code>.</p>
+  <p>Il existe deux types de balises :</p>
+  <p>— La <strong>balise ouvrante</strong> : <code>&lt;ville&gt;</code> — elle marque le début de l'élément.<br>
+  — La <strong>balise fermante</strong> : <code>&lt;/ville&gt;</code> — elle marque la fin. Elle est identique à la balise ouvrante mais avec un slash <code>/</code> avant le nom.</p>
+  <p>Le nom de la balise peut contenir des lettres, des chiffres, des tirets, des underscores et des points. Il doit <strong>commencer par une lettre ou un underscore</strong>, jamais par un chiffre ni un tiret.</p>
+  <div class="note"><strong>📘 Noms valides</strong> <code>&lt;nom-client&gt;</code>, <code>&lt;_id&gt;</code>, <code>&lt;adresse2&gt;</code> sont valides. <code>&lt;2adresse&gt;</code> ou <code>&lt;-item&gt;</code> ne le sont pas.</div>
+  <div class="pre-label">Exemple correct</div>
+  <pre>&lt;ville&gt;Dakar&lt;/ville&gt;
+&lt;code-postal&gt;10000&lt;/code-postal&gt;
+&lt;pays_iso&gt;SN&lt;/pays_iso&gt;</pre>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">11</span>
-        <h2>Fermeture des Balises</h2>
-      </div>
-      <p>Contrairement au HTML, toutes les balises XML doivent être fermées explicitement.</p>
-      <pre>&lt;titre&gt;Apprendre XML&lt;/titre&gt;</pre>
-    </div>
+<!-- ===== LEÇON 04 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">04</span><h2>Balise Racine</h2></div>
+  <p>Chaque document XML doit avoir <strong>exactement un seul élément racine</strong> (root element) qui englobe tous les autres éléments. Si vous imaginez votre document XML comme un arbre, la racine est le tronc : tout le reste en découle.</p>
+  <p>Cette règle est absolue. Un document XML avec plusieurs éléments de premier niveau n'est <strong>pas bien formé</strong> et un parseur strict refusera de le traiter.</p>
+  <div class="warning"><strong>⚠️ Erreur fréquente</strong> Oublier la balise racine ou en mettre plusieurs. Voici une erreur classique : écrire <code>&lt;user&gt;…&lt;/user&gt;</code> suivi directement de <code>&lt;produit&gt;…&lt;/produit&gt;</code> au même niveau n'est pas valide.</div>
+  <div class="pre-label">❌ Invalide — deux racines</div>
+  <pre>&lt;user&gt;Ali&lt;/user&gt;
+&lt;produit&gt;Laptop&lt;/produit&gt;</pre>
+  <div class="pre-label">✅ Valide — une seule racine</div>
+  <pre>&lt;data&gt;
+  &lt;user&gt;Ali&lt;/user&gt;
+  &lt;produit&gt;Laptop&lt;/produit&gt;
+&lt;/data&gt;</pre>
+  <button class="try-btn" onclick="loadCode('&lt;data&gt;\n  &lt;user&gt;Ali&lt;/user&gt;\n  &lt;produit&gt;Laptop&lt;/produit&gt;\n&lt;/data&gt;')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5,3 19,12 5,21"/></svg>Essayer
+  </button>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">12</span>
-        <h2>Valeurs d'Attributs</h2>
-      </div>
-      <p>Les valeurs des attributs doivent toujours être entourées de guillemets simples ou doubles.</p>
-      <pre>&lt;book id="5" lang="fr"&gt;&lt;/book&gt;</pre>
-    </div>
+<!-- ===== LEÇON 05 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">05</span><h2>Les Éléments</h2></div>
+  <p>Un <strong>élément XML</strong> est l'unité de base du document. Il est composé d'une balise ouvrante, d'un contenu, et d'une balise fermante. Le contenu peut être du <strong>texte brut</strong>, d'autres <strong>éléments imbriqués</strong>, ou les deux (contenu mixte).</p>
+  <p>Les éléments structurent vos données de façon hiérarchique. Chaque élément a un <strong>nom</strong> (le nom de la balise) et une <strong>valeur</strong> (ce qu'il contient). Ils peuvent aussi porter des <strong>attributs</strong> (voir leçon 6).</p>
+  <p>Un élément vide (sans contenu) peut s'écrire soit <code>&lt;tag&gt;&lt;/tag&gt;</code> soit en version auto-fermante <code>&lt;tag/&gt;</code>.</p>
+  <div class="pre-label">Différents types de contenu</div>
+  <pre>&lt;!-- Contenu textuel --&gt;
+&lt;age&gt;20&lt;/age&gt;
+&lt;prix&gt;29.99&lt;/prix&gt;
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">13</span>
-        <h2>CDATA</h2>
-      </div>
-      <p>CDATA permet d'inclure du texte brut sans interprétation XML, utile pour intégrer du HTML ou du code.</p>
-      <pre>&lt;![CDATA[
-  &lt;html&gt;&lt;/html&gt;
-]]&gt;</pre>
-    </div>
+&lt;!-- Contenu mixte : texte + sous-éléments --&gt;
+&lt;description&gt;
+  Ce produit contient &lt;marque&gt;Samsung&lt;/marque&gt;
+&lt;/description&gt;
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">14</span>
-        <h2>Entités XML</h2>
-      </div>
-      <p>Les entités remplacent les caractères spéciaux réservés par XML pour éviter les erreurs de parsing.</p>
-      <pre>&amp;lt;   → &lt;
-&amp;gt;   → &gt;
-&amp;amp;  → &amp;</pre>
-    </div>
+&lt;!-- Élément vide --&gt;
+&lt;separateur/&gt;</pre>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">15</span>
-        <h2>XML et Données</h2>
-      </div>
-      <p>XML est conçu pour stocker et échanger des données entre systèmes différents de manière indépendante.</p>
-      <pre>&lt;produit&gt;
-  &lt;nom&gt;Téléphone&lt;/nom&gt;
-  &lt;prix&gt;199&lt;/prix&gt;
+<!-- ===== LEÇON 06 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">06</span><h2>Les Attributs</h2></div>
+  <p>Les <strong>attributs</strong> permettent d'ajouter des métadonnées ou des propriétés supplémentaires à un élément, directement dans sa balise ouvrante. Ils se présentent sous la forme <code>nom="valeur"</code>.</p>
+  <p>Un élément peut avoir <strong>plusieurs attributs</strong>, séparés par des espaces. L'ordre des attributs n'a pas d'importance pour XML. La valeur d'un attribut doit toujours être entre guillemets (doubles <code>"</code> ou simples <code>'</code>).</p>
+  <p><strong>Attributs vs éléments enfants</strong> : un attribut convient bien aux données courtes et non répétables (un identifiant, une date, un statut). Les données complexes ou répétables sont mieux représentées par des éléments enfants.</p>
+  <div class="tip"><strong>✅ Règle d'or</strong> Si une donnée fait naturellement partie de l'<em>identité</em> de l'élément (ex: son ID), mettez-la en attribut. Si c'est une donnée que l'élément <em>décrit</em> (ex: son nom, son adresse), préférez un sous-élément.</div>
+  <div class="pre-label">Utilisation des attributs</div>
+  <pre>&lt;user id="1" role="admin" actif="true"&gt;
+  &lt;nom&gt;Ali&lt;/nom&gt;
+  &lt;email&gt;ali@mail.com&lt;/email&gt;
+&lt;/user&gt;
+
+&lt;produit ref="SKU-42" categorie="electronique"&gt;
+  &lt;nom&gt;Laptop&lt;/nom&gt;
+  &lt;prix devise="XOF"&gt;350000&lt;/prix&gt;
 &lt;/produit&gt;</pre>
-    </div>
+  <button class="try-btn" onclick="loadCode('&lt;user id=&quot;1&quot; role=&quot;admin&quot;&gt;\n  &lt;nom&gt;Ali&lt;/nom&gt;\n  &lt;email&gt;ali@mail.com&lt;/email&gt;\n&lt;/user&gt;')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5,3 19,12 5,21"/></svg>Essayer
+  </button>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">16</span>
-        <h2>Structure Hiérarchique</h2>
-      </div>
-      <p>XML organise les données en arborescence, avec des relations parent-enfant entre les éléments.</p>
-      <pre>&lt;ecole&gt;
-  &lt;classe&gt;
-    &lt;eleve&gt;Ali&lt;/eleve&gt;
-  &lt;/classe&gt;
-&lt;/ecole&gt;</pre>
-    </div>
+<!-- ===== LEÇON 07 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">07</span><h2>Commentaires XML</h2></div>
+  <p>Les <strong>commentaires</strong> permettent d'annoter un document XML avec des notes lisibles par les développeurs, mais ignorées par le parseur XML. Ils commencent par <code>&lt;!--</code> et se terminent par <code>--&gt;</code>.</p>
+  <p>Les commentaires peuvent s'étendre sur plusieurs lignes et contenir n'importe quel texte, sauf la séquence <code>--</code> (deux tirets consécutifs) à l'intérieur, car elle marquerait la fin du commentaire de façon ambiguë.</p>
+  <p>On les utilise pour documenter la structure du fichier, expliquer des choix techniques, ou temporairement désactiver une partie du contenu XML lors de tests.</p>
+  <div class="note"><strong>📘 Limite</strong> Les commentaires ne peuvent pas apparaître à l'intérieur d'une balise : <code>&lt;tag &lt;!-- attr --&gt; id="1"&gt;</code> est interdit. Ils doivent être entre les éléments ou autour d'eux.</div>
+  <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">17</span>
-        <h2>XML vs HTML</h2>
-      </div>
-      <p>HTML affiche les données dans un navigateur. XML stocke et transporte des données sans logique d'affichage.</p>
-      <pre>&lt;!-- HTML : affichage --&gt;
-&lt;p&gt;Bonjour&lt;/p&gt;
+&lt;!-- Fichier de configuration principale
+     Mis à jour le : 2025-01-01
+     Auteur : Équipe tech --&gt;
 
-&lt;!-- XML : données --&gt;
-&lt;message&gt;Bonjour&lt;/message&gt;</pre>
-    </div>
+&lt;config&gt;
+  &lt;!-- URL du serveur de production --&gt;
+  &lt;serveur&gt;https://api.exemple.com&lt;/serveur&gt;
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">18</span>
-        <h2>XML vs JSON</h2>
-      </div>
-      <p>JSON est plus léger et courant pour les APIs web. XML est plus verbeux mais plus structuré et validable.</p>
-      <pre>&lt;!-- XML --&gt;
-&lt;nom&gt;Ali&lt;/nom&gt;
+  &lt;!-- &lt;debug&gt;true&lt;/debug&gt; désactivé en prod --&gt;
+  &lt;debug&gt;false&lt;/debug&gt;
+&lt;/config&gt;</pre>
+</div>
 
-&lt;!-- JSON équivalent --&gt;
-{ "nom": "Ali" }</pre>
-    </div>
+<!-- ===== LEÇON 08 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">08</span><h2>Imbrication</h2></div>
+  <p>L'<strong>imbrication</strong> consiste à placer des éléments XML à l'intérieur d'autres éléments. C'est le mécanisme fondamental qui permet de représenter des données hiérarchiques et des relations complexes entre informations.</p>
+  <p>La règle d'imbrication est stricte : les balises doivent être <strong>correctement fermées dans l'ordre inverse de leur ouverture</strong>. Si vous ouvrez A puis B, vous devez fermer B avant de fermer A. On dit que les éléments doivent être correctement <em>emboîtés</em> (bien formés).</p>
+  <div class="warning"><strong>⚠️ Chevauchement interdit</strong> En XML, <code>&lt;a&gt;&lt;b&gt;&lt;/a&gt;&lt;/b&gt;</code> est une erreur fatale. Les éléments ne peuvent pas se chevaucher, contrairement à du HTML tolérant.</div>
+  <div class="pre-label">❌ Imbrication incorrecte</div>
+  <pre>&lt;a&gt;&lt;b&gt;texte&lt;/a&gt;&lt;/b&gt;</pre>
+  <div class="pre-label">✅ Imbrication correcte</div>
+  <pre>&lt;entreprise&gt;
+  &lt;departement nom="Ingénierie"&gt;
+    &lt;employe&gt;
+      &lt;nom&gt;Fatou&lt;/nom&gt;
+      &lt;poste&gt;Développeuse&lt;/poste&gt;
+    &lt;/employe&gt;
+    &lt;employe&gt;
+      &lt;nom&gt;Mamadou&lt;/nom&gt;
+      &lt;poste&gt;Architecte&lt;/poste&gt;
+    &lt;/employe&gt;
+  &lt;/departement&gt;
+&lt;/entreprise&gt;</pre>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">19</span>
-        <h2>Liste XML</h2>
-      </div>
-      <p>XML représente les listes en répétant des éléments du même nom au sein d'un élément parent.</p>
-      <pre>&lt;fruits&gt;
+<!-- ===== LEÇON 09 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">09</span><h2>XML Bien Formé</h2></div>
+  <p>Un document XML est dit <strong>bien formé</strong> (<em>well-formed</em>) lorsqu'il respecte toutes les règles syntaxiques définies par la spécification XML. C'est la condition minimale pour qu'un parseur XML accepte de le traiter.</p>
+  <p>Les principales règles d'un XML bien formé :</p>
+  <p>1. Il possède <strong>une seule balise racine</strong>.<br>
+  2. Toutes les balises ouvrantes ont une <strong>balise fermante correspondante</strong>.<br>
+  3. Les balises sont <strong>correctement imbriquées</strong>, sans chevauchement.<br>
+  4. Les noms de balises sont <strong>sensibles à la casse</strong> (voir leçon 10).<br>
+  5. Les valeurs d'attributs sont <strong>entre guillemets</strong>.<br>
+  6. Un attribut ne peut pas apparaître <strong>deux fois</strong> dans la même balise.<br>
+  7. Les caractères spéciaux (<code>&lt;</code>, <code>&amp;</code>) sont correctement <strong>escapés</strong> (voir leçon 14).</p>
+  <div class="tip"><strong>✅ Bien formé ≠ Valide</strong> Un document peut être bien formé (syntaxe correcte) sans être valide (conforme à un schéma/DTD). La validation est une couche supplémentaire (leçons 25-27).</div>
+  <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;note priorite="haute"&gt;
+  &lt;de&gt;Directeur&lt;/de&gt;
+  &lt;a&gt;Équipe&lt;/a&gt;
+  &lt;corps&gt;Réunion lundi à 9h00&lt;/corps&gt;
+&lt;/note&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 10 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">10</span><h2>Sensibilité à la Casse</h2></div>
+  <p>XML est <strong>strictement sensible à la casse</strong> (<em>case-sensitive</em>). Cela signifie que <code>&lt;Nom&gt;</code>, <code>&lt;NOM&gt;</code>, <code>&lt;nom&gt;</code> et <code>&lt;noM&gt;</code> sont quatre éléments <em>totalement distincts</em> pour un parseur XML.</p>
+  <p>De même pour les attributs : <code>id</code>, <code>Id</code> et <code>ID</code> sont trois attributs différents. Il est obligatoire que la balise ouvrante et la balise fermante aient <strong>exactement la même casse</strong>.</p>
+  <p>La convention la plus répandue est d'utiliser le <strong>camelCase</strong> (<code>nomClient</code>), le <strong>kebab-case</strong> (<code>nom-client</code>) ou le <strong>snake_case</strong> (<code>nom_client</code>) — en tout cas de rester <em>cohérent</em> dans tout le document.</p>
+  <div class="warning"><strong>⚠️ Erreur classique</strong> Écrire <code>&lt;Nom&gt;Ali&lt;/nom&gt;</code> provoque une erreur de parsing car la casse de l'ouverture et de la fermeture ne correspond pas.</div>
+  <pre>&lt;contact&gt;
+  &lt;Nom&gt;Ali&lt;/Nom&gt;       &lt;!-- valide --&gt;
+  &lt;nom&gt;Fatou&lt;/nom&gt;     &lt;!-- valide, autre élément --&gt;
+  &lt;NOM&gt;Ibra&lt;/NOM&gt;      &lt;!-- valide, encore un autre --&gt;
+
+  &lt;!-- ❌ Interdit : casse incohérente --&gt;
+  &lt;!-- &lt;Email&gt;test@mail.com&lt;/email&gt; --&gt;
+&lt;/contact&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 11 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">11</span><h2>Fermeture des Balises</h2></div>
+  <p>En XML, <strong>chaque balise ouverte doit être fermée</strong>, sans exception. C'est l'une des différences majeures avec HTML, où certaines balises comme <code>&lt;br&gt;</code>, <code>&lt;img&gt;</code> ou <code>&lt;input&gt;</code> peuvent rester ouvertes (les navigateurs comblent les oublis).</p>
+  <p>Un parseur XML est <strong>sans tolérance</strong> : un seul oubli de fermeture est une erreur fatale qui arrête le traitement. Il n'essaie pas de "deviner" l'intention du développeur.</p>
+  <p>Pour les éléments sans contenu, vous avez le choix entre la syntaxe longue <code>&lt;tag&gt;&lt;/tag&gt;</code> et la syntaxe auto-fermante <code>&lt;tag/&gt;</code> — les deux sont strictement équivalentes.</p>
+  <div class="pre-label">Comparaison HTML vs XML</div>
+  <pre>&lt;!-- HTML permissif (navigateur tolère) --&gt;
+&lt;br&gt;
+&lt;img src="photo.jpg"&gt;
+&lt;input type="text"&gt;
+
+&lt;!-- XML strict (toutes les balises fermées) --&gt;
+&lt;separateur/&gt;
+&lt;image src="photo.jpg"/&gt;
+&lt;champ type="texte"&gt;&lt;/champ&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 12 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">12</span><h2>Valeurs d'Attributs</h2></div>
+  <p>En XML, les valeurs des attributs doivent <strong>toujours être entourées de guillemets</strong> — soit des guillemets doubles <code>"valeur"</code>, soit des guillemets simples <code>'valeur'</code>. Oublier les guillemets rend le document invalide, contrairement à HTML5 qui parfois l'accepte.</p>
+  <p>Vous pouvez utiliser les guillemets simples quand la valeur contient elle-même des guillemets doubles, et vice versa. Cela évite de recourir aux entités.</p>
+  <p>Un attribut ne peut apparaître qu'<strong>une seule fois</strong> dans une même balise. Écrire <code>&lt;tag id="1" id="2"&gt;</code> est une erreur XML.</p>
+  <div class="pre-label">Guillemets doubles (standard)</div>
+  <pre>&lt;livre id="5" langue="fr" disponible="true"/&gt;</pre>
+  <div class="pre-label">Guillemets simples (quand la valeur contient ")</div>
+  <pre>&lt;message texte='Il a dit "Bonjour" hier'/&gt;</pre>
+  <div class="pre-label">Entité pour guillemet dans double-guillemets</div>
+  <pre>&lt;message texte="Il a dit &amp;quot;Bonjour&amp;quot;"/&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 13 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">13</span><h2>CDATA</h2></div>
+  <p>Une section <strong>CDATA</strong> (Character DATA) permet d'inclure un bloc de texte brut dans un document XML sans que le parseur l'interprète. Tout ce qui se trouve à l'intérieur est traité comme du texte littéral, y compris les chevrons <code>&lt;</code>, <code>&gt;</code> et les esperluettes <code>&amp;</code>.</p>
+  <p>La syntaxe est : <code>&lt;![CDATA[</code> … texte brut … <code>]]&gt;</code>. C'est particulièrement utile pour intégrer du code HTML, du JavaScript, du SQL ou toute autre données contenant des caractères qui causeraient des erreurs s'ils étaient interprétés comme du XML.</p>
+  <p>La seule séquence interdite à l'intérieur d'un CDATA est <code>]]&gt;</code> car elle marquerait la fin de la section.</p>
+  <div class="tip"><strong>✅ Cas d'usage typiques</strong> Contenu HTML dans un flux RSS, snippets de code source dans de la documentation XML, requêtes SQL dans des fichiers de configuration.</div>
+  <pre>&lt;article&gt;
+  &lt;titre&gt;Tutoriel XML&lt;/titre&gt;
+  &lt;corps&gt;&lt;![CDATA[
+    &lt;h1&gt;Bienvenue&lt;/h1&gt;
+    &lt;p&gt;Voici du &lt;strong&gt;HTML&lt;/strong&gt;
+    inséré sans conflit dans XML.&lt;/p&gt;
+    &lt;script&gt;if(a &lt; b &amp;&amp; c &gt; 0){};&lt;/script&gt;
+  ]]&gt;&lt;/corps&gt;
+&lt;/article&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 14 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">14</span><h2>Entités XML</h2></div>
+  <p>Certains caractères ont une signification spéciale en XML (<code>&lt;</code>, <code>&gt;</code>, <code>&amp;</code>, etc.) et ne peuvent donc pas apparaître tels quels dans du texte ou des valeurs d'attributs. Pour les représenter, on utilise des <strong>entités</strong> — des codes de substitution commençant par <code>&amp;</code> et finissant par <code>;</code>.</p>
+  <p>XML définit cinq entités prédéfinies que tout parseur doit comprendre :</p>
+  <p>— <code>&amp;lt;</code> → <code>&lt;</code> (less than / inférieur à)<br>
+  — <code>&amp;gt;</code> → <code>&gt;</code> (greater than / supérieur à)<br>
+  — <code>&amp;amp;</code> → <code>&amp;</code> (ampersand / esperluette)<br>
+  — <code>&amp;apos;</code> → <code>'</code> (apostrophe / guillemet simple)<br>
+  — <code>&amp;quot;</code> → <code>"</code> (guillemet double)</p>
+  <p>Vous pouvez aussi définir vos propres entités personnalisées dans une DTD (voir leçon 25).</p>
+  <div class="pre-label">Entités dans du texte</div>
+  <pre>&lt;formule&gt;Si a &amp;lt; b &amp;amp;&amp;amp; b &amp;gt; 0&lt;/formule&gt;
+&lt;!-- Résultat lu : Si a < b && b > 0 --&gt;</pre>
+  <div class="pre-label">Entités dans des attributs</div>
+  <pre>&lt;lien url="https://exemple.com?a=1&amp;amp;b=2"/&gt;
+&lt;note texte="L&amp;apos;XML est puissant"/&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 15 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">15</span><h2>XML et Données</h2></div>
+  <p>XML est avant tout un <strong>format d'échange de données</strong>. Son grand atout est son universalité : un fichier XML produit par un programme Java sur Linux peut être lu par un programme Python sur Windows ou un service PHP dans le cloud — sans aucun problème de compatibilité.</p>
+  <p>XML est utilisé dans de nombreux contextes réels : services web (SOAP), fichiers de configuration (Maven, Spring, Android), flux de syndication (RSS, Atom), formats de documents (OOXML pour Word/Excel, ODF pour LibreOffice), et bien d'autres.</p>
+  <p>La clé de son succès est qu'il sépare clairement les <strong>données</strong> (le XML) de leur <strong>traitement</strong> (l'application qui les lit). Deux équipes peuvent travailler sur les mêmes données XML avec des technologies entièrement différentes.</p>
+  <div class="pre-label">Catalogue produit XML</div>
+  <pre>&lt;catalogue&gt;
+  &lt;produit ref="P001" categorie="electronique"&gt;
+    &lt;nom&gt;Smartphone&lt;/nom&gt;
+    &lt;prix devise="XOF"&gt;250000&lt;/prix&gt;
+    &lt;stock&gt;42&lt;/stock&gt;
+    &lt;disponible&gt;true&lt;/disponible&gt;
+  &lt;/produit&gt;
+  &lt;produit ref="P002" categorie="accessoire"&gt;
+    &lt;nom&gt;Écouteurs Bluetooth&lt;/nom&gt;
+    &lt;prix devise="XOF"&gt;35000&lt;/prix&gt;
+    &lt;stock&gt;150&lt;/stock&gt;
+    &lt;disponible&gt;true&lt;/disponible&gt;
+  &lt;/produit&gt;
+&lt;/catalogue&gt;</pre>
+  <button class="try-btn" onclick="loadCode('&lt;catalogue&gt;\n  &lt;produit ref=&quot;P001&quot;&gt;\n    &lt;nom&gt;Smartphone&lt;/nom&gt;\n    &lt;prix&gt;250000&lt;/prix&gt;\n  &lt;/produit&gt;\n&lt;/catalogue&gt;')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5,3 19,12 5,21"/></svg>Essayer
+  </button>
+</div>
+
+<!-- ===== LEÇON 16 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">16</span><h2>Structure Hiérarchique</h2></div>
+  <p>XML organise naturellement les données en <strong>arborescence</strong> (comme un arbre généalogique inversé). Cette structure parent-enfant correspond très bien à la façon dont les humains organisent l'information dans la vie réelle.</p>
+  <p>Chaque nœud de l'arbre est un élément. Les éléments au même niveau partagent le même parent. Cette hiérarchie permet de représenter des données d'une complexité illimitée — des simples paires clé-valeur jusqu'à des structures organisationnelles complètes.</p>
+  <p>Les parseurs XML exploitent cette arborescence pour créer un DOM (Document Object Model) — un arbre d'objets navigable en mémoire. Un programme peut ainsi "descendre" dans l'arbre pour trouver exactement les données dont il a besoin.</p>
+  <div class="pre-label">Hiérarchie université → faculté → étudiant</div>
+  <pre>&lt;universite nom="UCAD"&gt;
+  &lt;faculte nom="Sciences&amp;amp;Tech"&gt;
+    &lt;departement nom="Informatique"&gt;
+      &lt;etudiant matricule="2024-001"&gt;
+        &lt;nom&gt;Ali Diallo&lt;/nom&gt;
+        &lt;niveau&gt;Licence 3&lt;/niveau&gt;
+        &lt;notes&gt;
+          &lt;note matiere="Algo"&gt;16&lt;/note&gt;
+          &lt;note matiere="XML"&gt;18&lt;/note&gt;
+        &lt;/notes&gt;
+      &lt;/etudiant&gt;
+    &lt;/departement&gt;
+  &lt;/faculte&gt;
+&lt;/universite&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 17 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">17</span><h2>XML vs HTML</h2></div>
+  <p>HTML (<em>HyperText Markup Language</em>) et XML partagent la même syntaxe de balises (héritage de SGML), mais leurs <strong>objectifs sont fondamentalement différents</strong>.</p>
+  <p><strong>HTML</strong> est conçu pour la <em>présentation</em> : ses balises ont une signification visuelle prédéfinie (<code>&lt;p&gt;</code> = paragraphe, <code>&lt;h1&gt;</code> = titre, <code>&lt;img&gt;</code> = image). Un navigateur sait comment afficher du HTML. HTML est aussi permissif : il corrige les erreurs de syntaxe, les balises non fermées, etc.</p>
+  <p><strong>XML</strong> est conçu pour les <em>données</em> : ses balises n'ont aucune signification visuelle prédéfinie — vous inventez leur sens. XML est strict : la moindre erreur de syntaxe provoque une erreur fatale. XML ne sait pas s'afficher tout seul, il a besoin d'une feuille de style (CSS/XSLT) ou d'une application pour exploiter ses données.</p>
+  <div class="pre-label">HTML — présentation</div>
+  <pre>&lt;h1&gt;Produits en vente&lt;/h1&gt;
+&lt;p&gt;Prix : &lt;strong&gt;29.99 €&lt;/strong&gt;&lt;/p&gt;</pre>
+  <div class="pre-label">XML — données</div>
+  <pre>&lt;produit&gt;
+  &lt;titre&gt;Produits en vente&lt;/titre&gt;
+  &lt;prix devise="EUR"&gt;29.99&lt;/prix&gt;
+&lt;/produit&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 18 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">18</span><h2>XML vs JSON</h2></div>
+  <p>JSON (<em>JavaScript Object Notation</em>) est aujourd'hui le format dominant pour les APIs web, surtout les APIs REST. Il est plus <strong>compact</strong>, plus facile à lire, et nativement intégré à JavaScript. La plupart des langages modernes le supportent nativement.</p>
+  <p>XML, lui, reste omniprésent dans les systèmes plus anciens (legacy), les services SOAP, les fichiers de configuration d'entreprise, et partout où la <strong>validation formelle</strong> (via XSD), les <strong>namespaces</strong> et les <strong>transformations</strong> (XSLT) sont importants.</p>
+  <p>Les deux formats ont leurs forces : XML est plus expressif et validable, JSON est plus léger et rapide à parser. Beaucoup d'entreprises utilisent les deux selon le contexte.</p>
+  <div class="pre-label">Même donnée en XML</div>
+  <pre>&lt;commande id="101"&gt;
+  &lt;client&gt;Ali Diallo&lt;/client&gt;
+  &lt;articles&gt;
+    &lt;article qte="2"&gt;Stylo&lt;/article&gt;
+    &lt;article qte="1"&gt;Cahier&lt;/article&gt;
+  &lt;/articles&gt;
+  &lt;total&gt;2500&lt;/total&gt;
+&lt;/commande&gt;</pre>
+  <div class="pre-label">Même donnée en JSON</div>
+  <pre>{
+  "commande": {
+    "id": 101,
+    "client": "Ali Diallo",
+    "articles": [
+      {"nom":"Stylo","qte":2},
+      {"nom":"Cahier","qte":1}
+    ],
+    "total": 2500
+  }
+}</pre>
+</div>
+
+<!-- ===== LEÇON 19 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">19</span><h2>Liste XML</h2></div>
+  <p>XML ne possède pas de type "tableau" natif comme JSON (<code>[]</code>). Pour représenter une <strong>liste d'éléments</strong>, on utilise la convention de répéter des éléments du même nom à l'intérieur d'un élément conteneur parent.</p>
+  <p>Le nom du parent est généralement au pluriel (ex: <code>&lt;fruits&gt;</code>) et le nom des enfants au singulier (<code>&lt;fruit&gt;</code>). Cette convention n'est pas imposée par la syntaxe XML mais elle est très courante et améliore la lisibilité.</p>
+  <p>Chaque élément de la liste peut être aussi simple (juste du texte) ou aussi complexe (avec des sous-éléments et attributs) que nécessaire.</p>
+  <div class="pre-label">Liste simple</div>
+  <pre>&lt;fruits&gt;
   &lt;fruit&gt;Pomme&lt;/fruit&gt;
   &lt;fruit&gt;Mangue&lt;/fruit&gt;
   &lt;fruit&gt;Banane&lt;/fruit&gt;
+  &lt;fruit&gt;Papaye&lt;/fruit&gt;
 &lt;/fruits&gt;</pre>
-    </div>
+  <div class="pre-label">Liste d'objets complexes</div>
+  <pre>&lt;employes&gt;
+  &lt;employe id="1"&gt;
+    &lt;nom&gt;Fatou Ndiaye&lt;/nom&gt;
+    &lt;salaire&gt;450000&lt;/salaire&gt;
+  &lt;/employe&gt;
+  &lt;employe id="2"&gt;
+    &lt;nom&gt;Ibra Sow&lt;/nom&gt;
+    &lt;salaire&gt;380000&lt;/salaire&gt;
+  &lt;/employe&gt;
+&lt;/employes&gt;</pre>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">20</span>
-        <h2>Balise Vide</h2>
-      </div>
-      <p>Une balise sans contenu peut s'écrire sous forme auto-fermante avec le slash avant le chevron fermant.</p>
-      <pre>&lt;br/&gt;
-&lt;image src="photo.jpg"/&gt;</pre>
-    </div>
+<!-- ===== LEÇON 20 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">20</span><h2>Balise Vide</h2></div>
+  <p>Une <strong>balise vide</strong> (ou élément vide) est un élément qui ne contient aucun texte et aucun sous-élément. Elle peut toutefois porter des attributs. Il y a deux façons syntaxiquement équivalentes de l'écrire.</p>
+  <p>La <strong>forme longue</strong> : <code>&lt;balise&gt;&lt;/balise&gt;</code> — balise ouverte immédiatement fermée.</p>
+  <p>La <strong>forme courte</strong> (auto-fermante) : <code>&lt;balise/&gt;</code> — slash avant le chevron fermant. C'est la notation préférée car elle est plus concise. Notez qu'en XML strict il y a un espace avant le <code>/&gt;</code> par convention (<code>&lt;balise /&gt;</code>), bien que ce ne soit pas obligatoire.</p>
+  <p>Les éléments vides sont utiles pour des <strong>marqueurs</strong>, des séparateurs, ou des éléments dont toutes les données sont portées par des attributs.</p>
+  <pre>&lt;configuration&gt;
+  &lt;!-- Séparateur visuel --&gt;
+  &lt;separateur/&gt;
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">21</span>
-        <h2>Namespaces</h2>
-      </div>
-      <p>Les namespaces permettent d'éviter les conflits lorsqu'on mélange des vocabulaires XML différents.</p>
-      <pre>&lt;h:table xmlns:h="html"&gt;
-  &lt;h:tr&gt;&lt;/h:tr&gt;
-&lt;/h:table&gt;</pre>
-    </div>
+  &lt;!-- Image avec toutes ses données en attributs --&gt;
+  &lt;image src="logo.png" largeur="200" hauteur="50"/&gt;
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">22</span>
-        <h2>Encodage UTF-8</h2>
-      </div>
-      <p>L'encodage UTF-8 permet de gérer tous les caractères internationaux, accents et symboles spéciaux.</p>
-      <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;message&gt;Héllo Wörld&lt;/message&gt;</pre>
-    </div>
+  &lt;!-- Indicateur booléen --&gt;
+  &lt;activer-notifications/&gt;
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">23</span>
-        <h2>XPath</h2>
-      </div>
-      <p>XPath est un langage de requête pour naviguer et sélectionner des nœuds dans un document XML.</p>
-      <pre>/librairie/book/title
-//author
-book[@id='1']</pre>
-    </div>
+  &lt;!-- Équivalent forme longue --&gt;
+  &lt;placeholder&gt;&lt;/placeholder&gt;
+&lt;/configuration&gt;</pre>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">24</span>
-        <h2>XSLT</h2>
-      </div>
-      <p>XSLT transforme un document XML en un autre format (HTML, texte, autre XML) grâce à des feuilles de style.</p>
-      <pre>&lt;xsl:stylesheet version="1.0"&gt;
+<!-- ===== LEÇON 21 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">21</span><h2>Namespaces</h2></div>
+  <p>Les <strong>namespaces</strong> (espaces de noms) résolvent les conflits de noms lorsqu'un document XML combine des vocabulaires issus de sources différentes. Imaginez que vous fusionnez un document XML décrivant des tables HTML (<code>&lt;table&gt;</code>) avec un document XML décrivant des tables de restaurant (<code>&lt;table&gt;</code>) — comment distinguer les deux ?</p>
+  <p>La solution est de préfixer chaque nom de balise avec un identifiant unique lié à un namespace. Un namespace est déclaré avec l'attribut <code>xmlns:prefix="URI"</code>. L'URI n'est pas nécessairement une vraie URL accessible — c'est juste un identifiant unique.</p>
+  <p>Si un namespace par défaut est déclaré avec <code>xmlns="URI"</code> (sans préfixe), il s'applique à tous les éléments non préfixés du document.</p>
+  <pre>&lt;document
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:resto="http://api.restaurant.com/schema"&gt;
+
+  &lt;!-- Table HTML --&gt;
+  &lt;html:table&gt;
+    &lt;html:tr&gt;&lt;html:td&gt;Cellule&lt;/html:td&gt;&lt;/html:tr&gt;
+  &lt;/html:table&gt;
+
+  &lt;!-- Table de restaurant --&gt;
+  &lt;resto:table numero="12" places="4"&gt;
+    &lt;resto:statut&gt;disponible&lt;/resto:statut&gt;
+  &lt;/resto:table&gt;
+
+&lt;/document&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 22 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">22</span><h2>Encodage UTF-8</h2></div>
+  <p>L'<strong>encodage de caractères</strong> définit comment les caractères textuels sont représentés en octets dans le fichier. XML supporte plusieurs encodages, mais <strong>UTF-8</strong> est de loin le plus recommandé et le plus universel.</p>
+  <p>UTF-8 est une implémentation d'Unicode qui peut représenter <strong>plus de 1,1 million de caractères</strong> : toutes les lettres latines, accentuées, cyrilliques, arabes, chinoises, japonaises, les symboles mathématiques, les emoji… Pour les caractères courants (ASCII), UTF-8 utilise un seul octet, ce qui le rend aussi compact qu'ASCII.</p>
+  <p>D'autres encodages existent (ISO-8859-1, UTF-16, etc.) mais ils sont moins portables. Un fichier XML sans déclaration d'encodage est supposé être UTF-8 ou UTF-16 selon la présence d'une marque d'ordre des octets (BOM).</p>
+  <div class="tip"><strong>✅ Conseil pratique</strong> Toujours sauvegarder vos fichiers XML en UTF-8 (sans BOM) et déclarer <code>encoding="UTF-8"</code> dans la déclaration XML. Ainsi les accents, caractères arabes et toute écriture fonctionneront partout.</div>
+  <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;localisations&gt;
+  &lt;ville langue="fr"&gt;Dakar — Sénégal&lt;/ville&gt;
+  &lt;ville langue="ar"&gt;الدار البيضاء&lt;/ville&gt;
+  &lt;ville langue="zh"&gt;北京&lt;/ville&gt;
+  &lt;ville langue="ja"&gt;東京&lt;/ville&gt;
+  &lt;emoji&gt;🌍 🌏 🌎&lt;/emoji&gt;
+&lt;/localisations&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 23 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">23</span><h2>XPath</h2></div>
+  <p><strong>XPath</strong> (XML Path Language) est un langage de requête standardisé permettant de naviguer dans la structure d'un document XML et d'en extraire des parties précises. C'est l'équivalent de SQL pour les bases de données relationnelles, mais pour XML.</p>
+  <p>XPath représente les chemins dans l'arbre XML avec une syntaxe proche des chemins de fichiers Unix. Les principales syntaxes :</p>
+  <p>— <code>/</code> : racine absolue ou séparateur d'éléments.<br>
+  — <code>//</code> : n'importe où dans le document (descendant).<br>
+  — <code>@</code> : préfixe pour accéder aux attributs.<br>
+  — <code>[condition]</code> : filtre/prédicat pour affiner la sélection.<br>
+  — <code>*</code> : joker correspondant à n'importe quel élément.<br>
+  — <code>text()</code> : sélectionne le nœud texte d'un élément.</p>
+  <p>XPath est utilisé par XSLT, XQuery et les APIs de parsing XML dans la plupart des langages.</p>
+  <pre>&lt;!-- Avec ce document XML --&gt;
+&lt;librairie&gt;
+  &lt;livre id="1"&gt;&lt;titre&gt;XML Master&lt;/titre&gt;&lt;auteur&gt;Ali&lt;/auteur&gt;&lt;/livre&gt;
+  &lt;livre id="2"&gt;&lt;titre&gt;XPath Guide&lt;/titre&gt;&lt;auteur&gt;Fatou&lt;/auteur&gt;&lt;/livre&gt;
+&lt;/librairie&gt;
+
+&lt;!-- Expressions XPath --&gt;
+/librairie/livre/titre       → tous les titres
+//auteur                     → tous les auteurs partout
+/librairie/livre[@id='1']    → livre avec id=1
+//livre[auteur='Fatou']      → livres de Fatou
+//livre/@id                  → tous les attributs id
+count(//livre)               → nombre de livres</pre>
+</div>
+
+<!-- ===== LEÇON 24 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">24</span><h2>XSLT</h2></div>
+  <p><strong>XSLT</strong> (eXtensible Stylesheet Language Transformations) est un langage de transformation XML. Il permet de convertir un document XML source en un autre format : HTML pour affichage, texte simple, CSV, PDF, ou un autre XML de structure différente.</p>
+  <p>Une feuille de style XSLT est elle-même un document XML. Elle définit des <strong>templates</strong> qui correspondent à des nœuds XPath du document source et décrivent ce qu'il faut générer en sortie. Le moteur XSLT applique les templates correspondants au fur et à mesure qu'il parcourt le document XML.</p>
+  <p>XSLT est très puissant pour la <strong>séparation des préoccupations</strong> : vos données restent dans le XML, et la présentation est gérée par la feuille XSLT. Vous pouvez ainsi générer plusieurs vues différentes du même XML.</p>
+  <div class="tip"><strong>✅ Cas d'usage</strong> Transformer un catalogue XML en page HTML pour un site web. Convertir un rapport XML en document PDF. Adapter un format XML propriétaire vers un standard XML public.</div>
+  <pre>&lt;xsl:stylesheet version="1.0"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
+
   &lt;xsl:template match="/"&gt;
+    &lt;html&gt;
+      &lt;body&gt;
+        &lt;h1&gt;Liste des utilisateurs&lt;/h1&gt;
+        &lt;xsl:for-each select="//user"&gt;
+          &lt;p&gt;
+            &lt;xsl:value-of select="nom"/&gt;
+          &lt;/p&gt;
+        &lt;/xsl:for-each&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
   &lt;/xsl:template&gt;
+
 &lt;/xsl:stylesheet&gt;</pre>
-    </div>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">25</span>
-        <h2>DTD</h2>
-      </div>
-      <p>La DTD (Document Type Definition) définit la structure autorisée d'un document XML.</p>
-      <pre>&lt;!DOCTYPE note [
-  &lt;!ELEMENT note (message)&gt;
-  &lt;!ELEMENT message (#PCDATA)&gt;
-]&gt;</pre>
-    </div>
+<!-- ===== LEÇON 25 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">25</span><h2>DTD</h2></div>
+  <p>La <strong>DTD</strong> (Document Type Definition) est la plus ancienne façon de définir la structure autorisée d'un document XML. Elle spécifie quels éléments peuvent exister, dans quel ordre, avec quels attributs, et leur caractère obligatoire ou optionnel.</p>
+  <p>La DTD peut être interne (directement dans le fichier XML via <code>&lt;!DOCTYPE ... [ ]&gt;</code>) ou externe (dans un fichier <code>.dtd</code> séparé). Les déclarations DTD utilisent une syntaxe spéciale :</p>
+  <p>— <code>&lt;!ELEMENT&gt;</code> : définit un élément et son contenu autorisé.<br>
+  — <code>&lt;!ATTLIST&gt;</code> : définit les attributs d'un élément.<br>
+  — <code>&lt;!ENTITY&gt;</code> : définit des entités réutilisables.<br>
+  — <code>#PCDATA</code> : texte analysé (Parsed Character Data).<br>
+  — <code>*</code>, <code>+</code>, <code>?</code> : qualificateurs de répétition (0+, 1+, 0 ou 1).</p>
+  <div class="note"><strong>📘 DTD vs XSD</strong> La DTD est plus ancienne et plus simple, mais ne supporte pas les types de données (int, date, etc.) et les namespaces. Le XSD (leçon 27) est plus puissant et est préféré dans les projets modernes.</div>
+  <pre>&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE carnet [
+  &lt;!ELEMENT carnet (contact+)&gt;
+  &lt;!ELEMENT contact (nom, email, tel?)&gt;
+  &lt;!ELEMENT nom (#PCDATA)&gt;
+  &lt;!ELEMENT email (#PCDATA)&gt;
+  &lt;!ELEMENT tel (#PCDATA)&gt;
+  &lt;!ATTLIST contact id ID #REQUIRED&gt;
+]&gt;
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">26</span>
-        <h2>Validation XML</h2>
-      </div>
-      <p>Un document XML valide respecte les règles d'une DTD ou d'un schéma XML (XSD) associé.</p>
-      <pre>&lt;!-- Valider avec un schéma --&gt;
-&lt;root xmlns:xsi="..."
-  xsi:noNamespaceSchemaLocation="schema.xsd"&gt;
-&lt;/root&gt;</pre>
-    </div>
+&lt;carnet&gt;
+  &lt;contact id="c1"&gt;
+    &lt;nom&gt;Ali Diallo&lt;/nom&gt;
+    &lt;email&gt;ali@mail.com&lt;/email&gt;
+  &lt;/contact&gt;
+&lt;/carnet&gt;</pre>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">27</span>
-        <h2>XML Schema (XSD)</h2>
-      </div>
-      <p>L'XML Schema décrit les types de données, les contraintes et la structure attendue d'un document XML.</p>
-      <pre>&lt;xs:schema xmlns:xs="..."&gt;
-  &lt;xs:element name="nom" type="xs:string"/&gt;
+<!-- ===== LEÇON 26 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">26</span><h2>Validation XML</h2></div>
+  <p>La <strong>validation XML</strong> est le processus de vérification qu'un document XML respecte non seulement les règles de base du XML (bien formé) mais aussi un contrat de structure défini (valide). Un document peut être bien formé sans être valide.</p>
+  <p>On distingue deux niveaux :</p>
+  <p>— <strong>Bien formé</strong> : le document respecte les règles syntaxiques XML (balises fermées, imbrication correcte, etc.).<br>
+  — <strong>Valide</strong> : le document est bien formé ET conforme à une DTD ou un schéma XSD.</p>
+  <p>La validation est cruciale dans les échanges inter-systèmes : avant de traiter les données XML reçues d'un partenaire, vous validez d'abord que leur structure correspond bien à ce qui est attendu. Cela prévient les bugs et les failles de sécurité.</p>
+  <div class="tip"><strong>✅ En pratique</strong> Des outils en ligne comme <em>xmlvalidation.com</em> permettent de valider rapidement un fichier XML. Dans les langages (Java, PHP, Python), des bibliothèques de validation sont disponibles et facilement intégrables.</div>
+  <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!-- Validation contre un XSD externe --&gt;
+&lt;catalogue
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="catalogue.xsd"&gt;
+
+  &lt;produit id="1"&gt;
+    &lt;nom&gt;Ordinateur&lt;/nom&gt;
+    &lt;prix&gt;599.00&lt;/prix&gt;
+  &lt;/produit&gt;
+
+&lt;/catalogue&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 27 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">27</span><h2>XML Schema (XSD)</h2></div>
+  <p>Le <strong>XML Schema</strong> (XSD pour XML Schema Definition) est le standard moderne de définition de la structure d'un document XML. Il surpasse la DTD en offrant :</p>
+  <p>— Des <strong>types de données</strong> riches : entier, décimal, booléen, date, heure, URI, email…<br>
+  — La prise en charge des <strong>namespaces</strong>.<br>
+  — Des <strong>contraintes avancées</strong> : valeur min/max, longueur de chaîne, expressions régulières, valeurs autorisées (énumérations).<br>
+  — La <strong>réutilisabilité</strong> via les types complexes et simples réutilisables.<br>
+  — Une syntaxe <strong>XML elle-même</strong> — le XSD est un document XML valide.</p>
+  <p>Un XSD est défini dans un fichier séparé (extension <code>.xsd</code>) et référencé depuis le document XML à valider.</p>
+  <pre>&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="personne"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="nom"     type="xs:string"/&gt;
+        &lt;xs:element name="age"     type="xs:integer"/&gt;
+        &lt;xs:element name="email"   type="xs:string"/&gt;
+        &lt;xs:element name="salaire" type="xs:decimal"
+          minOccurs="0"/&gt;
+      &lt;/xs:sequence&gt;
+      &lt;xs:attribute name="id" type="xs:integer"
+        use="required"/&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
 &lt;/xs:schema&gt;</pre>
-    </div>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">28</span>
-        <h2>Élément Complexe</h2>
-      </div>
-      <p>Un élément complexe contient d'autres éléments enfants ou des attributs, contrairement aux éléments simples.</p>
-      <pre>&lt;personne&gt;
-  &lt;nom&gt;Ali&lt;/nom&gt;
-  &lt;age&gt;25&lt;/age&gt;
+<!-- ===== LEÇON 28 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">28</span><h2>Élément Complexe</h2></div>
+  <p>Dans la terminologie XSD, un <strong>élément complexe</strong> est un élément qui contient d'autres éléments enfants et/ou des attributs. Par opposition à l'élément simple (leçon 29) qui ne contient que du texte.</p>
+  <p>Les éléments complexes peuvent être de différents types :</p>
+  <p>— <strong>Séquence</strong> (<code>xs:sequence</code>) : les enfants apparaissent dans un ordre strict.<br>
+  — <strong>Tout</strong> (<code>xs:all</code>) : les enfants peuvent apparaître dans n'importe quel ordre.<br>
+  — <strong>Choix</strong> (<code>xs:choice</code>) : exactement un parmi plusieurs enfants possibles.<br>
+  — <strong>Contenu mixte</strong> : mélange texte et éléments (moins courant, utile pour des docs balisés).</p>
+  <pre>&lt;!-- Définition XSD --&gt;
+&lt;xs:complexType name="typeAdresse"&gt;
+  &lt;xs:sequence&gt;
+    &lt;xs:element name="rue"        type="xs:string"/&gt;
+    &lt;xs:element name="ville"      type="xs:string"/&gt;
+    &lt;xs:element name="codePostal" type="xs:string"/&gt;
+    &lt;xs:element name="pays"       type="xs:string"/&gt;
+  &lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+
+&lt;!-- Utilisation dans le XML --&gt;
+&lt;adresse&gt;
+  &lt;rue&gt;12 rue des Almadies&lt;/rue&gt;
+  &lt;ville&gt;Dakar&lt;/ville&gt;
+  &lt;codePostal&gt;10000&lt;/codePostal&gt;
+  &lt;pays&gt;Sénégal&lt;/pays&gt;
+&lt;/adresse&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 29 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">29</span><h2>Élément Simple</h2></div>
+  <p>Un <strong>élément simple</strong> en XSD est un élément qui ne contient que du texte (ni sous-éléments, ni attributs). Il correspond à une valeur atomique comme un nom, un nombre, une date, etc.</p>
+  <p>En XSD, on peut contraindre finement le contenu des éléments simples grâce aux types de base de XML Schema. On peut aussi créer des types simples dérivés avec des restrictions : valeur minimale, maximale, longueur, pattern d'expression régulière, liste de valeurs autorisées (<code>xs:enumeration</code>).</p>
+  <div class="pre-label">Types XSD courants pour éléments simples</div>
+  <pre>&lt;!-- Définitions XSD --&gt;
+&lt;xs:element name="nom"        type="xs:string"/&gt;
+&lt;xs:element name="age"        type="xs:integer"/&gt;
+&lt;xs:element name="prix"       type="xs:decimal"/&gt;
+&lt;xs:element name="actif"      type="xs:boolean"/&gt;
+&lt;xs:element name="dateNais"   type="xs:date"/&gt;
+
+&lt;!-- Restriction (valeur entre 0 et 120) --&gt;
+&lt;xs:simpleType name="typeAge"&gt;
+  &lt;xs:restriction base="xs:integer"&gt;
+    &lt;xs:minInclusive value="0"/&gt;
+    &lt;xs:maxInclusive value="120"/&gt;
+  &lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;</pre>
+  <div class="pre-label">Document XML correspondant</div>
+  <pre>&lt;personne&gt;
+  &lt;nom&gt;Fatou Ndiaye&lt;/nom&gt;
+  &lt;age&gt;29&lt;/age&gt;
+  &lt;prix&gt;29.99&lt;/prix&gt;
+  &lt;actif&gt;true&lt;/actif&gt;
+  &lt;dateNais&gt;1996-03-15&lt;/dateNais&gt;
 &lt;/personne&gt;</pre>
-    </div>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">29</span>
-        <h2>Élément Simple</h2>
-      </div>
-      <p>Un élément simple contient uniquement du texte, sans éléments enfants ni attributs.</p>
-      <pre>&lt;nom&gt;Ali&lt;/nom&gt;
-&lt;prix&gt;29.99&lt;/prix&gt;</pre>
-    </div>
-
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">30</span>
-        <h2>XML et Base de Données</h2>
-      </div>
-      <p>XML peut servir de format d'échange avec des bases de données relationnelles ou NoSQL.</p>
-      <pre>&lt;clients&gt;
-  &lt;client id="1"&gt;
-    &lt;nom&gt;Fatou&lt;/nom&gt;
+<!-- ===== LEÇON 30 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">30</span><h2>XML et Base de Données</h2></div>
+  <p>XML joue un rôle important dans les échanges de données avec les bases de données. La plupart des SGBD modernes (Oracle, SQL Server, MySQL, PostgreSQL) supportent nativement la lecture et l'écriture de données XML.</p>
+  <p>Voici les principaux usages :</p>
+  <p>— <strong>Import/Export</strong> : exporter des tables relationnelles en XML pour les transférer vers un autre système, ou importer des données XML dans une base.<br>
+  — <strong>Type XML</strong> : SQL Server et PostgreSQL proposent un type de colonne <code>XML</code> pour stocker directement du XML dans une table.<br>
+  — <strong>XQuery</strong> : langage de requête pour interroger des données XML stockées en base, comme SQL mais pour XML.<br>
+  — <strong>APIs REST/SOAP</strong> : les bases de données exposent souvent des données via des services web qui retournent du XML.</p>
+  <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;clients&gt;
+  &lt;client id="001"&gt;
+    &lt;nom&gt;Fatou Badiane&lt;/nom&gt;
+    &lt;email&gt;fatou@mail.sn&lt;/email&gt;
+    &lt;adresse&gt;
+      &lt;ville&gt;Dakar&lt;/ville&gt;
+      &lt;quartier&gt;Almadies&lt;/quartier&gt;
+    &lt;/adresse&gt;
+    &lt;commandes&gt;
+      &lt;commande ref="CMD-101" montant="75000"/&gt;
+      &lt;commande ref="CMD-205" montant="32000"/&gt;
+    &lt;/commandes&gt;
   &lt;/client&gt;
 &lt;/clients&gt;</pre>
-    </div>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">31</span>
-        <h2>Flux RSS</h2>
-      </div>
-      <p>RSS est un format XML standardisé pour distribuer des fils d'actualités sur le web.</p>
-      <pre>&lt;rss version="2.0"&gt;
+<!-- ===== LEÇON 31 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">31</span><h2>Flux RSS</h2></div>
+  <p><strong>RSS</strong> (Really Simple Syndication) est un format XML standardisé permettant de distribuer automatiquement des mises à jour de contenu web. C'est l'une des utilisations les plus connues de XML dans la vie quotidienne.</p>
+  <p>Les sites d'actualités, blogs, podcasts et chaînes YouTube proposent des flux RSS. Les applications de lecture RSS (Feedly, Inoreader, etc.) lisent ces fichiers XML et affichent les nouveaux articles à l'utilisateur sans qu'il ait besoin de visiter chaque site.</p>
+  <p>La structure d'un flux RSS comprend toujours :<br>
+  — Un élément racine <code>&lt;rss&gt;</code> avec la version.<br>
+  — Un <code>&lt;channel&gt;</code> décrivant la source (titre, lien, description).<br>
+  — Des éléments <code>&lt;item&gt;</code> pour chaque article avec titre, lien, date et description.</p>
+  <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;rss version="2.0"&gt;
   &lt;channel&gt;
-    &lt;title&gt;Mon Blog&lt;/title&gt;
+    &lt;title&gt;Tech Dakar&lt;/title&gt;
+    &lt;link&gt;https://techdakar.sn&lt;/link&gt;
+    &lt;description&gt;Actualités tech au Sénégal&lt;/description&gt;
+    &lt;language&gt;fr-SN&lt;/language&gt;
+
+    &lt;item&gt;
+      &lt;title&gt;XML est toujours pertinent en 2025&lt;/title&gt;
+      &lt;link&gt;https://techdakar.sn/xml-2025&lt;/link&gt;
+      &lt;pubDate&gt;Mon, 01 Jan 2025 09:00:00 GMT&lt;/pubDate&gt;
+      &lt;description&gt;Pourquoi XML reste incontournable...&lt;/description&gt;
+    &lt;/item&gt;
   &lt;/channel&gt;
 &lt;/rss&gt;</pre>
-    </div>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">32</span>
-        <h2>Sitemap XML</h2>
-      </div>
-      <p>Les fichiers sitemap.xml aident les moteurs de recherche à indexer les pages d'un site web.</p>
-      <pre>&lt;urlset xmlns="..."&gt;
+<!-- ===== LEÇON 32 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">32</span><h2>Sitemap XML</h2></div>
+  <p>Un <strong>sitemap XML</strong> est un fichier XML standardisé (<code>sitemap.xml</code>, placé à la racine d'un site) qui liste toutes les URLs d'un site web. Il aide les robots des moteurs de recherche (Googlebot, Bingbot…) à <strong>découvrir et indexer</strong> efficacement les pages du site.</p>
+  <p>Sans sitemap, un moteur de recherche doit parcourir le site lien par lien, ce qui peut mener à des oublis. Avec un sitemap, vous lui donnez directement la carte complète, avec des informations supplémentaires :</p>
+  <p>— <code>&lt;loc&gt;</code> : URL de la page.<br>
+  — <code>&lt;lastmod&gt;</code> : date de dernière modification.<br>
+  — <code>&lt;changefreq&gt;</code> : fréquence de mise à jour estimée (daily, weekly…).<br>
+  — <code>&lt;priority&gt;</code> : priorité relative de la page (0.0 à 1.0).</p>
+  <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
   &lt;url&gt;
-    &lt;loc&gt;https://exemple.com&lt;/loc&gt;
+    &lt;loc&gt;https://monsite.sn/&lt;/loc&gt;
+    &lt;lastmod&gt;2025-01-01&lt;/lastmod&gt;
+    &lt;changefreq&gt;daily&lt;/changefreq&gt;
+    &lt;priority&gt;1.0&lt;/priority&gt;
   &lt;/url&gt;
+
+  &lt;url&gt;
+    &lt;loc&gt;https://monsite.sn/blog&lt;/loc&gt;
+    &lt;lastmod&gt;2025-01-10&lt;/lastmod&gt;
+    &lt;changefreq&gt;weekly&lt;/changefreq&gt;
+    &lt;priority&gt;0.8&lt;/priority&gt;
+  &lt;/url&gt;
+
 &lt;/urlset&gt;</pre>
-    </div>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">33</span>
-        <h2>SOAP</h2>
-      </div>
-      <p>SOAP (Simple Object Access Protocol) utilise XML pour structurer les messages entre services web.</p>
-      <pre>&lt;soap:Envelope&gt;
+<!-- ===== LEÇON 33 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">33</span><h2>SOAP</h2></div>
+  <p><strong>SOAP</strong> (Simple Object Access Protocol) est un protocole de communication pour les services web qui utilise XML comme format de message. Bien que REST/JSON soit dominant aujourd'hui, SOAP est encore très présent dans les systèmes bancaires, d'assurance, d'administration et dans les grandes entreprises.</p>
+  <p>Un message SOAP est un document XML structuré en trois parties :</p>
+  <p>— <strong>Envelope</strong> : l'enveloppe, racine obligatoire qui déclare le message comme SOAP.<br>
+  — <strong>Header</strong> (optionnel) : métadonnées de transport (authentification, transaction, traçabilité).<br>
+  — <strong>Body</strong> : le contenu réel du message — la requête ou la réponse de service.</p>
+  <p>SOAP fonctionne généralement avec WSDL (Web Services Description Language) — un fichier XML qui décrit l'interface complète d'un service web : méthodes disponibles, paramètres, types de données.</p>
+  <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;soap:Envelope
+  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:tns="http://api.banque.sn/services"&gt;
+
+  &lt;soap:Header&gt;
+    &lt;tns:Auth&gt;
+      &lt;tns:token&gt;eyJhbGciOiJIUzI1NiJ9&lt;/tns:token&gt;
+    &lt;/tns:Auth&gt;
+  &lt;/soap:Header&gt;
+
   &lt;soap:Body&gt;
-    &lt;requete/&gt;
+    &lt;tns:getCompte&gt;
+      &lt;tns:numeroCompte&gt;SN28 0001 0010 1234&lt;/tns:numeroCompte&gt;
+    &lt;/tns:getCompte&gt;
   &lt;/soap:Body&gt;
+
 &lt;/soap:Envelope&gt;</pre>
-    </div>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">34</span>
-        <h2>XML et Android</h2>
-      </div>
-      <p>Android utilise XML pour définir les interfaces utilisateur, les thèmes et les ressources de l'application.</p>
-      <pre>&lt;TextView
-  android:text="Bonjour"
-  android:textSize="16sp"/&gt;</pre>
-    </div>
+<!-- ===== LEÇON 34 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">34</span><h2>XML et Android</h2></div>
+  <p>Android utilise XML <strong>massivement</strong> pour tout ce qui concerne les ressources de l'application. L'intégralité de l'interface utilisateur, des styles, des dimensions, des chaînes de texte et des configurations est définie dans des fichiers XML.</p>
+  <p>Dans un projet Android, le dossier <code>res/</code> contient plusieurs sous-dossiers de ressources XML :</p>
+  <p>— <code>res/layout/</code> : fichiers XML définissant les interfaces (Activity, Fragment).<br>
+  — <code>res/values/strings.xml</code> : toutes les chaînes de texte localisables.<br>
+  — <code>res/values/colors.xml</code> : palette de couleurs.<br>
+  — <code>res/values/styles.xml</code> : thèmes et styles.<br>
+  — <code>res/drawable/</code> : icônes et formes vectorielles en XML (Vector Drawable).<br>
+  — <code>AndroidManifest.xml</code> : configuration globale de l'app (permissions, activités, etc.).</p>
+  <pre>&lt;!-- res/layout/activity_main.xml --&gt;
+&lt;LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:padding="16dp"&gt;
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">35</span>
-        <h2>XML et Java</h2>
-      </div>
-      <p>Java fournit des APIs comme DOM et SAX pour lire, créer et manipuler des documents XML.</p>
-      <pre>DocumentBuilderFactory factory =
-  DocumentBuilderFactory.newInstance();
+  &lt;TextView
+    android:id="@+id/titre"
+    android:text="@string/app_name"
+    android:textSize="24sp"
+    android:textStyle="bold"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/&gt;
+
+  &lt;Button
+    android:id="@+id/btnValider"
+    android:text="@string/valider"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/&gt;
+
+&lt;/LinearLayout&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 35 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">35</span><h2>XML et Java</h2></div>
+  <p>Java est l'un des langages où XML est le plus utilisé. Il propose deux grandes approches pour traiter XML :</p>
+  <p>— <strong>DOM</strong> (Document Object Model) : charge tout le document XML en mémoire sous forme d'arbre d'objets. Pratique pour naviguer et modifier le document, mais consomme beaucoup de mémoire pour les gros fichiers.<br>
+  — <strong>SAX</strong> (Simple API for XML) : lit le XML séquentiellement et émet des événements (début de balise, texte, fin de balise). Très efficace en mémoire mais plus complexe à programmer.</p>
+  <p>Des frameworks Java populaires comme Spring, Maven et Hibernate utilisent XML pour la configuration. JAXB (Java Architecture for XML Binding) permet de convertir automatiquement des objets Java en XML (marshalling) et vice versa (unmarshalling).</p>
+  <pre>// Lecture XML avec DOM en Java
+import javax.xml.parsers.*;
+import org.w3c.dom.*;
+
+DocumentBuilderFactory factory =
+    DocumentBuilderFactory.newInstance();
 DocumentBuilder builder =
-  factory.newDocumentBuilder();</pre>
-    </div>
+    factory.newDocumentBuilder();
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">36</span>
-        <h2>XML et PHP</h2>
-      </div>
-      <p>PHP propose des fonctions natives comme SimpleXML pour charger et manipuler facilement du XML.</p>
-      <pre>$xml = simplexml_load_file('data.xml');
-echo $xml-&gt;nom;</pre>
-    </div>
+// Charger le fichier
+Document doc = builder.parse("data.xml");
+doc.getDocumentElement().normalize();
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">37</span>
-        <h2>XML et Python</h2>
-      </div>
-      <p>Python dispose de bibliothèques comme <code>xml.etree.ElementTree</code> pour traiter des fichiers XML.</p>
-      <pre>import xml.etree.ElementTree as ET
-tree = ET.parse('fichier.xml')
-root = tree.getroot()</pre>
-    </div>
+// Récupérer les éléments
+NodeList liste =
+    doc.getElementsByTagName("employe");
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">38</span>
-        <h2>Parser XML</h2>
-      </div>
-      <p>Un parser XML analyse le document et construit une représentation exploitable par programme.</p>
-      <pre>const parser = new DOMParser();
+for (int i = 0; i &lt; liste.getLength(); i++) {
+    Element emp = (Element) liste.item(i);
+    String nom = emp.getElementsByTagName("nom")
+                    .item(0).getTextContent();
+    System.out.println("Employé : " + nom);
+}</pre>
+</div>
+
+<!-- ===== LEÇON 36 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">36</span><h2>XML et PHP</h2></div>
+  <p>PHP offre plusieurs extensions natives pour travailler avec XML, rendant sa manipulation très accessible :</p>
+  <p>— <strong>SimpleXML</strong> : l'approche la plus simple et intuitive. Charge un fichier XML et le convertit en objet PHP navigable avec la notation objet standard (<code>-&gt;</code>). Parfait pour lire et interroger des XML de structure connue.<br>
+  — <strong>DOMDocument</strong> : plus puissant, suit le standard DOM W3C, permet de créer et modifier du XML de façon programmatique.<br>
+  — <strong>XMLReader/XMLWriter</strong> : pour les gros fichiers XML, lisent/écrivent en flux sans charger tout en mémoire.</p>
+  <pre>&lt;?php
+// Charger et lire avec SimpleXML
+$xml = simplexml_load_file('catalogue.xml');
+
+foreach ($xml-&gt;produit as $produit) {
+    echo "Produit : " . $produit-&gt;nom . "\n";
+    echo "Prix : " . $produit-&gt;prix . " XOF\n";
+    echo "ID : " . $produit['id'] . "\n\n";
+}
+
+// Créer du XML avec DOMDocument
+$doc = new DOMDocument('1.0', 'UTF-8');
+$doc-&gt;formatOutput = true;
+
+$root = $doc-&gt;createElement('utilisateurs');
+$doc-&gt;appendChild($root);
+
+$user = $doc-&gt;createElement('user');
+$user-&gt;setAttribute('id', '1');
+$user-&gt;appendChild($doc-&gt;createElement('nom', 'Ali'));
+
+$root-&gt;appendChild($user);
+echo $doc-&gt;saveXML();
+?&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 37 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">37</span><h2>XML et Python</h2></div>
+  <p>Python propose plusieurs bibliothèques pour traiter XML, adaptées selon les besoins :</p>
+  <p>— <strong>xml.etree.ElementTree</strong> : bibliothèque standard, légère et facile d'utilisation. Idéale pour la majorité des cas.<br>
+  — <strong>lxml</strong> : bibliothèque externe très performante, supporte XPath avancé et la validation XSD. À installer via pip.<br>
+  — <strong>xml.dom.minidom</strong> : implémentation DOM standard dans la bibliothèque Python.<br>
+  — <strong>BeautifulSoup</strong> : idéal pour parser du XML/HTML mal formé (web scraping).</p>
+  <div class="tip"><strong>✅ Sécurité Python</strong> La bibliothèque <code>xml.etree.ElementTree</code> est vulnérable aux attaques XXE (voir leçon 46). Pour du XML non fiable (venant d'internet), préférez <code>defusedxml</code> — une bibliothèque sécurisée facile à installer.</div>
+  <pre>import xml.etree.ElementTree as ET
+
+# Charger et analyser
+tree = ET.parse('catalogue.xml')
+root = tree.getroot()
+
+# Lire les éléments
+for produit in root.findall('produit'):
+    nom   = produit.find('nom').text
+    prix  = produit.find('prix').text
+    pid   = produit.get('id')   # attribut
+    print(f"ID:{pid} | {nom} → {prix} XOF")
+
+# Créer du XML
+catalogue = ET.Element('catalogue')
+p = ET.SubElement(catalogue, 'produit', id="1")
+ET.SubElement(p, 'nom').text  = 'Laptop'
+ET.SubElement(p, 'prix').text = '599000'
+
+# Écrire dans un fichier
+tree = ET.ElementTree(catalogue)
+ET.indent(tree)   # Indentation (Python 3.9+)
+tree.write('nouveau.xml', encoding='UTF-8',
+           xml_declaration=True)</pre>
+</div>
+
+<!-- ===== LEÇON 38 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">38</span><h2>Parser XML en JavaScript</h2></div>
+  <p>Dans les navigateurs web, l'objet <strong>DOMParser</strong> permet de transformer une chaîne de caractères XML en un arbre DOM navigable. Côté serveur (Node.js), des bibliothèques comme <code>fast-xml-parser</code> ou <code>xml2js</code> remplissent ce rôle.</p>
+  <p>Le processus de parsing implique plusieurs étapes :</p>
+  <p>1. Obtenir le texte XML (depuis un <code>fetch()</code>, un champ de formulaire, un fichier uploadé…).<br>
+  2. Créer une instance de <code>DOMParser</code>.<br>
+  3. Appeler <code>.parseFromString(texte, "text/xml")</code>.<br>
+  4. Vérifier les erreurs de parsing (la méthode renvoie un document avec un élément <code>parsererror</code> si le XML est invalide).<br>
+  5. Naviguer dans l'arbre résultant avec les méthodes DOM.</p>
+  <pre>// Texte XML à parser
+const xmlString = `
+&lt;?xml version="1.0"?&gt;
+&lt;employes&gt;
+  &lt;employe id="1"&gt;
+    &lt;nom&gt;Fatou Diallo&lt;/nom&gt;
+    &lt;poste&gt;Développeuse&lt;/poste&gt;
+  &lt;/employe&gt;
+&lt;/employes&gt;`;
+
+// Créer le parseur
+const parser = new DOMParser();
 const xmlDoc = parser.parseFromString(
-  xmlStr, "text/xml"
-);</pre>
-    </div>
+  xmlString, "text/xml"
+);
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">39</span>
-        <h2>DOM XML</h2>
-      </div>
-      <p>Le DOM représente un document XML sous forme d'arbre de nœuds navigables et modifiables.</p>
-      <pre>const nodes =
-  xmlDoc.getElementsByTagName("nom");
-console.log(nodes[0].textContent);</pre>
-    </div>
+// Vérifier les erreurs
+const erreur = xmlDoc.querySelector('parsererror');
+if (erreur) {
+  console.error("XML invalide :", erreur.textContent);
+} else {
+  // Récupérer les données
+  const employes = xmlDoc.querySelectorAll('employe');
+  employes.forEach(emp => {
+    const nom   = emp.querySelector('nom').textContent;
+    const poste = emp.querySelector('poste').textContent;
+    const id    = emp.getAttribute('id');
+    console.log(`#${id} ${nom} — ${poste}`);
+  });
+}</pre>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">40</span>
-        <h2>SAX Parser</h2>
-      </div>
-      <p>SAX lit le XML de façon séquentielle, événement par événement — idéal pour les grands fichiers.</p>
-      <pre>SAXParserFactory factory =
-  SAXParserFactory.newInstance();
-SAXParser parser =
-  factory.newSAXParser();</pre>
-    </div>
+<!-- ===== LEÇON 39 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">39</span><h2>DOM XML</h2></div>
+  <p>Le <strong>DOM</strong> (Document Object Model) est une représentation en mémoire d'un document XML sous forme d'arbre de <strong>nœuds</strong> (nodes). C'est le standard W3C qui définit comment les programmes peuvent accéder et manipuler les documents XML (et HTML) de façon uniforme, quel que soit le langage utilisé.</p>
+  <p>Les types de nœuds principaux dans le DOM XML :</p>
+  <p>— <strong>Document</strong> : la racine de l'arbre, représente le document entier.<br>
+  — <strong>Element</strong> : un élément XML (une balise).<br>
+  — <strong>Text</strong> : le contenu textuel d'un élément.<br>
+  — <strong>Attr</strong> : un attribut d'un élément.<br>
+  — <strong>Comment</strong> : un commentaire XML.<br>
+  — <strong>ProcessingInstruction</strong> : une instruction de traitement (<code>&lt;?xml...?&gt;</code>).</p>
+  <pre>// DOM JavaScript — navigation et manipulation
+const xmlString = `&lt;users&gt;
+  &lt;user id="1"&gt;&lt;nom&gt;Ali&lt;/nom&gt;&lt;/user&gt;
+  &lt;user id="2"&gt;&lt;nom&gt;Fatou&lt;/nom&gt;&lt;/user&gt;
+&lt;/users&gt;`;
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">41</span>
-        <h2>Attribut Required</h2>
-      </div>
-      <p>Dans un schéma XSD, on peut rendre un attribut obligatoire avec <code>use="required"</code>.</p>
-      <pre>&lt;xs:attribute name="id"
-  type="xs:integer"
-  use="required"/&gt;</pre>
-    </div>
+const xmlDoc = new DOMParser()
+  .parseFromString(xmlString, "text/xml");
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">42</span>
-        <h2>Séquence XSD</h2>
-      </div>
-      <p>L'élément <code>xs:sequence</code> impose que les éléments enfants apparaissent dans un ordre précis.</p>
-      <pre>&lt;xs:sequence&gt;
-  &lt;xs:element name="nom"/&gt;
-  &lt;xs:element name="age"/&gt;
-&lt;/xs:sequence&gt;</pre>
-    </div>
+// Méthodes DOM
+const racine = xmlDoc.documentElement; // &lt;users&gt;
+console.log(racine.tagName); // "users"
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">43</span>
-        <h2>minOccurs</h2>
-      </div>
-      <p><code>minOccurs</code> définit le nombre minimum d'occurrences d'un élément. Zéro le rend optionnel.</p>
-      <pre>&lt;xs:element name="phone"
-  minOccurs="0"
-  maxOccurs="3"/&gt;</pre>
-    </div>
+const noms = xmlDoc.getElementsByTagName("nom");
+console.log(noms[0].textContent); // "Ali"
+console.log(noms[1].textContent); // "Fatou"
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">44</span>
-        <h2>maxOccurs</h2>
-      </div>
-      <p><code>maxOccurs="unbounded"</code> permet un nombre illimité de répétitions d'un élément.</p>
-      <pre>&lt;xs:element name="item"
-  minOccurs="1"
-  maxOccurs="unbounded"/&gt;</pre>
-    </div>
+// Récupérer un attribut
+const users = xmlDoc.querySelectorAll("user");
+users.forEach(u =>
+  console.log(u.getAttribute("id"))
+);
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">45</span>
-        <h2>Documentation XML</h2>
-      </div>
-      <p>XML peut inclure des éléments de documentation dans les schémas pour décrire les champs.</p>
-      <pre>&lt;xs:annotation&gt;
-  &lt;xs:documentation&gt;
-    Identifiant unique du client
-  &lt;/xs:documentation&gt;
-&lt;/xs:annotation&gt;</pre>
-    </div>
+// childNodes, parentNode, firstChild…
+const enfants = racine.childNodes;
+console.log(enfants.length); // 2</pre>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">46</span>
-        <h2>Sécurité XML</h2>
-      </div>
-      <p>Les attaques XXE (XML External Entity) exploitent les parseurs XML. Toujours désactiver les entités externes.</p>
-      <pre>&lt;!-- Éviter les entités externes --&gt;
-&lt;!ENTITY xxe SYSTEM
-  "file:///etc/passwd"&gt;</pre>
-    </div>
+<!-- ===== LEÇON 40 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">40</span><h2>SAX Parser</h2></div>
+  <p>Le <strong>SAX parser</strong> (Simple API for XML) adopte une approche radicalement différente du DOM : au lieu de charger tout le document en mémoire, il le lit <strong>séquentiellement de haut en bas</strong> et émet des <em>événements</em> pour chaque élément rencontré.</p>
+  <p>Le programmeur définit des <strong>gestionnaires d'événements</strong> (callbacks) qui sont appelés à chaque étape :</p>
+  <p>— <code>startElement</code> : déclenché à l'ouverture de chaque balise.<br>
+  — <code>endElement</code> : déclenché à la fermeture de chaque balise.<br>
+  — <code>characters</code> : déclenché pour le contenu textuel.<br>
+  — <code>startDocument</code> / <code>endDocument</code> : début/fin du document.</p>
+  <p><strong>Avantages SAX</strong> : consomme très peu de mémoire (idéal pour des fichiers XML de plusieurs GB), très rapide en lecture. <strong>Inconvénients</strong> : plus complexe à programmer, pas de navigation en arrière ni d'accès aléatoire.</p>
+  <pre>// SAX en Java
+import org.xml.sax.*;
+import org.xml.sax.helpers.DefaultHandler;
+import javax.xml.parsers.SAXParserFactory;
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">47</span>
-        <h2>XML et APIs</h2>
-      </div>
-      <p>Certaines APIs REST ou SOAP retournent encore des réponses en XML, notamment dans les systèmes anciens.</p>
-      <pre>&lt;response status="200"&gt;
+public class MonHandler extends DefaultHandler {
+
+  private String elementCourant = "";
+
+  @Override
+  public void startElement(String uri,
+    String localName, String qName,
+    Attributes attrs) {
+      elementCourant = qName;
+      if (qName.equals("employe")) {
+        System.out.println("ID: " + attrs.getValue("id"));
+      }
+  }
+
+  @Override
+  public void characters(char[] ch,
+    int start, int length) {
+      if (elementCourant.equals("nom")) {
+        System.out.println("Nom: " +
+          new String(ch, start, length).trim());
+      }
+  }
+
+  @Override
+  public void endElement(String uri,
+    String localName, String qName) {
+      elementCourant = "";
+  }
+}</pre>
+</div>
+
+<!-- ===== LEÇON 41 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">41</span><h2>Attribut Required (XSD)</h2></div>
+  <p>Dans un schéma XSD, la contrainte <strong><code>use="required"</code></strong> sur un attribut signifie que cet attribut est <em>obligatoire</em> dans le document XML. Sans lui, le document échouera à la validation. Inversement, <code>use="optional"</code> est la valeur par défaut.</p>
+  <p>Il est aussi possible de définir une <strong>valeur par défaut</strong> (<code>default="valeur"</code>) qui est utilisée si l'attribut est absent, ou une <strong>valeur fixe</strong> (<code>fixed="valeur"</code>) que l'attribut doit avoir obligatoirement.</p>
+  <p>La combinaison de <code>type</code> et <code>use</code> permet un contrôle très précis de la qualité des données dans le document XML.</p>
+  <pre>&lt;!-- Définition XSD --&gt;
+&lt;xs:complexType name="typeProduit"&gt;
+  &lt;xs:sequence&gt;
+    &lt;xs:element name="nom"  type="xs:string"/&gt;
+    &lt;xs:element name="prix" type="xs:decimal"/&gt;
+  &lt;/xs:sequence&gt;
+
+  &lt;!-- Attributs --&gt;
+  &lt;xs:attribute name="id"
+    type="xs:integer" use="required"/&gt;
+  &lt;xs:attribute name="devise"
+    type="xs:string"  default="XOF"/&gt;
+  &lt;xs:attribute name="version"
+    type="xs:string"  fixed="2.0"/&gt;
+&lt;/xs:complexType&gt;
+
+&lt;!-- XML valide --&gt;
+&lt;produit id="42" devise="EUR"&gt;
+  &lt;nom&gt;Laptop&lt;/nom&gt;
+  &lt;prix&gt;599.00&lt;/prix&gt;
+&lt;/produit&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 42 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">42</span><h2>Séquence XSD</h2></div>
+  <p>L'élément XSD <strong><code>xs:sequence</code></strong> est l'un des trois compositors (groupements) disponibles pour définir l'ordre et la composition des éléments enfants d'un élément complexe.</p>
+  <p>Avec <code>xs:sequence</code>, les éléments enfants doivent apparaître <strong>exactement dans l'ordre spécifié</strong>. C'est la contrainte la plus courante et la plus stricte.</p>
+  <p>Les trois compositors XSD :</p>
+  <p>— <code>xs:sequence</code> : ordre strict, tous les éléments doivent apparaître dans l'ordre.<br>
+  — <code>xs:all</code> : tous les éléments doivent apparaître, mais dans n'importe quel ordre (chacun 0 ou 1 fois).<br>
+  — <code>xs:choice</code> : exactement un parmi plusieurs éléments alternatifs.</p>
+  <pre>&lt;!-- Séquence : ordre strict --&gt;
+&lt;xs:complexType name="typePersonne"&gt;
+  &lt;xs:sequence&gt;
+    &lt;xs:element name="prenom" type="xs:string"/&gt;
+    &lt;xs:element name="nom"    type="xs:string"/&gt;
+    &lt;xs:element name="email"  type="xs:string"/&gt;
+    &lt;xs:element name="tel"    type="xs:string"
+      minOccurs="0"/&gt;
+  &lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+
+&lt;!-- xs:choice : un parmi plusieurs --&gt;
+&lt;xs:complexType name="typeContact"&gt;
+  &lt;xs:choice&gt;
+    &lt;xs:element name="email" type="xs:string"/&gt;
+    &lt;xs:element name="tel"   type="xs:string"/&gt;
+    &lt;xs:element name="fax"   type="xs:string"/&gt;
+  &lt;/xs:choice&gt;
+&lt;/xs:complexType&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 43 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">43</span><h2>minOccurs</h2></div>
+  <p>L'attribut XSD <strong><code>minOccurs</code></strong> définit le nombre minimum de fois qu'un élément doit apparaître dans son contexte. C'est un contrôle fondamental pour définir les champs obligatoires et optionnels.</p>
+  <p>Valeurs courantes :</p>
+  <p>— <code>minOccurs="0"</code> : l'élément est <strong>optionnel</strong> — il peut être absent.<br>
+  — <code>minOccurs="1"</code> : l'élément est <strong>obligatoire</strong> — doit apparaître au moins une fois (valeur par défaut).<br>
+  — <code>minOccurs="2"</code> : l'élément doit apparaître <strong>au minimum 2 fois</strong>.</p>
+  <p>Combiné avec <code>maxOccurs</code> (leçon 44), on peut définir précisément les cardinalités, comme dans un modèle de base de données : 1..1, 0..1, 1..N, 0..N.</p>
+  <pre>&lt;xs:complexType name="typeCommande"&gt;
+  &lt;xs:sequence&gt;
+    &lt;!-- Obligatoire (1 exactement) --&gt;
+    &lt;xs:element name="reference"
+      type="xs:string"
+      minOccurs="1" maxOccurs="1"/&gt;
+
+    &lt;!-- Optionnel (0 ou 1) --&gt;
+    &lt;xs:element name="commentaire"
+      type="xs:string"
+      minOccurs="0" maxOccurs="1"/&gt;
+
+    &lt;!-- Au moins 1 article --&gt;
+    &lt;xs:element name="article"
+      type="xs:string"
+      minOccurs="1" maxOccurs="unbounded"/&gt;
+
+    &lt;!-- Exactement 2 à 5 témoins --&gt;
+    &lt;xs:element name="temoin"
+      type="xs:string"
+      minOccurs="2" maxOccurs="5"/&gt;
+  &lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 44 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">44</span><h2>maxOccurs</h2></div>
+  <p>L'attribut XSD <strong><code>maxOccurs</code></strong> définit le nombre maximum de fois qu'un élément peut apparaître. Il complète <code>minOccurs</code> pour définir des cardinalités précises.</p>
+  <p>La valeur spéciale <strong><code>unbounded</code></strong> signifie "sans limite supérieure" — l'élément peut apparaître autant de fois que nécessaire. C'est la valeur utilisée pour les listes de taille variable.</p>
+  <p>Combinaisons courantes :</p>
+  <p>— <code>min=0, max=1</code> : optionnel unique (0..1).<br>
+  — <code>min=1, max=1</code> : obligatoire unique (exactement 1).<br>
+  — <code>min=0, max=unbounded</code> : liste optionnelle (0..∞).<br>
+  — <code>min=1, max=unbounded</code> : liste obligatoire (1..∞).<br>
+  — <code>min=2, max=4</code> : entre 2 et 4 occurrences.</p>
+  <pre>&lt;xs:complexType name="typeFacture"&gt;
+  &lt;xs:sequence&gt;
+    &lt;!-- Un seul client (obligatoire) --&gt;
+    &lt;xs:element name="client"
+      minOccurs="1" maxOccurs="1"
+      type="xs:string"/&gt;
+
+    &lt;!-- Une ou plusieurs lignes --&gt;
+    &lt;xs:element name="ligne"
+      minOccurs="1" maxOccurs="unbounded"
+      type="typeLigne"/&gt;
+
+    &lt;!-- Zéro ou plusieurs remises --&gt;
+    &lt;xs:element name="remise"
+      minOccurs="0" maxOccurs="unbounded"
+      type="xs:decimal"/&gt;
+  &lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 45 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">45</span><h2>Documentation XML (XSD)</h2></div>
+  <p>XSD permet d'intégrer de la <strong>documentation</strong> directement dans le schéma, à l'aide des éléments <code>&lt;xs:annotation&gt;</code> et <code>&lt;xs:documentation&gt;</code>. Cette documentation en ligne est précieuse pour les équipes qui travaillent avec le schéma.</p>
+  <p>On peut documenter les éléments, les attributs et les types complexes ou simples. Certains outils de génération de documentation comme <em>Oxygen XML Editor</em> ou <em>xs3p</em> exploitent ces annotations pour générer automatiquement des pages HTML de documentation de schéma.</p>
+  <p>Il existe aussi <code>&lt;xs:appinfo&gt;</code>, frère de <code>xs:documentation</code>, qui contient des informations destinées aux <strong>applications</strong> (métadonnées machines, directives de traitement) plutôt qu'aux développeurs.</p>
+  <pre>&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:annotation&gt;
+    &lt;xs:documentation&gt;
+      Schéma de gestion clients v2.1
+      Auteur : Équipe data — Mis à jour : 2025-01-10
+    &lt;/xs:documentation&gt;
+  &lt;/xs:annotation&gt;
+
+  &lt;xs:element name="client"&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;
+        Représente un client enregistré.
+        Chaque client est identifié par un ID unique.
+      &lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="nom"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;
+              Nom complet (prénom + nom de famille).
+              Max 100 caractères.
+            &lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+          &lt;xs:simpleType&gt;
+            &lt;xs:restriction base="xs:string"&gt;
+              &lt;xs:maxLength value="100"/&gt;
+            &lt;/xs:restriction&gt;
+          &lt;/xs:simpleType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+&lt;/xs:schema&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 46 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">46</span><h2>Sécurité XML</h2></div>
+  <p>XML peut être vecteur de plusieurs vulnérabilités de sécurité. La plus connue est l'attaque <strong>XXE</strong> (XML External Entity Injection). Elle exploite la fonctionnalité d'entités externes de XML pour lire des fichiers arbitraires du serveur, effectuer des SSRF (Server-Side Request Forgery) ou provoquer des dénis de service.</p>
+  <p>Une attaque XXE classique définit une entité externe qui pointe vers un fichier sensible du système (<code>/etc/passwd</code>, des fichiers de configuration, des clés privées) et insère cette entité dans le contenu XML. Quand le serveur parse ce XML, il lit le fichier et l'inclut dans sa réponse.</p>
+  <p>Autres vulnérabilités XML :</p>
+  <p>— <strong>Billion Laughs</strong> (XML Bomb) : entités récursives qui s'expansent exponentiellement et épuisent la mémoire du serveur.<br>
+  — <strong>XPath Injection</strong> : similaire à l'injection SQL, manipulation malveillante de requêtes XPath.<br>
+  — <strong>XSLT Injection</strong> : exécution de code via des transformations XSLT malicieuses.</p>
+  <div class="warning"><strong>⚠️ Contre-mesures essentielles</strong> Désactiver les entités externes dans le parseur. Ne jamais parser du XML non fiable avec les options par défaut. En Java : <code>factory.setFeature("http://xml.org/sax/features/external-general-entities", false)</code>. En PHP : <code>libxml_disable_entity_loader(true)</code>. En Python : utiliser la bibliothèque <code>defusedxml</code>.</div>
+  <pre>&lt;!-- Attaque XXE (NE JAMAIS AUTORISER) --&gt;
+&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE attaque [
+  &lt;!ENTITY xxe SYSTEM "file:///etc/passwd"&gt;
+  &lt;!ENTITY bomb "&amp;b1;&amp;b1;&amp;b1;&amp;b1;&amp;b1;&amp;b1;"&gt;
+]&gt;
+&lt;data&gt;&amp;xxe;&lt;/data&gt;
+
+&lt;!-- Protection en Java --&gt;
+// factory.setFeature(
+//   XMLConstants.FEATURE_SECURE_PROCESSING,
+//   true
+// );
+// factory.setFeature(
+//   "http://apache.org/xml/features/
+//    disallow-doctype-decl", true
+// );</pre>
+</div>
+
+<!-- ===== LEÇON 47 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">47</span><h2>XML et APIs</h2></div>
+  <p>Bien que JSON domine aujourd'hui les APIs REST modernes, XML reste très présent dans le monde des APIs, en particulier dans :</p>
+  <p>— Les <strong>services SOAP</strong> (bancaires, gouvernementaux, assurances, télécoms) qui définissent leurs contrats via WSDL.<br>
+  — Les <strong>systèmes d'entreprise</strong> (ERP, SAP, Salesforce, Jira) dont les APIs historiques retournent du XML.<br>
+  — Les <strong>APIs de paiement</strong> et de facturation (PayPal, certains services fiscaux).<br>
+  — Les <strong>flux de données</strong> (Reuters, Bloomberg, flux boursiers, météo).<br>
+  — Les <strong>formats de configuration</strong> (Maven, Ant, Struts, Spring XML config).</p>
+  <p>Consommer une API XML est similaire à JSON : on effectue une requête HTTP, on récupère la réponse et on la parse. La différence est dans le parseur utilisé.</p>
+  <pre>&lt;!-- Réponse typique d'une API XML --&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;response&gt;
+  &lt;status code="200"&gt;OK&lt;/status&gt;
+  &lt;timestamp&gt;2025-01-15T10:30:00Z&lt;/timestamp&gt;
   &lt;data&gt;
-    &lt;result&gt;OK&lt;/result&gt;
+    &lt;transactions total="3" page="1"&gt;
+      &lt;transaction id="TXN-001"&gt;
+        &lt;montant devise="XOF"&gt;50000&lt;/montant&gt;
+        &lt;date&gt;2025-01-15&lt;/date&gt;
+        &lt;type&gt;depot&lt;/type&gt;
+        &lt;statut&gt;confirme&lt;/statut&gt;
+      &lt;/transaction&gt;
+    &lt;/transactions&gt;
   &lt;/data&gt;
 &lt;/response&gt;</pre>
-    </div>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">48</span>
-        <h2>Avantages de XML</h2>
-      </div>
-      <p>XML est lisible par l'humain, extensible, indépendant de la plateforme et largement supporté.</p>
-      <pre>&lt;avantages&gt;
-  &lt;lisible&gt;oui&lt;/lisible&gt;
-  &lt;extensible&gt;oui&lt;/extensible&gt;
-  &lt;portable&gt;oui&lt;/portable&gt;
-&lt;/avantages&gt;</pre>
-    </div>
+<!-- ===== LEÇON 48 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">48</span><h2>Avantages de XML</h2></div>
+  <p>XML possède des atouts concrets qui expliquent sa longévité après plus de 25 ans d'existence :</p>
+  <p><strong>1. Lisibilité humaine</strong> : contrairement aux formats binaires, le XML est du texte lisible. Un développeur peut ouvrir un fichier XML dans n'importe quel éditeur texte et comprendre la structure.</p>
+  <p><strong>2. Extensibilité</strong> : vous définissez vos propres balises. Le format s'adapte à n'importe quel domaine métier sans limitations.</p>
+  <p><strong>3. Indépendance technologique</strong> : XML est un standard ouvert W3C, supporté par tous les langages, OS et plateformes. Il garantit l'interopérabilité à long terme.</p>
+  <p><strong>4. Validation formelle</strong> : grâce aux DTD et XSD, vous pouvez définir des contrats de données précis et les faire respecter automatiquement — impossible en JSON sans bibliothèques tierces.</p>
+  <p><strong>5. Écosystème riche</strong> : XPath, XSLT, XQuery, XSD, SOAP, WSDL — un écosystème complet de standards interopérables pour tous les besoins.</p>
+  <p><strong>6. Pérennité</strong> : les données en XML restent lisibles et exploitables des décennies plus tard, sans dépendance à un logiciel propriétaire spécifique.</p>
+  <pre>&lt;avantages-xml&gt;
+  &lt;avantage priorite="haute"&gt;
+    &lt;nom&gt;Lisibilité humaine&lt;/nom&gt;
+    &lt;detail&gt;Texte brut, aucun outil requis&lt;/detail&gt;
+  &lt;/avantage&gt;
+  &lt;avantage priorite="haute"&gt;
+    &lt;nom&gt;Validation formelle&lt;/nom&gt;
+    &lt;detail&gt;XSD et DTD garantissent la qualité&lt;/detail&gt;
+  &lt;/avantage&gt;
+  &lt;avantage priorite="moyenne"&gt;
+    &lt;nom&gt;Écosystème mature&lt;/nom&gt;
+    &lt;detail&gt;XPath, XSLT, XQuery, SOAP…&lt;/detail&gt;
+  &lt;/avantage&gt;
+&lt;/avantages-xml&gt;</pre>
+</div>
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">49</span>
-        <h2>Inconvénients de XML</h2>
-      </div>
-      <p>XML est verbeux et volumineux comparé à JSON. Le parsing peut être lent sur de très grands fichiers.</p>
-      <pre>&lt;inconvenients&gt;
-  &lt;verbeux&gt;oui&lt;/verbeux&gt;
-  &lt;lourd&gt;oui&lt;/lourd&gt;
-&lt;/inconvenients&gt;</pre>
-    </div>
+<!-- ===== LEÇON 49 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">49</span><h2>Inconvénients de XML</h2></div>
+  <p>Malgré ses qualités, XML présente des limitations réelles qu'il faut connaître pour choisir le bon outil :</p>
+  <p><strong>1. Verbosité</strong> : chaque donnée nécessite une balise ouvrante et une fermante. Pour les données simples, cela représente beaucoup de bruit par rapport à la quantité d'information utile. Un JSON équivalent est souvent 30 à 50 % plus compact.</p>
+  <p><strong>2. Poids et bande passante</strong> : la verbosité impacte directement la taille des fichiers et donc les coûts de stockage et de transfert réseau — problématique pour les applications mobiles ou à grand volume.</p>
+  <p><strong>3. Vitesse de parsing</strong> : parser du XML est généralement plus lent que parser du JSON, surtout pour les très grands volumes de données ou les systèmes à haute performance.</p>
+  <p><strong>4. Complexité</strong> : la richesse de l'écosystème XML (XSD, XSLT, namespaces…) a une contrepartie — une courbe d'apprentissage plus raide que JSON.</p>
+  <p><strong>5. Pas de types natifs</strong> : en XML de base, tout est texte. La notion de nombre, booléen, date n'existe qu'avec XSD — en JSON, les types numériques et booléens sont natifs.</p>
+  <pre>&lt;!-- Verbosité XML --&gt;
+&lt;utilisateur&gt;
+  &lt;id&gt;1&lt;/id&gt;
+  &lt;nom&gt;Ali&lt;/nom&gt;
+  &lt;age&gt;28&lt;/age&gt;
+  &lt;actif&gt;true&lt;/actif&gt;
+&lt;/utilisateur&gt;
+&lt;!-- 97 caractères pour 4 champs --&gt;
 
-    <div class="lesson">
-      <div class="lesson-header">
-        <span class="lesson-num">50</span>
-        <h2>🎓 Projet Final XML</h2>
-      </div>
-      <p>Créez une base XML complète avec utilisateurs, produits et commandes. Félicitations, vous maîtrisez XML !</p>
-      <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;database&gt;
+&lt;!-- Équivalent JSON --&gt;
+&lt;!-- {"id":1,"nom":"Ali","age":28,"actif":true} --&gt;
+&lt;!-- 44 caractères — 55% plus compact --&gt;</pre>
+</div>
+
+<!-- ===== LEÇON 50 ===== -->
+<div class="lesson">
+  <div class="lesson-header"><span class="lesson-num">50</span><h2>🎓 Projet Final XML</h2></div>
+  <p>Ce projet final rassemble toutes les notions vues dans ce guide : déclaration, racine unique, éléments imbriqués, attributs, commentaires, listes, éléments vides, entités et données structurées. C'est une base de données XML complète modélisant un système de e-commerce minimaliste.</p>
+  <p>Ce type de structure XML pourrait servir de :<br>
+  — Fichier d'initialisation de base de données de développement.<br>
+  — Format d'export/import entre deux systèmes.<br>
+  — Source de données pour une transformation XSLT vers HTML.<br>
+  — Fichier validé par un schéma XSD définissant les contraintes métier.</p>
+  <div class="tip"><strong>🎓 Félicitations !</strong> En atteignant cette leçon, vous maîtrisez les fondamentaux et les concepts avancés de XML. La prochaine étape : pratiquer XPath, écrire vos premiers schémas XSD, et expérimenter XSLT pour des transformations réelles.</div>
+  <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!-- Base de données e-commerce — v1.0 --&gt;
+&lt;database version="1.0" date="2025-01-01"&gt;
+
+  &lt;!-- === UTILISATEURS === --&gt;
   &lt;users&gt;
-    &lt;user id="1"&gt;
-      &lt;nom&gt;Ali&lt;/nom&gt;
-      &lt;email&gt;ali@mail.com&lt;/email&gt;
+    &lt;user id="1" role="admin" actif="true"&gt;
+      &lt;nom&gt;Ali Diallo&lt;/nom&gt;
+      &lt;email&gt;ali@techstore.sn&lt;/email&gt;
+      &lt;adresse&gt;
+        &lt;rue&gt;12 Av. Cheikh Anta Diop&lt;/rue&gt;
+        &lt;ville&gt;Dakar&lt;/ville&gt;
+        &lt;pays&gt;SN&lt;/pays&gt;
+      &lt;/adresse&gt;
+    &lt;/user&gt;
+    &lt;user id="2" role="client" actif="true"&gt;
+      &lt;nom&gt;Fatou Ndiaye&lt;/nom&gt;
+      &lt;email&gt;fatou@mail.com&lt;/email&gt;
     &lt;/user&gt;
   &lt;/users&gt;
+
+  &lt;!-- === PRODUITS === --&gt;
   &lt;produits&gt;
-    &lt;produit id="1"&gt;
-      &lt;nom&gt;Laptop&lt;/nom&gt;
-      &lt;prix&gt;599&lt;/prix&gt;
+    &lt;produit id="P01" categorie="electronique"&gt;
+      &lt;nom&gt;Laptop Pro&lt;/nom&gt;
+      &lt;prix devise="XOF"&gt;599000&lt;/prix&gt;
+      &lt;stock&gt;15&lt;/stock&gt;
+      &lt;description&gt;&lt;![CDATA[
+        Laptop haute performance : 16Go RAM,
+        512Go SSD, écran 15" Full HD.
+      ]]&gt;&lt;/description&gt;
+    &lt;/produit&gt;
+    &lt;produit id="P02" categorie="accessoire"&gt;
+      &lt;nom&gt;Souris Sans Fil&lt;/nom&gt;
+      &lt;prix devise="XOF"&gt;18000&lt;/prix&gt;
+      &lt;stock&gt;87&lt;/stock&gt;
     &lt;/produit&gt;
   &lt;/produits&gt;
+
+  &lt;!-- === COMMANDES === --&gt;
+  &lt;commandes&gt;
+    &lt;commande id="CMD-001"
+      userId="2" date="2025-01-10"
+      statut="livre"&gt;
+      &lt;lignes&gt;
+        &lt;ligne produitId="P01" qte="1"
+          prixUnit="599000"/&gt;
+        &lt;ligne produitId="P02" qte="2"
+          prixUnit="18000"/&gt;
+      &lt;/lignes&gt;
+      &lt;total devise="XOF"&gt;635000&lt;/total&gt;
+    &lt;/commande&gt;
+  &lt;/commandes&gt;
+
 &lt;/database&gt;</pre>
-      <button class="try-btn" onclick="loadCode('&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;\n&lt;database&gt;\n  &lt;users&gt;\n    &lt;user id=&quot;1&quot;&gt;\n      &lt;nom&gt;Ali&lt;/nom&gt;\n      &lt;email&gt;ali@mail.com&lt;/email&gt;\n    &lt;/user&gt;\n  &lt;/users&gt;\n&lt;/database&gt;')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5,3 19,12 5,21"/></svg>
-        Essayer le projet final
-      </button>
+  <button class="try-btn" onclick="loadFinal()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5,3 19,12 5,21"/></svg>
+    Essayer le projet final
+  </button>
+</div>
+
+</div><!-- end .lessons -->
+
+<!-- EDITOR PANEL -->
+<div class="editor-section">
+  <div class="editor-top">
+    <div class="editor-label">
+      <div class="editor-dot"></div>
+      <span class="editor-title">Éditeur XML</span>
     </div>
-
-  </div><!-- end .lessons -->
-
-  <!-- EDITOR PANEL -->
-  <div class="editor-section">
-
-    <div class="editor-top">
-      <div class="editor-label">
-        <div class="editor-dot"></div>
-        <span class="editor-title">Éditeur XML</span>
-      </div>
-      <div class="editor-hint">Écrivez votre XML et cliquez sur Exécuter</div>
-    </div>
-
-    <div class="editor-body">
-      <textarea id="editor" spellcheck="false">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    <div class="editor-hint">Écrivez votre XML et cliquez sur Exécuter</div>
+  </div>
+  <div class="editor-body">
+    <textarea id="editor" spellcheck="false">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 
 &lt;user&gt;
     &lt;nom&gt;Ali&lt;/nom&gt;
     &lt;age&gt;20&lt;/age&gt;
     &lt;ville&gt;Dakar&lt;/ville&gt;
 &lt;/user&gt;</textarea>
-
-      <button class="run-btn" onclick="runCode()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5,3 19,12 5,21"/></svg>
-        Exécuter
-      </button>
-
-      <div class="result-label">Aperçu</div>
-
-      <iframe id="result"></iframe>
-    </div>
-
+    <button class="run-btn" onclick="runCode()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5,3 19,12 5,21"/></svg>
+      Exécuter
+    </button>
+    <div class="result-label">Aperçu</div>
+    <iframe id="result"></iframe>
   </div>
+</div>
 
 </div><!-- end .container -->
 
 <script>
-
 function escapeHtml(str) {
   return str
     .replace(/&/g, '&amp;')
@@ -1064,41 +1678,17 @@ function runCode() {
   let iframe = document.getElementById('result');
   let escaped = escapeHtml(code);
   let highlighted = highlightXml(escaped);
-
-  iframe.srcdoc = `
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-  body { margin: 0; padding: 20px; background: #ffffff; font-family: 'Space Mono', monospace; }
-  pre {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 16px;
-    font-size: 13px;
-    line-height: 1.8;
-    overflow: auto;
-    color: #334155;
-    margin: 0;
-  }
-  .label {
-    font-family: sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    color: #94a3b8;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
+  iframe.srcdoc = `<!DOCTYPE html>
+<html><head><style>
+  body{margin:0;padding:20px;background:#fff;font-family:'Space Mono',monospace;}
+  pre{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px;font-size:13px;line-height:1.8;overflow:auto;color:#334155;margin:0;}
+  .label{font-family:sans-serif;font-size:11px;font-weight:600;color:#94a3b8;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
-</head>
-<body>
+</head><body>
 <div class="label">Résultat XML</div>
 <pre>${highlighted}</pre>
-</body>
-</html>`;
+</body></html>`;
 }
 
 function loadCode(code) {
@@ -1108,22 +1698,65 @@ function loadCode(code) {
     .replace(/&quot;/g, '"')
     .replace(/&amp;/g, '&');
   runCode();
-  document.querySelector('.editor-section').scrollIntoView({ behavior: 'smooth' });
+  document.querySelector('.editor-section').scrollIntoView({behavior:'smooth'});
 }
 
-// Progress bar
+function loadFinal() {
+  document.getElementById('editor').value =
+`<?xml version="1.0" encoding="UTF-8"?>
+<!-- Base de données e-commerce -->
+<database version="1.0">
+
+  <users>
+    <user id="1" role="admin">
+      <nom>Ali Diallo</nom>
+      <email>ali@techstore.sn</email>
+      <adresse>
+        <ville>Dakar</ville>
+        <pays>SN</pays>
+      </adresse>
+    </user>
+    <user id="2" role="client">
+      <nom>Fatou Ndiaye</nom>
+      <email>fatou@mail.com</email>
+    </user>
+  </users>
+
+  <produits>
+    <produit id="P01" categorie="electronique">
+      <nom>Laptop Pro</nom>
+      <prix devise="XOF">599000</prix>
+      <stock>15</stock>
+    </produit>
+    <produit id="P02" categorie="accessoire">
+      <nom>Souris Sans Fil</nom>
+      <prix devise="XOF">18000</prix>
+      <stock>87</stock>
+    </produit>
+  </produits>
+
+  <commandes>
+    <commande id="CMD-001" userId="2" statut="livre">
+      <ligne produitId="P01" qte="1" prixUnit="599000"/>
+      <ligne produitId="P02" qte="2" prixUnit="18000"/>
+      <total devise="XOF">635000</total>
+    </commande>
+  </commandes>
+
+</database>`;
+  runCode();
+  document.querySelector('.editor-section').scrollIntoView({behavior:'smooth'});
+}
+
 const lessonsPanel = document.getElementById('lessonsPanel');
 const progressFill = document.getElementById('progressFill');
-
 lessonsPanel.addEventListener('scroll', () => {
-  const scrollTop = lessonsPanel.scrollTop;
-  const scrollHeight = lessonsPanel.scrollHeight - lessonsPanel.clientHeight;
-  const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-  progressFill.style.width = progress + '%';
+  const s = lessonsPanel.scrollTop;
+  const h = lessonsPanel.scrollHeight - lessonsPanel.clientHeight;
+  progressFill.style.width = (h > 0 ? (s/h)*100 : 0) + '%';
 });
 
 runCode();
 </script>
-
 </body>
 </html>
