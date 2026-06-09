@@ -18,145 +18,149 @@
   --radius: 8px; --radius-lg: 12px;
   --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
   --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05);
-  --editor-width: 560px;
+  --editor-width: 320px;
+  --sidebar-width: 240px;
+  --header-height: 50px;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: var(--sans); background: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; font-size: 14px; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); height: 100dvh; display: flex; flex-direction: column; overflow: hidden; font-size: 14px; }
 
 /* HEADER */
-.header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 20px; height: 56px; display: flex; align-items: center; gap: 16px; flex-shrink: 0; z-index: 100; box-shadow: var(--shadow); }
-.logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-.logo-mark { width: 32px; height: 32px; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; font-weight: 600; color: #fff; letter-spacing: -0.5px; box-shadow: 0 2px 6px rgba(217,119,6,0.3); }
-.logo-text { font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -0.03em; }
+.header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 14px; height: var(--header-height); display: flex; align-items: center; gap: 12px; flex-shrink: 0; z-index: 100; box-shadow: var(--shadow); }
+.logo { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.logo-mark { width: 28px; height: 28px; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 10px; font-weight: 600; color: #fff; letter-spacing: -0.5px; }
+.logo-text { font-size: 14px; font-weight: 700; color: var(--text); letter-spacing: -0.03em; }
 .logo-text span { color: var(--accent); }
-.header-mid { flex: 1; display: flex; align-items: center; justify-content: center; gap: 20px; }
-.progress-wrap { display: flex; align-items: center; gap: 10px; }
-.progress-track { width: 200px; height: 4px; background: var(--surface3); border-radius: 99px; overflow: hidden; }
+.header-mid { flex: 1; display: flex; align-items: center; justify-content: center; gap: 14px; }
+.progress-wrap { display: flex; align-items: center; gap: 8px; }
+.progress-track { width: 140px; height: 3px; background: var(--surface3); border-radius: 99px; overflow: hidden; }
 .progress-fill { height: 100%; background: linear-gradient(90deg, #f59e0b, #d97706); border-radius: 99px; transition: width 0.6s ease; }
-.progress-label { font-size: 12px; color: var(--text3); font-family: var(--mono); font-weight: 500; white-space: nowrap; }
-.streak-badge { display: flex; align-items: center; gap: 5px; background: #fff7ed; border: 1px solid #fed7aa; border-radius: 20px; padding: 5px 12px; font-size: 12px; color: #c2410c; font-weight: 600; }
+.progress-label { font-size: 11px; color: var(--text3); font-family: var(--mono); font-weight: 500; white-space: nowrap; }
+.streak-badge { display: flex; align-items: center; gap: 4px; background: #fff7ed; border: 1px solid #fed7aa; border-radius: 20px; padding: 4px 10px; font-size: 11px; color: #c2410c; font-weight: 600; }
 
 /* LAYOUT */
 .main { display: flex; flex: 1; overflow: hidden; }
-.sidebar { width: 272px; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; flex-shrink: 0; overflow: hidden; }
-.sidebar-top { padding: 14px 14px 10px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
-.search-row { display: flex; align-items: center; gap: 8px; background: var(--surface2); border: 1px solid var(--border2); border-radius: 8px; padding: 8px 12px; }
+.sidebar { width: var(--sidebar-width); background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; flex-shrink: 0; overflow: hidden; transition: transform 0.25s ease, width 0.25s ease; }
+.sidebar-top { padding: 10px 10px 8px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+.search-row { display: flex; align-items: center; gap: 7px; background: var(--surface2); border: 1px solid var(--border2); border-radius: 7px; padding: 7px 10px; }
 .search-row svg { flex-shrink: 0; color: var(--text3); }
-.search-row input { background: transparent; border: none; outline: none; color: var(--text); font-family: var(--sans); font-size: 13px; width: 100%; }
+.search-row input { background: transparent; border: none; outline: none; color: var(--text); font-family: var(--sans); font-size: 12px; width: 100%; }
 .search-row input::placeholder { color: var(--text3); }
-.lesson-list-wrap { flex: 1; overflow-y: auto; padding: 6px 8px; }
+.lesson-list-wrap { flex: 1; overflow-y: auto; padding: 4px 6px; scrollbar-width: thin; scrollbar-color: var(--surface3) transparent; }
 .lesson-list-wrap::-webkit-scrollbar { width: 4px; }
 .lesson-list-wrap::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 2px; }
-.chapter-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent2); padding: 14px 8px 5px; display: flex; align-items: center; gap: 8px; }
+.lesson-list-wrap::-webkit-scrollbar-track { background: transparent; }
+.chapter-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent2); padding: 12px 6px 4px; display: flex; align-items: center; gap: 6px; }
 .chapter-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-.lesson-item { display: flex; align-items: center; gap: 9px; padding: 7px 8px; border-radius: 7px; cursor: pointer; transition: all 0.12s; border: 1px solid transparent; }
+.lesson-item { display: flex; align-items: center; gap: 7px; padding: 6px 6px; border-radius: 6px; cursor: pointer; transition: all 0.12s; border: 1px solid transparent; }
 .lesson-item:hover { background: var(--surface2); }
 .lesson-item.active { background: var(--accent-light); border-color: rgba(217,119,6,0.25); }
-.lesson-num { width: 22px; height: 22px; border-radius: 5px; background: var(--surface3); font-size: 9px; font-family: var(--mono); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--text3); font-weight: 600; }
+.lesson-num { width: 20px; height: 20px; border-radius: 4px; background: var(--surface3); font-size: 8px; font-family: var(--mono); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--text3); font-weight: 600; }
 .lesson-item.active .lesson-num { background: var(--accent); color: #fff; }
-.lesson-item.done .lesson-num { background: #dcfce7; color: var(--green); font-size: 11px; }
-.lesson-title-text { font-size: 12.5px; color: var(--text2); line-height: 1.35; flex: 1; }
+.lesson-item.done .lesson-num { background: #dcfce7; color: var(--green); font-size: 10px; }
+.lesson-title-text { font-size: 11.5px; color: var(--text2); line-height: 1.3; flex: 1; }
 .lesson-item.active .lesson-title-text { color: var(--accent2); font-weight: 500; }
 .lesson-item.done .lesson-title-text { color: var(--text3); }
 
 /* CONTENT */
-.content-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--bg); }
-.content-scroll { flex: 1; overflow-y: auto; padding: 32px 44px 44px; }
+.content-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--bg); min-width: 0; }
+.content-scroll { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 24px 32px 36px; scrollbar-width: thin; scrollbar-color: var(--surface3) transparent; }
 .content-scroll::-webkit-scrollbar { width: 5px; }
 .content-scroll::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 2px; }
+.content-scroll::-webkit-scrollbar-track { background: transparent; }
 
-.lesson-eyebrow { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-.lesson-num-badge { font-family: var(--mono); font-size: 11px; color: var(--accent2); background: var(--accent-light); border: 1px solid rgba(217,119,6,0.2); border-radius: 5px; padding: 2px 9px; font-weight: 600; }
-.cat-tag { font-size: 11px; color: var(--text3); background: var(--surface); border: 1px solid var(--border2); border-radius: 5px; padding: 2px 9px; font-weight: 500; }
-.lesson-h1 { font-size: 26px; font-weight: 700; color: var(--text); letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 20px; }
+.lesson-eyebrow { display: flex; align-items: center; gap: 7px; margin-bottom: 8px; }
+.lesson-num-badge { font-family: var(--mono); font-size: 10px; color: var(--accent2); background: var(--accent-light); border: 1px solid rgba(217,119,6,0.2); border-radius: 4px; padding: 2px 8px; font-weight: 600; }
+.cat-tag { font-size: 10px; color: var(--text3); background: var(--surface); border: 1px solid var(--border2); border-radius: 4px; padding: 2px 8px; font-weight: 500; }
+.lesson-h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 16px; }
 
-.prose { font-size: 14px; line-height: 1.8; color: var(--text2); margin-bottom: 14px; }
+.prose { font-size: 13.5px; line-height: 1.8; color: var(--text2); margin-bottom: 12px; }
 .prose strong { color: var(--text); font-weight: 600; }
-.prose code { font-family: var(--mono); font-size: 12px; background: #f1f0ec; color: #b45309; padding: 2px 6px; border-radius: 4px; border: 1px solid #e5e3dc; }
-.prose ul { padding-left: 20px; margin-bottom: 14px; }
-.prose li { margin-bottom: 6px; color: var(--text2); }
-.prose ol { padding-left: 20px; margin-bottom: 14px; }
+.prose code { font-family: var(--mono); font-size: 11.5px; background: #f1f0ec; color: #b45309; padding: 2px 5px; border-radius: 3px; border: 1px solid #e5e3dc; }
+.prose ul { padding-left: 18px; margin-bottom: 12px; }
+.prose li { margin-bottom: 5px; color: var(--text2); }
+.prose ol { padding-left: 18px; margin-bottom: 12px; }
 
-.callout { display: flex; gap: 12px; padding: 13px 16px; border-radius: var(--radius-lg); margin: 18px 0; font-size: 13px; line-height: 1.7; border-left: 3px solid; background: var(--surface); box-shadow: var(--shadow); }
+.callout { display: flex; gap: 10px; padding: 11px 14px; border-radius: var(--radius-lg); margin: 14px 0; font-size: 13px; line-height: 1.7; border-left: 3px solid; background: var(--surface); box-shadow: var(--shadow); }
 .callout.tip { border-color: var(--green); }
 .callout.warn { border-color: #f59e0b; }
 .callout.info { border-color: var(--blue); }
 .callout.danger { border-color: var(--red); background: #fff8f8; }
-.callout-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
-.callout-body { color: var(--text2); }
+.callout-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.callout-body { color: var(--text2); font-size: 13px; }
 .callout-body strong { color: var(--text); }
 
-.section-divider { display: flex; align-items: center; gap: 10px; margin: 28px 0 14px; }
-.section-divider span { font-size: 10px; text-transform: uppercase; letter-spacing: 0.09em; color: var(--text3); font-weight: 700; white-space: nowrap; }
+.section-divider { display: flex; align-items: center; gap: 8px; margin: 22px 0 12px; }
+.section-divider span { font-size: 9px; text-transform: uppercase; letter-spacing: 0.09em; color: var(--text3); font-weight: 700; white-space: nowrap; }
 .section-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
 /* COMPARISON TABLE */
-.compare-table { width: 100%; border-collapse: collapse; margin: 16px 0 20px; font-size: 13px; background: var(--surface); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); }
-.compare-table th { background: var(--surface3); padding: 10px 14px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text3); font-weight: 700; }
-.compare-table td { padding: 10px 14px; border-top: 1px solid var(--border); color: var(--text2); vertical-align: top; }
-.compare-table td code { font-family: var(--mono); font-size: 11.5px; background: #f1f0ec; color: #b45309; padding: 1px 5px; border-radius: 3px; }
+.compare-table { width: 100%; border-collapse: collapse; margin: 14px 0 18px; font-size: 12.5px; background: var(--surface); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); }
+.compare-table th { background: var(--surface3); padding: 9px 12px; text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text3); font-weight: 700; }
+.compare-table td { padding: 9px 12px; border-top: 1px solid var(--border); color: var(--text2); vertical-align: top; }
+.compare-table td code { font-family: var(--mono); font-size: 11px; background: #f1f0ec; color: #b45309; padding: 1px 4px; border-radius: 3px; }
 .compare-table tr:hover td { background: var(--surface2); }
-.badge-green { display: inline-block; background: #dcfce7; color: #15803d; font-size: 10px; padding: 1px 7px; border-radius: 99px; font-weight: 700; }
-.badge-red { display: inline-block; background: #fee2e2; color: #b91c1c; font-size: 10px; padding: 1px 7px; border-radius: 99px; font-weight: 700; }
-.badge-yellow { display: inline-block; background: #fef9c3; color: #854d0e; font-size: 10px; padding: 1px 7px; border-radius: 99px; font-weight: 700; }
+.badge-green { display: inline-block; background: #dcfce7; color: #15803d; font-size: 9px; padding: 1px 6px; border-radius: 99px; font-weight: 700; }
+.badge-red { display: inline-block; background: #fee2e2; color: #b91c1c; font-size: 9px; padding: 1px 6px; border-radius: 99px; font-weight: 700; }
+.badge-yellow { display: inline-block; background: #fef9c3; color: #854d0e; font-size: 9px; padding: 1px 6px; border-radius: 99px; font-weight: 700; }
 
-/* STEPS / RECIPE */
-.steps-list { counter-reset: step; list-style: none; padding: 0; margin: 16px 0 20px; }
-.steps-list li { counter-increment: step; display: flex; gap: 14px; margin-bottom: 12px; align-items: flex-start; }
-.steps-list li::before { content: counter(step); width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; font-family: var(--mono); }
-.steps-list li .step-text { color: var(--text2); font-size: 13.5px; line-height: 1.7; padding-top: 2px; }
-.steps-list li .step-text code { font-family: var(--mono); font-size: 11.5px; background: #f1f0ec; color: #b45309; padding: 1px 5px; border-radius: 3px; }
+/* STEPS */
+.steps-list { counter-reset: step; list-style: none; padding: 0; margin: 14px 0 18px; }
+.steps-list li { counter-increment: step; display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+.steps-list li::before { content: counter(step); width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; font-family: var(--mono); }
+.steps-list li .step-text { color: var(--text2); font-size: 13px; line-height: 1.7; padding-top: 1px; }
+.steps-list li .step-text code { font-family: var(--mono); font-size: 11px; background: #f1f0ec; color: #b45309; padding: 1px 4px; border-radius: 3px; }
 
 /* PITFALLS */
-.pitfall-box { background: #fff8f8; border: 1px solid #fecaca; border-radius: var(--radius-lg); padding: 14px 16px; margin: 16px 0; font-size: 13px; line-height: 1.7; }
-.pitfall-box .pitfall-title { font-weight: 700; color: var(--red); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
-.pitfall-box code { font-family: var(--mono); font-size: 11.5px; background: #fee2e2; color: #b91c1c; padding: 1px 5px; border-radius: 3px; }
+.pitfall-box { background: #fff8f8; border: 1px solid #fecaca; border-radius: var(--radius-lg); padding: 12px 14px; margin: 14px 0; font-size: 12.5px; line-height: 1.7; }
+.pitfall-box .pitfall-title { font-weight: 700; color: var(--red); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
+.pitfall-box code { font-family: var(--mono); font-size: 11px; background: #fee2e2; color: #b91c1c; padding: 1px 4px; border-radius: 3px; }
 
-/* MINI QUIZ */
-.quiz-block { border: 1px solid var(--border2); border-radius: var(--radius-lg); padding: 20px; margin: 0; background: var(--surface); box-shadow: var(--shadow); }
-.quiz-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent2); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-.quiz-label::before { content: ''; display: inline-block; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
-.quiz-q { font-size: 14.5px; font-weight: 600; margin-bottom: 14px; color: var(--text); line-height: 1.5; }
-.quiz-opt { padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border2); background: var(--surface2); margin-bottom: 8px; cursor: pointer; font-size: 13px; color: var(--text2); text-align: left; width: 100%; display: flex; align-items: center; gap: 10px; transition: all 0.15s; font-family: var(--sans); }
-.quiz-opt::before { content: attr(data-letter); font-family: var(--mono); font-size: 11px; font-weight: 700; background: var(--surface3); color: var(--text3); width: 22px; height: 22px; border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+/* QUIZ */
+.quiz-block { border: 1px solid var(--border2); border-radius: var(--radius-lg); padding: 16px; margin: 0; background: var(--surface); box-shadow: var(--shadow); }
+.quiz-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent2); margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
+.quiz-label::before { content: ''; display: inline-block; width: 5px; height: 5px; background: var(--accent); border-radius: 50%; }
+.quiz-q { font-size: 13.5px; font-weight: 600; margin-bottom: 12px; color: var(--text); line-height: 1.5; }
+.quiz-opt { padding: 9px 12px; border-radius: 7px; border: 1px solid var(--border2); background: var(--surface2); margin-bottom: 7px; cursor: pointer; font-size: 12.5px; color: var(--text2); text-align: left; width: 100%; display: flex; align-items: center; gap: 8px; transition: all 0.15s; font-family: var(--sans); }
+.quiz-opt::before { content: attr(data-letter); font-family: var(--mono); font-size: 10px; font-weight: 700; background: var(--surface3); color: var(--text3); width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .quiz-opt:hover:not(:disabled) { border-color: var(--accent); color: var(--text); background: var(--accent-light); }
 .quiz-opt.correct { border-color: var(--green); background: #f0fdf4; color: #15803d; }
 .quiz-opt.correct::before { background: #dcfce7; color: var(--green); }
 .quiz-opt.wrong { border-color: var(--red); background: #fef2f2; color: #b91c1c; }
 .quiz-opt.wrong::before { background: #fee2e2; color: var(--red); }
-.quiz-feedback { margin-top: 12px; font-size: 13px; display: none; padding: 10px 14px; border-radius: 8px; font-weight: 500; }
-.quiz-feedback.show { display: flex; align-items: center; gap: 8px; }
+.quiz-feedback { margin-top: 10px; font-size: 12.5px; display: none; padding: 9px 12px; border-radius: 7px; font-weight: 500; }
+.quiz-feedback.show { display: flex; align-items: center; gap: 7px; }
 .quiz-feedback.ok { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
 .quiz-feedback.ko { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
-.quiz-explanation { margin-top: 10px; font-size: 12.5px; color: var(--text2); padding: 10px 14px; background: var(--surface2); border-radius: 8px; line-height: 1.7; display: none; }
+.quiz-explanation { margin-top: 8px; font-size: 12px; color: var(--text2); padding: 9px 12px; background: var(--surface2); border-radius: 7px; line-height: 1.7; display: none; }
 .quiz-explanation.show { display: block; }
-.quiz-explanation code { font-family: var(--mono); font-size: 11px; background: #f1f0ec; color: #b45309; padding: 1px 5px; border-radius: 3px; }
+.quiz-explanation code { font-family: var(--mono); font-size: 10.5px; background: #f1f0ec; color: #b45309; padding: 1px 4px; border-radius: 3px; }
 
 /* LESSON NAV */
-.lesson-nav { display: flex; align-items: center; gap: 10px; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border); }
-.nav-prev { padding: 9px 18px; border-radius: var(--radius); border: 1px solid var(--border2); background: var(--surface); color: var(--text2); font-size: 13px; font-weight: 500; cursor: pointer; font-family: var(--sans); transition: all 0.15s; }
+.lesson-nav { display: flex; align-items: center; gap: 8px; margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border); }
+.nav-prev { padding: 8px 14px; border-radius: var(--radius); border: 1px solid var(--border2); background: var(--surface); color: var(--text2); font-size: 12px; font-weight: 500; cursor: pointer; font-family: var(--sans); transition: all 0.15s; }
 .nav-prev:hover:not(:disabled) { border-color: var(--text3); color: var(--text); }
-.nav-next { padding: 9px 18px; border-radius: var(--radius); border: 1px solid var(--border2); background: var(--surface); color: var(--text2); font-size: 13px; font-weight: 500; cursor: pointer; font-family: var(--sans); transition: all 0.15s; margin-left: auto; }
+.nav-next { padding: 8px 14px; border-radius: var(--radius); border: 1px solid var(--border2); background: var(--surface); color: var(--text2); font-size: 12px; font-weight: 500; cursor: pointer; font-family: var(--sans); transition: all 0.15s; margin-left: auto; }
 .nav-next.primary { background: var(--text); border-color: var(--text); color: #fff; font-weight: 600; }
 .nav-next.primary:hover { background: #2c2b26; }
-.mark-done-btn { padding: 9px 18px; border-radius: var(--radius); border: 1px solid #bbf7d0; background: #f0fdf4; color: var(--green); font-size: 13px; cursor: pointer; font-family: var(--sans); font-weight: 500; transition: all 0.15s; }
+.mark-done-btn { padding: 8px 14px; border-radius: var(--radius); border: 1px solid #bbf7d0; background: #f0fdf4; color: var(--green); font-size: 12px; cursor: pointer; font-family: var(--sans); font-weight: 500; transition: all 0.15s; }
 .mark-done-btn:hover { background: #dcfce7; }
 
 /* ============================================
-   EDITOR PANEL — WIDER & ENHANCED
+   EDITOR PANEL — RÉDUIT
    ============================================ */
-.editor-panel { width: var(--editor-width); background: var(--surface); border-left: 1px solid var(--border); display: flex; flex-direction: column; flex-shrink: 0; }
+.editor-panel { width: var(--editor-width); background: var(--surface); border-left: 1px solid var(--border); display: flex; flex-direction: column; flex-shrink: 0; transition: width 0.25s ease; }
 
-.editor-topbar { padding: 0 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; height: 46px; background: var(--surface2); gap: 2px; }
-.etab { padding: 0 12px; height: 46px; line-height: 46px; font-size: 12.5px; font-weight: 500; cursor: pointer; color: var(--text3); background: transparent; border: none; border-bottom: 2px solid transparent; font-family: var(--sans); transition: all 0.15s; }
+.editor-topbar { padding: 0 10px; border-bottom: 1px solid var(--border); display: flex; align-items: center; height: 40px; background: var(--surface2); gap: 1px; flex-wrap: nowrap; }
+.etab { padding: 0 9px; height: 40px; line-height: 40px; font-size: 11.5px; font-weight: 500; cursor: pointer; color: var(--text3); background: transparent; border: none; border-bottom: 2px solid transparent; font-family: var(--sans); transition: all 0.15s; white-space: nowrap; }
 .etab.active { color: var(--accent2); border-bottom-color: var(--accent); }
-.editor-actions { margin-left: auto; display: flex; align-items: center; gap: 6px; }
-.run-btn { padding: 7px 16px; background: var(--text); color: #fff; border: none; border-radius: 7px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: var(--sans); display: flex; align-items: center; gap: 6px; transition: all 0.15s; }
-.run-btn:hover { background: #2c2b26; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,0.18); }
-.clear-btn { padding: 7px 11px; background: transparent; color: var(--text3); border: 1px solid var(--border2); border-radius: 7px; font-size: 12px; cursor: pointer; font-family: var(--sans); transition: all 0.15s; }
+.editor-actions { margin-left: auto; display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+.run-btn { padding: 5px 12px; background: var(--text); color: #fff; border: none; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; font-family: var(--sans); display: flex; align-items: center; gap: 5px; transition: all 0.15s; }
+.run-btn:hover { background: #2c2b26; }
+.clear-btn { padding: 5px 8px; background: transparent; color: var(--text3); border: 1px solid var(--border2); border-radius: 6px; font-size: 11px; cursor: pointer; font-family: var(--sans); transition: all 0.15s; }
 .clear-btn:hover { color: var(--red); border-color: #fca5a5; background: #fff8f8; }
-.font-size-ctrl { display: flex; align-items: center; gap: 3px; }
-.font-sz-btn { width: 26px; height: 26px; background: var(--surface3); border: 1px solid var(--border2); border-radius: 5px; font-size: 11px; cursor: pointer; color: var(--text2); display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-weight: 700; }
+.font-size-ctrl { display: flex; align-items: center; gap: 2px; }
+.font-sz-btn { width: 22px; height: 22px; background: var(--surface3); border: 1px solid var(--border2); border-radius: 4px; font-size: 10px; cursor: pointer; color: var(--text2); display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-weight: 700; }
 .font-sz-btn:hover { background: var(--accent-light); color: var(--accent2); }
 
 /* EDITOR BODY */
@@ -166,66 +170,101 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); heig
 
 /* CODE EDITOR */
 .editor-container { flex: 1; display: flex; overflow: hidden; background: var(--code-bg); position: relative; }
-.gutter { display: flex; flex-direction: column; padding: 16px 10px; min-width: 46px; border-right: 1px solid rgba(255,255,255,0.06); user-select: none; background: rgba(255,255,255,0.02); overflow: hidden; }
-.gutter-line { font-family: var(--mono); font-size: var(--editor-font-size, 13px); line-height: 1.8; color: rgba(205,214,244,0.2); text-align: right; white-space: nowrap; }
+.gutter { display: flex; flex-direction: column; padding: 14px 8px; min-width: 38px; border-right: 1px solid rgba(255,255,255,0.06); user-select: none; background: rgba(255,255,255,0.02); overflow: hidden; }
+.gutter-line { font-family: var(--mono); font-size: var(--editor-font-size, 12px); line-height: 1.8; color: rgba(205,214,244,0.2); text-align: right; white-space: nowrap; }
 .gutter-line.active-line { color: rgba(205,214,244,0.55); }
-textarea#code-editor { flex: 1; background: var(--code-bg); border: none; color: var(--code-text); font-family: var(--mono); font-size: var(--editor-font-size, 13px); padding: 16px 18px; resize: none; outline: none; line-height: 1.8; tab-size: 2; }
-.editor-statusbar { display: flex; align-items: center; gap: 12px; padding: 5px 14px; background: rgba(0,0,0,0.3); border-top: 1px solid rgba(255,255,255,0.05); font-family: var(--mono); font-size: 10px; color: rgba(205,214,244,0.35); flex-shrink: 0; }
-.statusbar-item { display: flex; align-items: center; gap: 4px; }
-.statusbar-item .dot { width: 5px; height: 5px; border-radius: 50%; background: #28c840; }
+textarea#code-editor { flex: 1; background: var(--code-bg); border: none; color: var(--code-text); font-family: var(--mono); font-size: var(--editor-font-size, 12px); padding: 14px 14px; resize: none; outline: none; line-height: 1.8; tab-size: 2; }
+.editor-statusbar { display: flex; align-items: center; gap: 10px; padding: 4px 10px; background: rgba(0,0,0,0.3); border-top: 1px solid rgba(255,255,255,0.05); font-family: var(--mono); font-size: 9px; color: rgba(205,214,244,0.35); flex-shrink: 0; }
+.statusbar-item { display: flex; align-items: center; gap: 3px; }
+.statusbar-item .dot { width: 4px; height: 4px; border-radius: 50%; background: #28c840; }
 
 /* CONSOLE */
-.console-header { padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.03); font-family: var(--mono); font-size: 11px; color: rgba(205,214,244,0.4); text-transform: uppercase; letter-spacing: 0.06em; flex-shrink: 0; }
-.console-dot { width: 6px; height: 6px; border-radius: 50%; background: #28c840; }
+.console-header { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.03); font-family: var(--mono); font-size: 10px; color: rgba(205,214,244,0.4); text-transform: uppercase; letter-spacing: 0.06em; flex-shrink: 0; }
+.console-dot { width: 5px; height: 5px; border-radius: 50%; background: #28c840; }
 .console-dot.active { animation: pulse 1.2s ease infinite; }
 @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
-.console-log-box { background: var(--code-bg); padding: 14px 16px; font-family: var(--mono); font-size: var(--editor-font-size, 13px); line-height: 1.75; flex: 1; overflow-y: auto; }
-.console-log-box::-webkit-scrollbar { width: 4px; }
+.console-log-box { background: var(--code-bg); padding: 12px 14px; font-family: var(--mono); font-size: var(--editor-font-size, 12px); line-height: 1.75; flex: 1; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.1) transparent; }
+.console-log-box::-webkit-scrollbar { width: 3px; }
 .console-log-box::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
-.console-line { margin-bottom: 4px; white-space: pre-wrap; display: flex; align-items: flex-start; gap: 10px; color: #a6e3a1; padding: 2px 0; }
+.console-line { margin-bottom: 3px; white-space: pre-wrap; display: flex; align-items: flex-start; gap: 8px; color: #a6e3a1; padding: 2px 0; }
 .console-line::before { content: '>'; color: rgba(205,214,244,0.25); flex-shrink: 0; margin-top: 1px; }
 .console-line.error { color: #f38ba8; }
 .console-line.warn { color: #f9e2af; }
 .console-line.info { color: #89dceb; }
 .console-line.log-obj { color: #cba6f7; }
-.console-empty { color: rgba(205,214,244,0.2); font-style: italic; font-size: 12px; }
-.console-separator { height: 1px; background: rgba(255,255,255,0.06); margin: 8px 0; }
-.exec-time { font-size: 10px; color: rgba(205,214,244,0.3); margin-top: 8px; padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.05); }
+.console-empty { color: rgba(205,214,244,0.2); font-style: italic; font-size: 11px; }
+.console-separator { height: 1px; background: rgba(255,255,255,0.06); margin: 6px 0; }
+.exec-time { font-size: 9px; color: rgba(205,214,244,0.3); margin-top: 6px; padding-top: 5px; border-top: 1px solid rgba(255,255,255,0.05); }
 
 /* CHEATSHEET TAB */
-.cheatsheet-pane { background: var(--code-bg); flex: 1; overflow-y: auto; padding: 16px; }
-.cheatsheet-pane::-webkit-scrollbar { width: 4px; }
+.cheatsheet-pane { background: var(--code-bg); flex: 1; overflow-y: auto; padding: 12px; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.1) transparent; }
+.cheatsheet-pane::-webkit-scrollbar { width: 3px; }
 .cheatsheet-pane::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
-.cs-section { margin-bottom: 18px; }
-.cs-title { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(205,214,244,0.4); margin-bottom: 8px; }
-.cs-item { font-family: var(--mono); font-size: 11.5px; color: #cdd6f4; line-height: 1.9; display: flex; gap: 8px; }
-.cs-item .cs-key { color: #89b4fa; min-width: 140px; flex-shrink: 0; }
+.cs-section { margin-bottom: 14px; }
+.cs-title { font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(205,214,244,0.4); margin-bottom: 6px; }
+.cs-item { font-family: var(--mono); font-size: 10.5px; color: #cdd6f4; line-height: 1.9; display: flex; gap: 6px; }
+.cs-item .cs-key { color: #89b4fa; min-width: 120px; flex-shrink: 0; }
 .cs-item .cs-val { color: #a6adc8; }
 
 /* CODE BLOCK in lesson */
-.code-block { background: var(--code-bg); border-radius: var(--radius-lg); margin: 0 0 20px; overflow: hidden; box-shadow: var(--shadow-md); }
-.code-header { display: flex; align-items: center; padding: 10px 16px; background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.06); }
-.code-dots { display: flex; gap: 5px; }
-.dot { width: 10px; height: 10px; border-radius: 50%; }
+.code-block { background: var(--code-bg); border-radius: var(--radius-lg); margin: 0 0 18px; overflow: hidden; box-shadow: var(--shadow-md); }
+.code-header { display: flex; align-items: center; padding: 8px 14px; background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.06); }
+.code-dots { display: flex; gap: 4px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; }
 .dot-r { background: #ff5f57; } .dot-y { background: #febc2e; } .dot-g { background: #28c840; }
-.code-lang { font-family: var(--mono); font-size: 11px; color: rgba(205,214,244,0.4); margin-left: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
-.try-btn { background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); color: #f59e0b; font-size: 11px; padding: 4px 11px; border-radius: 5px; cursor: pointer; margin-left: auto; font-weight: 500; transition: all 0.15s; font-family: var(--sans); }
+.code-lang { font-family: var(--mono); font-size: 10px; color: rgba(205,214,244,0.4); margin-left: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
+.try-btn { background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); color: #f59e0b; font-size: 10px; padding: 3px 9px; border-radius: 4px; cursor: pointer; margin-left: auto; font-weight: 500; transition: all 0.15s; font-family: var(--sans); }
 .try-btn:hover { background: rgba(245,158,11,0.28); }
-.code-body { padding: 18px 20px; font-family: var(--mono); font-size: 12.5px; line-height: 1.8; overflow-x: auto; white-space: pre; color: var(--code-text); }
+.code-body { padding: 14px 16px; font-family: var(--mono); font-size: 11.5px; line-height: 1.8; overflow-x: auto; white-space: pre; color: var(--code-text); scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.1) transparent; }
 
 /* Concept pills */
-.concept-pills { display: flex; flex-wrap: wrap; gap: 7px; margin: 14px 0 20px; }
-.concept-pill { font-size: 11.5px; background: var(--surface); border: 1px solid var(--border2); color: var(--text2); padding: 4px 11px; border-radius: 99px; font-weight: 500; }
+.concept-pills { display: flex; flex-wrap: wrap; gap: 5px; margin: 12px 0 16px; }
+.concept-pill { font-size: 11px; background: var(--surface); border: 1px solid var(--border2); color: var(--text2); padding: 3px 9px; border-radius: 99px; font-weight: 500; }
 .concept-pill.accent { background: var(--accent-light); border-color: rgba(217,119,6,0.25); color: var(--accent2); }
 
-/* Keyword highlight grid */
-.keyword-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; margin: 16px 0 20px; }
-.keyword-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 8px; padding: 10px 12px; font-size: 12px; }
-.keyword-card .kw-name { font-family: var(--mono); color: #b45309; font-weight: 600; margin-bottom: 4px; font-size: 12px; }
-.keyword-card .kw-desc { color: var(--text3); font-size: 11px; line-height: 1.5; }
+/* Keyword grid */
+.keyword-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 6px; margin: 14px 0 18px; }
+.keyword-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 7px; padding: 8px 10px; font-size: 11.5px; }
+.keyword-card .kw-name { font-family: var(--mono); color: #b45309; font-weight: 600; margin-bottom: 3px; font-size: 11.5px; }
+.keyword-card .kw-desc { color: var(--text3); font-size: 10.5px; line-height: 1.5; }
 
-@media (max-width: 1100px) { :root { --editor-width: 420px; } }
-@media (max-width: 900px) { .sidebar { display: none; } .editor-panel { width: 100%; } }
+/* MOBILE TOGGLE */
+.sidebar-toggle { display: none; background: var(--surface); border: 1px solid var(--border2); border-radius: 6px; padding: 5px 8px; cursor: pointer; font-size: 11px; color: var(--text2); font-family: var(--sans); align-items: center; gap: 5px; flex-shrink: 0; }
+.editor-toggle { display: none; background: var(--surface); border: 1px solid var(--border2); border-radius: 6px; padding: 5px 8px; cursor: pointer; font-size: 11px; color: var(--text2); font-family: var(--sans); align-items: center; gap: 5px; flex-shrink: 0; }
+
+/* OVERLAY (mobile) */
+.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200; }
+.overlay.active { display: block; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1100px) {
+  :root { --editor-width: 280px; --sidebar-width: 220px; }
+}
+@media (max-width: 900px) {
+  :root { --editor-width: 260px; }
+  .sidebar { display: none; }
+  .sidebar-toggle { display: flex; }
+  .progress-track { width: 100px; }
+}
+@media (max-width: 700px) {
+  :root { --editor-width: 0px; --header-height: 48px; }
+  .header { padding: 0 10px; gap: 8px; }
+  .progress-wrap { display: none; }
+  .streak-badge { padding: 3px 8px; }
+  .content-scroll { padding: 16px 16px 28px; }
+  .lesson-h1 { font-size: 18px; }
+  .editor-panel { display: none; position: fixed; right: 0; top: var(--header-height); bottom: 0; width: 100% !important; z-index: 300; max-width: 480px; }
+  .editor-panel.mobile-open { display: flex; }
+  .editor-toggle { display: flex; }
+  .sidebar { position: fixed; left: 0; top: var(--header-height); bottom: 0; width: 260px !important; z-index: 250; display: flex; transform: translateX(-100%); transition: transform 0.25s ease; }
+  .sidebar.mobile-open { transform: translateX(0); }
+  .overlay.active { display: block; }
+  .main { overflow: hidden; }
+}
+@media (max-width: 480px) {
+  .etab { padding: 0 7px; font-size: 10.5px; }
+  .editor-topbar { padding: 0 8px; }
+}
 </style>
 </head>
 <body>
@@ -235,21 +274,25 @@ textarea#code-editor { flex: 1; background: var(--code-bg); border: none; color:
     <div class="logo-mark">JS</div>
     <div class="logo-text">JS Learn <span>50</span></div>
   </div>
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu des leçons">☰ Leçons</button>
   <div class="header-mid">
     <div class="progress-wrap">
       <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
       <div class="progress-label"><span id="progress-text">0 / 50</span> acquises</div>
     </div>
   </div>
-  <div class="streak-badge">🔥 <span id="streak-num">0</span> série</div>
+  <button class="editor-toggle" onclick="toggleEditor()" aria-label="Ouvrir l'éditeur">⌨ Éditeur</button>
+  <div class="streak-badge">🔥 <span id="streak-num">0</span></div>
 </div>
+
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
 
 <div class="main">
   <!-- SIDEBAR -->
-  <div class="sidebar">
+  <div class="sidebar" id="sidebar">
     <div class="sidebar-top">
       <div class="search-row">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         <input id="search-input" type="text" placeholder="Filtrer les leçons..." oninput="filterLessons(this.value)">
       </div>
     </div>
@@ -263,53 +306,50 @@ textarea#code-editor { flex: 1; background: var(--code-bg); border: none; color:
     </div>
   </div>
 
-  <!-- EDITOR PANEL — ENHANCED -->
-  <div class="editor-panel">
+  <!-- EDITOR PANEL -->
+  <div class="editor-panel" id="editor-panel">
     <div class="editor-topbar">
       <button class="etab active" id="tab-btn-playground" onclick="switchTab('playground')">Éditeur</button>
       <button class="etab" id="tab-btn-output" onclick="switchTab('output')">Console</button>
-      <button class="etab" id="tab-btn-cheatsheet" onclick="switchTab('cheatsheet')">Réf. rapide</button>
+      <button class="etab" id="tab-btn-cheatsheet" onclick="switchTab('cheatsheet')">Réf.</button>
       <div class="editor-actions">
         <div class="font-size-ctrl">
           <button class="font-sz-btn" onclick="changeFontSize(-1)" title="Réduire">−</button>
           <button class="font-sz-btn" onclick="changeFontSize(1)" title="Agrandir">+</button>
         </div>
-        <button class="clear-btn" onclick="clearEditor()" title="Effacer l'éditeur">✕</button>
+        <button class="clear-btn" onclick="clearEditor()" title="Effacer">✕</button>
         <button class="run-btn" onclick="runCode()">
-          <svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          Exécuter
+          <svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          Run
         </button>
       </div>
     </div>
 
     <div class="editor-body">
-      <!-- ÉDITEUR -->
       <div class="tab-pane active" id="tab-playground">
         <div class="editor-container">
           <div class="gutter" id="gutter"></div>
           <textarea id="code-editor" spellcheck="false" oninput="onEditorInput()" onscroll="syncGutter()" onkeyup="updateCursor()" onclick="updateCursor()"></textarea>
         </div>
         <div class="editor-statusbar">
-          <div class="statusbar-item"><div class="dot"></div> JavaScript</div>
+          <div class="statusbar-item"><div class="dot"></div> JS</div>
           <div class="statusbar-item" id="cursor-pos">Ln 1, Col 1</div>
           <div class="statusbar-item" id="char-count">0 car.</div>
           <div class="statusbar-item" id="lines-count">1 ligne</div>
         </div>
       </div>
 
-      <!-- CONSOLE -->
       <div class="tab-pane" id="tab-output">
         <div class="console-header">
           <div class="console-dot" id="console-dot"></div>
-          console output
-          <span id="console-count" style="margin-left:auto;font-size:10px;"></span>
+          console
+          <span id="console-count" style="margin-left:auto;font-size:9px;"></span>
         </div>
         <div class="console-log-box" id="console-box">
-          <div class="console-empty">En attente d'exécution… (Ctrl+Entrée)</div>
+          <div class="console-empty">En attente… (Ctrl+Entrée)</div>
         </div>
       </div>
 
-      <!-- CHEATSHEET -->
       <div class="tab-pane" id="tab-cheatsheet">
         <div class="cheatsheet-pane" id="cheatsheet-content"></div>
       </div>
@@ -318,7 +358,6 @@ textarea#code-editor { flex: 1; background: var(--code-bg); border: none; color:
 </div>
 
 <script>
-// ─── DATA ──────────────────────────────────────────────────────────────
 const LESSONS = [
   {
     cat:"1. Les Fondations",
@@ -407,7 +446,7 @@ Affiche <code>3, 3, 3</code> car <code>var</code> est partagé. Avec <code>let</
 <div class="callout tip"><div class="callout-icon">✓</div><div class="callout-body"><strong>Pour une vraie immutabilité :</strong> utilisez <code>Object.freeze(obj)</code>. Attention : le gel est <strong>superficiel</strong> — les objets imbriqués restent mutables. Pour un gel profond, il faut une fonction récursive.</div></div>
 
 <div class="callout info"><div class="callout-icon">ℹ</div><div class="callout-body"><strong>Bonne pratique :</strong> Utilisez <code>const</code> par défaut, <code>let</code> uniquement si la variable doit être réassignée, et n'utilisez plus <code>var</code> dans du nouveau code.</div></div>`,
-    code:`const user = { nom: "Alice", role: "admin" };\nuser.nom = "Bob";  // ✓ Autorisé\nconsole.log(user);\n// user = {};  // ✗ TypeError\n\nconst liste = [1, 2, 3];\nliste.push(4);\nconsole.log("Tableau modifié :", liste);\n\n// Vraie immutabilité\nconst config = Object.freeze({ debug: true, env: "prod" });\ntry {\n  config.debug = false; // silencieux (ou error en strict mode)\n} catch(e) { console.log(e.message); }\nconsole.log("Config après freeze :", config);`,
+    code:`const user = { nom: "Alice", role: "admin" };\nuser.nom = "Bob";  // ✓ Autorisé\nconsole.log(user);\n// user = {};  // ✗ TypeError\n\nconst liste = [1, 2, 3];\nliste.push(4);\nconsole.log("Tableau modifié :", liste);\n\n// Vraie immutabilité\nconst config = Object.freeze({ debug: true, env: "prod" });\ntry {\n  config.debug = false;\n} catch(e) { console.log(e.message); }\nconsole.log("Config après freeze :", config);`,
     starter:`const liste = [1, 2, 3];\nliste.push(4);\nconsole.log(liste);\n\n// Essayez de réassigner liste :\n// liste = []; // TypeError !`,
     quiz:{
       q:"Qu'est-ce qui est strictement interdit avec const ?",
@@ -440,7 +479,7 @@ Affiche <code>3, 3, 3</code> car <code>var</code> est partagé. Avec <code>let</
 
 <div class="pitfall-box"><div class="pitfall-title">⚠ Piège — NaN n'est pas égal à lui-même</div>
 <code>NaN === NaN</code> retourne <code>false</code>. Utilisez <code>Number.isNaN(val)</code> (et non <code>isNaN()</code> global qui coerce d'abord en Number).</div>`,
-    code:`console.log(0.1 + 0.2);\nconsole.log((0.1+0.2).toFixed(2));\nconst delta = Math.abs((0.1+0.2) - 0.3);\nconsole.log("delta < EPSILON :", delta < Number.EPSILON);\n\nconsole.log("\\n--- Valeurs spéciales ---");\nconsole.log(1/0, -1/0, "abc"*2);\nconsole.log(Number.isNaN(NaN));     // true\nconsole.log(Number.isNaN("hello")); // false (contrairement à isNaN())`,
+    code:`console.log(0.1 + 0.2);\nconsole.log((0.1+0.2).toFixed(2));\nconst delta = Math.abs((0.1+0.2) - 0.3);\nconsole.log("delta < EPSILON :", delta < Number.EPSILON);\n\nconsole.log("\\n--- Valeurs spéciales ---");\nconsole.log(1/0, -1/0, "abc"*2);\nconsole.log(Number.isNaN(NaN));\nconsole.log(Number.isNaN("hello"));`,
     starter:`let prix = 19.99;\nconsole.log("TVA :", (prix * 0.2).toFixed(2));\n\n// Calcul monétaire correct (en centimes)\nlet prixCentimes = 1999;\nlet tva = Math.round(prixCentimes * 0.2);\nconsole.log("TVA exacte :", tva / 100, "€");`,
     quiz:{
       q:"Méthode recommandée pour stocker des prix sans perte de précision ?",
@@ -457,13 +496,6 @@ Affiche <code>3, 3, 3</code> car <code>var</code> est partagé. Avec <code>let</
     desc:`
 <p class="prose">L'opérateur <code>+</code> déclenche une coercition vers <code>String</code> dès qu'un opérande est une chaîne. Les opérateurs <code>-</code>, <code>*</code>, <code>/</code> forcent la conversion vers <code>Number</code>.</p>
 
-<div class="section-divider"><span>Règles de coercition avec +</span></div>
-<ol class="prose">
-  <li>Si l'un des opérandes est un objet → appel de <code>.toString()</code> ou <code>.valueOf()</code></li>
-  <li>Si l'un des résultats est une String → concaténation</li>
-  <li>Sinon → addition numérique</li>
-</ol>
-
 <table class="compare-table">
   <thead><tr><th>Expression</th><th>Résultat</th><th>Explication</th></tr></thead>
   <tbody>
@@ -476,8 +508,8 @@ Affiche <code>3, 3, 3</code> car <code>var</code> est partagé. Avec <code>let</
 </table>
 
 <div class="callout warn"><div class="callout-icon">⚠</div><div class="callout-body"><strong>Conversion explicite recommandée :</strong> <code>Number("42")</code>, <code>parseInt("42px")</code>, <code>String(42)</code>, <code>Boolean(val)</code>. Évitez <code>new Number()</code>, <code>new String()</code> — ils créent des objets wrapper.</div></div>`,
-    code:`console.log("10" + 5);   // "105"\nconsole.log("10" - 5);   // 5\nconsole.log("10" * "2"); // 20\nconsole.log("abc" - 1);  // NaN\n\n// Conversions explicites\nconsole.log(Number("  42  "));\nconsole.log(parseInt("42px"));\nconsole.log(+"3.14");    // unary + trick`,
-    starter:`console.log("40" + 2);\nconsole.log("40" - 2);\n\n// Quel est le résultat ?\nconsole.log(1 + "2" + 3);\nconsole.log(1 + 2 + "3");`,
+    code:`console.log("10" + 5);\nconsole.log("10" - 5);\nconsole.log("10" * "2");\nconsole.log("abc" - 1);\n\n// Conversions explicites\nconsole.log(Number("  42  "));\nconsole.log(parseInt("42px"));\nconsole.log(+"3.14");`,
+    starter:`console.log("40" + 2);\nconsole.log("40" - 2);\n\nconsole.log(1 + "2" + 3);\nconsole.log(1 + 2 + "3");`,
     quiz:{
       q:'Que produit l\'expression : "5" + 5 - 2 ?',
       opts:["53","8","NaN","7"],
@@ -490,681 +522,470 @@ Affiche <code>3, 3, 3</code> car <code>var</code> est partagé. Avec <code>let</
     title:"Template Literals & Interpolation",
     concepts:["Backtick","Interpolation ${}","Multilignes","Tagged templates"],
     why:"Les template literals rendent le HTML dynamique et les logs de debug beaucoup plus lisibles.",
-    desc:`
-<p class="prose">La syntaxe backtick (<code>\`...\`</code>) permet l'<strong>interpolation d'expressions JS</strong> via <code>\${...}</code> et préserve les retours à la ligne sans <code>\\n</code>.</p>
-
-<div class="section-divider"><span>Capacités des Template Literals</span></div>
-<ul class="prose">
-  <li><strong>Interpolation :</strong> <code>\${expr}</code> — toute expression JS valide : variables, appels de fonctions, ternaires</li>
-  <li><strong>Multilignes :</strong> Les retours à la ligne sont préservés littéralement</li>
-  <li><strong>Tagged templates :</strong> Fonction préfixe qui reçoit le tableau de strings et les valeurs interpolées</li>
-  <li><strong>Nesting :</strong> Templates imbriqués possibles : <code>\`outer \${inner \`deep\`}\`</code></li>
-</ul>
-
-<div class="callout info"><div class="callout-icon">ℹ</div><div class="callout-body"><strong>Tagged templates en pratique :</strong> La bibliothèque <strong>styled-components</strong> (React) utilise des tagged templates pour écrire du CSS dans JS. <code>gql\`query { ... }\`</code> (Apollo GraphQL) également.</div></div>`,
-    code:`const user = { prenom: "Eva", score: 42 };\nconst msg = \`Bienvenue \${user.prenom.toUpperCase()} !\nScore : \${user.score * 2} pts.\`;\nconsole.log(msg);\n\n// Tagged template\nfunction highlight(strings, ...values) {\n  return strings.reduce((acc, str, i) =>\n    acc + str + (values[i] !== undefined ? \`[\${values[i]}]\` : ''), '');\n}\nconst nom = "Alice", pts = 100;\nconsole.log(highlight\`\${nom} a gagné \${pts} points\`);`,
-    starter:`const prenom = "Marc";\nconst age = 28;\nconsole.log(\`\${prenom} a \${age} ans.\`);\n\n// Multi-ligne HTML\nconst card = \`\n  <div>\n    <h2>\${prenom}</h2>\n    <p>Âge : \${age}</p>\n  </div>\`;\nconsole.log(card);`,
-    quiz:{
-      q:"Syntaxe correcte pour interpoler une variable dans un template literal ?",
-      opts:["#{variable}","{{variable}}","${variable}","%variable%"],
-      answer:2,
-      explanation:"La syntaxe <code>\${expression}</code> est spécifique aux template literals (backticks). Elle évalue n'importe quelle expression JavaScript valide : variables, appels de méthodes, ternaires, opérations arithmétiques."
-    }
+    desc:`<p class="prose">La syntaxe backtick (<code>\`...\`</code>) permet l'<strong>interpolation d'expressions JS</strong> via <code>\${...}</code> et préserve les retours à la ligne sans <code>\\n</code>.</p>`,
+    code:`const user = { prenom: "Eva", score: 42 };\nconst msg = \`Bienvenue \${user.prenom.toUpperCase()} !\nScore : \${user.score * 2} pts.\`;\nconsole.log(msg);`,
+    starter:`const prenom = "Marc";\nconst age = 28;\nconsole.log(\`\${prenom} a \${age} ans.\`);`,
+    quiz:{q:"Syntaxe correcte pour interpoler une variable dans un template literal ?",opts:["#{variable}","{{variable}}","${variable}","%variable%"],answer:2,explanation:"La syntaxe <code>\${expression}</code> est spécifique aux template literals (backticks)."}
   },
   {
     cat:"1. Les Fondations",
     title:"Truthy / Falsy & Coercition Booléenne",
     concepts:["8 valeurs Falsy","Boolean()","Double négation !!","Opérateurs logiques"],
     why:"Savoir que [] et {} sont truthy est essentiel pour écrire des conditions sans bugs cachés.",
-    desc:`
-<p class="prose">Il existe exactement <strong>8 valeurs Falsy</strong> en JavaScript. Tout le reste est <strong>Truthy</strong> — y compris les tableaux et objets vides, qui piègent de nombreux développeurs.</p>
-
-<div class="section-divider"><span>Les 8 valeurs Falsy</span></div>
+    desc:`<p class="prose">Il existe exactement <strong>8 valeurs Falsy</strong> en JavaScript. Tout le reste est <strong>Truthy</strong> — y compris les tableaux et objets vides.</p>
 <div class="keyword-grid">
   <div class="keyword-card"><div class="kw-name">false</div><div class="kw-desc">Le booléen false</div></div>
-  <div class="keyword-card"><div class="kw-name">0</div><div class="kw-desc">Zéro entier</div></div>
-  <div class="keyword-card"><div class="kw-name">-0</div><div class="kw-desc">Zéro négatif (IEEE 754)</div></div>
-  <div class="keyword-card"><div class="kw-name">0n</div><div class="kw-desc">BigInt zéro</div></div>
+  <div class="keyword-card"><div class="kw-name">0 / -0 / 0n</div><div class="kw-desc">Zéros numériques</div></div>
   <div class="keyword-card"><div class="kw-name">""</div><div class="kw-desc">Chaîne vide</div></div>
   <div class="keyword-card"><div class="kw-name">null</div><div class="kw-desc">Absence intentionnelle</div></div>
   <div class="keyword-card"><div class="kw-name">undefined</div><div class="kw-desc">Non initialisé</div></div>
   <div class="keyword-card"><div class="kw-name">NaN</div><div class="kw-desc">Not a Number</div></div>
 </div>
-
-<div class="callout warn"><div class="callout-icon">⚠</div><div class="callout-body"><strong>Pièges Truthy :</strong> <code>[]</code>, <code>{}</code>, <code>"0"</code>, <code>"false"</code>, <code>new Boolean(false)</code> sont tous <strong>Truthy</strong> ! Pour tester un tableau vide, utilisez <code>arr.length === 0</code>, pas <code>!arr</code>.</div></div>
-
-<div class="callout info"><div class="callout-icon">ℹ</div><div class="callout-body"><strong>Court-circuit logique :</strong> <code>||</code> retourne le premier truthy, <code>&&</code> retourne le premier falsy (ou le dernier si tous truthy). Très utile : <code>const nom = utilisateur?.nom || "Anonyme"</code>.</div></div>`,
-    code:`console.log(Boolean([]));    // true !\nconsole.log(Boolean(""));    // false\nconsole.log(Boolean(0));     // false\nconsole.log(Boolean("0"));   // true !\nconsole.log(Boolean(null));  // false\nconsole.log(Boolean({}));    // true !\n\n// Court-circuit\nconst config = null;\nconst env = config || "production";\nconsole.log("Env:", env);\n\nconst user = { nom: "Alice" };\nconsole.log(user && user.nom); // "Alice"`,
-    starter:`if ([]) { console.log("Tableau vide = Truthy !"); }\nif ("") { console.log("Non affiché"); }\n\n// Test des 8 falsy\nconst falsy = [false, 0, -0, 0n, "", null, undefined, NaN];\nfalsy.forEach(v => console.log(\`Boolean(\${String(v)}) =\`, Boolean(v)));`,
-    quiz:{
-      q:"Laquelle est Truthy ?",
-      opts:["0","undefined","[] (tableau vide)",'\"\" (chaîne vide)'],
-      answer:2,
-      explanation:"Un tableau vide <code>[]</code> est un objet, et tous les objets sont Truthy en JavaScript. Vérifiez plutôt <code>arr.length === 0</code> pour tester si un tableau est vide. Les 3 autres valeurs font partie des 8 Falsy officiels."
-    }
+<div class="callout warn"><div class="callout-icon">⚠</div><div class="callout-body"><strong>Pièges Truthy :</strong> <code>[]</code>, <code>{}</code>, <code>"0"</code>, <code>"false"</code> sont tous <strong>Truthy</strong> !</div></div>`,
+    code:`console.log(Boolean([]));    // true !\nconsole.log(Boolean(""));    // false\nconsole.log(Boolean(0));     // false\nconsole.log(Boolean("0"));   // true !\nconsole.log(Boolean(null));  // false\nconsole.log(Boolean({}));    // true !`,
+    starter:`if ([]) { console.log("Tableau vide = Truthy !"); }\nif ("") { console.log("Non affiché"); }\nconst falsy = [false, 0, "", null, undefined, NaN];\nfalsy.forEach(v => console.log(\`Boolean(\${String(v)}) =\`, Boolean(v)));`,
+    quiz:{q:"Laquelle est Truthy ?",opts:["0","undefined","[] (tableau vide)",'\"\" (chaîne vide)'],answer:2,explanation:"Un tableau vide <code>[]</code> est un objet, et tous les objets sont Truthy en JavaScript."}
   },
   {
     cat:"1. Les Fondations",
     title:"Undefined vs Null",
     concepts:["undefined","null","typeof","typeof null bug"],
     why:"Distinguer ces deux absences évite des bugs dans la vérification de données d'API.",
-    desc:`
-<p class="prose"><code>undefined</code> = absence <strong>involontaire</strong> (variable déclarée mais non initialisée, propriété inexistante, paramètre manquant, retour implicite d'une fonction). <code>null</code> = absence <strong>intentionnelle</strong> (vous assignez null pour indiquer « aucune valeur »).</p>
-
-<table class="compare-table">
-  <thead><tr><th>Situation</th><th>Valeur</th></tr></thead>
-  <tbody>
-    <tr><td>Variable déclarée non initialisée</td><td><code>undefined</code></td></tr>
-    <tr><td>Propriété inexistante d'un objet</td><td><code>undefined</code></td></tr>
-    <tr><td>Paramètre non fourni</td><td><code>undefined</code></td></tr>
-    <tr><td>Retour sans return explicite</td><td><code>undefined</code></td></tr>
-    <tr><td>Réinitialisation intentionnelle</td><td><code>null</code></td></tr>
-    <tr><td><code>typeof null</code></td><td><code>"object"</code> (bug historique 1995)</td></tr>
-  </tbody>
-</table>
-
-<div class="callout info"><div class="callout-icon">ℹ</div><div class="callout-body"><strong>Opérateur nullish <code>??</code> :</strong> Retourne le membre droit <strong>uniquement</strong> si le gauche est <code>null</code> ou <code>undefined</code> (pas pour <code>0</code> ou <code>""</code>). Différence clé avec <code>||</code> qui réagit à toute valeur falsy.</div></div>`,
-    code:`let a;\nlet b = null;\nconsole.log(typeof a);   // "undefined"\nconsole.log(typeof b);   // "object" (bug !)\nconsole.log(a == b);     // true  (égalité laxiste)\nconsole.log(a === b);    // false (stricte)\n\n// Nullish coalescing\nconst port = 0;\nconsole.log(port || 3000);   // 3000 (0 est falsy)\nconsole.log(port ?? 3000);   // 0 (0 n'est pas null/undefined)`,
-    starter:`let vide = null;\nconsole.log(vide ?? "valeur par défaut");\n\nfunction getConfig(opts) {\n  const port = opts?.port ?? 8080;\n  const debug = opts?.debug ?? false;\n  return { port, debug };\n}\nconsole.log(getConfig(null));\nconsole.log(getConfig({ port: 3000 }));`,
-    quiz:{
-      q:"Que retourne typeof null ?",
-      opts:["'null'","'undefined'","'object' (bug historique)","'value'"],
-      answer:2,
-      explanation:"<code>typeof null === 'object'</code> est un bug présent depuis JavaScript 1.0 (1995). Il ne peut pas être corrigé sans casser du code existant. Pour tester explicitement <code>null</code>, utilisez <code>val === null</code> (égalité stricte)."
-    }
+    desc:`<p class="prose"><code>undefined</code> = absence <strong>involontaire</strong>. <code>null</code> = absence <strong>intentionnelle</strong>.</p>
+<div class="callout info"><div class="callout-icon">ℹ</div><div class="callout-body"><strong>Opérateur nullish <code>??</code> :</strong> Retourne le membre droit uniquement si le gauche est <code>null</code> ou <code>undefined</code>. Différence clé avec <code>||</code> qui réagit à toute valeur falsy.</div></div>`,
+    code:`let a;\nlet b = null;\nconsole.log(typeof a);\nconsole.log(typeof b);   // "object" (bug !)\nconsole.log(a == b);     // true\nconsole.log(a === b);    // false\n\nconst port = 0;\nconsole.log(port || 3000);   // 3000\nconsole.log(port ?? 3000);   // 0`,
+    starter:`let vide = null;\nconsole.log(vide ?? "valeur par défaut");`,
+    quiz:{q:"Que retourne typeof null ?",opts:["'null'","'undefined'","'object' (bug historique)","'value'"],answer:2,explanation:"<code>typeof null === 'object'</code> est un bug présent depuis JavaScript 1.0 (1995)."}
   },
   {
     cat:"1. Les Fondations",
     title:"Opérateurs d'Égalité (== vs ===)",
     concepts:["Égalité stricte","Coercition implicite","SameValueZero","Object.is"],
     why:"L'usage de == au lieu de === est responsable de nombreux bugs en production.",
-    desc:`
-<p class="prose"><code>==</code> applique des règles de <strong>coercition complexes</strong> (Abstract Equality Comparison). <code>===</code> compare la valeur ET le type sans conversion — prévisible et sûr. Cas piégeux : <code>NaN === NaN</code> est <code>false</code> !</p>
-
+    desc:`<p class="prose"><code>==</code> applique des règles de <strong>coercition complexes</strong>. <code>===</code> compare la valeur ET le type sans conversion — prévisible et sûr.</p>
 <table class="compare-table">
-  <thead><tr><th>Expression</th><th>== (laxiste)</th><th>=== (stricte)</th></tr></thead>
+  <thead><tr><th>Expression</th><th>==</th><th>===</th></tr></thead>
   <tbody>
     <tr><td><code>5 == "5"</code></td><td><span class="badge-yellow">true</span></td><td><span class="badge-red">false</span></td></tr>
     <tr><td><code>null == undefined</code></td><td><span class="badge-yellow">true</span></td><td><span class="badge-red">false</span></td></tr>
-    <tr><td><code>false == 0</code></td><td><span class="badge-yellow">true</span></td><td><span class="badge-red">false</span></td></tr>
     <tr><td><code>[] == false</code></td><td><span class="badge-yellow">true</span></td><td><span class="badge-red">false</span></td></tr>
     <tr><td><code>NaN === NaN</code></td><td><span class="badge-red">false</span></td><td><span class="badge-red">false</span></td></tr>
-    <tr><td><code>Object.is(NaN, NaN)</code></td><td colspan="2"><span class="badge-green">true</span></td></tr>
   </tbody>
-</table>
-
-<div class="callout tip"><div class="callout-icon">✓</div><div class="callout-body"><strong>Règle d'or :</strong> Utilisez toujours <code>===</code>. Seule exception admise : <code>val == null</code> teste en une fois <code>null</code> ET <code>undefined</code> (cas documenté et intentionnel).</div></div>`,
-    code:`console.log(5 == "5");          // true\nconsole.log(5 === "5");         // false\nconsole.log(null == undefined); // true\nconsole.log(NaN === NaN);       // false !\nconsole.log(Number.isNaN(NaN)); // true (méthode correcte)\nconsole.log(Object.is(NaN, NaN)); // true\nconsole.log(Object.is(0, -0));  // false (distinction !!)`,
-    starter:`console.log(false == 0);\nconsole.log(false === 0);\n\n// Tester la maîtrise des égalités\nconsole.log([] == false);  // ?\nconsole.log([] == 0);      // ?\nconsole.log("" == false);  // ?`,
-    quiz:{
-      q:"Pourquoi préférer === ?",
-      opts:["Plus rapide","Compare valeur ET type sans coercition","Convertit le texte","Économise la mémoire"],
-      answer:1,
-      explanation:"<code>===</code> (égalité stricte) ne fait aucune conversion de type — il compare directement la valeur et le type. Son comportement est <strong>prévisible</strong>. <code>==</code> suit un algorithme complexe de coercition qui produit des surprises comme <code>[] == false</code> → <code>true</code>."
-    }
+</table>`,
+    code:`console.log(5 == "5");\nconsole.log(5 === "5");\nconsole.log(null == undefined);\nconsole.log(NaN === NaN);\nconsole.log(Number.isNaN(NaN));\nconsole.log(Object.is(NaN, NaN));\nconsole.log(Object.is(0, -0));`,
+    starter:`console.log(false == 0);\nconsole.log(false === 0);\nconsole.log([] == false);\nconsole.log([] == 0);\nconsole.log("" == false);`,
+    quiz:{q:"Pourquoi préférer === ?",opts:["Plus rapide","Compare valeur ET type sans coercition","Convertit le texte","Économise la mémoire"],answer:1,explanation:"<code>===</code> (égalité stricte) ne fait aucune conversion de type — il compare directement la valeur et le type. Son comportement est <strong>prévisible</strong>."}
   },
   {
     cat:"1. Les Fondations",
     title:"Structures Conditionnelles — if/else & switch",
     concepts:["if/else","switch/case","Fall-through","Ternaire","Opérateur nullish ??"],
     why:"Le fall-through dans switch est un bug si involontaire, et une feature puissante si maîtrisé.",
-    desc:`
-<p class="prose">Le <code>switch</code> compare par identité stricte (<code>===</code>). L'omission de <code>break</code> provoque un <strong>fall-through</strong> : le code continue dans les cases suivants jusqu'au prochain break.</p>
-
-<div class="section-divider"><span>Choisir la bonne structure</span></div>
-<table class="compare-table">
-  <thead><tr><th>Cas d'usage</th><th>Recommandation</th></tr></thead>
-  <tbody>
-    <tr><td>Condition simple</td><td><code>if / else</code></td></tr>
-    <tr><td>Valeur contre plusieurs constantes</td><td><code>switch</code></td></tr>
-    <tr><td>Assignation conditionnelle</td><td>Ternaire <code>? :</code></td></tr>
-    <tr><td>Valeur par défaut si null/undefined</td><td>Nullish <code>??</code></td></tr>
-    <tr><td>Plusieurs conditions complexes</td><td>Objet de lookup (pattern)</td></tr>
-  </tbody>
-</table>
-
-<div class="callout tip"><div class="callout-icon">✓</div><div class="callout-body"><strong>Pattern lookup object :</strong> Au lieu d'un long <code>switch</code>, créez un objet <code>{ case1: fn1, case2: fn2 }</code> et appelez <code>handlers[val]?.()</code>. Plus maintenable et extensible.</div></div>`,
-    code:`const role = "admin";\nswitch(role) {\n  case "admin": console.log("Accès total"); break;\n  case "user":  console.log("Accès limité"); break;\n  default:      console.log("Refusé");\n}\n\n// Pattern lookup (meilleure pratique)\nconst droits = {\n  admin: () => "Accès total",\n  user:  () => "Accès limité",\n};\nconsole.log((droits[role] ?? (() => "Refusé"))());\n\nconst nom = null ?? "Anonyme";\nconsole.log(nom);`,
-    starter:`let admin = true;\nconsole.log(admin ? "Bienvenue admin" : "Accès refusé");\n\n// Testez le fall-through\nconst n = 2;\nswitch(n) {\n  case 1:\n  case 2:\n  case 3: console.log("1, 2 ou 3 — fall-through intentionnel"); break;\n  default: console.log("autre");\n}`,
-    quiz:{
-      q:"Que se passe-t-il sans break dans un switch ?",
-      opts:["Erreur de syntaxe","Arrêt immédiat","Fall-through : le case suivant s'exécute","Boucle infinie"],
-      answer:2,
-      explanation:"Sans <code>break</code>, le switch continue d'exécuter les instructions des cases suivants jusqu'à trouver un <code>break</code> ou atteindre la fin du bloc. C'est le <strong>fall-through</strong>. Il peut être intentionnel (grouper des cases) mais est souvent un bug involontaire."
-    }
+    desc:`<p class="prose">Le <code>switch</code> compare par identité stricte (<code>===</code>). L'omission de <code>break</code> provoque un <strong>fall-through</strong>.</p>`,
+    code:`const role = "admin";\nswitch(role) {\n  case "admin": console.log("Accès total"); break;\n  case "user":  console.log("Accès limité"); break;\n  default:      console.log("Refusé");\n}\n\nconst droits = {\n  admin: () => "Accès total",\n  user:  () => "Accès limité",\n};\nconsole.log((droits[role] ?? (() => "Refusé"))());\nconsole.log(null ?? "Anonyme");`,
+    starter:`let admin = true;\nconsole.log(admin ? "Bienvenue admin" : "Accès refusé");`,
+    quiz:{q:"Que se passe-t-il sans break dans un switch ?",opts:["Erreur de syntaxe","Arrêt immédiat","Fall-through : le case suivant s'exécute","Boucle infinie"],answer:2,explanation:"Sans <code>break</code>, le switch continue d'exécuter les instructions des cases suivants jusqu'à trouver un <code>break</code>."}
   },
   {
     cat:"2. Structures de Données",
     title:"Tableaux & Indexation",
-    concepts:["Index 0","length","Accès par index","Tableaux denses/épars"],
+    concepts:["Index 0","length","Accès par index","at(-1)"],
     why:"Les tableaux sont la structure de données la plus utilisée en JS.",
     desc:`<p class="prose">Les tableaux JS stockent des données ordonnées accessibles par <strong>index à partir de 0</strong>. La propriété <code>length</code> est dynamique.</p>
-<div class="callout info"><div class="callout-icon">ℹ</div><div class="callout-body">Les tableaux JS sont des objets spéciaux — les indices sont des propriétés de type chaîne. <code>arr[-1]</code> ne fonctionne pas nativement (utilisez <code>arr.at(-1)</code> en ES2022).</div></div>`,
-    code:`const fruits = ["pomme", "banane", "cerise"];\nconsole.log(fruits[0]);\nconsole.log(fruits.length);\nconsole.log(fruits[fruits.length - 1]);\nconsole.log(fruits.at(-1)); // ES2022`,
-    starter:`const notes = [12, 18, 9, 15];\nconsole.log(notes[1]);\nconsole.log(notes.length);\nconsole.log(notes.at(-1)); // dernière`,
-    quiz:{q:"Quel est l'index du premier élément ?",opts:["1","-1","0","X"],answer:2,explanation:"Les tableaux JavaScript (comme la plupart des langages) utilisent une indexation base-0. Le premier élément est à l'index <code>0</code>, le dernier à <code>arr.length - 1</code>. <code>arr.at(-1)</code> permet d'accéder au dernier depuis ES2022."}
+<div class="callout info"><div class="callout-icon">ℹ</div><div class="callout-body">Les tableaux JS sont des objets spéciaux. <code>arr[-1]</code> ne fonctionne pas nativement — utilisez <code>arr.at(-1)</code> (ES2022).</div></div>`,
+    code:`const fruits = ["pomme", "banane", "cerise"];\nconsole.log(fruits[0]);\nconsole.log(fruits.length);\nconsole.log(fruits[fruits.length - 1]);\nconsole.log(fruits.at(-1));`,
+    starter:`const notes = [12, 18, 9, 15];\nconsole.log(notes[1]);\nconsole.log(notes.length);\nconsole.log(notes.at(-1));`,
+    quiz:{q:"Quel est l'index du premier élément ?",opts:["1","-1","0","X"],answer:2,explanation:"Les tableaux JavaScript utilisent une indexation base-0."}
   },
   {
     cat:"2. Structures de Données",
     title:"Mutations de Tableaux",
     concepts:["push / pop","shift / unshift","splice","indexOf","includes"],
     why:"push/pop/shift/unshift sont les opérations de base sur les files et piles.",
-    desc:`<p class="prose"><code>push()</code> ajoute à la fin, <code>pop()</code> retire le dernier. <code>unshift()</code> ajoute au début, <code>shift()</code> retire le premier. <code>splice()</code> modifie à n'importe quelle position.</p>
-<table class="compare-table">
-  <thead><tr><th>Méthode</th><th>Action</th><th>Retourne</th><th>Mute ?</th></tr></thead>
-  <tbody>
-    <tr><td><code>push(x)</code></td><td>Ajoute à la fin</td><td>Nouvelle length</td><td><span class="badge-yellow">Oui</span></td></tr>
-    <tr><td><code>pop()</code></td><td>Retire le dernier</td><td>Élément retiré</td><td><span class="badge-yellow">Oui</span></td></tr>
-    <tr><td><code>unshift(x)</code></td><td>Ajoute au début</td><td>Nouvelle length</td><td><span class="badge-yellow">Oui</span></td></tr>
-    <tr><td><code>shift()</code></td><td>Retire le premier</td><td>Élément retiré</td><td><span class="badge-yellow">Oui</span></td></tr>
-    <tr><td><code>splice(i,n,..)</code></td><td>Modifie à position i</td><td>Éléments retirés</td><td><span class="badge-yellow">Oui</span></td></tr>
-  </tbody>
-</table>`,
-    code:`const stack = [];\nstack.push("A", "B");\nconsole.log(stack.pop()); // "B"\n\nconst file = ["X"];\nfile.unshift("Y");\nconsole.log(file.shift()); // "Y"\n\n// splice : retire 1 élément à l'index 1\nconst arr = [1,2,3,4];\nconst retiré = arr.splice(1, 1);\nconsole.log(arr, "retiré:", retiré);`,
+    desc:`<p class="prose"><code>push()</code> ajoute à la fin, <code>pop()</code> retire le dernier. <code>unshift()</code> ajoute au début, <code>shift()</code> retire le premier.</p>`,
+    code:`const stack = [];\nstack.push("A", "B");\nconsole.log(stack.pop());\n\nconst file = ["X"];\nfile.unshift("Y");\nconsole.log(file.shift());\n\nconst arr = [1,2,3,4];\nconst retiré = arr.splice(1, 1);\nconsole.log(arr, "retiré:", retiré);`,
     starter:`let items = ["or", "argent"];\nitems.push("bronze");\nconsole.log(items);\nconsole.log(items.pop());`,
-    quiz:{q:"Quelle méthode extrait le dernier élément ?",opts:["shift()","pop()","push()","unshift()"],answer:1,explanation:"<code>pop()</code> retire ET retourne le dernier élément du tableau (modifie le tableau en place). <code>shift()</code> fait pareil mais pour le premier élément. Pour lire sans retirer, utilisez <code>arr.at(-1)</code> ou <code>arr[arr.length-1]</code>."}
+    quiz:{q:"Quelle méthode extrait le dernier élément ?",opts:["shift()","pop()","push()","unshift()"],answer:1,explanation:"<code>pop()</code> retire ET retourne le dernier élément du tableau."}
   },
   {
     cat:"2. Structures de Données",
     title:"Objets Littéraux & Propriétés",
     concepts:["Notation point","Notation crochets","Clés dynamiques","Object.keys/values/entries"],
     why:"Les objets sont partout en JS — API REST, JSON, configs.",
-    desc:`<p class="prose">Accès par <strong>point</strong> pour les clés simples. Accès par <strong>crochets</strong> obligatoire pour les clés dynamiques, avec tirets ou numériques.</p>
-<div class="callout tip"><div class="callout-icon">✓</div><div class="callout-body"><code>Object.keys()</code> → tableau des clés | <code>Object.values()</code> → tableau des valeurs | <code>Object.entries()</code> → tableau de paires [clé, valeur]. Tous itèrent uniquement sur les propriétés <strong>propres énumérables</strong>.</div></div>`,
+    desc:`<p class="prose">Accès par <strong>point</strong> pour les clés simples. Accès par <strong>crochets</strong> obligatoire pour les clés dynamiques.</p>`,
     code:`const user = { "user-id": 42, nom: "Léa" };\nconsole.log(user["user-id"]);\nconsole.log(user.nom);\nconst clé = "nom";\nconsole.log(user[clé]);\n\nconst profil = { a: 1, b: 2, c: 3 };\nconsole.log(Object.keys(profil));\nconsole.log(Object.values(profil));\nconsole.log(Object.entries(profil));`,
     starter:`const profil = { nom: "Jean", age: 30 };\nconsole.log(Object.entries(profil));`,
-    quiz:{q:"Quand l'accès par crochets est-il obligatoire ?",opts:["Valeur numérique","Clé dynamique ou caractère spécial","Objet constant","Objet vide"],answer:1,explanation:"L'accès par crochets <code>obj[expr]</code> est indispensable quand : la clé contient des tirets ou caractères spéciaux (<code>obj['user-id']</code>), la clé est une variable ou expression (<code>obj[maVariable]</code>). Pour les clés simples alphanumériques, la notation point est préférée pour la lisibilité."}
+    quiz:{q:"Quand l'accès par crochets est-il obligatoire ?",opts:["Valeur numérique","Clé dynamique ou caractère spécial","Objet constant","Objet vide"],answer:1,explanation:"L'accès par crochets est indispensable quand la clé contient des caractères spéciaux ou est une variable."}
   },
   {
     cat:"2. Structures de Données",
     title:"Boucles — for, while, do...while",
     concepts:["Compteur","break / continue","Boucle infinie","do...while"],
     why:"Maîtriser break et continue permet d'écrire des algorithmes de recherche efficaces.",
-    desc:`<p class="prose"><code>for</code> = nombre d'itérations connu. <code>while</code> = condition avant. <code>do...while</code> = exécution au moins une fois. <code>break</code> interrompt, <code>continue</code> saute à l'itération suivante.</p>
-<div class="callout warn"><div class="callout-icon">⚠</div><div class="callout-body">Oublier d'incrémenter le compteur ou avoir une condition toujours vraie crée une <strong>boucle infinie</strong> qui gèle l'onglet. En production, préférez les méthodes fonctionnelles (<code>map</code>, <code>filter</code>) pour éviter ces risques.</div></div>`,
-    code:`for (let i = 1; i <= 10; i++) {\n  if (i % 2 === 0) {\n    console.log("Premier pair :", i);\n    break;\n  }\n}\n\n// continue — sauter les pairs\nfor (let i = 1; i <= 5; i++) {\n  if (i % 2 === 0) continue;\n  console.log("Impair :", i);\n}`,
+    desc:`<p class="prose"><code>for</code> = nombre d'itérations connu. <code>while</code> = condition avant. <code>do...while</code> = exécution au moins une fois.</p>`,
+    code:`for (let i = 1; i <= 10; i++) {\n  if (i % 2 === 0) {\n    console.log("Premier pair :", i);\n    break;\n  }\n}\nfor (let i = 1; i <= 5; i++) {\n  if (i % 2 === 0) continue;\n  console.log("Impair :", i);\n}`,
     starter:`let i = 0;\nwhile (i < 3) {\n  console.log("Tour", i);\n  i++;\n}`,
-    quiz:{q:"Danger principal d'une condition toujours vraie ?",opts:["Un saut de ligne","Crash par boucle infinie","Libération de RAM","Aucun"],answer:1,explanation:"Une boucle infinie monopolise le thread principal (monothread JS), empêchant toute autre exécution. L'onglet gèle puis le navigateur propose de le fermer. En Node.js, le processus devient non-responsive."}
+    quiz:{q:"Danger principal d'une condition toujours vraie ?",opts:["Un saut de ligne","Crash par boucle infinie","Libération de RAM","Aucun"],answer:1,explanation:"Une boucle infinie monopolise le thread principal, l'onglet gèle puis le navigateur propose de le fermer."}
   },
   {
     cat:"2. Structures de Données",
     title:"for...of & for...in",
     concepts:["for...of (valeurs)","for...in (clés)","Itérables","Pièges de for...in"],
     why:"for...of est plus lisible et évite les bugs d'index.",
-    desc:`<p class="prose"><code>for...of</code> itère sur les <strong>valeurs</strong> de tout itérable (Array, String, Map, Set, arguments…). <code>for...in</code> itère sur les <strong>clés</strong> énumérables d'un objet.</p>
-<div class="callout warn"><div class="callout-icon">⚠</div><div class="callout-body">N'utilisez <strong>jamais</strong> <code>for...in</code> sur un tableau — il peut itérer sur des propriétés héritées du prototype et l'ordre n'est pas garanti. Utilisez <code>for...of</code> ou <code>forEach()</code>.</div></div>`,
-    code:`const couleurs = ["rouge", "vert", "bleu"];\nfor (const c of couleurs) console.log(c);\n\nconst config = { debug: true, env: "prod" };\nfor (const clé in config) console.log(clé, "=", config[clé]);\n\n// for...of avec index (entries)\nfor (const [i, v] of couleurs.entries()) {\n  console.log(\`[\${i}] \${v}\`);\n}`,
+    desc:`<p class="prose"><code>for...of</code> itère sur les <strong>valeurs</strong> de tout itérable. <code>for...in</code> itère sur les <strong>clés</strong> énumérables d'un objet.</p>
+<div class="callout warn"><div class="callout-icon">⚠</div><div class="callout-body">N'utilisez <strong>jamais</strong> <code>for...in</code> sur un tableau — utilisez <code>for...of</code> ou <code>forEach()</code>.</div></div>`,
+    code:`const couleurs = ["rouge", "vert", "bleu"];\nfor (const c of couleurs) console.log(c);\n\nconst config = { debug: true, env: "prod" };\nfor (const clé in config) console.log(clé, "=", config[clé]);\n\nfor (const [i, v] of couleurs.entries()) {\n  console.log(\`[\${i}] \${v}\`);\n}`,
     starter:`const chiffres = [10, 20, 30];\nfor (const n of chiffres) console.log(n * 2);`,
-    quiz:{q:"Quelle boucle extrait directement les valeurs d'un tableau ?",opts:["for...in","for...of","for classique","while"],answer:1,explanation:"<code>for...of</code> accède directement aux <strong>valeurs</strong> en appelant l'iterator de l'objet. <code>for...in</code> accède aux <strong>clés</strong> (indices comme chaînes pour un tableau). <code>for...of</code> est également utilisable sur les Strings (caractères), Maps et Sets."}
+    quiz:{q:"Quelle boucle extrait directement les valeurs d'un tableau ?",opts:["for...in","for...of","for classique","while"],answer:1,explanation:"<code>for...of</code> accède directement aux <strong>valeurs</strong> en appelant l'iterator de l'objet."}
   },
   {
     cat:"2. Structures de Données",
     title:"Array.map() — Transformer",
     concepts:["Nouveau tableau","Transformation","Immutabilité","Chaînage"],
     why:"map() est la méthode la plus utilisée en React et dans tout code fonctionnel.",
-    desc:`<p class="prose"><code>map(fn)</code> crée un <strong>nouveau tableau</strong> de même taille en appliquant <code>fn</code> à chaque élément. Le tableau original n'est jamais modifié.</p>
-<div class="callout info"><div class="callout-icon">ℹ</div><div class="callout-body">La callback de <code>map</code> reçoit 3 arguments : <code>(élément, index, tableau)</code>. Utiliser uniquement ce dont vous avez besoin. En React, <code>map()</code> génère les listes de composants JSX.</div></div>`,
-    code:`const prix = [10, 25, 50];\nconst avecTva = prix.map(p => p * 1.2);\nconsole.log(avecTva);\nconsole.log(prix); // intact\n\n// map avec index\nconst items = ["a","b","c"];\nconsole.log(items.map((v, i) => \`\${i}:\${v}\`));`,
+    desc:`<p class="prose"><code>map(fn)</code> crée un <strong>nouveau tableau</strong> de même taille en appliquant <code>fn</code> à chaque élément. Le tableau original n'est jamais modifié.</p>`,
+    code:`const prix = [10, 25, 50];\nconst avecTva = prix.map(p => p * 1.2);\nconsole.log(avecTva);\nconsole.log(prix);\n\nconst items = ["a","b","c"];\nconsole.log(items.map((v, i) => \`\${i}:\${v}\`));`,
     starter:`const notes = [8, 12, 15, 18];\nconst pct = notes.map(n => (n/20*100).toFixed(0) + "%");\nconsole.log(pct);`,
-    quiz:{q:"map() modifie-t-il le tableau d'origine ?",opts:["Oui","Non — il retourne un nouveau tableau","Seulement si let","Seulement si const"],answer:1,explanation:"<code>map()</code> est une méthode <strong>pure</strong> — elle ne mute jamais le tableau source. Elle retourne un nouveau tableau de même longueur. C'est ce qui la rend sûre pour les pratiques immutables (Redux, React state)."}
+    quiz:{q:"map() modifie-t-il le tableau d'origine ?",opts:["Oui","Non — il retourne un nouveau tableau","Seulement si let","Seulement si const"],answer:1,explanation:"<code>map()</code> est une méthode <strong>pure</strong> — elle ne mute jamais le tableau source."}
   },
   {
     cat:"2. Structures de Données",
     title:"Array.filter() — Sélectionner",
     concepts:["Prédicat","Tableau vide","find() vs filter()","some() / every()"],
     why:"filter() remplace les boucles for avec if — code 50% plus court.",
-    desc:`<p class="prose"><code>filter(fn)</code> retourne un nouveau tableau contenant uniquement les éléments pour lesquels le prédicat retourne truthy. Si aucun ne correspond : <strong>tableau vide</strong> (jamais null).</p>
-<table class="compare-table">
-  <thead><tr><th>Méthode</th><th>Retourne</th><th>Cas d'usage</th></tr></thead>
-  <tbody>
-    <tr><td><code>filter(fn)</code></td><td>Tableau filtré</td><td>Extraire plusieurs éléments</td></tr>
-    <tr><td><code>find(fn)</code></td><td>Premier élément ou undefined</td><td>Trouver un seul élément</td></tr>
-    <tr><td><code>some(fn)</code></td><td>Boolean</td><td>Au moins un correspondant ?</td></tr>
-    <tr><td><code>every(fn)</code></td><td>Boolean</td><td>Tous les éléments correspondent ?</td></tr>
-  </tbody>
-</table>`,
-    code:`const users = [\n  { nom: "Alice", age: 17 },\n  { nom: "Bob",   age: 25 }\n];\nconst majeurs = users.filter(u => u.age >= 18);\nconsole.log(majeurs.map(u => u.nom));\n\n// find — premier seulement\nconst alice = users.find(u => u.nom === "Alice");\nconsole.log(alice);\n\n// some / every\nconsole.log(users.some(u => u.age >= 18));  // true\nconsole.log(users.every(u => u.age >= 18)); // false`,
+    desc:`<p class="prose"><code>filter(fn)</code> retourne un nouveau tableau contenant uniquement les éléments pour lesquels le prédicat retourne truthy. Si aucun : <strong>tableau vide</strong> (jamais null).</p>`,
+    code:`const users = [\n  { nom: "Alice", age: 17 },\n  { nom: "Bob",   age: 25 }\n];\nconst majeurs = users.filter(u => u.age >= 18);\nconsole.log(majeurs.map(u => u.nom));\nconst alice = users.find(u => u.nom === "Alice");\nconsole.log(alice);\nconsole.log(users.some(u => u.age >= 18));\nconsole.log(users.every(u => u.age >= 18));`,
     starter:`const notes = [5, 8, 12, 15, 18];\nconsole.log("Admis :", notes.filter(n => n >= 10));`,
-    quiz:{q:"Que retourne filter() si aucun élément ne correspond ?",opts:["null","undefined","Un tableau vide []","-1"],answer:2,explanation:"<code>filter()</code> retourne toujours un tableau, potentiellement vide. Cela permet de chaîner les opérations sans vérifier si le résultat est null. <code>find()</code>, en revanche, retourne <code>undefined</code> si rien n'est trouvé."}
+    quiz:{q:"Que retourne filter() si aucun élément ne correspond ?",opts:["null","undefined","Un tableau vide []","-1"],answer:2,explanation:"<code>filter()</code> retourne toujours un tableau, potentiellement vide."}
   },
   {
     cat:"2. Structures de Données",
     title:"Array.reduce() — Agréger",
     concepts:["Accumulateur","Valeur initiale","Agrégation","reduce → objet"],
     why:"reduce() est l'outil le plus puissant de l'arsenal fonctionnel.",
-    desc:`<p class="prose"><code>reduce(fn, valeurInitiale)</code> traite chaque élément en passant le résultat accumulé à l'itération suivante. Toujours fournir la valeur initiale pour éviter les bugs sur tableaux vides.</p>
-<div class="callout warn"><div class="callout-icon">⚠</div><div class="callout-body">Sans valeur initiale, <code>reduce()</code> utilise le premier élément comme accumulateur de départ. Sur un tableau vide, cela lance une <code>TypeError</code>. Fournissez toujours la valeur initiale.</div></div>`,
-    code:`const panier = [{ nom: "Livre", prix: 12 }, { nom: "Stylo", prix: 3 }];\nconst total = panier.reduce((acc, item) => acc + item.prix, 0);\nconsole.log("Total :", total, "€");\n\n// reduce → objet (groupement)\nconst votes = ["A","B","A","C","A","B"];\nconst résultat = votes.reduce((acc, v) => {\n  acc[v] = (acc[v] || 0) + 1;\n  return acc;\n}, {});\nconsole.log(résultat);`,
+    desc:`<p class="prose"><code>reduce(fn, valeurInitiale)</code> traite chaque élément en passant le résultat accumulé à l'itération suivante.</p>
+<div class="callout warn"><div class="callout-icon">⚠</div><div class="callout-body">Sans valeur initiale sur tableau vide → <code>TypeError</code>. Fournissez toujours la valeur initiale.</div></div>`,
+    code:`const panier = [{ nom: "Livre", prix: 12 }, { nom: "Stylo", prix: 3 }];\nconst total = panier.reduce((acc, item) => acc + item.prix, 0);\nconsole.log("Total :", total, "€");\n\nconst votes = ["A","B","A","C","A","B"];\nconst résultat = votes.reduce((acc, v) => {\n  acc[v] = (acc[v] || 0) + 1;\n  return acc;\n}, {});\nconsole.log(résultat);`,
     starter:`const scores = [100, 200, 150, 300];\nconst max = scores.reduce((acc, s) => s > acc ? s : acc, 0);\nconsole.log("Score max :", max);`,
-    quiz:{q:"À quoi sert le 2e argument de reduce() ?",opts:["Limiter la taille","Initialiser l'accumulateur","Définir l'index de fin","Callback secondaire"],answer:1,explanation:"Le second argument de <code>reduce(fn, init)</code> est la <strong>valeur initiale</strong> de l'accumulateur. C'est la valeur de <code>acc</code> lors de la première itération. Sans elle, le premier élément du tableau est utilisé comme accumulateur, ce qui peut mener à des erreurs sur tableaux vides."}
+    quiz:{q:"À quoi sert le 2e argument de reduce() ?",opts:["Limiter la taille","Initialiser l'accumulateur","Définir l'index de fin","Callback secondaire"],answer:1,explanation:"Le second argument de <code>reduce(fn, init)</code> est la <strong>valeur initiale</strong> de l'accumulateur."}
   },
   {
     cat:"2. Structures de Données",
     title:"Destructuring — Objets & Tableaux",
     concepts:["Destructuring objet","Destructuring tableau","Renommage","Valeur par défaut"],
     why:"Le destructuring est omniprésent dans React, les imports ES modules et les paramètres d'API.",
-    desc:`<p class="prose">Le destructuring extrait des valeurs dans des variables en une seule instruction. <strong>Objets</strong> → <code>{}</code> par nom de propriété. <strong>Tableaux</strong> → <code>[]</code> par position.</p>
-<div class="callout info"><div class="callout-icon">ℹ</div><div class="callout-body">Le destructuring fonctionne aussi dans les <strong>paramètres de fonctions</strong> : <code>function f({ nom, âge = 0 }) {}</code>. Très courant dans les composants React qui reçoivent un objet <code>props</code>.</div></div>`,
-    code:`const user = { nom: "Léa", role: "admin", age: 28 };\nconst { nom, role: fonction, age = 0, ville = "Paris" } = user;\nconsole.log(nom, fonction, age, ville);\n\nconst [x, , z, w = 99] = [10, 20, 30];\nconsole.log(x, z, w); // 20 ignoré, w par défaut\n\n// Destructuring imbriqué\nconst { adresse: { ville: codePostal = "?" } = {} } = {};\nconsole.log(codePostal);`,
-    starter:`const point = { x: 5, y: 10 };\nconst { x, y } = point;\nconsole.log(\`x=\${x}, y=\${y}\`);\n\n// Swap de variables !\nlet a = 1, b = 2;\n[a, b] = [b, a];\nconsole.log(a, b);`,
-    quiz:{q:"Syntaxe du destructuring d'un objet ?",opts:["(a, b)","[a, b]","{a, b}","<a, b>"],answer:2,explanation:"Le destructuring d'objet utilise des <code>{}</code> : <code>const { a, b } = obj</code> extrait les propriétés <code>a</code> et <code>b</code>. Les <code>[]</code> sont pour les tableaux. La syntaxe <code>{ prop: newName }</code> permet de renommer, et <code>{ prop = default }</code> d'avoir une valeur par défaut."}
+    desc:`<p class="prose">Le destructuring extrait des valeurs dans des variables en une seule instruction.</p>`,
+    code:`const user = { nom: "Léa", role: "admin", age: 28 };\nconst { nom, role: fonction, age = 0, ville = "Paris" } = user;\nconsole.log(nom, fonction, age, ville);\n\nconst [x, , z, w = 99] = [10, 20, 30];\nconsole.log(x, z, w);`,
+    starter:`const point = { x: 5, y: 10 };\nconst { x, y } = point;\nconsole.log(\`x=\${x}, y=\${y}\`);\n\nlet a = 1, b = 2;\n[a, b] = [b, a];\nconsole.log(a, b);`,
+    quiz:{q:"Syntaxe du destructuring d'un objet ?",opts:["(a, b)","[a, b]","{a, b}","<a, b>"],answer:2,explanation:"Le destructuring d'objet utilise des <code>{}</code> : <code>const { a, b } = obj</code>."}
   },
   {
     cat:"2. Structures de Données",
     title:"Rest & Spread (...)",
     concepts:["Spread tableau","Spread objet","Rest paramètres","Copie superficielle"],
     why:"Le spread remplace Object.assign et concat — indispensable pour l'immutabilité dans Redux/React.",
-    desc:`<p class="prose"><strong>Spread</strong> (<code>...</code>) : éclate un itérable en éléments individuels. <strong>Rest</strong> : regroupe les arguments restants. Attention : copie <strong>superficielle</strong> — les objets imbriqués sont partagés par référence.</p>
-<div class="pitfall-box"><div class="pitfall-title">⚠ Copie profonde</div>
-Pour une vraie copie profonde : <code>structuredClone(obj)</code> (natif ES2022) ou <code>JSON.parse(JSON.stringify(obj))</code> (attention : perd les fonctions et les dates).</div>`,
-    code:`const a = [1, 2], b = [3, 4];\nconst fusion = [...a, ...b];\nconsole.log(fusion);\n\nconst config = { debug: false, timeout: 3000 };\nconst prod = { ...config, debug: true, env: "prod" };\nconsole.log(prod);\n\n// Copie superficielle vs profonde\nconst orig = { user: { nom: "Alice" } };\nconst copie = { ...orig };\ncopie.user.nom = "Bob"; // Modifie aussi orig !\nconsole.log(orig.user.nom); // "Bob" (partagé)`,
+    desc:`<p class="prose"><strong>Spread</strong> (<code>...</code>) : éclate un itérable en éléments individuels. <strong>Rest</strong> : regroupe les arguments restants. Attention : copie <strong>superficielle</strong>.</p>`,
+    code:`const a = [1, 2], b = [3, 4];\nconst fusion = [...a, ...b];\nconsole.log(fusion);\n\nconst config = { debug: false, timeout: 3000 };\nconst prod = { ...config, debug: true, env: "prod" };\nconsole.log(prod);`,
     starter:`function somme(...nums) {\n  return nums.reduce((a, b) => a + b, 0);\n}\nconsole.log(somme(1, 2, 3, 4, 5));`,
-    quiz:{q:"Que produit [...tableau] ?",opts:["Inversion","Copie superficielle","Suppression des doublons","Verrouillage"],answer:1,explanation:"<code>[...arr]</code> crée une <strong>copie superficielle</strong> du tableau — un nouveau tableau avec les mêmes éléments. Si les éléments sont des primitives (nombres, strings), c'est une vraie copie. Si ce sont des objets ou tableaux, les références sont partagées."}
+    quiz:{q:"Que produit [...tableau] ?",opts:["Inversion","Copie superficielle","Suppression des doublons","Verrouillage"],answer:1,explanation:"<code>[...arr]</code> crée une <strong>copie superficielle</strong> du tableau."}
   },
   {
     cat:"3. Fonctions & Portées",
     title:"Déclaration vs Expression de Fonction",
     concepts:["Function declaration","Function expression","Hoisting complet","Anonyme vs nommée"],
     why:"Comprendre le hoisting évite les erreurs d'ordre d'utilisation.",
-    desc:`<p class="prose">Les <strong>déclarations</strong> (<code>function f(){}</code>) sont hoistées <strong>complètement</strong> — elles peuvent être appelées avant leur écriture. Les <strong>expressions</strong> assignées à <code>let</code>/<code>const</code> ne le sont pas.</p>
-<table class="compare-table">
-  <thead><tr><th>Forme</th><th>Hoistée ?</th><th>Nommée ?</th><th>Utilisable avant ?</th></tr></thead>
-  <tbody>
-    <tr><td>Déclaration <code>function f(){}</code></td><td><span class="badge-green">Oui (complète)</span></td><td>Oui</td><td><span class="badge-green">Oui</span></td></tr>
-    <tr><td>Expression <code>const f = function(){}</code></td><td><span class="badge-red">Non (TDZ)</span></td><td>Optionnel</td><td><span class="badge-red">Non</span></td></tr>
-    <tr><td>Arrow <code>const f = () => {}</code></td><td><span class="badge-red">Non (TDZ)</span></td><td>Non (via variable)</td><td><span class="badge-red">Non</span></td></tr>
-  </tbody>
-</table>`,
-    code:`bonjour();\nfunction bonjour() { console.log("Salut !"); }\n// aurevoir(); // ReferenceError !\nconst aurevoir = () => console.log("Bye !");\nau revoir();`,
+    desc:`<p class="prose">Les <strong>déclarations</strong> sont hoistées <strong>complètement</strong>. Les <strong>expressions</strong> assignées à <code>let</code>/<code>const</code> ne le sont pas.</p>`,
+    code:`bonjour();\nfunction bonjour() { console.log("Salut !"); }\n\ntry {\n  aurevoir();\n} catch(e) { console.log(e.message); }\nconst aurevoir = () => console.log("Bye !");`,
     starter:`function carre(n) { return n * n; }\nconsole.log(carre(5));`,
-    quiz:{q:"Quelle forme est entièrement hoistée ?",opts:["Expression de fonction","Fonction fléchée","Déclaration de fonction","Aucune"],answer:2,explanation:"Seules les <strong>déclarations de fonction</strong> (<code>function nom() {}</code>) sont entièrement hoistées — leur nom et leur corps sont disponibles dès le début du scope. Les expressions (y compris les flèches) assignées à <code>const</code>/<code>let</code> sont en TDZ jusqu'à leur ligne de déclaration."}
+    quiz:{q:"Quelle forme est entièrement hoistée ?",opts:["Expression de fonction","Fonction fléchée","Déclaration de fonction","Aucune"],answer:2,explanation:"Seules les <strong>déclarations de fonction</strong> sont entièrement hoistées."}
   },
   {
     cat:"3. Fonctions & Portées",
     title:"Fonctions Fléchées & this Lexical",
-    concepts:["Arrow function","this lexical","Syntaxe concise","Pas de arguments","Pas de new"],
+    concepts:["Arrow function","this lexical","Syntaxe concise","Pas de arguments"],
     why:"Les fonctions fléchées résolvent le bug classique de perte de contexte this.",
-    desc:`<p class="prose">Les fonctions fléchées héritent du <code>this</code> de leur contexte englobant (<strong>this lexical</strong>). Elles ne peuvent pas être utilisées comme constructeurs et n'ont pas d'objet <code>arguments</code>.</p>
-<table class="compare-table">
-  <thead><tr><th>Capacité</th><th>function(){}</th><th>() => {}</th></tr></thead>
-  <tbody>
-    <tr><td><code>this</code> propre</td><td><span class="badge-green">Oui (dynamique)</span></td><td><span class="badge-red">Non (lexical)</span></td></tr>
-    <tr><td>Utilisable avec <code>new</code></td><td><span class="badge-green">Oui</span></td><td><span class="badge-red">Non</span></td></tr>
-    <tr><td>Objet <code>arguments</code></td><td><span class="badge-green">Oui</span></td><td><span class="badge-red">Non</span></td></tr>
-    <tr><td>Méthode d'objet</td><td><span class="badge-green">Recommandé</span></td><td><span class="badge-yellow">Déconseillé</span></td></tr>
-    <tr><td>Callback asynchrone</td><td><span class="badge-yellow">Problématique</span></td><td><span class="badge-green">Idéal</span></td></tr>
-  </tbody>
-</table>`,
-    code:`const compteur = {\n  valeur: 0,\n  incrémenter() {\n    setTimeout(() => {\n      this.valeur++; // 'this' = compteur (lexical)\n      console.log("Valeur:", this.valeur);\n    }, 10);\n  }\n};\ncompteur.incrémenter();`,
-    starter:`const double = x => x * 2;\nconsole.log([1,2,3].map(double));\n\n// Syntaxes concises\nconst carré = x => x ** 2;\nconst saluer = (prenom, lang) => \`Hello \${prenom}\`;\nconsole.log(carré(4), saluer("Alice"));`,
-    quiz:{q:"Particularité de 'this' dans une arrow function ?",opts:["Il vaut null","Il est lexical (hérité du parent)","Il change à chaque appel","Il référence le DOM"],answer:1,explanation:"Les fonctions fléchées ne créent pas leur propre contexte <code>this</code>. Elles héritent du <code>this</code> de leur scope environnant (lexical). C'est pourquoi elles sont idéales pour les callbacks à l'intérieur de méthodes d'objet, où on veut conserver le <code>this</code> de l'objet."}
+    desc:`<p class="prose">Les fonctions fléchées héritent du <code>this</code> de leur contexte englobant (<strong>this lexical</strong>). Elles ne peuvent pas être utilisées comme constructeurs.</p>`,
+    code:`const compteur = {\n  valeur: 0,\n  incrémenter() {\n    setTimeout(() => {\n      this.valeur++;\n      console.log("Valeur:", this.valeur);\n    }, 10);\n  }\n};\ncompteur.incrémenter();`,
+    starter:`const double = x => x * 2;\nconsole.log([1,2,3].map(double));\nconst carré = x => x ** 2;\nconsole.log(carré(4));`,
+    quiz:{q:"Particularité de 'this' dans une arrow function ?",opts:["Il vaut null","Il est lexical (hérité du parent)","Il change à chaque appel","Il référence le DOM"],answer:1,explanation:"Les fonctions fléchées héritent du <code>this</code> de leur scope environnant (lexical)."}
   },
   {
     cat:"3. Fonctions & Portées",
     title:"Paramètres par Défaut & Rest",
     concepts:["Valeur par défaut","...rest","Arguments optionnels","Ordre des paramètres"],
     why:"Les paramètres par défaut éliminent les patterns défensifs du style : val = val || 'défaut'.",
-    desc:`<p class="prose">Les <strong>valeurs par défaut</strong> s'activent uniquement quand le paramètre est <code>undefined</code> (pas null, pas 0 !) Les <strong>Rest paramètres</strong> (<code>...args</code>) regroupent les arguments restants dans un vrai tableau.</p>
-<div class="callout warn"><div class="callout-icon">⚠</div><div class="callout-body">Les paramètres avec valeur par défaut doivent être <strong>après</strong> les paramètres obligatoires. Le Rest parameter (<code>...args</code>) doit être le <strong>dernier</strong>.</div></div>`,
-    code:`function créerUser(nom, rôle = "user", actif = true) {\n  return { nom, rôle, actif };\n}\nconsole.log(créerUser("Alice"));\nconsole.log(créerUser("Bob", "admin"));\nconsole.log(créerUser("Eve", undefined, false)); // default rôle\n\nfunction log(niveau, ...messages) {\n  messages.forEach(m => console.log(\`[\${niveau}] \${m}\`));\n}\nlog("INFO", "Démarrage", "Port 3000", "Prêt");`,
-    starter:`function saluer(prenom, langue = "fr") {\n  const saluts = { fr: "Bonjour", en: "Hello", es: "Hola" };\n  return \`\${saluts[langue] ?? "Hey"}, \${prenom} !\`;\n}\nconsole.log(saluer("Marc"));\nconsole.log(saluer("Marc", "en"));\nconsole.log(saluer("Marc", "es"));`,
-    quiz:{q:"Type généré par un paramètre Rest (...args) ?",opts:["Object","String","Array","Number"],answer:2,explanation:"Un paramètre Rest (<code>...args</code>) collecte tous les arguments restants dans un vrai <strong>Array</strong>. Contrairement à l'ancien objet <code>arguments</code> (array-like mais pas un vrai tableau), le résultat d'un rest parameter est un vrai Array avec toutes les méthodes (<code>map</code>, <code>filter</code>, etc.)."}
+    desc:`<p class="prose">Les <strong>valeurs par défaut</strong> s'activent uniquement quand le paramètre est <code>undefined</code>.</p>`,
+    code:`function créerUser(nom, rôle = "user", actif = true) {\n  return { nom, rôle, actif };\n}\nconsole.log(créerUser("Alice"));\nconsole.log(créerUser("Bob", "admin"));\n\nfunction log(niveau, ...messages) {\n  messages.forEach(m => console.log(\`[\${niveau}] \${m}\`));\n}\nlog("INFO", "Démarrage", "Port 3000");`,
+    starter:`function saluer(prenom, langue = "fr") {\n  const saluts = { fr: "Bonjour", en: "Hello", es: "Hola" };\n  return \`\${saluts[langue] ?? "Hey"}, \${prenom} !\`;\n}\nconsole.log(saluer("Marc"));\nconsole.log(saluer("Marc", "en"));`,
+    quiz:{q:"Type généré par un paramètre Rest (...args) ?",opts:["Object","String","Array","Number"],answer:2,explanation:"Un paramètre Rest (<code>...args</code>) collecte tous les arguments restants dans un vrai <strong>Array</strong>."}
   },
   {
     cat:"3. Fonctions & Portées",
     title:"Les Closures — Mémoire et Encapsulation",
-    concepts:["Lexical scope","État persistant","Encapsulation","Module pattern","Memoization"],
+    concepts:["Lexical scope","État persistant","Encapsulation","Module pattern"],
     why:"Les closures sont la base des modules, de l'encapsulation et des hooks React comme useState.",
-    desc:`<p class="prose">Une <strong>closure</strong> est la combinaison d'une fonction et de son environnement lexical. Les variables accessibles au moment de la création de la fonction persistent en mémoire tant que la closure est référencée.</p>
-<div class="callout info"><div class="callout-icon">ℹ</div><div class="callout-body"><strong>useState en React</strong> est implémenté avec des closures — chaque appel de hook capture son état local. La <strong>memoization</strong> (mise en cache des résultats) utilise aussi les closures pour conserver le cache entre les appels.</div></div>`,
-    code:`function créeCompteur(départ = 0) {\n  let compte = départ; // capturé par closure\n  return {\n    incrémenter: () => ++compte,\n    décrémenter: () => --compte,\n    reset: () => { compte = départ; },\n    valeur: () => compte\n  };\n}\nconst c = créeCompteur(10);\nc.incrémenter(); c.incrémenter();\nconsole.log(c.valeur()); // 12\nc.reset();\nconsole.log(c.valeur()); // 10`,
-    starter:`function multiplié(facteur) {\n  return n => n * facteur;\n}\nconst triple = multiplié(3);\nconst quadruple = multiplié(4);\nconsole.log(triple(5)); // 15\nconsole.log(quadruple(5)); // 20`,
-    quiz:{q:"Qu'est-ce qu'une closure ?",opts:["Une boucle sécurisée","Une fonction qui capture son environnement lexical","Un outil de compression","Une optimisation JIT"],answer:1,explanation:"Une closure est une fonction qui \"se souvient\" des variables de son scope de création même après la fin d'exécution de la fonction parente. Elle capture une référence (pas une copie) aux variables environnantes, permettant un état persistant et privé."}
+    desc:`<p class="prose">Une <strong>closure</strong> est la combinaison d'une fonction et de son environnement lexical. Les variables accessibles persistent en mémoire tant que la closure est référencée.</p>`,
+    code:`function créeCompteur(départ = 0) {\n  let compte = départ;\n  return {\n    incrémenter: () => ++compte,\n    décrémenter: () => --compte,\n    reset: () => { compte = départ; },\n    valeur: () => compte\n  };\n}\nconst c = créeCompteur(10);\nc.incrémenter(); c.incrémenter();\nconsole.log(c.valeur());\nc.reset();\nconsole.log(c.valeur());`,
+    starter:`function multiplié(facteur) {\n  return n => n * facteur;\n}\nconst triple = multiplié(3);\nconst quadruple = multiplié(4);\nconsole.log(triple(5));\nconsole.log(quadruple(5));`,
+    quiz:{q:"Qu'est-ce qu'une closure ?",opts:["Une boucle sécurisée","Une fonction qui capture son environnement lexical","Un outil de compression","Une optimisation JIT"],answer:1,explanation:"Une closure est une fonction qui 'se souvient' des variables de son scope de création."}
   },
   {
     cat:"3. Fonctions & Portées",
     title:"Fonctions d'Ordre Supérieur (HOF)",
     concepts:["Fonction comme argument","Fonction comme retour","Composition","Currying"],
     why:"Les HOF sont le fondement de la programmation fonctionnelle et de React/RxJS.",
-    desc:`<p class="prose">Une <strong>HOF</strong> prend des fonctions en argument ET/OU retourne une fonction. <code>map</code>, <code>filter</code>, <code>reduce</code> sont des HOF natives. Le <strong>currying</strong> transforme <code>f(a,b)</code> en <code>f(a)(b)</code>.</p>
-<div class="callout tip"><div class="callout-icon">✓</div><div class="callout-body"><strong>Composition de fonctions :</strong> <code>h(x) = f(g(x))</code>. Très puissant pour construire des pipelines de traitement de données. Bibliothèques : <strong>Ramda</strong>, <strong>lodash/fp</strong> proposent des utilitaires de composition.</div></div>`,
-    code:`const composer = (...fns) => x => fns.reduceRight((v, f) => f(v), x);\nconst doublerEtAjouter10 = composer(\n  x => x + 10,\n  x => x * 2\n);\nconsole.log(doublerEtAjouter10(5)); // 20\n\n// Currying\nconst add = a => b => a + b;\nconst add5 = add(5);\nconsole.log([1,2,3].map(add5)); // [6,7,8]`,
+    desc:`<p class="prose">Une <strong>HOF</strong> prend des fonctions en argument ET/OU retourne une fonction. Le <strong>currying</strong> transforme <code>f(a,b)</code> en <code>f(a)(b)</code>.</p>`,
+    code:`const composer = (...fns) => x => fns.reduceRight((v, f) => f(v), x);\nconst doublerEtAjouter10 = composer(x => x + 10, x => x * 2);\nconsole.log(doublerEtAjouter10(5));\n\nconst add = a => b => a + b;\nconst add5 = add(5);\nconsole.log([1,2,3].map(add5));`,
     starter:`function appliquer(fn, valeurs) {\n  return valeurs.map(fn);\n}\nconsole.log(appliquer(x => x ** 2, [1,2,3,4]));`,
-    quiz:{q:"Quelle méthode native est une HOF ?",opts:["Math.max","Array.prototype.map","String.prototype.trim","parseInt"],answer:1,explanation:"<code>Array.prototype.map()</code> est une HOF — elle prend une <strong>fonction en argument</strong> (la callback). <code>Math.max</code>, <code>trim()</code> et <code>parseInt()</code> prennent des valeurs primitives, pas des fonctions."}
+    quiz:{q:"Quelle méthode native est une HOF ?",opts:["Math.max","Array.prototype.map","String.prototype.trim","parseInt"],answer:1,explanation:"<code>Array.prototype.map()</code> est une HOF — elle prend une <strong>fonction en argument</strong>."}
   },
   {
     cat:"3. Fonctions & Portées",
     title:"Callbacks & Flux Asynchrone",
     concepts:["Callback","Error-first convention","Inversion de contrôle","Node.js style"],
     why:"Comprendre les callbacks est prérequis pour Promises et async/await.",
-    desc:`<p class="prose">Un <strong>callback</strong> est une fonction passée en argument pour être appelée plus tard. Convention Node.js <strong>error-first</strong> : <code>callback(err, résultat)</code> — l'erreur est toujours le premier paramètre.</p>
-<div class="callout info"><div class="callout-icon">ℹ</div><div class="callout-body"><strong>Inversion de contrôle :</strong> Passer un callback cède le contrôle d'exécution à une autre fonction. C'est la principale limite des callbacks — on ne sait pas quand, combien de fois, ou dans quel contexte notre fonction sera appelée.</div></div>`,
-    code:`function charger(id, callback) {\n  setTimeout(() => {\n    if (id > 0) callback(null, { id, nom: "Item" + id });\n    else callback(new Error("ID invalide"), null);\n  }, 100);\n}\ncharger(42, (err, data) => {\n  if (err) return console.error(err.message);\n  console.log("Données :", data);\n});\ncharger(-1, (err, data) => {\n  if (err) return console.error("Erreur :", err.message);\n  console.log(data);\n});`,
+    desc:`<p class="prose">Un <strong>callback</strong> est une fonction passée en argument pour être appelée plus tard. Convention Node.js <strong>error-first</strong> : <code>callback(err, résultat)</code>.</p>`,
+    code:`function charger(id, callback) {\n  setTimeout(() => {\n    if (id > 0) callback(null, { id, nom: "Item" + id });\n    else callback(new Error("ID invalide"), null);\n  }, 100);\n}\ncharger(42, (err, data) => {\n  if (err) return console.error(err.message);\n  console.log("Données :", data);\n});\ncharger(-1, (err) => { if (err) console.error("Erreur :", err.message); });`,
     starter:`function faireA(callback) {\n  setTimeout(() => callback("Résultat A"), 50);\n}\nfaireA(r => console.log(r));`,
-    quiz:{q:"Qu'est-ce qu'un callback ?",opts:["Variable d'environnement","Fonction transmise comme argument","Mot-clé natif","Type d'erreur"],answer:1,explanation:"Un callback est simplement une <strong>fonction passée comme argument</strong> à une autre fonction, pour être invoquée à un moment futur (après un délai, un événement, ou une opération asynchrone). En JavaScript, les fonctions sont des valeurs de première classe, ce qui rend ce pattern naturel."}
+    quiz:{q:"Qu'est-ce qu'un callback ?",opts:["Variable d'environnement","Fonction transmise comme argument","Mot-clé natif","Type d'erreur"],answer:1,explanation:"Un callback est simplement une <strong>fonction passée comme argument</strong> à une autre fonction."}
   },
   {
     cat:"3. Fonctions & Portées",
     title:"IIFE — Isolation de Scope",
     concepts:["IIFE","Scope privé","Pollution globale","Revealing Module Pattern"],
     why:"Les IIFE ont défini l'architecture JS pendant 10 ans — jQuery en est construit.",
-    desc:`<p class="prose">Une <strong>IIFE</strong> (Immediately Invoked Function Expression) s'exécute immédiatement. Utilisée avant ES Modules pour créer des scopes privés sans polluer l'espace global.</p>
-<div class="callout info"><div class="callout-icon">ℹ</div><div class="callout-body">Aujourd'hui, les ES Modules (<code>type="module"</code>) offrent une isolation automatique. Les IIFE restent utiles dans les scripts inline, les environnements sans bundler, ou pour créer des blocs isolés en cours de refactoring.</div></div>`,
-    code:`const monModule = (function() {\n  let compteur = 0; // privé !\n  function incrémenter() { compteur++; }\n  function valeur() { return compteur; }\n  return { incrémenter, valeur }; // API publique\n})();\nmonModule.incrémenter();\nmonModule.incrémenter();\nconsole.log(monModule.valeur()); // 2\n// console.log(compteur); // ReferenceError !`,
-    starter:`(() => {\n  const secret = "privé";\n  console.log("IIFE :", secret);\n})();\n// console.log(secret); // ReferenceError`,
-    quiz:{q:"Intérêt historique des IIFE ?",opts:["Accélérer le CPU","Isoler des variables de window","Remplacer les boucles","Gérer l'asynchronisme"],answer:1,explanation:"Avant les ES Modules (ES2015), les variables globales (<code>var</code>) polluaient l'objet <code>window</code>. Les IIFE permettaient de créer un scope privé : les variables déclarées à l'intérieur n'étaient pas accessibles depuis l'extérieur, évitant les conflits entre librairies."}
+    desc:`<p class="prose">Une <strong>IIFE</strong> (Immediately Invoked Function Expression) s'exécute immédiatement. Utilisée avant ES Modules pour créer des scopes privés.</p>`,
+    code:`const monModule = (function() {\n  let compteur = 0;\n  function incrémenter() { compteur++; }\n  function valeur() { return compteur; }\n  return { incrémenter, valeur };\n})();\nmonModule.incrémenter();\nmonModule.incrémenter();\nconsole.log(monModule.valeur());`,
+    starter:`(() => {\n  const secret = "privé";\n  console.log("IIFE :", secret);\n})();`,
+    quiz:{q:"Intérêt historique des IIFE ?",opts:["Accélérer le CPU","Isoler des variables de window","Remplacer les boucles","Gérer l'asynchronisme"],answer:1,explanation:"Les IIFE permettaient de créer un scope privé pour éviter de polluer l'objet <code>window</code>."}
   },
   {
     cat:"3. Fonctions & Portées",
     title:"Call Stack & Contexte d'Exécution",
     concepts:["Call Stack LIFO","Contexte d'exécution","Stack overflow","Récursion"],
     why:"Lire une stack trace d'erreur est une compétence de debugging quotidienne.",
-    desc:`<p class="prose">La <strong>Call Stack</strong> est une pile LIFO. Chaque appel de fonction empile un contexte d'exécution. La récursion sans cas de sortie remplit la pile → <strong>Maximum call stack size exceeded</strong>.</p>
-<div class="callout tip"><div class="callout-icon">✓</div><div class="callout-body"><strong>Lire une stack trace :</strong> Lisez de bas en haut — le bas montre l'origine, le haut montre le point d'erreur. Les lignes de vos fichiers sont celles sans <code>node_modules</code> ou <code>&lt;anonymous&gt;</code>.</div></div>`,
-    code:`function A() { console.log("→ A"); B(); console.log("← A"); }\nfunction B() { console.log("  → B"); C(); console.log("  ← B"); }\nfunction C() { console.log("    → C (feuille)"); }\nA();\n\n// Stack depth : récursion sécurisée\nfunction fact(n, acc = 1) {\n  if (n <= 1) return acc;\n  return fact(n - 1, n * acc); // tail call (si optimisé)\n}\nconsole.log(fact(10));`,
+    desc:`<p class="prose">La <strong>Call Stack</strong> est une pile LIFO. La récursion sans cas de sortie remplit la pile → <strong>Maximum call stack size exceeded</strong>.</p>`,
+    code:`function A() { console.log("→ A"); B(); console.log("← A"); }\nfunction B() { console.log("  → B"); C(); console.log("  ← B"); }\nfunction C() { console.log("    → C (feuille)"); }\nA();\n\nfunction fact(n, acc = 1) {\n  if (n <= 1) return acc;\n  return fact(n - 1, n * acc);\n}\nconsole.log(fact(10));`,
     starter:`function factorielle(n) {\n  if (n <= 1) return 1;\n  return n * factorielle(n - 1);\n}\nconsole.log(factorielle(6));`,
-    quiz:{q:"Quel principe régit la Call Stack ?",opts:["FIFO","LIFO","Aléatoire","Parallèle"],answer:1,explanation:"La Call Stack suit le principe <strong>LIFO</strong> (Last In, First Out) — le dernier appel empilé est le premier dépilé. Quand la fonction C appelle D, D est au sommet. Quand D se termine, elle est retirée et l'exécution reprend dans C. C'est pourquoi les stack traces se lisent de bas (origine) en haut (erreur)."}
+    quiz:{q:"Quel principe régit la Call Stack ?",opts:["FIFO","LIFO","Aléatoire","Parallèle"],answer:1,explanation:"La Call Stack suit le principe <strong>LIFO</strong> (Last In, First Out)."}
   },
   {
     cat:"3. Fonctions & Portées",
     title:"Le mot-clé 'this' — Contexte Dynamique",
     concepts:["this implicite","this global","Perte de contexte","Méthode vs fonction"],
     why:"La perte de contexte 'this' est l'un des bugs les plus fréquents avec les callbacks.",
-    desc:`<p class="prose"><code>this</code> dépend de la façon dont la fonction est <strong>appelée</strong>, pas de l'endroit où elle est définie. En méthode d'objet = l'objet. En appel direct = <code>window</code> (ou <code>undefined</code> en strict mode).</p>
-<table class="compare-table">
-  <thead><tr><th>Mode d'appel</th><th>Valeur de this</th></tr></thead>
-  <tbody>
-    <tr><td>Méthode : <code>obj.f()</code></td><td><code>obj</code></td></tr>
-    <tr><td>Appel direct : <code>f()</code></td><td><code>window</code> / <code>undefined</code></td></tr>
-    <tr><td>Constructeur : <code>new F()</code></td><td>Nouvelle instance</td></tr>
-    <tr><td>call/apply/bind</td><td>Premier argument</td></tr>
-    <tr><td>Arrow function</td><td>Lexical (parent)</td></tr>
-  </tbody>
-</table>`,
-    code:`const obj = {\n  nom: "Objet",\n  méthode() { console.log("this.nom =", this.nom); }\n};\nobj.méthode();   // "Objet"\nconst fn = obj.méthode;\nfn();            // undefined — perte de contexte !\n\n// Solution : bind\nconst fnBound = obj.méthode.bind(obj);\nfnBound(); // "Objet"`,
-    starter:`const bouton = { label: "Cliquez", afficher() { return this.label; } };\nconsole.log(bouton.afficher());\n\n// Test perte de contexte\nconst { afficher } = bouton;\nconsole.log(afficher()); // undefined`,
-    quiz:{q:"De quoi dépend 'this' dans une fonction ordinaire ?",opts:["De la déclaration","De la manière dont elle est appelée","De la RAM","Du type de variable"],answer:1,explanation:"<code>this</code> en JS est <strong>dynamique</strong> — sa valeur est déterminée au moment de l'<strong>appel</strong>, pas de la définition. <code>obj.méthode()</code> donne <code>this = obj</code>. La même méthode extraite (<code>const f = obj.méthode; f()</code>) donnera <code>this = undefined</code> (strict) ou <code>window</code>."}
+    desc:`<p class="prose"><code>this</code> dépend de la façon dont la fonction est <strong>appelée</strong>, pas de l'endroit où elle est définie.</p>`,
+    code:`const obj = {\n  nom: "Objet",\n  méthode() { console.log("this.nom =", this.nom); }\n};\nobj.méthode();\nconst fn = obj.méthode;\ntry { fn(); } catch(e) { console.log("Perdu :", e.message); }\nconst fnBound = obj.méthode.bind(obj);\nfnBound();`,
+    starter:`const bouton = { label: "Cliquez", afficher() { return this.label; } };\nconsole.log(bouton.afficher());\nconst { afficher } = bouton;\nconsole.log(afficher());`,
+    quiz:{q:"De quoi dépend 'this' dans une fonction ordinaire ?",opts:["De la déclaration","De la manière dont elle est appelée","De la RAM","Du type de variable"],answer:1,explanation:"<code>this</code> en JS est <strong>dynamique</strong> — sa valeur est déterminée au moment de l'appel."}
   },
   {
     cat:"3. Fonctions & Portées",
     title:"call(), apply() & bind()",
     concepts:["call()","apply()","bind()","Partial application"],
     why:"bind() est essentiel pour les event listeners en classes.",
-    desc:`<ul class="prose"><li><code>call(ctx, arg1, arg2)</code> — appel immédiat, arguments séparés par virgule</li><li><code>apply(ctx, [args])</code> — appel immédiat, arguments dans un tableau</li><li><code>bind(ctx, ...args)</code> — retourne une nouvelle fonction au contexte figé (sans l'exécuter)</li></ul>
-<div class="callout tip"><div class="callout-icon">✓</div><div class="callout-body"><strong>Application partielle avec bind :</strong> <code>bind</code> peut aussi pré-remplir des arguments : <code>const multiplier5 = Math.pow.bind(null, undefined, 5)</code>. Très utile pour créer des fonctions spécialisées.</div></div>`,
-    code:`function présenter(ville, pays) {\n  console.log(\`\${this.nom} — \${ville}, \${pays}\`);\n}\nconst user = { nom: "Sophie" };\nprésenter.call(user, "Paris", "FR");\nprésenter.apply(user, ["Lyon", "FR"]);\nconst prés = présenter.bind(user, "Bordeaux");\nprés("FR"); // arg partiel`,
+    desc:`<ul class="prose"><li><code>call(ctx, a, b)</code> — appel immédiat, arguments séparés</li><li><code>apply(ctx, [args])</code> — appel immédiat, arguments dans un tableau</li><li><code>bind(ctx)</code> — retourne une nouvelle fonction au contexte figé</li></ul>`,
+    code:`function présenter(ville, pays) {\n  console.log(\`\${this.nom} — \${ville}, \${pays}\`);\n}\nconst user = { nom: "Sophie" };\nprésenter.call(user, "Paris", "FR");\nprésenter.apply(user, ["Lyon", "FR"]);\nconst prés = présenter.bind(user, "Bordeaux");\nprés("FR");`,
     starter:`function afficher() { console.log(this.titre); }\nconst article = { titre: "JavaScript avancé" };\nafficher.call(article);`,
-    quiz:{q:"Quelle méthode retourne une copie avec contexte figé SANS l'exécuter ?",opts:["call()","apply()","bind()","set()"],answer:2,explanation:"<code>bind(ctx)</code> crée et retourne une <strong>nouvelle fonction</strong> dont le <code>this</code> est définitivement lié à <code>ctx</code>. La fonction n'est pas exécutée. <code>call()</code> et <code>apply()</code> exécutent immédiatement la fonction avec le contexte fourni."}
+    quiz:{q:"Quelle méthode retourne une copie avec contexte figé SANS l'exécuter ?",opts:["call()","apply()","bind()","set()"],answer:2,explanation:"<code>bind(ctx)</code> crée et retourne une <strong>nouvelle fonction</strong> dont le <code>this</code> est définitivement lié à <code>ctx</code>."}
   },
   {
     cat:"4. L'Asynchronisme",
     title:"Web APIs & Macrotâches",
     concepts:["Web APIs","Macrotâche","setTimeout","setInterval","clearTimeout"],
     why:"Comprendre où se passe l'attente explique pourquoi JS peut être non-bloquant.",
-    desc:`<p class="prose"><code>setTimeout(fn, délai)</code> délègue l'attente aux <strong>Web APIs</strong> du navigateur (hors du thread JS). Quand le délai expire, <code>fn</code> est placée dans la file des macrotâches.</p>
-<div class="callout info"><div class="callout-icon">ℹ</div><div class="callout-body"><strong>Précision des timers :</strong> Le délai est un <strong>minimum</strong>, pas une garantie. Si le thread principal est occupé, le callback attend. Les navigateurs peuvent aussi imposer un minimum de 4ms pour les timers imbriqués.</div></div>`,
+    desc:`<p class="prose"><code>setTimeout(fn, délai)</code> délègue l'attente aux <strong>Web APIs</strong> du navigateur. Quand le délai expire, <code>fn</code> est placée dans la file des macrotâches.</p>`,
     code:`console.log("① Synchrone");\nsetTimeout(() => console.log("③ Macrotâche"), 100);\nPromise.resolve().then(() => console.log("② Microtâche"));\nconsole.log("① Fin");`,
     starter:`let c = 0;\nconst t = setInterval(() => {\n  c++; console.log("Tic", c);\n  if (c >= 3) clearInterval(t);\n}, 100);`,
-    quiz:{q:"Où s'effectue l'attente d'un setTimeout ?",opts:["Call Stack JS","Web APIs du navigateur","Event Loop","GPU"],answer:1,explanation:"L'attente d'un <code>setTimeout</code> se passe dans les <strong>Web APIs du navigateur</strong> — un environnement externe au moteur JS. Le thread JavaScript est libéré et peut exécuter d'autres tâches. Quand le délai expire, la callback est ajoutée à la file des macrotâches."}
+    quiz:{q:"Où s'effectue l'attente d'un setTimeout ?",opts:["Call Stack JS","Web APIs du navigateur","Event Loop","GPU"],answer:1,explanation:"L'attente d'un <code>setTimeout</code> se passe dans les <strong>Web APIs du navigateur</strong>."}
   },
   {
     cat:"4. L'Asynchronisme",
     title:"Callback Hell — La Pyramide de Doom",
     concepts:["Imbrication excessive","Inversion de contrôle","Lisibilité","Maintenabilité"],
     why:"Reconnaître ce pattern permet de refactoriser du vieux code en Promises.",
-    desc:`<p class="prose">Le <strong>Callback Hell</strong> émerge quand des opérations asynchrones séquentielles nécessitent des callbacks imbriquées — illisible, difficile à maintenir, impossible à tester.</p>
-<div class="callout warn"><div class="callout-icon">⚠</div><div class="callout-body">Symptômes : indentation croissante vers la droite, gestion d'erreur copier-collée à chaque niveau, code impossible à réutiliser ou tester unitairement, difficulty à ajouter de nouvelles opérations.</div></div>`,
-    code:`// ⚠ À ÉVITER — Pyramide de Doom\nconnecter((err, db) => {\n  if (err) return;\n  chargerUser(db, 1, (err, user) => {\n    if (err) return;\n    chargerProfil(user, (err, profil) => {\n      if (err) return;\n      enregistrer(profil, (err) => {\n        console.log("Done (si pas d'erreur)");\n      });\n    });\n  });\n});\n\nconsole.log("→ Solution : Promises ou async/await");`,
+    desc:`<p class="prose">Le <strong>Callback Hell</strong> émerge quand des opérations asynchrones séquentielles nécessitent des callbacks imbriquées — illisible et difficile à maintenir.</p>`,
+    code:`// ⚠ À ÉVITER — Pyramide de Doom\n// connecter((err, db) => {\n//   chargerUser(db, 1, (err, user) => {\n//     chargerProfil(user, (err, profil) => {\n//       enregistrer(profil, (err) => { ... });\n//     });\n//   });\n// });\nconsole.log("→ Solution : Promises ou async/await");`,
     starter:`console.log("Refactorisez avec des Promises...");`,
-    quiz:{q:"Solution moderne au Callback Hell ?",opts:["Boucles for imbriquées","Promises et async/await","TypeScript","Utiliser var"],answer:1,explanation:"Les <strong>Promises</strong> (et leur sucre syntaxique <code>async/await</code>) résolvent le Callback Hell en permettant de chaîner des opérations asynchrones de manière linéaire et lisible, avec un point centralisé de gestion d'erreur (<code>.catch()</code> ou <code>try/catch</code>)."}
+    quiz:{q:"Solution moderne au Callback Hell ?",opts:["Boucles for imbriquées","Promises et async/await","TypeScript","Utiliser var"],answer:1,explanation:"Les <strong>Promises</strong> et <code>async/await</code> permettent de chaîner des opérations asynchrones de manière linéaire."}
   },
   {
     cat:"4. L'Asynchronisme",
     title:"Les Promesses — États et Cycle de Vie",
     concepts:["Pending / Fulfilled / Rejected","resolve / reject","then / catch / finally"],
     why:"Les Promises sont la fondation de fetch(), IndexedDB et toute l'API web moderne.",
-    desc:`<p class="prose">3 états : <strong>Pending</strong> → <strong>Fulfilled</strong> ou <strong>Rejected</strong>. Une fois dans un état final, elle est <em>immuable</em>. Les callbacks <code>.then/.catch</code> s'exécutent dans la file des <strong>microtâches</strong>.</p>
-<div class="keyword-grid">
-  <div class="keyword-card"><div class="kw-name">Pending</div><div class="kw-desc">État initial — opération en cours</div></div>
-  <div class="keyword-card"><div class="kw-name">Fulfilled</div><div class="kw-desc">Résolue avec succès — .then() déclenché</div></div>
-  <div class="keyword-card"><div class="kw-name">Rejected</div><div class="kw-desc">Échouée — .catch() déclenché</div></div>
-  <div class="keyword-card"><div class="kw-name">.finally()</div><div class="kw-desc">Exécuté dans tous les cas</div></div>
-</div>`,
-    code:`const charger = (id) => new Promise((resolve, reject) => {\n  if (id > 0) resolve({ id, nom: "Item " + id });\n  else reject(new Error("ID invalide"));\n});\ncharger(5)\n  .then(d => console.log("OK :", d.nom))\n  .catch(e => console.error("KO :", e.message))\n  .finally(() => console.log("Terminé."));\ncharger(-1)\n  .then(d => console.log("OK :", d))\n  .catch(e => console.error("KO :", e.message));`,
+    desc:`<p class="prose">3 états : <strong>Pending</strong> → <strong>Fulfilled</strong> ou <strong>Rejected</strong>. Une fois dans un état final, elle est immuable.</p>`,
+    code:`const charger = (id) => new Promise((resolve, reject) => {\n  if (id > 0) resolve({ id, nom: "Item " + id });\n  else reject(new Error("ID invalide"));\n});\ncharger(5)\n  .then(d => console.log("OK :", d.nom))\n  .catch(e => console.error("KO :", e.message))\n  .finally(() => console.log("Terminé."));\ncharger(-1)\n  .catch(e => console.error("KO :", e.message));`,
     starter:`Promise.resolve("OK").then(console.log);\nPromise.reject("Err").catch(e => console.log("Capturé :", e));`,
-    quiz:{q:"Quel état est ABSENT du cycle de vie d'une Promise ?",opts:["Pending","Fulfilled","Broken","Rejected"],answer:2,explanation:"Une Promise n'a que 3 états : <strong>Pending</strong> (en attente), <strong>Fulfilled</strong> (résolue avec succès) et <strong>Rejected</strong> (rejetée avec erreur). L'état <em>Broken</em> n'existe pas dans la spécification Promises/A+."}
+    quiz:{q:"Quel état est ABSENT du cycle de vie d'une Promise ?",opts:["Pending","Fulfilled","Broken","Rejected"],answer:2,explanation:"Une Promise n'a que 3 états : <strong>Pending</strong>, <strong>Fulfilled</strong> et <strong>Rejected</strong>. L'état <em>Broken</em> n'existe pas."}
   },
   {
     cat:"4. L'Asynchronisme",
     title:"Chaînage de Promesses",
     concepts:["Chaînage","Valeur de retour","Transformation","catch en fin de chaîne"],
     why:"Bien chaîner les Promises évite les callbacks imbriquées.",
-    desc:`<p class="prose">Chaque <code>.then(fn)</code> retourne une <strong>nouvelle Promise</strong>. Si <code>fn</code> retourne une valeur, la Promise suivante se résout avec cette valeur. Un <code>throw</code> saute au prochain <code>.catch()</code>.</p>
-<div class="callout warn"><div class="callout-icon">⚠</div><div class="callout-body">Piège courant : <strong>Promise hell</strong> = imbriquer des <code>.then()</code> au lieu de les chaîner. Un <code>.then()</code> qui retourne une Promise est automatiquement attendu — pas besoin d'imbriquer.</div></div>`,
+    desc:`<p class="prose">Chaque <code>.then(fn)</code> retourne une <strong>nouvelle Promise</strong>. Un <code>throw</code> saute au prochain <code>.catch()</code>.</p>`,
     code:`const API = id => Promise.resolve({ id, score: id * 10 });\nAPI(5)\n  .then(data => { console.log("Reçu :", data); return data.score; })\n  .then(score => score * 2)\n  .then(final => { if (final > 50) throw new Error("Trop grand !"); return final; })\n  .then(f => console.log("Score x2 :", f))\n  .catch(err => console.error("Erreur :", err.message));`,
-    starter:`Promise.resolve("A")\n  .then(v => v + "B")\n  .then(v => v + "C")\n  .then(console.log); // "ABC"`,
-    quiz:{q:"Quelle méthode intercepte les rejets dans une chaîne ?",opts:[".then()",".catch()",".finally()",".reject()"],answer:1,explanation:"<code>.catch(fn)</code> est l'équivalent de <code>.then(null, fn)</code> — il capture les rejets de toutes les Promises précédentes dans la chaîne. Un seul <code>.catch()</code> en fin de chaîne suffit généralement pour une gestion centralisée des erreurs."}
+    starter:`Promise.resolve("A")\n  .then(v => v + "B")\n  .then(v => v + "C")\n  .then(console.log);`,
+    quiz:{q:"Quelle méthode intercepte les rejets dans une chaîne ?",opts:[".then()",".catch()",".finally()",".reject()"],answer:1,explanation:"<code>.catch(fn)</code> capture les rejets de toutes les Promises précédentes dans la chaîne."}
   },
   {
     cat:"4. L'Asynchronisme",
     title:"Async / Await — Syntaxe Élégante",
     concepts:["async function","await","Retour Promise implicite","Syntaxe séquentielle"],
     why:"async/await est la syntaxe de facto pour 99% du code asynchrone moderne.",
-    desc:`<p class="prose"><code>async</code> transforme une fonction pour qu'elle retourne toujours une Promise. <code>await</code> suspend l'exécution <strong>locale</strong> (pas le thread) jusqu'à la résolution de la Promise.</p>
-<div class="callout tip"><div class="callout-icon">✓</div><div class="callout-body"><strong>Exécution parallèle :</strong> Évitez <code>await a(); await b();</code> si les deux sont indépendantes — elles s'exécutent en série ! Préférez <code>const [a, b] = await Promise.all([fa(), fb()])</code> pour le parallélisme.</div></div>`,
-    code:`async function charger(id) {\n  await new Promise(r => setTimeout(r, 50));\n  return { id, nom: "Alice" + id };\n}\nasync function main() {\n  console.log("Début");\n  const user = await charger(1);\n  console.log("Utilisateur :", user);\n  \n  // Parallèle\n  const [u2, u3] = await Promise.all([charger(2), charger(3)]);\n  console.log("Parallèle :", u2.nom, u3.nom);\n  console.log("Fin");\n}\nmain();`,
-    starter:`async function saluer(nom) {\n  return \`Bonjour, \${nom} !\`;\n}\nsaluer("monde").then(console.log);\n\n// Une fonction async retourne TOUJOURS une Promise\nconsole.log(saluer("test") instanceof Promise);`,
-    quiz:{q:"Où await peut-il être utilisé ?",opts:["Partout","Uniquement dans une fonction async","Dans while uniquement","Dans les constructeurs"],answer:1,explanation:"<code>await</code> ne peut être utilisé qu'à l'intérieur d'une fonction <code>async</code>. L'utiliser hors d'une fonction async est une erreur de syntaxe. Exception : le <em>top-level await</em> est disponible dans les ES Modules (fichiers <code>.mjs</code> ou <code>type='module'</code>)."}
+    desc:`<p class="prose"><code>async</code> transforme une fonction pour qu'elle retourne toujours une Promise. <code>await</code> suspend l'exécution <strong>locale</strong> jusqu'à la résolution.</p>
+<div class="callout tip"><div class="callout-icon">✓</div><div class="callout-body"><strong>Exécution parallèle :</strong> Utilisez <code>const [a, b] = await Promise.all([fa(), fb()])</code> plutôt que deux awaits séquentiels.</div></div>`,
+    code:`async function charger(id) {\n  await new Promise(r => setTimeout(r, 50));\n  return { id, nom: "Alice" + id };\n}\nasync function main() {\n  console.log("Début");\n  const user = await charger(1);\n  console.log("Utilisateur :", user);\n  const [u2, u3] = await Promise.all([charger(2), charger(3)]);\n  console.log("Parallèle :", u2.nom, u3.nom);\n}\nmain();`,
+    starter:`async function saluer(nom) {\n  return \`Bonjour, \${nom} !\`;\n}\nsaluer("monde").then(console.log);\nconsole.log(saluer("test") instanceof Promise);`,
+    quiz:{q:"Où await peut-il être utilisé ?",opts:["Partout","Uniquement dans une fonction async","Dans while uniquement","Dans les constructeurs"],answer:1,explanation:"<code>await</code> ne peut être utilisé qu'à l'intérieur d'une fonction <code>async</code>."}
   },
   {
     cat:"4. L'Asynchronisme",
     title:"Gestion d'Erreurs — try/catch",
     concepts:["try/catch","Erreurs synchrones et async","Re-throw","finally"],
     why:"Un try/catch manquant transforme un bug récupérable en crash silencieux.",
-    desc:`<p class="prose">Enveloppez les <code>await</code> dans <code>try...catch</code> pour capturer rejets et erreurs synchrones. <code>finally</code> s'exécute toujours — idéal pour libérer des ressources.</p>
-<div class="callout info"><div class="callout-icon">ℹ</div><div class="callout-body"><strong>Pattern conseillé :</strong> Pour éviter les try/catch partout, créez un wrapper <code>const [err, data] = await to(promise)</code> qui retourne un tuple — populaire dans certaines équipes pour un style Go-like.</div></div>`,
-    code:`async function récupérer(url) {\n  try {\n    if (!url) throw new Error("URL manquante");\n    const data = { données: "Contenu de " + url };\n    return data;\n  } catch (e) {\n    console.error("Erreur :", e.message);\n    return null;\n  } finally {\n    console.log("Requête terminée (finally)");\n  }\n}\nasync function main() {\n  const res = await récupérer("");\n  console.log("Résultat :", res);\n  const res2 = await récupérer("api/data");\n  console.log("Résultat :", res2);\n}\nmain();`,
+    desc:`<p class="prose">Enveloppez les <code>await</code> dans <code>try...catch</code> pour capturer rejets et erreurs synchrones. <code>finally</code> s'exécute toujours.</p>`,
+    code:`async function main() {\n  try {\n    await Promise.reject(new Error("Échec réseau"));\n  } catch(e) {\n    console.log("Capturé :", e.message);\n  } finally {\n    console.log("Nettoyage effectué");\n  }\n}\nmain();`,
     starter:`async function main() {\n  try {\n    await Promise.reject(new Error("Échec réseau"));\n  } catch(e) {\n    console.log("Capturé :", e.message);\n  } finally {\n    console.log("Nettoyage effectué");\n  }\n}\nmain();`,
-    quiz:{q:"Comment capturer l'erreur d'un await qui rejette ?",opts:["Avec .catch() uniquement","Avec try...catch autour du await","En redémarrant","Impossible"],answer:1,explanation:"Dans une fonction async, <code>try...catch</code> peut intercepter aussi bien les erreurs synchrones que les rejets de Promises <code>await</code>-ées. Le <code>catch</code> reçoit l'objet Error du rejet. Vous pouvez aussi utiliser <code>.catch()</code> sur la Promise, mais <code>try/catch</code> est plus lisible avec <code>async/await</code>."}
+    quiz:{q:"Comment capturer l'erreur d'un await qui rejette ?",opts:["Avec .catch() uniquement","Avec try...catch autour du await","En redémarrant","Impossible"],answer:1,explanation:"Dans une fonction async, <code>try...catch</code> peut intercepter aussi bien les erreurs synchrones que les rejets de Promises."}
   },
   {
     cat:"4. L'Asynchronisme",
     title:"Promise.all, Promise.race, Promise.allSettled",
     concepts:["Parallélisme","all vs race vs allSettled","Short-circuit","Performances"],
     why:"Promise.all parallélise des requêtes — 3x plus rapide que l'exécution séquentielle.",
-    desc:`<p class="prose"><code>all([])</code> attend toutes — rejette si l'une échoue. <code>race([])</code> se résout dès la première. <code>allSettled([])</code> attend toutes quelle que soit leur issue. <code>any([])</code> résout avec la première qui réussit.</p>
-<table class="compare-table">
-  <thead><tr><th>Méthode</th><th>Résolution</th><th>Rejet</th><th>Cas d'usage</th></tr></thead>
-  <tbody>
-    <tr><td><code>all()</code></td><td>Toutes réussies</td><td>Premier échec</td><td>Données interdépendantes</td></tr>
-    <tr><td><code>race()</code></td><td>Première (succès ou échec)</td><td>Premier échec</td><td>Timeout, cache vs réseau</td></tr>
-    <tr><td><code>allSettled()</code></td><td>Toutes terminées</td><td>Jamais</td><td>Rapport d'état complet</td></tr>
-    <tr><td><code>any()</code></td><td>Première réussie</td><td>Toutes échouées</td><td>CDN fallback, redondance</td></tr>
-  </tbody>
-</table>`,
+    desc:`<p class="prose"><code>all([])</code> attend toutes — rejette si l'une échoue. <code>race([])</code> se résout dès la première. <code>allSettled([])</code> attend toutes.</p>`,
     code:`const r = new Promise(r => setTimeout(() => r("Rapide"), 50));\nconst l = new Promise(r => setTimeout(() => r("Lent"), 200));\nPromise.race([r, l]).then(v => console.log("Race :", v));\nPromise.all([r, l]).then(v => console.log("All :", v));\nPromise.allSettled([Promise.resolve("OK"), Promise.reject("KO")])\n  .then(res => res.forEach(r => console.log(r.status, r.value ?? r.reason)));`,
     starter:`Promise.all([Promise.resolve(1), Promise.resolve(2), Promise.resolve(3)])\n  .then(vals => console.log("Somme :", vals.reduce((a,b)=>a+b)));`,
-    quiz:{q:"Que produit Promise.all() si une Promise rejette ?",opts:["Ignore l'échec","Rejette immédiatement","Attend les autres","Retourne null"],answer:1,explanation:"<code>Promise.all()</code> applique un <strong>court-circuit</strong> (short-circuit) : dès qu'une Promise rejette, la Promise résultante est immédiatement rejetée. Les autres Promises continuent d'exécuter mais leur résultat est ignoré. Utilisez <code>allSettled()</code> pour ne pas court-circuiter."}
+    quiz:{q:"Que produit Promise.all() si une Promise rejette ?",opts:["Ignore l'échec","Rejette immédiatement","Attend les autres","Retourne null"],answer:1,explanation:"<code>Promise.all()</code> applique un <strong>court-circuit</strong> : dès qu'une Promise rejette, la Promise résultante est immédiatement rejetée."}
   },
   {
     cat:"4. L'Asynchronisme",
     title:"Microtâches vs Macrotâches",
     concepts:["File des microtâches","File des macrotâches","Event Loop tour","queueMicrotask"],
     why:"Ce mécanisme explique des bugs de timing subtils difficiles à reproduire.",
-    desc:`<p class="prose">Chaque tour de l'Event Loop traite <strong>toutes les microtâches</strong> (Promises, queueMicrotask) avant la prochaine macrotâche (setTimeout, I/O). Une microtâche peut en générer d'autres — attention aux boucles infinies.</p>
-<div class="callout warn"><div class="callout-icon">⚠</div><div class="callout-body">Si vos microtâches génèrent toujours de nouvelles microtâches, la file ne se vide jamais → les macrotâches (et donc le rendu DOM) sont bloqués indéfiniment. C'est le <strong>microtask starvation</strong>.</div></div>`,
+    desc:`<p class="prose">Chaque tour de l'Event Loop traite <strong>toutes les microtâches</strong> (Promises, queueMicrotask) avant la prochaine macrotâche.</p>`,
     code:`console.log("① Sync A");\nsetTimeout(() => console.log("④ Macro"), 0);\nPromise.resolve()\n  .then(() => console.log("② Micro 1"))\n  .then(() => console.log("③ Micro 2"));\nconsole.log("① Sync B");`,
     starter:`queueMicrotask(() => console.log("Micro 1"));\nsetTimeout(() => console.log("Macro"));\nqueueMicrotask(() => console.log("Micro 2"));\nconsole.log("Sync");`,
-    quiz:{q:"Entre une microtâche et une macrotâche prêtes, laquelle passe en premier ?",opts:["Macrotâche","Microtâche","Les deux en parallèle","Aléatoire"],answer:1,explanation:"La file des <strong>microtâches</strong> (Promises, MutationObserver, queueMicrotask) a une priorité absolue sur les macrotâches. L'Event Loop vide entièrement la file des microtâches avant de traiter la prochaine macrotâche. Ce comportement est défini par la spécification HTML."}
+    quiz:{q:"Entre une microtâche et une macrotâche prêtes, laquelle passe en premier ?",opts:["Macrotâche","Microtâche","Les deux en parallèle","Aléatoire"],answer:1,explanation:"La file des <strong>microtâches</strong> a une priorité absolue sur les macrotâches."}
   },
   {
     cat:"4. L'Asynchronisme",
     title:"Fetch API — Requêtes HTTP",
     concepts:["fetch()","Response.json()","Méthodes HTTP","response.ok","AbortController"],
     why:"fetch() remplace XMLHttpRequest — toute API REST moderne l'utilise.",
-    desc:`<p class="prose"><code>fetch()</code> retourne une Promise qui résout avec un objet <code>Response</code>. Attention : un statut 404/500 <strong>ne rejette pas</strong> la Promise — vérifiez toujours <code>response.ok</code>.</p>
-<div class="callout tip"><div class="callout-icon">✓</div><div class="callout-body"><strong>AbortController :</strong> Pour annuler une requête en cours (navigation, timeout, composant démonté React), utilisez <code>const ctrl = new AbortController(); fetch(url, { signal: ctrl.signal }); ctrl.abort();</code></div></div>`,
-    code:`async function simulerFetch(url, status = 200) {\n  return new Promise(resolve => setTimeout(() => {\n    resolve({\n      ok: status >= 200 && status < 300,\n      status,\n      json: async () => ({ url, items: [1,2,3] })\n    });\n  }, 100));\n}\nasync function main() {\n  const res = await simulerFetch("api/items");\n  if (!res.ok) throw new Error("HTTP " + res.status);\n  const data = await res.json();\n  console.log(data);\n}\nmain();`,
+    desc:`<p class="prose"><code>fetch()</code> retourne une Promise qui résout avec un objet <code>Response</code>. Un statut 404/500 <strong>ne rejette pas</strong> la Promise — vérifiez toujours <code>response.ok</code>.</p>`,
+    code:`// Simulation fetch\nasync function simulerFetch(status = 200) {\n  return { ok: status < 300, status, json: async () => ({ items: [1,2,3] }) };\n}\nasync function main() {\n  const res = await simulerFetch();\n  if (!res.ok) throw new Error("HTTP " + res.status);\n  const data = await res.json();\n  console.log(data);\n}\nmain();`,
     starter:`console.log("fetch(url).then(r => r.json()).then(data => ...)");`,
-    quiz:{q:"Que retourne fetch() nativement ?",opts:["Du JSON brut","Une Promesse (objet Response)","Un flux XML","Un Blob"],answer:1,explanation:"<code>fetch(url)</code> retourne une <strong>Promise&lt;Response&gt;</strong>. L'objet <code>Response</code> contient le statut HTTP, les headers, et des méthodes pour lire le corps (<code>.json()</code>, <code>.text()</code>, <code>.blob()</code>). Ces méthodes retournent aussi des Promises. Un status 404 résout la Promise — il ne la rejette pas."}
+    quiz:{q:"Que retourne fetch() nativement ?",opts:["Du JSON brut","Une Promesse (objet Response)","Un flux XML","Un Blob"],answer:1,explanation:"<code>fetch(url)</code> retourne une <strong>Promise&lt;Response&gt;</strong>."}
   },
   {
     cat:"4. L'Asynchronisme",
     title:"Debounce & Throttle",
     concepts:["Debounce","Throttle","Performance UI","Resize / Scroll / Input"],
     why:"Sans debounce sur un champ de recherche, chaque frappe déclenche une requête API.",
-    desc:`<p class="prose"><strong>Debounce</strong> : reporte l'exécution jusqu'à la fin d'inactivité — idéal pour la recherche en temps réel. <strong>Throttle</strong> : garantit max une exécution toutes les N ms — idéal pour scroll/resize.</p>
-<table class="compare-table">
-  <thead><tr><th>Technique</th><th>Comportement</th><th>Cas d'usage</th></tr></thead>
-  <tbody>
-    <tr><td>Debounce</td><td>Exécute après N ms d'inactivité</td><td>Recherche, auto-save, validation</td></tr>
-    <tr><td>Throttle</td><td>Max 1 exécution par N ms</td><td>Scroll, resize, mousemove, jeux</td></tr>
-  </tbody>
-</table>`,
-    code:`function debounce(fn, délai) {\n  let timer;\n  return (...args) => {\n    clearTimeout(timer);\n    timer = setTimeout(() => fn(...args), délai);\n  };\n}\nfunction throttle(fn, limite) {\n  let dernierAppel = 0;\n  return (...args) => {\n    const now = Date.now();\n    if (now - dernierAppel >= limite) {\n      dernierAppel = now; fn(...args);\n    }\n  };\n}\nconst log = debounce(console.log, 300);\nlog("Appel 1"); log("Appel 2"); log("Appel 3"); // Seul "Appel 3" passe`,
+    desc:`<p class="prose"><strong>Debounce</strong> : reporte l'exécution jusqu'à la fin d'inactivité. <strong>Throttle</strong> : garantit max une exécution toutes les N ms.</p>`,
+    code:`function debounce(fn, délai) {\n  let timer;\n  return (...args) => {\n    clearTimeout(timer);\n    timer = setTimeout(() => fn(...args), délai);\n  };\n}\nfunction throttle(fn, limite) {\n  let last = 0;\n  return (...args) => {\n    const now = Date.now();\n    if (now - last >= limite) { last = now; fn(...args); }\n  };\n}\nconst log = debounce(console.log, 300);\nlog("Appel 1"); log("Appel 2"); log("Appel 3");`,
     starter:`console.log("Debounce : attendre fin de frappe");\nconsole.log("Throttle : max 1 fois / intervalle");`,
-    quiz:{q:"Quelle technique limite à max 1 appel toutes les X ms ?",opts:["Debounce","Throttle","Cache","Isolation"],answer:1,explanation:"<strong>Throttle</strong> garantit qu'une fonction ne peut s'exécuter qu'une fois par intervalle de temps, même si elle est appelée de nombreuses fois. <strong>Debounce</strong> reporte l'exécution jusqu'à ce qu'il y ait une pause — les appels intermédiaires sont annulés."}
+    quiz:{q:"Quelle technique limite à max 1 appel toutes les X ms ?",opts:["Debounce","Throttle","Cache","Isolation"],answer:1,explanation:"<strong>Throttle</strong> garantit qu'une fonction ne peut s'exécuter qu'une fois par intervalle de temps."}
   },
   {
     cat:"5. Concepts Avancés",
     title:"Prototypes & Chaîne de Prototypes",
     concepts:["[[Prototype]]","Object.create()","hasOwnProperty","Chaîne de délégation"],
     why:"Comprendre les prototypes explique comment fonctionnent les classes et pourquoi [].push existe.",
-    desc:`<p class="prose">Chaque objet possède un lien interne <code>[[Prototype]]</code> vers un objet parent. JS remonte la <strong>chaîne de prototypes</strong> pour trouver une propriété non trouvée localement.</p>
-<div class="callout info"><div class="callout-icon">ℹ</div><div class="callout-body"><strong>Pourquoi <code>[].push</code> fonctionne :</strong> Un tableau <code>[]</code> n'a pas <code>push</code> en propre. JS cherche dans <code>Array.prototype</code> (qui l'a), puis dans <code>Object.prototype</code>, puis <code>null</code> (fin de chaîne).</div></div>`,
-    code:`const animal = { respire: true, manger() { return "Miam"; } };\nconst chien = Object.create(animal);\nchien.aboyer = function() { return "Wouf"; };\nconsole.log(chien.respire); // true (hérité)\nconsole.log(chien.hasOwnProperty("respire")); // false\nconsole.log(chien.hasOwnProperty("aboyer"));  // true\n\n// Chaîne complète d'un tableau\nconsole.log(Object.getPrototypeOf([]) === Array.prototype); // true\nconsole.log(Object.getPrototypeOf(Array.prototype) === Object.prototype); // true`,
+    desc:`<p class="prose">Chaque objet possède un lien interne <code>[[Prototype]]</code> vers un objet parent. JS remonte la <strong>chaîne de prototypes</strong> pour trouver une propriété non trouvée localement.</p>`,
+    code:`const animal = { respire: true, manger() { return "Miam"; } };\nconst chien = Object.create(animal);\nchien.aboyer = function() { return "Wouf"; };\nconsole.log(chien.respire);\nconsole.log(chien.hasOwnProperty("respire"));\nconsole.log(chien.hasOwnProperty("aboyer"));\nconsole.log(Object.getPrototypeOf([]) === Array.prototype);`,
     starter:`const tableau = [1, 2, 3];\nconsole.log(Object.getPrototypeOf(tableau) === Array.prototype);`,
-    quiz:{q:"Quelle propriété expose le prototype (historique) ?",opts:["__proto__","prototype","[[Parent]]","context"],answer:0,explanation:"<code>__proto__</code> est l'accesseur historique (non standard, mais présent dans tous les navigateurs) pour le <code>[[Prototype]]</code> interne. La façon standard est <code>Object.getPrototypeOf(obj)</code>. La propriété <code>prototype</code> appartient aux <strong>fonctions constructeurs</strong>, pas aux instances."}
+    quiz:{q:"Quelle propriété expose le prototype (historique) ?",opts:["__proto__","prototype","[[Parent]]","context"],answer:0,explanation:"<code>__proto__</code> est l'accesseur historique pour le <code>[[Prototype]]</code> interne. La façon standard est <code>Object.getPrototypeOf(obj)</code>."}
   },
   {
     cat:"5. Concepts Avancés",
     title:"Classes ES6 & Héritage",
     concepts:["class","constructor","extends","super()","Méthodes statiques"],
     why:"Les classes ES6 sont le standard pour structurer du code orienté objet moderne.",
-    desc:`<p class="prose">Les classes ES6 sont du <strong>sucre syntaxique</strong> sur l'héritage prototypal. <code>extends</code> établit la filiation, <code>super()</code> doit être appelé avant tout accès à <code>this</code> dans un constructeur enfant.</p>
-<div class="callout warn"><div class="callout-icon">⚠</div><div class="callout-body">Oublier d'appeler <code>super()</code> dans un constructeur enfant avant d'accéder à <code>this</code> lance une <code>ReferenceError</code>. Si vous ne déclarez pas de constructeur dans la classe enfant, <code>super()</code> est appelé automatiquement.</div></div>`,
-    code:`class Forme {\n  constructor(couleur) { this.couleur = couleur; }\n  get info() { return \`Forme \${this.couleur}\`; }\n  static créer(couleur) { return new this(couleur); }\n}\nclass Cercle extends Forme {\n  constructor(couleur, rayon) {\n    super(couleur);\n    this.rayon = rayon;\n  }\n  get surface() { return Math.PI * this.rayon ** 2; }\n  toString() { return \`Cercle(r=\${this.rayon})\`; }\n}\nconst c = new Cercle("rouge", 5);\nconsole.log(c.info, "Surface :", c.surface.toFixed(2));\nconsole.log(c instanceof Forme); // true`,
+    desc:`<p class="prose">Les classes ES6 sont du <strong>sucre syntaxique</strong> sur l'héritage prototypal. <code>super()</code> doit être appelé avant tout accès à <code>this</code> dans un constructeur enfant.</p>`,
+    code:`class Forme {\n  constructor(couleur) { this.couleur = couleur; }\n  get info() { return \`Forme \${this.couleur}\`; }\n}\nclass Cercle extends Forme {\n  constructor(couleur, rayon) {\n    super(couleur);\n    this.rayon = rayon;\n  }\n  get surface() { return Math.PI * this.rayon ** 2; }\n}\nconst c = new Cercle("rouge", 5);\nconsole.log(c.info, "Surface :", c.surface.toFixed(2));\nconsole.log(c instanceof Forme);`,
     starter:`class Animal {\n  constructor(nom) { this.nom = nom; }\n  parler() { return \`\${this.nom} fait un bruit.\`; }\n}\nclass Chien extends Animal {\n  parler() { return \`\${this.nom} aboie.\`; }\n}\nconsole.log(new Chien("Rex").parler());`,
-    quiz:{q:"Mécanisme sous-jacent aux classes ES6 ?",opts:["Threads virtuels","L'héritage prototypal","Compilation bytecode","Variables globales"],answer:1,explanation:"Les classes ES6 sont du <strong>sucre syntaxique</strong> — elles compilent vers le même héritage prototypal que <code>function Constructeur() {}</code> et <code>Constructeur.prototype</code>. <code>class B extends A {}</code> établit <code>Object.getPrototypeOf(B.prototype) === A.prototype</code>."}
+    quiz:{q:"Mécanisme sous-jacent aux classes ES6 ?",opts:["Threads virtuels","L'héritage prototypal","Compilation bytecode","Variables globales"],answer:1,explanation:"Les classes ES6 sont du <strong>sucre syntaxique</strong> — elles compilent vers le même héritage prototypal."}
   },
   {
     cat:"5. Concepts Avancés",
     title:"Champs Privés & Encapsulation (#)",
     concepts:["#champPrivé","Encapsulation native","Getters contrôlés","SyntaxError si accès externe"],
     why:"Les champs # sont la seule vraie encapsulation en JS.",
-    desc:`<p class="prose">Les champs préfixés de <code>#</code> sont <strong>vraiment privés</strong> — SyntaxError si on tente d'y accéder depuis l'extérieur. Même les sous-classes n'y ont pas accès. Disponible depuis ES2022.</p>
-<table class="compare-table">
-  <thead><tr><th>Convention</th><th>Vraiment privé ?</th><th>Notes</th></tr></thead>
-  <tbody>
-    <tr><td><code>_prop</code></td><td><span class="badge-red">Non</span></td><td>Convention, accessible de l'extérieur</td></tr>
-    <tr><td>Closure module</td><td><span class="badge-green">Oui</span></td><td>Avant ES2022</td></tr>
-    <tr><td><code>#prop</code></td><td><span class="badge-green">Oui (natif)</span></td><td>SyntaxError si accès externe</td></tr>
-  </tbody>
-</table>`,
-    code:`class CompteBancaire {\n  #solde = 0;\n  #historique = [];\n  \n  déposer(montant) {\n    if (montant <= 0) throw new Error("Montant invalide");\n    this.#solde += montant;\n    this.#historique.push(\`+\${montant}\`);\n  }\n  get solde() { return this.#solde; }\n  get historique() { return [...this.#historique]; } // copie\n}\nconst c = new CompteBancaire();\nc.déposer(1000); c.déposer(500);\nconsole.log("Solde :", c.solde);\nconsole.log("Historique :", c.historique);`,
+    desc:`<p class="prose">Les champs préfixés de <code>#</code> sont <strong>vraiment privés</strong> — SyntaxError si on tente d'y accéder depuis l'extérieur. Disponible depuis ES2022.</p>`,
+    code:`class CompteBancaire {\n  #solde = 0;\n  #historique = [];\n  \n  déposer(montant) {\n    if (montant <= 0) throw new Error("Montant invalide");\n    this.#solde += montant;\n    this.#historique.push(\`+\${montant}\`);\n  }\n  get solde() { return this.#solde; }\n  get historique() { return [...this.#historique]; }\n}\nconst c = new CompteBancaire();\nc.déposer(1000); c.déposer(500);\nconsole.log("Solde :", c.solde);\nconsole.log("Historique :", c.historique);`,
     starter:`class Coffre {\n  #code = 1234;\n  vérifier(v) { return v === this.#code ? "Ouvert" : "Refusé"; }\n}\nconsole.log(new Coffre().vérifier(1234));`,
-    quiz:{q:"Quel caractère déclare une propriété privée native ?",opts:["_ (underscore)","$ (dollar)","# (hash)","@ (arrobase)"],answer:2,explanation:"Le préfixe <code>#</code> (hash) déclare un <strong>champ privé natif</strong> en JavaScript (ES2022). Tenter d'accéder à <code>instance.#prop</code> depuis l'extérieur de la classe est une <code>SyntaxError</code> (pas une erreur runtime — le parser le détecte). C'est une vraie garantie, contrairement à la convention <code>_prop</code>."}
+    quiz:{q:"Quel caractère déclare une propriété privée native ?",opts:["_ (underscore)","$ (dollar)","# (hash)","@ (arrobase)"],answer:2,explanation:"Le préfixe <code>#</code> déclare un <strong>champ privé natif</strong> en JavaScript (ES2022)."}
   },
   {
     cat:"5. Concepts Avancés",
     title:"Map & Set — Collections Avancées",
     concepts:["Map vs Objet","Set — valeurs uniques","WeakMap / WeakSet","Itération"],
     why:"Map est 2x plus rapide que les objets pour les insertions/suppressions fréquentes.",
-    desc:`<p class="prose"><code>Map</code> accepte <strong>n'importe quel type de clé</strong> (objets inclus). <code>Set</code> garantit l'<strong>unicité des valeurs</strong>. <code>WeakMap</code>/<code>WeakSet</code> utilisent des références faibles pour ne pas empêcher le garbage collection.</p>
-<table class="compare-table">
-  <thead><tr><th>Critère</th><th>Object</th><th>Map</th></tr></thead>
-  <tbody>
-    <tr><td>Type des clés</td><td>String / Symbol</td><td>N'importe quoi</td></tr>
-    <tr><td>Ordre des clés</td><td>Non garanti</td><td>Ordre d'insertion</td></tr>
-    <tr><td>Performance (ajout/suppression)</td><td>Moyenne</td><td>Meilleure</td></tr>
-    <tr><td>Taille</td><td><code>Object.keys().length</code></td><td><code>map.size</code></td></tr>
-    <tr><td>Itération</td><td>for...in</td><td>for...of, .forEach()</td></tr>
-  </tbody>
-</table>`,
-    code:`const cache = new Map();\nconst clé = { id: 1 };\ncache.set(clé, "Données user 1");\nconsole.log(cache.get(clé));\nconsole.log(cache.size);\n\nconst tags = new Set(["js","css","js","html","css"]);\nconsole.log([...tags]); // unique\ntags.add("ts");\nconsole.log(tags.has("js")); // true`,
+    desc:`<p class="prose"><code>Map</code> accepte <strong>n'importe quel type de clé</strong>. <code>Set</code> garantit l'<strong>unicité des valeurs</strong>.</p>`,
+    code:`const cache = new Map();\nconst clé = { id: 1 };\ncache.set(clé, "Données user 1");\nconsole.log(cache.get(clé));\nconsole.log(cache.size);\n\nconst tags = new Set(["js","css","js","html","css"]);\nconsole.log([...tags]);\ntags.add("ts");\nconsole.log(tags.has("js"));`,
     starter:`const votes = ["Alice","Bob","Alice","Carla","Bob","Alice"];\nconst d = votes.reduce((m, v) => (m.set(v, (m.get(v)||0)+1), m), new Map());\nd.forEach((n, nom) => console.log(nom, ":", n));`,
-    quiz:{q:"Propriété fondamentale d'un Set ?",opts:["Tri alphabétique","Valeurs dupliquées interdites","Clés textuelles requises","Exécution en worker"],answer:1,explanation:"Un <code>Set</code> est une collection de valeurs <strong>uniques</strong> — toute tentative d'ajout d'une valeur déjà présente est silencieusement ignorée. L'unicité est testée avec l'algorithme SameValueZero (similaire à <code>===</code>, sauf que <code>NaN === NaN</code> est vrai pour Set)."}
+    quiz:{q:"Propriété fondamentale d'un Set ?",opts:["Tri alphabétique","Valeurs dupliquées interdites","Clés textuelles requises","Exécution en worker"],answer:1,explanation:"Un <code>Set</code> est une collection de valeurs <strong>uniques</strong>."}
   },
   {
     cat:"5. Concepts Avancés",
     title:"Proxy & Reflect — Métaprogrammation",
     concepts:["Proxy handler","get / set traps","Reflect","Validation","Réactivité"],
     why:"Vue.js et MobX utilisent des Proxies pour détecter les mutations et déclencher le re-rendu.",
-    desc:`<p class="prose">Un <code>Proxy</code> enveloppe un objet et intercepte les opérations via des <strong>traps</strong> : <code>get</code>, <code>set</code>, <code>deleteProperty</code>, <code>apply</code>, <code>construct</code>... <code>Reflect</code> expose les opérations primitives correspondantes.</p>
-<div class="callout info"><div class="callout-icon">ℹ</div><div class="callout-body"><strong>Vue 3 Reactivity :</strong> Le système de réactivité de Vue 3 est entièrement basé sur des Proxies (<code>reactive()</code>). Quand vous modifiez une propriété d'un objet réactif, le Proxy détecte le changement et déclenche la mise à jour du DOM.</div></div>`,
-    code:`function créerObservable(obj, onChange) {\n  return new Proxy(obj, {\n    set(target, prop, valeur) {\n      const ancien = target[prop];\n      Reflect.set(target, prop, valeur);\n      if (ancien !== valeur) onChange(prop, valeur, ancien);\n      return true;\n    },\n    get(target, prop) {\n      console.log(\`Lecture de [\${prop}]\`);\n      return Reflect.get(target, prop);\n    }\n  });\n}\nconst état = créerObservable({}, (p, n, a) => console.log(\`\${p}: \${a} → \${n}\`));\nétat.nom = "Alice";\nétat.age = 30;\nétat.age = 31;`,
+    desc:`<p class="prose">Un <code>Proxy</code> enveloppe un objet et intercepte les opérations via des <strong>traps</strong>. <code>Reflect</code> expose les opérations primitives correspondantes.</p>`,
+    code:`function créerObservable(obj, onChange) {\n  return new Proxy(obj, {\n    set(target, prop, valeur) {\n      const ancien = target[prop];\n      Reflect.set(target, prop, valeur);\n      if (ancien !== valeur) onChange(prop, valeur, ancien);\n      return true;\n    }\n  });\n}\nconst état = créerObservable({}, (p, n, a) => console.log(\`\${p}: \${a} → \${n}\`));\nétat.nom = "Alice";\nétat.age = 30;\nétat.age = 31;`,
     starter:`const validé = new Proxy({}, {\n  set(t, prop, val) {\n    if (prop === "age" && val < 0) throw new Error("Âge négatif !");\n    t[prop] = val; return true;\n  }\n});\nvalidé.age = 25; console.log(validé.age);`,
-    quiz:{q:"Usage des Proxies dans Vue.js/MobX ?",opts:["Sécuriser HTTPS","Détecter les mutations pour le re-rendu","Cloner des tableaux","Accélérer CSS"],answer:1,explanation:"Vue 3 et MobX utilisent des <strong>Proxies</strong> pour intercepter les accès (<code>get</code>) et les modifications (<code>set</code>) des propriétés d'objets. Quand une propriété est lue dans un composant, Vue l'enregistre comme dépendance. Quand elle est modifiée, le composant se ré-exécute automatiquement."}
+    quiz:{q:"Usage des Proxies dans Vue.js/MobX ?",opts:["Sécuriser HTTPS","Détecter les mutations pour le re-rendu","Cloner des tableaux","Accélérer CSS"],answer:1,explanation:"Vue 3 et MobX utilisent des <strong>Proxies</strong> pour intercepter les accès et modifications de propriétés d'objets."}
   },
   {
     cat:"5. Concepts Avancés",
     title:"ES Modules — import & export",
     concepts:["export nommé","export default","import statique","Tree Shaking","import() dynamique"],
     why:"Les ES Modules sont le standard absolu — npm, bundlers, Deno, Node.js natif.",
-    desc:`<p class="prose">Les imports/exports <strong>statiques</strong> permettent l'analyse à la compilation et le <strong>Tree Shaking</strong>. <code>import()</code> dynamique retourne une Promise pour le chargement à la demande.</p>
-<table class="compare-table">
-  <thead><tr><th>Syntaxe</th><th>Cas d'usage</th></tr></thead>
-  <tbody>
-    <tr><td><code>export const x = 1</code></td><td>Export nommé — plusieurs par fichier</td></tr>
-    <tr><td><code>export default fn</code></td><td>Export principal — un seul par fichier</td></tr>
-    <tr><td><code>import { x } from './m'</code></td><td>Import nommé — statique</td></tr>
-    <tr><td><code>import('./m.js')</code></td><td>Import dynamique — lazy loading</td></tr>
-    <tr><td><code>import * as m from './m'</code></td><td>Namespace import</td></tr>
-  </tbody>
-</table>`,
-    code:`// math.js\n// export const PI = 3.14159;\n// export function aire(r) { return PI * r ** 2; }\n// export default function main() { ... }\n\n// app.js\n// import { PI, aire } from './math.js';\n// import main from './math.js';\n// Lazy loading\n// const { defaut } = await import('./lourde-lib.js');\n\nconsole.log("ES Modules : analyse statique + Tree Shaking");\nconsole.log("Les modules sont en mode strict automatiquement");`,
+    desc:`<p class="prose">Les imports/exports <strong>statiques</strong> permettent l'analyse à la compilation et le <strong>Tree Shaking</strong>.</p>`,
+    code:`// math.js\n// export const PI = 3.14159;\n// export function aire(r) { return PI * r ** 2; }\n// export default function main() { ... }\n\n// app.js\n// import { PI, aire } from './math.js';\n// import main from './math.js';\n// const { default: lib } = await import('./lib.js');\n\nconsole.log("ES Modules : analyse statique + Tree Shaking");\nconsole.log("Les modules sont en mode strict automatiquement");`,
     starter:`console.log("Structure modulaire native :");`,
-    quiz:{q:"Bénéfice de la nature statique des ES Modules ?",opts:["Accélération hardware","Tree Shaking automatique","Multi-threading natif","Chiffrement du code"],answer:1,explanation:"La nature <strong>statique</strong> des imports ES (évalués à la compilation, pas à l'exécution) permet aux bundlers (Webpack, Rollup, Vite) d'analyser les dépendances et d'éliminer le code non utilisé (<strong>Tree Shaking</strong>). Les <code>require()</code> dynamiques de CommonJS ne permettent pas cette optimisation."}
+    quiz:{q:"Bénéfice de la nature statique des ES Modules ?",opts:["Accélération hardware","Tree Shaking automatique","Multi-threading natif","Chiffrement du code"],answer:1,explanation:"La nature <strong>statique</strong> des imports ES permet aux bundlers d'analyser les dépendances et d'éliminer le code non utilisé (<strong>Tree Shaking</strong>)."}
   },
   {
     cat:"5. Concepts Avancés",
     title:"Garbage Collector & Fuites Mémoire",
     concepts:["Mark and Sweep","Références circulaires","WeakRef","Fuites communes"],
     why:"Une fuite mémoire non détectée peut crasher un navigateur après quelques heures.",
-    desc:`<p class="prose">Algorithme <em>Mark and Sweep</em> : marque les objets atteignables depuis les racines (window, stack), balaie (libère) les autres. Les références circulaires sont gérées. Les fuites viennent des <strong>références globales involontaires</strong>.</p>
-<div class="section-divider"><span>Fuites mémoire courantes</span></div>
+    desc:`<p class="prose">Algorithme <em>Mark and Sweep</em> : marque les objets atteignables depuis les racines, balaye (libère) les autres. Les fuites viennent des <strong>références globales involontaires</strong>.</p>
 <ul class="prose">
-  <li><strong>Event listeners non supprimés :</strong> <code>removeEventListener()</code> au démontage</li>
-  <li><strong>Closures capturant de gros objets</strong> inutilement</li>
-  <li><strong>setInterval non clearé :</strong> garde la closure active indéfiniment</li>
-  <li><strong>Cache sans limite :</strong> Map/Object qui grandit sans jamais être vidé</li>
-  <li><strong>DOM détaché référencé en JS :</strong> nœuds retirés du DOM mais encore référencés</li>
-</ul>
-<div class="callout tip"><div class="callout-icon">✓</div><div class="callout-body"><strong>Outil :</strong> Chrome DevTools > Memory > Heap Snapshot. Prenez deux snapshots, comparez — les objets qui grossissent sont vos fuites.</div></div>`,
-    code:`// Fuite : event listener non nettoyé\nfunction initComposant(element) {\n  const data = new Array(10000).fill("💾");\n  const handler = () => console.log(data.length);\n  element.addEventListener("click", handler);\n  \n  // CORRECT : retourner une fonction de nettoyage\n  return () => element.removeEventListener("click", handler);\n}\n\n// WeakMap : référence faible, n'empêche pas le GC\nconst meta = new WeakMap();\nconst obj = { id: 1 };\nmeta.set(obj, { créé: Date.now() });\nconsole.log(meta.get(obj));`,
-    starter:`let a = {}; let b = {};\na.ref = b; b.ref = a; // circulaire\na = null; b = null;  // maintenant GC-ables\nconsole.log("Références circulaires : GC moderne les gère");`,
-    quiz:{q:"Algorithme du GC moderne ?",opts:["Reference Counting","Mark and Sweep","LIFO Allocator","Defrag System"],answer:1,explanation:"L'algorithme <strong>Mark and Sweep</strong> (utilisé par V8) est en deux phases : 1) Marquer tous les objets atteignables depuis les racines (window, call stack). 2) Balayer (libérer) tous les objets non marqués. Il gère les références circulaires, contrairement au <em>Reference Counting</em> qui était utilisé dans les anciens navigateurs."}
+  <li><strong>Event listeners non supprimés</strong></li>
+  <li><strong>setInterval non clearé</strong></li>
+  <li><strong>Cache sans limite</strong></li>
+  <li><strong>DOM détaché référencé en JS</strong></li>
+</ul>`,
+    code:`// Fuite : event listener non nettoyé\nfunction initComposant(element) {\n  const data = new Array(10000).fill("💾");\n  const handler = () => console.log(data.length);\n  element.addEventListener("click", handler);\n  return () => element.removeEventListener("click", handler);\n}\n\n// WeakMap : référence faible\nconst meta = new WeakMap();\nconst obj = { id: 1 };\nmeta.set(obj, { créé: Date.now() });\nconsole.log(meta.get(obj));`,
+    starter:`let a = {}; let b = {};\na.ref = b; b.ref = a;\na = null; b = null;\nconsole.log("Références circulaires : GC moderne les gère");`,
+    quiz:{q:"Algorithme du GC moderne ?",opts:["Reference Counting","Mark and Sweep","LIFO Allocator","Defrag System"],answer:1,explanation:"L'algorithme <strong>Mark and Sweep</strong> marque les objets atteignables puis libère les autres. Il gère les références circulaires."}
   },
   {
     cat:"5. Concepts Avancés",
     title:"Strict Mode — Sécurisation",
     concepts:["'use strict'","Variables non déclarées","this en global","Modules auto-strict"],
     why:"Le strict mode est actif automatiquement dans les ES Modules et les classes.",
-    desc:`<p class="prose"><code>"use strict"</code> transforme les erreurs silencieuses en exceptions explicites. Actif automatiquement dans les <strong>ES Modules</strong> et les <strong>classes</strong>. <code>this</code> global vaut <code>undefined</code> (pas <code>window</code>).</p>
-<table class="compare-table">
-  <thead><tr><th>Comportement</th><th>Mode normal</th><th>Mode strict</th></tr></thead>
-  <tbody>
-    <tr><td>Variable non déclarée</td><td>Crée global (bug)</td><td><span class="badge-red">ReferenceError</span></td></tr>
-    <tr><td>this en appel direct</td><td><code>window</code></td><td><code>undefined</code></td></tr>
-    <tr><td>Écrire sur readonly</td><td>Silencieux</td><td><span class="badge-red">TypeError</span></td></tr>
-    <tr><td>Paramètres dupliqués</td><td>Dernier gagne</td><td><span class="badge-red">SyntaxError</span></td></tr>
-    <tr><td><code>with</code> statement</td><td>Autorisé</td><td><span class="badge-red">SyntaxError</span></td></tr>
-  </tbody>
-</table>`,
-    code:`(function() {\n  "use strict";\n  try {\n    variableNonDéclarée = 10; // ReferenceError !\n  } catch(e) {\n    console.log("Attrapé :", e.constructor.name, "-", e.message);\n  }\n  console.log("this en strict mode :", this); // undefined\n})();`,
+    desc:`<p class="prose"><code>"use strict"</code> transforme les erreurs silencieuses en exceptions explicites. <code>this</code> global vaut <code>undefined</code> (pas <code>window</code>).</p>`,
+    code:`(function() {\n  "use strict";\n  try {\n    variableNonDéclarée = 10;\n  } catch(e) {\n    console.log("Attrapé :", e.constructor.name, "-", e.message);\n  }\n  console.log("this en strict mode :", this);\n})();`,
     starter:`(function() {\n  "use strict";\n  try { x = 5; }\n  catch(e) { console.log("Strict mode :", e.message); }\n})();`,
-    quiz:{q:"Comportement en strict mode sur une variable non déclarée ?",opts:["Ignoré","Variable globale créée","ReferenceError levée","Mémoire vidée"],answer:2,explanation:"En mode strict, assigner une variable sans <code>var</code>/<code>let</code>/<code>const</code> déclenche une <strong>ReferenceError</strong>. En mode normal (sloppy), cela crée silencieusement une propriété sur <code>window</code> — source de bugs globaux catastrophiques."}
+    quiz:{q:"Comportement en strict mode sur une variable non déclarée ?",opts:["Ignoré","Variable globale créée","ReferenceError levée","Mémoire vidée"],answer:2,explanation:"En mode strict, assigner une variable sans déclaration déclenche une <strong>ReferenceError</strong>."}
   },
   {
     cat:"5. Concepts Avancés",
     title:"eval() — Pourquoi l'Éviter",
     concepts:["eval() dangers","XSS injection","Désoptimisation JIT","new Function","CSP"],
     why:"Un seul eval() sur des données utilisateur peut compromettre toute la sécurité d'une app.",
-    desc:`<p class="prose">Deux problèmes critiques : <strong>Sécurité</strong> (XSS, vol de cookies si exécuté sur données utilisateur) et <strong>Performance</strong> (le JIT ne peut pas optimiser du code dynamique).</p>
-<div class="callout danger"><div class="callout-icon">🚫</div><div class="callout-body"><strong>Jamais en production :</strong> Une Content Security Policy (CSP) stricte bloque <code>eval()</code> et les scripts inline. C'est la configuration recommandée par tous les frameworks modernes. <code>eval()</code> est inutilisable sur la grande majorité des sites sécurisés.</div></div>`,
-    code:`// JAMAIS EN PRODUCTION\nconsole.log(eval("2 + 2")); // dangereux !\n\n// Alternative LIMITÉE : new Function (scope isolé)\nconst calcul = new Function("a", "b", "return a * b");\nconsole.log(calcul(6, 7)); // 42\n\n// ✓ Alternative recommandée pour les formules\n// import { evaluate } from 'mathjs'\n// console.log(evaluate('2 * pi * 5'))\nconsole.log("Utilisez mathjs pour les expressions dynamiques");`,
-    starter:`// eval() est interdit par la CSP sur tous les sites modernes\nconsole.log("eval() = faille sécurité critique");\n\n// Tester new Function\nconst fn = new Function("x", "y", "return x ** y");\nconsole.log(fn(2, 10)); // 1024`,
-    quiz:{q:"Pourquoi eval() est proscrit ?",opts:["Ne fonctionne plus sur Chrome","Risques XSS + désoptimisation JIT","Limite les variables","Ne traite pas les nombres"],answer:1,explanation:"<code>eval()</code> pose deux problèmes majeurs : (1) <strong>Sécurité</strong> — si des données utilisateur atteignent <code>eval()</code>, un attaquant peut exécuter du JS arbitraire (XSS). (2) <strong>Performance</strong> — le compilateur JIT ne peut pas optimiser le code en amont car il ne sait pas ce qu'<code>eval()</code> va exécuter."}
+    desc:`<p class="prose">Deux problèmes critiques : <strong>Sécurité</strong> (XSS) et <strong>Performance</strong> (le JIT ne peut pas optimiser du code dynamique).</p>
+<div class="callout danger"><div class="callout-icon">🚫</div><div class="callout-body"><strong>Jamais en production.</strong> Une CSP stricte bloque <code>eval()</code> automatiquement.</div></div>`,
+    code:`// JAMAIS EN PRODUCTION\nconsole.log(eval("2 + 2"));\n\n// Alternative LIMITÉE : new Function (scope isolé)\nconst calcul = new Function("a", "b", "return a * b");\nconsole.log(calcul(6, 7));\nconsole.log("Utilisez mathjs pour les expressions dynamiques");`,
+    starter:`const fn = new Function("x", "y", "return x ** y");\nconsole.log(fn(2, 10));`,
+    quiz:{q:"Pourquoi eval() est proscrit ?",opts:["Ne fonctionne plus sur Chrome","Risques XSS + désoptimisation JIT","Limite les variables","Ne traite pas les nombres"],answer:1,explanation:"<code>eval()</code> pose deux problèmes : (1) <strong>Sécurité</strong> XSS si des données utilisateur l'atteignent. (2) <strong>Performance</strong> : le JIT ne peut pas optimiser le code en amont."}
   },
   {
     cat:"5. Concepts Avancés",
@@ -1174,25 +995,24 @@ Pour une vraie copie profonde : <code>structuredClone(obj)</code> (natif ES2022)
     desc:`<p class="prose">Félicitations — vous avez parcouru les 50 leçons ! Le bac à sable est votre terrain de jeu. Combinez vos acquis pour relever les défis ci-dessous.</p>
 <div class="callout tip"><div class="callout-icon">🏆</div><div class="callout-body"><strong>Défis suggérés :</strong>
 <ol style="margin-top:8px;padding-left:16px;">
-  <li>Cache LRU avec <code>Map</code> (éviction du plus ancien)</li>
-  <li>Observable avec <code>Proxy</code> + dépendances automatiques</li>
-  <li>File de tâches async avec priorités et annulation</li>
+  <li>Cache LRU avec <code>Map</code></li>
+  <li>Observable avec <code>Proxy</code></li>
+  <li>File de tâches async avec priorités</li>
   <li>Moteur de templates avec tagged literals</li>
   <li>Scheduler de microtâches personnalisé</li>
 </ol></div></div>
-<div class="callout info"><div class="callout-icon">📚</div><div class="callout-body"><strong>Pour aller plus loin :</strong> TypeScript, Generators & Iterators (<code>function*</code>), SharedArrayBuffer, WebWorkers, WebAssembly, Temporal API.</div></div>`,
-    code:`class FileTâches {\n  #file = [];\n  #actif = false;\n  #max;\n  \n  constructor(max = Infinity) { this.#max = max; }\n  \n  ajouter(tâche) {\n    if (this.#file.length >= this.#max)\n      throw new Error("File pleine");\n    this.#file.push(tâche);\n    this.#traiter();\n    return this;\n  }\n  \n  async #traiter() {\n    if (this.#actif) return;\n    this.#actif = true;\n    while (this.#file.length > 0) {\n      try { await this.#file.shift()(); }\n      catch(e) { console.error("Tâche échouée :", e.message); }\n    }\n    this.#actif = false;\n  }\n  \n  get taille() { return this.#file.length; }\n}\nconst file = new FileTâches(10);\n[1,2,3].forEach(i => file.ajouter(async () => {\n  await new Promise(r => setTimeout(r, 30));\n  console.log(\`Tâche \${i} terminée\`);\n}));`,
-    starter:`// Votre défi final !\n// Implémentez un cache LRU avec Map\nclass LRUCache {\n  #cache = new Map();\n  #max;\n  \n  constructor(max) { this.#max = max; }\n  \n  get(clé) {\n    if (!this.#cache.has(clé)) return undefined;\n    const val = this.#cache.get(clé);\n    this.#cache.delete(clé);\n    this.#cache.set(clé, val); // déplace en fin\n    return val;\n  }\n  \n  set(clé, val) {\n    if (this.#cache.has(clé)) this.#cache.delete(clé);\n    else if (this.#cache.size >= this.#max)\n      this.#cache.delete(this.#cache.keys().next().value);\n    this.#cache.set(clé, val);\n  }\n}\n\nconst cache = new LRUCache(3);\ncache.set("a", 1); cache.set("b", 2); cache.set("c", 3);\nconsole.log(cache.get("a")); // 1 — "a" devient récent\ncache.set("d", 4); // "b" est évincé (le plus ancien)\nconsole.log(cache.get("b")); // undefined`,
+<div class="callout info"><div class="callout-icon">📚</div><div class="callout-body"><strong>Pour aller plus loin :</strong> TypeScript, Generators (<code>function*</code>), SharedArrayBuffer, WebWorkers, WebAssembly.</div></div>`,
+    code:`class FileTâches {\n  #file = [];\n  #actif = false;\n  \n  ajouter(tâche) {\n    this.#file.push(tâche);\n    this.#traiter();\n    return this;\n  }\n  \n  async #traiter() {\n    if (this.#actif) return;\n    this.#actif = true;\n    while (this.#file.length > 0) {\n      try { await this.#file.shift()(); }\n      catch(e) { console.error("Tâche échouée :", e.message); }\n    }\n    this.#actif = false;\n  }\n}\nconst file = new FileTâches();\n[1,2,3].forEach(i => file.ajouter(async () => {\n  await new Promise(r => setTimeout(r, 30));\n  console.log(\`Tâche \${i} terminée\`);\n}));`,
+    starter:`class LRUCache {\n  #cache = new Map();\n  #max;\n  \n  constructor(max) { this.#max = max; }\n  \n  get(clé) {\n    if (!this.#cache.has(clé)) return undefined;\n    const val = this.#cache.get(clé);\n    this.#cache.delete(clé);\n    this.#cache.set(clé, val);\n    return val;\n  }\n  \n  set(clé, val) {\n    if (this.#cache.has(clé)) this.#cache.delete(clé);\n    else if (this.#cache.size >= this.#max)\n      this.#cache.delete(this.#cache.keys().next().value);\n    this.#cache.set(clé, val);\n  }\n}\n\nconst cache = new LRUCache(3);\ncache.set("a", 1); cache.set("b", 2); cache.set("c", 3);\nconsole.log(cache.get("a"));\ncache.set("d", 4);\nconsole.log(cache.get("b"));`,
     quiz:{
       q:"Quel paradigme JS supporte-t-il nativement ?",
       opts:["Impératif uniquement","Fonctionnel uniquement","Multi-paradigme (Objet, Fonctionnel, Prototype)","Déclaratif uniquement"],
       answer:2,
-      explanation:"JavaScript est un langage <strong>multi-paradigme</strong> : il supporte la programmation <strong>impérative</strong> (boucles, if/else), <strong>fonctionnelle</strong> (fonctions de première classe, closures, map/filter/reduce), et <strong>orientée objet basée sur les prototypes</strong> (+ sucre syntaxique classes ES6). Cette flexibilité est à la fois sa force et sa complexité."
+      explanation:"JavaScript est un langage <strong>multi-paradigme</strong> : impératif, fonctionnel, et orienté objet basé sur les prototypes."
     }
   }
 ];
 
-// ─── CHEATSHEET DATA ──────────────────────────────────────────────────
 const CHEATSHEET = {
   "Fonctions": [
     ["function f(x){}", "Déclaration (hoistée)"],
@@ -1232,11 +1052,10 @@ const CHEATSHEET = {
   ],
 };
 
-// ─── STATE ────────────────────────────────────────────────────────────
 let currentLessonIdx = 0;
 let userProgress = new Set();
-let editorFontSize = 13;
-try { userProgress = new Set(JSON.parse(localStorage.getItem('jslearn_v2') || '[]')); } catch(e) {}
+let editorFontSize = 12;
+try { userProgress = new Set(JSON.parse(localStorage.getItem('jslearn_v3') || '[]')); } catch(e) {}
 
 window.addEventListener('DOMContentLoaded', () => {
   renderLessonList(LESSONS);
@@ -1244,10 +1063,9 @@ window.addEventListener('DOMContentLoaded', () => {
   updateProgressBar();
   setupEditorShortcut();
   renderCheatsheet();
-  document.getElementById('code-editor').style.setProperty('font-size', editorFontSize + 'px');
+  document.getElementById('code-editor').style.fontSize = editorFontSize + 'px';
 });
 
-// ─── SIDEBAR ──────────────────────────────────────────────────────────
 function renderLessonList(lessonsToRender) {
   const container = document.getElementById('lesson-list');
   container.innerHTML = '';
@@ -1263,7 +1081,12 @@ function renderLessonList(lessonsToRender) {
     }
     const item = document.createElement('div');
     item.className = `lesson-item ${idx === currentLessonIdx ? 'active' : ''} ${userProgress.has(idx) ? 'done' : ''}`;
-    item.onclick = () => { currentLessonIdx = idx; loadLesson(idx); renderLessonList(LESSONS); };
+    item.onclick = () => {
+      currentLessonIdx = idx;
+      loadLesson(idx);
+      renderLessonList(LESSONS);
+      if (window.innerWidth <= 700) { closeSidebar(); }
+    };
     const num = document.createElement('div');
     num.className = 'lesson-num';
     num.innerText = userProgress.has(idx) ? '✓' : (idx + 1);
@@ -1279,7 +1102,6 @@ function filterLessons(q) {
   renderLessonList(LESSONS.filter(l => l.title.toLowerCase().includes(q.toLowerCase()) || l.cat.toLowerCase().includes(q.toLowerCase())));
 }
 
-// ─── LESSON RENDERING ─────────────────────────────────────────────────
 function loadLesson(idx) {
   const L = LESSONS[idx];
   const isDone = userProgress.has(idx);
@@ -1292,7 +1114,7 @@ function loadLesson(idx) {
     </div>
     <h1 class="lesson-h1">${L.title}</h1>
     <div class="concept-pills">${pills}</div>
-    <div class="callout info" style="margin-top:0;margin-bottom:18px;">
+    <div class="callout info" style="margin-top:0;margin-bottom:14px;">
       <div class="callout-icon">💡</div>
       <div class="callout-body"><strong>Pourquoi l'apprendre ?</strong> ${L.why}</div>
     </div>
@@ -1317,21 +1139,21 @@ function loadLesson(idx) {
       <div class="quiz-explanation" id="quiz-exp"></div>
     </div>
     <div class="lesson-nav">
-      <button class="nav-prev" onclick="navigateLesson(-1)" ${idx===0?'disabled style="opacity:0.35;cursor:not-allowed;"':''}>← Précédente</button>
-      <button class="mark-done-btn" onclick="toggleDone(${idx})">${isDone?'✓ Acquise — annuler':'✓ Marquer acquise'}</button>
-      <button class="nav-next primary" onclick="navigateLesson(1)" ${idx===LESSONS.length-1?'disabled style="opacity:0.35;"':''}>Suivante →</button>
+      <button class="nav-prev" onclick="navigateLesson(-1)" ${idx===0?'disabled style="opacity:0.35;cursor:not-allowed;"':''}>← Préc.</button>
+      <button class="mark-done-btn" onclick="toggleDone(${idx})">${isDone?'✓ Acquise':'✓ Marquer'}</button>
+      <button class="nav-next primary" onclick="navigateLesson(1)" ${idx===LESSONS.length-1?'disabled style="opacity:0.35;"':''}>Suiv. →</button>
     </div>`;
   document.getElementById('code-editor').value = L.starter;
   onEditorInput();
   clearConsole();
   document.getElementById('content-scroll').scrollTop = 0;
-  updateCheatsheetForLesson(L);
 }
 
 function injectExample(idx) {
   document.getElementById('code-editor').value = LESSONS[idx].code;
   onEditorInput();
   switchTab('playground');
+  if (window.innerWidth <= 700) { openEditor(); }
 }
 
 function navigateLesson(d) {
@@ -1342,7 +1164,7 @@ function navigateLesson(d) {
 function toggleDone(idx) {
   if (userProgress.has(idx)) userProgress.delete(idx);
   else userProgress.add(idx);
-  try { localStorage.setItem('jslearn_v2', JSON.stringify([...userProgress])); } catch(e) {}
+  try { localStorage.setItem('jslearn_v3', JSON.stringify([...userProgress])); } catch(e) {}
   updateProgressBar();
   loadLesson(idx);
   renderLessonList(LESSONS);
@@ -1381,7 +1203,6 @@ function escapeHTML(s) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
-// ─── TABS ─────────────────────────────────────────────────────────────
 function switchTab(name) {
   document.querySelectorAll('.tab-pane').forEach(e => e.classList.remove('active'));
   document.querySelectorAll('.etab').forEach(e => e.classList.remove('active'));
@@ -1389,42 +1210,31 @@ function switchTab(name) {
   document.getElementById(`tab-btn-${name}`).classList.add('active');
 }
 
-// ─── EDITOR ───────────────────────────────────────────────────────────
-function onEditorInput() {
-  updateGutter();
-  updateStatusBar();
-}
+function onEditorInput() { updateGutter(); updateStatusBar(); }
 
 function updateGutter() {
   const code = document.getElementById('code-editor').value;
   const lines = code.split('\n');
-  const gutter = document.getElementById('gutter');
-  gutter.innerHTML = lines.map((_, i) =>
-    `<div class="gutter-line">${i+1}</div>`
-  ).join('');
+  document.getElementById('gutter').innerHTML = lines.map((_, i) => `<div class="gutter-line">${i+1}</div>`).join('');
 }
 
 function syncGutter() {
   const editor = document.getElementById('code-editor');
-  const gutter = document.getElementById('gutter');
-  gutter.scrollTop = editor.scrollTop;
+  document.getElementById('gutter').scrollTop = editor.scrollTop;
 }
 
 function updateStatusBar() {
-  const editor = document.getElementById('code-editor');
-  const val = editor.value;
+  const val = document.getElementById('code-editor').value;
   const lines = val.split('\n');
   document.getElementById('char-count').innerText = val.length + ' car.';
-  document.getElementById('lines-count').innerText = lines.length + ' ligne' + (lines.length>1?'s':'');
+  document.getElementById('lines-count').innerText = lines.length + ' lg';
 }
 
 function updateCursor() {
   const editor = document.getElementById('code-editor');
   const val = editor.value.substring(0, editor.selectionStart);
   const lines = val.split('\n');
-  const ln = lines.length;
-  const col = lines[lines.length - 1].length + 1;
-  document.getElementById('cursor-pos').innerText = `Ln ${ln}, Col ${col}`;
+  document.getElementById('cursor-pos').innerText = `Ln ${lines.length}, Col ${lines[lines.length-1].length+1}`;
 }
 
 function clearEditor() {
@@ -1433,21 +1243,18 @@ function clearEditor() {
 }
 
 function changeFontSize(delta) {
-  editorFontSize = Math.max(10, Math.min(20, editorFontSize + delta));
-  const editor = document.getElementById('code-editor');
-  editor.style.fontSize = editorFontSize + 'px';
-  const consoleBox = document.getElementById('console-box');
-  consoleBox.style.fontSize = editorFontSize + 'px';
+  editorFontSize = Math.max(10, Math.min(18, editorFontSize + delta));
+  document.getElementById('code-editor').style.fontSize = editorFontSize + 'px';
+  document.getElementById('console-box').style.fontSize = editorFontSize + 'px';
   updateGutter();
 }
 
 function clearConsole() {
-  document.getElementById('console-box').innerHTML = "<div class='console-empty'>En attente d'exécution… (Ctrl+Entrée)</div>";
+  document.getElementById('console-box').innerHTML = "<div class='console-empty'>En attente… (Ctrl+Entrée)</div>";
   document.getElementById('console-count').innerText = '';
   document.getElementById('console-dot').classList.remove('active');
 }
 
-// ─── RUN CODE ─────────────────────────────────────────────────────────
 function runCode() {
   const code = document.getElementById('code-editor').value;
   const box = document.getElementById('console-box');
@@ -1457,9 +1264,7 @@ function runCode() {
   dot.classList.add('active');
   let logCount = 0;
   const startTime = performance.now();
-
-  const origLog = console.log, origWarn = console.warn, origErr = console.error, origInfo = console.info;
-
+  const orig = { log: console.log, warn: console.warn, error: console.error, info: console.info };
   const append = (msg, cls='') => {
     logCount++;
     const d = document.createElement('div');
@@ -1467,44 +1272,37 @@ function runCode() {
     if (typeof msg === 'object' && msg !== null) {
       try { d.innerText = JSON.stringify(msg, null, 2); d.className += ' log-obj'; }
       catch(e) { d.innerText = String(msg); }
-    } else {
-      d.innerText = String(msg);
-    }
+    } else { d.innerText = String(msg); }
     box.appendChild(d);
     box.scrollTop = box.scrollHeight;
     document.getElementById('console-count').innerText = logCount + ' log' + (logCount>1?'s':'');
   };
-
-  console.log = (...a) => { a.forEach(x => append(x)); origLog(...a); };
-  console.warn = (...a) => { a.forEach(x => append(x, 'warn')); origWarn(...a); };
-  console.error = (...a) => { a.forEach(x => append(x, 'error')); origErr(...a); };
-  console.info = (...a) => { a.forEach(x => append(x, 'info')); origInfo(...a); };
-
+  console.log = (...a) => { a.forEach(x => append(x)); orig.log(...a); };
+  console.warn = (...a) => { a.forEach(x => append(x, 'warn')); orig.warn(...a); };
+  console.error = (...a) => { a.forEach(x => append(x, 'error')); orig.error(...a); };
+  console.info = (...a) => { a.forEach(x => append(x, 'info')); orig.info(...a); };
   try {
     new Function(code)();
     const elapsed = (performance.now() - startTime).toFixed(1);
-    if (!box.children.length) append('Exécuté — aucun log retourné.', 'warn');
+    if (!box.children.length) append('Exécuté — aucun log.', 'warn');
     const sep = document.createElement('div');
     sep.className = 'exec-time';
-    sep.innerText = `⏱ Exécution : ${elapsed} ms`;
+    sep.innerText = `⏱ ${elapsed} ms`;
     box.appendChild(sep);
   } catch(e) {
     append(`${e.name}: ${e.message}`, 'error');
   }
-
-  console.log = origLog; console.warn = origWarn; console.error = origErr; console.info = origInfo;
+  Object.assign(console, orig);
   dot.classList.remove('active');
 }
 
-// ─── KEYBOARD SHORTCUTS ───────────────────────────────────────────────
 function setupEditorShortcut() {
   document.getElementById('code-editor').addEventListener('keydown', function(e) {
     if (e.key === 'Tab') {
       e.preventDefault();
       const s = this.selectionStart;
-      const indent = '  ';
-      this.value = this.value.substring(0, s) + indent + this.value.substring(this.selectionEnd);
-      this.selectionStart = this.selectionEnd = s + indent.length;
+      this.value = this.value.substring(0, s) + '  ' + this.value.substring(this.selectionEnd);
+      this.selectionStart = this.selectionEnd = s + 2;
       onEditorInput();
     }
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
@@ -1514,22 +1312,51 @@ function setupEditorShortcut() {
   });
 }
 
-// ─── CHEATSHEET ───────────────────────────────────────────────────────
 function renderCheatsheet() {
-  const pane = document.getElementById('cheatsheet-content');
-  pane.innerHTML = Object.entries(CHEATSHEET).map(([section, items]) => `
+  document.getElementById('cheatsheet-content').innerHTML = Object.entries(CHEATSHEET).map(([section, items]) => `
     <div class="cs-section">
       <div class="cs-title">${section}</div>
-      ${items.map(([k, v]) => `
-        <div class="cs-item">
-          <span class="cs-key">${escapeHTML(k)}</span>
-          <span class="cs-val">${escapeHTML(v)}</span>
-        </div>`).join('')}
+      ${items.map(([k, v]) => `<div class="cs-item"><span class="cs-key">${escapeHTML(k)}</span><span class="cs-val">${escapeHTML(v)}</span></div>`).join('')}
     </div>`).join('');
 }
 
-function updateCheatsheetForLesson(L) {
-  // Could in future highlight relevant cheatsheet items per lesson
+// MOBILE TOGGLES
+function toggleSidebar() {
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('overlay');
+  const isOpen = sb.classList.contains('mobile-open');
+  if (isOpen) { closeSidebar(); }
+  else { sb.classList.add('mobile-open'); ov.classList.add('active'); }
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('mobile-open');
+  document.getElementById('overlay').classList.remove('active');
+}
+
+function toggleEditor() {
+  const ep = document.getElementById('editor-panel');
+  const ov = document.getElementById('overlay');
+  const isOpen = ep.classList.contains('mobile-open');
+  if (isOpen) { closeEditor(); }
+  else { ep.classList.add('mobile-open'); ov.classList.add('active'); }
+}
+
+function openEditor() {
+  if (window.innerWidth <= 700) {
+    document.getElementById('editor-panel').classList.add('mobile-open');
+    document.getElementById('overlay').classList.add('active');
+  }
+}
+
+function closeEditor() {
+  document.getElementById('editor-panel').classList.remove('mobile-open');
+  document.getElementById('overlay').classList.remove('active');
+}
+
+function closeAll() {
+  closeSidebar();
+  closeEditor();
 }
 </script>
 </body>
