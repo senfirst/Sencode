@@ -1,1 +1,11 @@
-google.com, pub-7220960902615393, DIRECT, f08c47fec0942fa0
+Redirect 301 /ads.txt https://srv.adstxtmanager.com/19390/[YOUR_DOMAIN].com
+server {
+    location ~ /ads.txt {
+        return 301 https://srv.adstxtmanager.com/19390/[YOUR_DOMAIN].com;
+    }
+}
+<?php
+header('Location: https://srv.adstxtmanager.com/19390/[YOUR_DOMAIN].com');
+exit;
+?>
+curl -L https://srv.adstxtmanager.com/19390/sencode.site > ads.txt
