@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sencode</title>
+<title>Sencode — Apprends à coder</title>
 <script type="text/javascript"> var infolinks_pid = 3446278; var infolinks_wsid = 0; </script> <script type="text/javascript" src="//resources.infolinks.com/js/infolinks_main.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <script data-cfasync="false" src="https://cmp.gatekeeperconsent.com/min.js"></script>
 <script data-cfasync="false" src="https://the.gatekeeperconsent.com/cmp.min.js"></script>
@@ -18,20 +18,20 @@
 </script>
 <script src="//ezoicanalytics.com/analytics.js"></script>
 
-
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220960902615393" crossorigin="anonymous"></script>
 
 <style>
 :root {
-  --paper: #faf5ea;
-  --paper-raised: #ffffff;
+  --paper: #f6efe0;
+  --paper-raised: #fffcf5;
   --ink: #1c1a15;
   --ink-soft: #6b6555;
   --accent: #ff4d2e;
   --accent-dark: #d63a1f;
   --accent-tint: #ffe6de;
-  --sage: #56705a;
-  --sage-tint: #e4ebe1;
+  --sage: #3f6a4c;
+  --sage-tint: #e2ece2;
+  --gold: #c99a00;
   --line: #1c1a15;
   --hair: rgba(28,26,21,0.12);
   --font-display: 'Fraunces', serif;
@@ -49,16 +49,31 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--paper);
   background-image:
-    radial-gradient(circle at 1px 1px, rgba(28,26,21,0.07) 1px, transparent 0);
-  background-size: 22px 22px;
+    radial-gradient(circle at 1px 1px, rgba(28,26,21,0.08) 1px, transparent 0);
+  background-size: 24px 24px;
   color: var(--ink);
   font-family: var(--font-display);
   overflow-x: hidden;
+  position: relative;
 }
 
-::-webkit-scrollbar { width: 8px; }
+/* grain overlay for texture/depth */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::-webkit-scrollbar { width: 9px; }
 ::-webkit-scrollbar-track { background: var(--paper); }
-::-webkit-scrollbar-thumb { background: var(--ink); border-radius: 0; }
+::-webkit-scrollbar-thumb { background: var(--ink); border-radius: 0; border: 2px solid var(--paper); }
+
+::selection { background: var(--ink); color: var(--paper); }
 
 /* ── HEADER ── */
 header {
@@ -75,14 +90,25 @@ header {
 }
 
 .logo {
-  font-size: 26px;
+  font-size: 27px;
   font-weight: 900;
   color: var(--ink);
   letter-spacing: -1px;
   font-family: var(--font-display);
   font-style: italic;
+  display: flex;
+  align-items: center;
+  gap: 3px;
 }
 .logo span { color: var(--accent); }
+.logo::before{
+  content:'';
+  width:9px; height:9px;
+  background: var(--sage);
+  display:inline-block;
+  margin-right:9px;
+  transform: rotate(45deg);
+}
 
 nav { display: flex; gap: 4px; align-items: center; }
 
@@ -96,32 +122,37 @@ nav a {
   letter-spacing: 0.8px;
   padding: 9px 18px;
   border: 1.5px solid transparent;
-  transition: border-color 0.2s, background 0.2s;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+  position: relative;
 }
 nav a:hover {
   border-color: var(--line);
   background: var(--paper-raised);
+  transform: translateY(-1px);
 }
+
+.nav-cta {
+  background: var(--ink) !important;
+  color: var(--paper) !important;
+  margin-left: 6px;
+}
+.nav-cta:hover { background: var(--accent) !important; border-color: var(--line) !important; }
 
 /* ── HERO ── */
 .hero {
-  min-height: 88vh;
+  min-height: 92vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 70px 8% 60px;
+  padding: 70px 8% 0;
   position: relative;
   overflow: hidden;
   border-bottom: 2.5px solid var(--line);
 }
 
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
+.hero-bg { position: absolute; inset: 0; pointer-events: none; }
 .hero-bg::before {
   content: '</>';
   position: absolute;
@@ -136,14 +167,34 @@ nav a:hover {
 .hero-bg::after {
   content: '{ }';
   position: absolute;
-  bottom: -100px; right: 2%;
+  bottom: -60px; right: 2%;
   font-family: var(--font-mono);
   font-size: 260px;
   font-weight: 800;
   color: var(--sage);
-  opacity: 0.06;
+  opacity: 0.07;
   transform: rotate(6deg);
 }
+.hero-dots{
+  position:absolute;
+  top: 120px; right: 8%;
+  width: 90px; height: 90px;
+  background-image: radial-gradient(var(--accent) 3px, transparent 3px);
+  background-size: 16px 16px;
+  opacity: 0.5;
+  animation: floaty 6s ease-in-out infinite;
+}
+.hero-ring{
+  position:absolute;
+  bottom: 90px; left: 6%;
+  width: 120px; height: 120px;
+  border: 2.5px dashed var(--sage);
+  border-radius: 50%;
+  opacity: 0.4;
+  animation: spin 30s linear infinite;
+}
+@keyframes floaty { 0%,100%{transform: translateY(0)} 50%{transform: translateY(-14px)} }
+@keyframes spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
 
 .hero-badge {
   display: inline-flex;
@@ -158,7 +209,7 @@ nav a:hover {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1.2px;
-  margin-bottom: 36px;
+  margin-bottom: 32px;
   animation: fadeSlideDown 0.6s ease both;
   box-shadow: 4px 4px 0 var(--ink);
 }
@@ -172,11 +223,11 @@ nav a:hover {
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
 
 .hero h1 {
-  font-size: clamp(46px, 7.2vw, 88px);
+  font-size: clamp(46px, 7.4vw, 92px);
   font-weight: 900;
-  line-height: 1.03;
-  letter-spacing: -3px;
-  margin-bottom: 26px;
+  line-height: 1.02;
+  letter-spacing: -3.5px;
+  margin-bottom: 24px;
   animation: fadeSlideDown 0.7s 0.1s ease both;
   position: relative;
 }
@@ -184,14 +235,25 @@ nav a:hover {
   font-style: italic;
   font-weight: 500;
   color: var(--accent);
+  position: relative;
+  white-space: nowrap;
+}
+.hero h1 em::after{
+  content:'';
+  position:absolute;
+  left:-2%; right:-2%; bottom:6px;
+  height: 14px;
+  background: var(--accent-tint);
+  z-index:-1;
+  transform: skewX(-8deg);
 }
 
-.hero p {
+.hero p.lead {
   font-size: clamp(16px, 2.1vw, 19px);
   color: var(--ink-soft);
   max-width: 540px;
   line-height: 1.65;
-  margin-bottom: 42px;
+  margin-bottom: 40px;
   font-weight: 400;
   font-family: var(--font-mono);
   animation: fadeSlideDown 0.7s 0.2s ease both;
@@ -213,6 +275,7 @@ nav a:hover {
   transition: box-shadow 0.2s, transform 0.2s;
   animation: fadeSlideDown 0.7s 0.3s ease both;
   box-shadow: 6px 6px 0 var(--ink);
+  margin-bottom: 56px;
 }
 .search-box:focus-within {
   transform: translate(-2px,-2px);
@@ -243,6 +306,37 @@ nav a:hover {
 }
 .search-box button:hover { background: var(--accent); }
 
+/* ── marquee strip ── */
+.marquee {
+  width: 100%;
+  border-top: 2.5px solid var(--line);
+  background: var(--ink);
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+.marquee-track {
+  display: inline-flex;
+  animation: scroll 26s linear infinite;
+}
+.marquee-track span {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--paper);
+  padding: 14px 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.marquee-track span::before { content: '✦'; color: var(--accent); }
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 /* ── SECTION TITLE ── */
 .section-title {
   text-align: center;
@@ -272,7 +366,7 @@ nav a:hover {
 
 /* ── LANGUAGES / CARDS ── */
 .languages {
-  padding: 100px 8%;
+  padding: 110px 8%;
   border-bottom: 2.5px solid var(--line);
 }
 
@@ -294,11 +388,24 @@ nav a:hover {
   gap: 12px;
   transition: background 0.2s, transform 0.15s;
   position: relative;
+  overflow: hidden;
 }
+.card::after{
+  content:'';
+  position:absolute;
+  top:-40px; right:-40px;
+  width: 90px; height: 90px;
+  background: var(--card-accent);
+  opacity: 0.08;
+  transform: rotate(45deg);
+  transition: opacity 0.2s, transform 0.3s;
+}
+.card:hover::after{ opacity: 0.16; transform: rotate(45deg) scale(1.6); }
 .card:hover {
   background: var(--card-accent);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   z-index: 2;
+  box-shadow: 0 10px 0 -4px rgba(0,0,0,0.08);
 }
 .card:hover h2, .card:hover p, .card:hover .card-icon { color: #fff; }
 .card:hover button { border-color: #fff; color: #fff; }
@@ -312,13 +419,15 @@ nav a:hover {
   line-height: 1;
   letter-spacing: 1px;
   text-transform: uppercase;
+  position: relative;
 }
 
 .card h2 {
-  font-size: 26px;
+  font-size: 27px;
   font-weight: 800;
   letter-spacing: -0.8px;
   transition: color 0.2s;
+  position: relative;
 }
 
 .card p {
@@ -328,9 +437,10 @@ nav a:hover {
   flex: 1;
   font-family: var(--font-mono);
   transition: color 0.2s;
+  position: relative;
 }
 
-.card a { text-decoration: none; margin-top: 10px; }
+.card a { text-decoration: none; margin-top: 10px; position: relative; }
 
 .card button {
   width: 100%;
@@ -360,12 +470,12 @@ nav a:hover {
 .c    { --card-accent: #55606e; }
 .csharp { --card-accent: #8347b8; }
 .cpp  { --card-accent: #2f6a9e; }
-.sql  { --card-accent: var(--sage); }
+.sql  { --card-accent: #3f6a4c; }
 .mysql { --card-accent: #b8862f; }
 
 /* ── EDITOR SECTION ── */
 .editor-section {
-  padding: 100px 8%;
+  padding: 110px 8%;
   background: var(--paper-raised);
   border-bottom: 2.5px solid var(--line);
 }
@@ -432,11 +542,10 @@ nav a:hover {
   grid-template-columns: 1fr 1fr;
   gap: 0;
   border: 2px solid var(--line);
+  box-shadow: 8px 8px 0 var(--hair);
 }
 
-.editor-pane {
-  overflow: hidden;
-}
+.editor-pane { overflow: hidden; }
 .editor-pane:first-child { border-right: 2px solid var(--line); }
 
 .editor-pane-header {
@@ -451,13 +560,11 @@ nav a:hover {
   align-items: center;
   gap: 8px;
 }
-.editor-pane-header::before {
-  content: '';
-  display: inline-block;
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-}
+.editor-pane-header .dots{ display:flex; gap:6px; margin-right: 4px; }
+.editor-pane-header .dots span{ width:9px; height:9px; border-radius:50%; display:inline-block; }
+.editor-pane-header .dots span:nth-child(1){ background:#ff5f57; }
+.editor-pane-header .dots span:nth-child(2){ background:#febc2e; }
+.editor-pane-header .dots span:nth-child(3){ background:#28c840; }
 
 textarea {
   width: 100%;
@@ -484,23 +591,25 @@ iframe {
 
 /* ── FOOTER ── */
 footer {
-  background: var(--paper);
-  padding: 46px 8%;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 56px 8% 38px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
+  gap: 20px;
   text-align: center;
 }
 
 .footer-logo {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 900;
-  color: var(--ink);
+  color: var(--paper);
   font-family: var(--font-display);
   font-style: italic;
   letter-spacing: -1px;
 }
+.footer-logo span{ color: var(--accent); }
 
 .footer-links {
   display: flex;
@@ -510,7 +619,7 @@ footer {
 }
 
 .footer-links a {
-  color: var(--ink-soft);
+  color: #c9c4b4;
   text-decoration: none;
   font-size: 13px;
   font-family: var(--font-mono);
@@ -522,7 +631,7 @@ footer {
 
 .footer-copy {
   font-size: 12px;
-  color: var(--ink-soft);
+  color: #8a8470;
   font-family: var(--font-mono);
 }
 
@@ -605,12 +714,13 @@ footer {
 @media(max-width:900px){
   header { padding: 0 5%; }
   nav { display: none; }
-  .hero { padding: 60px 5% 40px; }
+  .hero { padding: 60px 5% 0; }
   .languages { padding: 60px 5%; }
   .editor-section { padding: 60px 5%; }
   .editor-container { grid-template-columns: 1fr; }
   .editor-pane:first-child { border-right: none; border-bottom: 2px solid var(--line); }
-  footer { padding: 30px 5%; }
+  footer { padding: 40px 5%; }
+  .hero-dots, .hero-ring{ display:none; }
 }
 
 @media(max-width:480px){
@@ -626,24 +736,34 @@ footer {
     <a href="#home">Accueil</a>
     <a href="#courses">Cours</a>
     <a href="#editor">Éditeur</a>
+    <a href="#courses" class="nav-cta">Commencer →</a>
   </nav>
 </header>
 
 <!-- ── HERO ── -->
 <section class="hero" id="home">
   <div class="hero-bg"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-ring"></div>
 
   <div class="hero-badge">Plateforme 100% gratuite</div>
 
   <h1>Apprends à coder<br><em>dès aujourd'hui.</em></h1>
 
-  <p>Sencode te guide pas à pas dans le développement web, du HTML au Python — avec un éditeur intégré pour pratiquer en direct.</p>
+  <p class="lead">Sencode te guide pas à pas dans le développement web, du HTML au Python — avec un éditeur intégré pour pratiquer en direct.</p>
 
   <div class="search-box">
     <input type="text" placeholder="Rechercher un cours..." id="searchInput">
     <button aria-label="Rechercher"><i class="fa fa-search"></i></button>
   </div>
 </section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Python</span><span>XML</span><span>C</span><span>C#</span><span>C++</span><span>SQL</span><span>MySQL</span>
+    <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Python</span><span>XML</span><span>C</span><span>C#</span><span>C++</span><span>SQL</span><span>MySQL</span>
+  </div>
+</div>
 
 <!-- ── COOKIE BANNER ── -->
 <div id="cookie-banner" class="cookie-banner">
@@ -652,7 +772,7 @@ footer {
     <p>Sencode utilise des cookies pour améliorer votre expérience, analyser le trafic et afficher des publicités via Google AdSense. Vous pouvez accepter ou refuser les cookies non essentiels.</p>
     <div class="cookie-buttons">
       <button id="accept-cookies">Accepter</button>
-      <button id="رفض-cookies" class="reject">Refuser</button>
+      <button id="reject-cookies" class="reject">Refuser</button>
     </div>
     <a href="/politique-confidentialite.html">Voir la politique de confidentialité</a>
   </div>
@@ -763,11 +883,11 @@ footer {
 
   <div class="editor-container">
     <div class="editor-pane">
-      <div class="editor-pane-header">code source</div>
+      <div class="editor-pane-header"><span class="dots"><span></span><span></span><span></span></span> code source</div>
       <textarea id="codeEditor" spellcheck="false"></textarea>
     </div>
     <div class="editor-pane">
-      <div class="editor-pane-header">aperçu</div>
+      <div class="editor-pane-header"><span class="dots"><span></span><span></span><span></span></span> aperçu</div>
       <iframe id="preview"></iframe>
     </div>
   </div>
@@ -775,7 +895,7 @@ footer {
 
 <!-- ── FOOTER ── -->
 <footer>
-  <div class="footer-logo">Sencode</div>
+  <div class="footer-logo">Sen<span>code</span></div>
   <div class="footer-links">
     <a href="privacy.html">Politique de confidentialité</a>
     <a href="about.html">À propos</a>
@@ -793,7 +913,7 @@ document.getElementById("accept-cookies").addEventListener("click", () => {
   localStorage.setItem("cookieConsent","accepted");
   banner.style.display = "none";
 });
-document.getElementById("رفض-cookies").addEventListener("click", () => {
+document.getElementById("reject-cookies").addEventListener("click", () => {
   localStorage.setItem("cookieConsent","rejected");
   banner.style.display = "none";
 });
