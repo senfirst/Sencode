@@ -1,0 +1,71 @@
+<section class="section-pad" id="editor">
+  <div class="container">
+
+    <div class="section-heading">
+      <span class="eyebrow">Éditeur en ligne</span>
+      <h2>Écris et teste ton code</h2>
+      <p>
+        Expérimente directement dans ton navigateur avec HTML, CSS et JavaScript.
+      </p>
+    </div>
+
+    <div class="code-editor">
+
+      <div class="editor-toolbar">
+        <div>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+
+        <button onclick="runCode()" class="btn btn-primary">
+          ▶ Exécuter
+        </button>
+      </div>
+
+      <div class="editor-body">
+
+        <div class="code-panel">
+          <div class="code-title">HTML</div>
+
+          <textarea id="htmlCode">
+<h1>Bonjour Sencode 👋</h1>
+<p>Ma première page web.</p>
+          </textarea>
+        </div>
+
+        <div class="code-panel">
+          <div class="code-title">CSS</div>
+
+          <textarea id="cssCode">
+body {
+  font-family: Arial;
+  text-align: center;
+}
+
+h1 {
+  color: #d4a017;
+}
+          </textarea>
+        </div>
+
+        <div class="code-panel">
+          <div class="code-title">JavaScript</div>
+
+          <textarea id="jsCode">
+console.log("Bienvenue sur Sencode !");
+          </textarea>
+        </div>
+
+      </div>
+
+      <div class="preview-title">
+        Aperçu
+      </div>
+
+      <iframe id="preview"></iframe>
+
+    </div>
+
+  </div>
+</section>
